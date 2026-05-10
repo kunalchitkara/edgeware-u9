@@ -10,546 +10,498 @@
   --gold:#F4A261; --lt-gold:#FFF3E0; --white:#FFFFFF; --lt-grey:#F5F5F5;
   --md-grey:#9E9E9E; --dk-grey:#333333; --red:#C0392B; --lt-red:#FADBD8;
   --blue:#2471A3; --lt-blue:#D6EAF8; --yellow:#F9A825; --lt-yellow:#FFFDE7;
-  --purple:#6C3483; --lt-purple:#E8DAEF;
 }
 *{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f4f0;color:var(--dk-grey);}
-
-/* Header */
 .header{background:linear-gradient(135deg,var(--dk-green) 0%,var(--md-green) 100%);color:white;padding:24px 20px 20px;text-align:center;box-shadow:0 4px 12px rgba(0,0,0,.3);}
 .header .badge-wrap{width:68px;height:68px;background:white;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:30px;margin-bottom:10px;box-shadow:0 2px 8px rgba(0,0,0,.2);}
 .header h1{font-size:clamp(1.3rem,4vw,2rem);font-weight:800;letter-spacing:1px;}
 .header p{font-size:.9rem;opacity:.85;margin-top:4px;}
-.season-tag{display:inline-block;background:var(--gold);color:var(--dk-grey);padding:3px 14px;border-radius:20px;font-size:.8rem;font-weight:700;margin-top:8px;letter-spacing:.5px;}
-
-/* Nav */
+.season-tag{display:inline-block;background:var(--gold);color:var(--dk-grey);padding:3px 14px;border-radius:20px;font-size:.8rem;font-weight:700;margin-top:8px;}
 .nav{display:flex;background:var(--dk-green);overflow-x:auto;position:sticky;top:0;z-index:100;}
-.nav button{flex:1;min-width:80px;padding:12px 6px;border:none;cursor:pointer;background:transparent;color:rgba(255,255,255,.7);font-size:.78rem;font-weight:600;letter-spacing:.3px;transition:all .2s;white-space:nowrap;}
+.nav button{flex:1;min-width:80px;padding:12px 6px;border:none;cursor:pointer;background:transparent;color:rgba(255,255,255,.7);font-size:.78rem;font-weight:600;transition:all .2s;white-space:nowrap;}
 .nav button:hover{background:rgba(255,255,255,.1);color:white;}
 .nav button.active{background:var(--acc-green);color:white;}
-
-/* Content */
 .content{max-width:1100px;margin:0 auto;padding:20px 16px;}
 .tab-panel{display:none;} .tab-panel.active{display:block;}
-
-/* Cards */
 .card{background:white;border-radius:12px;padding:20px;box-shadow:0 2px 8px rgba(0,0,0,.08);margin-bottom:20px;}
-.card-title{font-size:1rem;font-weight:700;color:var(--dk-green);border-bottom:2px solid var(--lt-green);padding-bottom:8px;margin-bottom:16px;display:flex;align-items:center;gap:8px;}
-
-/* Summary boxes */
+.card-title{font-size:1rem;font-weight:700;color:var(--dk-green);border-bottom:2px solid var(--lt-green);padding-bottom:8px;margin-bottom:16px;}
 .summary-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:12px;margin-bottom:20px;}
 .summary-box{background:white;border-radius:10px;padding:16px 12px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.08);}
 .summary-box .val{font-size:2.2rem;font-weight:800;color:var(--dk-green);line-height:1;}
-.summary-box .lbl{font-size:.72rem;color:var(--md-grey);margin-top:4px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;}
-.summary-box.win .val{color:var(--md-green);} .summary-box.loss .val{color:var(--red);} .summary-box.wo .val{color:var(--blue);}
-
-/* Badges */
-.badge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:.72rem;font-weight:700;letter-spacing:.3px;}
+.summary-box .lbl{font-size:.72rem;color:var(--md-grey);margin-top:4px;font-weight:600;text-transform:uppercase;}
+.summary-box.win .val{color:var(--md-green);} .summary-box.loss .val{color:var(--red);}
+.badge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:.72rem;font-weight:700;}
 .badge.home{background:var(--lt-green);color:var(--md-green);} .badge.away{background:var(--lt-red);color:var(--red);}
 .badge.win{background:var(--lt-green);color:var(--md-green);} .badge.loss{background:var(--lt-red);color:var(--red);}
 .badge.wo{background:var(--lt-blue);color:var(--blue);} .badge.tbd{background:#f5f5f5;color:var(--md-grey);}
-.badge.upcoming{background:var(--lt-gold);color:#b45309;}
-
-/* Tables */
 .data-table{width:100%;border-collapse:collapse;font-size:.83rem;}
-.data-table th{background:var(--dk-green);color:white;padding:9px 10px;text-align:left;font-weight:600;font-size:.76rem;letter-spacing:.3px;}
-.data-table th.r{text-align:right;} .data-table th.c{text-align:center;}
+.data-table th{background:var(--dk-green);color:white;padding:9px 10px;text-align:left;font-weight:600;font-size:.76rem;}
+.data-table th.c{text-align:center;}
 .data-table td{padding:9px 10px;border-bottom:1px solid #eee;vertical-align:middle;}
-.data-table td.r{text-align:right;} .data-table td.c{text-align:center;}
+.data-table td.c{text-align:center;}
 .data-table tr:hover td{background:var(--lt-green);}
-.data-table tr.played td{background:#fafff9;}
 .data-table a{color:var(--md-green);text-decoration:none;font-weight:600;}
 .data-table a:hover{text-decoration:underline;}
-
-/* Leaderboard */
-.leaderboard-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;margin-bottom:20px;}
+.net-pos{color:#27ae60;font-weight:700;} .net-neg{color:var(--red);font-weight:700;}
+.leaderboard-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;margin-bottom:20px;}
 .lb-card{background:white;border-radius:10px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.08);}
-.lb-header{padding:10px 14px;font-weight:700;font-size:.82rem;color:white;display:flex;align-items:center;gap:6px;}
+.lb-header{padding:10px 14px;font-weight:700;font-size:.82rem;color:white;background:var(--dk-green);}
 .lb-row{display:flex;align-items:center;padding:8px 14px;border-bottom:1px solid #f0f0f0;font-size:.83rem;}
 .lb-row:last-child{border-bottom:none;}
 .lb-rank{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:700;margin-right:10px;flex-shrink:0;}
 .lb-rank.r1{background:var(--gold);color:white;} .lb-rank.r2{background:#C0C0C0;color:white;} .lb-rank.r3{background:#CD7F32;color:white;} .lb-rank.rn{background:#eee;color:var(--md-grey);}
-.lb-name{flex:1;font-weight:600;color:var(--dk-grey);}
-.lb-val{font-weight:800;color:var(--dk-green);}
-
-/* Player cards */
+.lb-name{flex:1;font-weight:600;} .lb-val{font-weight:800;color:var(--dk-green);}
 .player-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(195px,1fr));gap:14px;}
-.player-card{background:white;border-radius:10px;padding:16px;box-shadow:0 2px 8px rgba(0,0,0,.08);border-top:4px solid var(--acc-green);transition:transform .15s;}
-.player-card:hover{transform:translateY(-2px);box-shadow:0 4px 16px rgba(0,0,0,.12);}
+.player-card{background:white;border-radius:10px;padding:16px;box-shadow:0 2px 8px rgba(0,0,0,.08);border-top:4px solid var(--acc-green);}
 .player-card .pname{font-weight:700;font-size:1rem;color:var(--dk-green);margin-bottom:10px;}
 .stat-row{display:flex;justify-content:space-between;font-size:.8rem;padding:4px 0;border-bottom:1px solid #f0f0f0;}
 .stat-row:last-child{border-bottom:none;}
 .stat-val{font-weight:700;color:var(--dk-green);} .stat-lbl{color:var(--md-grey);}
-
-/* Match scorecard */
-.match-header{background:linear-gradient(135deg,var(--dk-green),var(--md-green));color:white;border-radius:10px 10px 0 0;padding:16px 20px;}
-.match-header h3{font-size:1.05rem;font-weight:700;}
-.match-header p{font-size:.82rem;opacity:.85;margin-top:3px;}
-.result-banner{background:var(--gold);color:var(--dk-grey);padding:10px 20px;font-weight:700;font-size:.95rem;text-align:center;}
-.innings-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px;}
-@media(max-width:600px){.innings-grid{grid-template-columns:1fr;}}
-.innings-card{border:1px solid #e0e0e0;border-radius:8px;overflow:hidden;}
-.innings-header{background:var(--md-green);color:white;padding:10px 14px;font-weight:700;font-size:.88rem;}
-.innings-score{background:var(--lt-green);padding:12px 14px;font-size:1.8rem;font-weight:800;color:var(--dk-green);text-align:center;}
-.innings-score span{font-size:.78rem;color:var(--md-grey);font-weight:400;display:block;}
-
-/* Match stat summary */
-.match-stats-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px;margin:12px 0;}
+.innings-section{margin-bottom:20px;}
+.innings-header{background:var(--md-green);color:white;padding:10px 16px;border-radius:8px 8px 0 0;font-weight:700;font-size:.9rem;display:flex;justify-content:space-between;align-items:center;}
+.innings-total{background:var(--lt-gold);border:1px solid var(--gold);padding:8px 16px;font-weight:800;font-size:1rem;color:var(--dk-grey);border-radius:0 0 8px 8px;margin-bottom:8px;}
+.result-banner{background:linear-gradient(135deg,#27ae60,#1e8449);color:white;border-radius:8px;padding:14px 20px;text-align:center;margin-bottom:16px;}
+.result-banner .rb-main{font-size:1.2rem;font-weight:900;}
+.result-banner .rb-sub{font-size:.85rem;opacity:.85;margin-top:4px;}
+.match-stats-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px;margin:12px 0 16px;}
 .mstat{background:var(--lt-grey);border-radius:8px;padding:10px 12px;text-align:center;}
 .mstat .mv{font-size:1.4rem;font-weight:800;color:var(--dk-green);}
 .mstat .ml{font-size:.7rem;color:var(--md-grey);font-weight:600;text-transform:uppercase;margin-top:2px;}
 .mstat .mn{font-size:.78rem;color:var(--md-green);font-weight:600;margin-top:1px;}
-
-/* Over chart */
-.over-chart{display:flex;align-items:flex-end;gap:3px;height:80px;padding:0 4px;}
+.over-chart-wrap{overflow-x:auto;padding:8px 0;}
+.over-chart{display:flex;align-items:flex-end;gap:4px;height:90px;min-width:500px;}
 .over-bar-wrap{flex:1;display:flex;flex-direction:column;align-items:center;}
-.over-bar{width:100%;background:var(--acc-green);border-radius:3px 3px 0 0;min-height:2px;}
-.over-bar.neg{background:var(--red);}
+.over-bar{width:100%;border-radius:3px 3px 0 0;min-height:2px;}
+.bar-ecc{background:var(--acc-green);} .bar-hsm{background:var(--blue);}
 .over-label{font-size:.52rem;color:var(--md-grey);margin-top:2px;}
-.over-val{font-size:.58rem;color:var(--dk-green);font-weight:700;margin-bottom:1px;}
-
-/* Next match */
+.over-val{font-size:.6rem;color:var(--dk-green);font-weight:700;margin-bottom:1px;}
 .next-match{background:linear-gradient(135deg,var(--lt-gold),#fff8e1);border:2px solid var(--gold);border-radius:12px;padding:16px 20px;margin-bottom:20px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;}
 .next-match .nm-icon{font-size:2rem;}
 .next-match .nm-info h3{font-size:1rem;font-weight:700;color:var(--dk-green);}
 .next-match .nm-info p{font-size:.82rem;color:#7c5c00;margin-top:2px;}
-
-/* Rules */
 .rules-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:12px;}
 .rule-item{background:var(--lt-grey);border-radius:8px;padding:12px 14px;border-left:4px solid var(--acc-green);}
 .rule-item .rule-sym{font-weight:800;color:var(--dk-green);font-size:1rem;margin-bottom:4px;}
 .rule-item .rule-desc{font-size:.82rem;color:var(--dk-grey);line-height:1.4;}
-
-/* Sheet link button */
 .sheet-link{display:inline-flex;align-items:center;gap:6px;background:var(--lt-green);color:var(--md-green);border:1px solid var(--acc-green);border-radius:6px;padding:5px 12px;font-size:.78rem;font-weight:700;text-decoration:none;transition:all .2s;}
 .sheet-link:hover{background:var(--acc-green);color:white;}
-
-/* Responsive */
-@media(max-width:480px){.content{padding:12px 10px;}.card{padding:14px;}.innings-score{font-size:1.4rem;}}
-
-/* Footer */
+.tbl-scroll{overflow-x:auto;}
 .footer{background:var(--dk-green);color:rgba(255,255,255,.6);text-align:center;padding:16px;font-size:.78rem;margin-top:32px;}
-.footer a{color:var(--acc-green);text-decoration:none;}
-
-/* Highlight colours */
-.wkt{color:var(--red);font-weight:700;} .extra{color:#b45309;} .boundary{color:var(--md-green);font-weight:700;}
-.gold-text{color:#b45309;font-weight:700;}
+@media(max-width:480px){.content{padding:12px 10px;}.card{padding:14px;}}
 </style>
 </head>
 <body>
 
-<!-- HEADER -->
 <div class="header">
-  <div class="badge-wrap">🏏</div>
+  <div class="badge-wrap">&#127955;</div>
   <h1>Edgware Cricket Club</h1>
-  <p>Under 9 Softball — Sunday Fixtures</p>
+  <p>Under 9 Softball &mdash; Sunday Fixtures</p>
   <div class="season-tag">Summer Term 2026</div>
 </div>
 
-<!-- NAV -->
 <div class="nav">
-  <button class="active" onclick="showTab('overview',this)">📋 Overview</button>
-  <button onclick="showTab('fixtures',this)">📅 Fixtures</button>
-  <button onclick="showTab('matches',this)">🏏 Matches</button>
-  <button onclick="showTab('players',this)">👤 Players</button>
-  <button onclick="showTab('leaders',this)">🏆 Leaders</button>
-  <button onclick="showTab('rules',this)">📖 Rules</button>
+  <button class="active" onclick="showTab('overview',this)">&#128203; Overview</button>
+  <button onclick="showTab('fixtures',this)">&#128197; Fixtures</button>
+  <button onclick="showTab('matches',this)">&#127955; Matches</button>
+  <button onclick="showTab('players',this)">&#128100; Players</button>
+  <button onclick="showTab('leaders',this)">&#127942; Leaders</button>
+  <button onclick="showTab('rules',this)">&#128218; Rules</button>
 </div>
 
 <div class="content">
 
-<!-- ══════════════════════════════════════════════════
-     OVERVIEW TAB
-══════════════════════════════════════════════════ -->
+<!-- OVERVIEW -->
 <div id="tab-overview" class="tab-panel active">
-
   <div class="next-match">
-    <div class="nm-icon">📅</div>
+    <div class="nm-icon">&#128197;</div>
     <div class="nm-info">
-      <h3>Next Match — 24 May 2026</h3>
-      <p>🏠 Edgware vs Harefield &nbsp;·&nbsp; Canons High School (HA8 6AN) &nbsp;·&nbsp; 09:00 / 10:00 AM</p>
+      <h3>Next Match &mdash; 24 May 2026</h3>
+      <p>&#127968; Edgware vs Harefield &nbsp;&middot;&nbsp; Canons High School (HA8 6AN) &nbsp;&middot;&nbsp; 09:00 / 10:00 AM</p>
     </div>
   </div>
-
   <div class="summary-grid">
     <div class="summary-box"><div class="val">2</div><div class="lbl">Played</div></div>
     <div class="summary-box win"><div class="val">2</div><div class="lbl">Wins</div></div>
     <div class="summary-box loss"><div class="val">0</div><div class="lbl">Losses</div></div>
     <div class="summary-box"><div class="val">0</div><div class="lbl">Draws</div></div>
-    <div class="summary-box wo"><div class="val">1</div><div class="lbl">Walkovers</div></div>
-    <div class="summary-box"><div class="val">10</div><div class="lbl">Remaining</div></div>
+    <div class="summary-box"><div class="val">297</div><div class="lbl">Highest Score</div></div>
+    <div class="summary-box"><div class="val">32</div><div class="lbl">Best Win Margin</div></div>
   </div>
-
   <div class="card">
-    <div class="card-title">🏆 Season Results</div>
-    <table class="data-table">
-      <thead><tr><th>#</th><th>Date</th><th>Match</th><th>Venue</th><th class="c">ECC</th><th class="c">Opp</th><th class="c">Result</th><th>Margin</th><th>Sheet</th></tr></thead>
-      <tbody>
-        <tr class="played">
-          <td>1</td><td>26 Apr</td><td>Edgware vs Pinner</td>
-          <td><span class="badge home">Home</span></td>
-          <td class="c">—</td><td class="c">—</td>
-          <td class="c"><span class="badge wo">WIN</span></td>
-          <td>Walkover</td>
-          <td><a class="sheet-link" href="https://docs.google.com/spreadsheets/d/1cxSoOdd3rgEp-EtyKzxbeWssac5t0gM4F9CnMwkQFL8/edit#gid=104729847" target="_blank">📊 View</a></td>
-        </tr>
-        <tr class="played">
-          <td>2</td><td>10 May</td><td>H Manor vs Edgware</td>
-          <td><span class="badge away">Away</span></td>
-          <td class="c"><strong>297</strong></td><td class="c">265</td>
-          <td class="c"><span class="badge win">WIN</span></td>
-          <td>+32 runs</td>
-          <td><a class="sheet-link" href="https://docs.google.com/spreadsheets/d/1cxSoOdd3rgEp-EtyKzxbeWssac5t0gM4F9CnMwkQFL8/edit#gid=737570712" target="_blank">📊 View</a></td>
-        </tr>
-        <tr><td>3</td><td>24 May</td><td>Edgware vs Harefield</td><td><span class="badge home">Home</span></td><td class="c">—</td><td class="c">—</td><td class="c"><span class="badge upcoming">Next</span></td><td>—</td><td><a class="sheet-link" href="https://docs.google.com/spreadsheets/d/1cxSoOdd3rgEp-EtyKzxbeWssac5t0gM4F9CnMwkQFL8/edit#gid=1367510775" target="_blank">📊 View</a></td></tr>
-        <tr><td>4</td><td>31 May</td><td>Hayes vs Edgware</td><td><span class="badge away">Away</span></td><td class="c">—</td><td class="c">—</td><td class="c"><span class="badge tbd">TBD</span></td><td>—</td><td><a class="sheet-link" href="https://docs.google.com/spreadsheets/d/1cxSoOdd3rgEp-EtyKzxbeWssac5t0gM4F9CnMwkQFL8/edit#gid=1996740206" target="_blank">📊 View</a></td></tr>
-        <tr><td>5</td><td>7 Jun</td><td>Edgware vs Harefield</td><td><span class="badge home">Home</span></td><td class="c">—</td><td class="c">—</td><td class="c"><span class="badge tbd">TBD</span></td><td>—</td><td><a class="sheet-link" href="https://docs.google.com/spreadsheets/d/1cxSoOdd3rgEp-EtyKzxbeWssac5t0gM4F9CnMwkQFL8/edit#gid=669851544" target="_blank">📊 View</a></td></tr>
-        <tr><td>6</td><td>14 Jun</td><td>Pinner vs Edgware</td><td><span class="badge away">Away</span></td><td class="c">—</td><td class="c">—</td><td class="c"><span class="badge tbd">TBD</span></td><td>—</td><td><a class="sheet-link" href="https://docs.google.com/spreadsheets/d/1cxSoOdd3rgEp-EtyKzxbeWssac5t0gM4F9CnMwkQFL8/edit#gid=489440707" target="_blank">📊 View</a></td></tr>
-        <tr><td>7</td><td>21 Jun</td><td>Edgware vs H Manor</td><td><span class="badge home">Home</span></td><td class="c">—</td><td class="c">—</td><td class="c"><span class="badge tbd">TBD</span></td><td>—</td><td><a class="sheet-link" href="https://docs.google.com/spreadsheets/d/1cxSoOdd3rgEp-EtyKzxbeWssac5t0gM4F9CnMwkQFL8/edit#gid=1519458298" target="_blank">📊 View</a></td></tr>
-        <tr><td>8</td><td>5 Jul</td><td>Harefield vs Edgware</td><td><span class="badge away">Away</span></td><td class="c">—</td><td class="c">—</td><td class="c"><span class="badge tbd">TBD</span></td><td>—</td><td><a class="sheet-link" href="https://docs.google.com/spreadsheets/d/1cxSoOdd3rgEp-EtyKzxbeWssac5t0gM4F9CnMwkQFL8/edit#gid=978153398" target="_blank">📊 View</a></td></tr>
-        <tr><td>9</td><td>12 Jul</td><td>Edgware vs Hayes</td><td><span class="badge home">Home</span></td><td class="c">—</td><td class="c">—</td><td class="c"><span class="badge tbd">TBD</span></td><td>—</td><td><a class="sheet-link" href="https://docs.google.com/spreadsheets/d/1cxSoOdd3rgEp-EtyKzxbeWssac5t0gM4F9CnMwkQFL8/edit#gid=1809916539" target="_blank">📊 View</a></td></tr>
-        <tr><td>10</td><td>19 Jul</td><td>H Manor vs Edgware</td><td><span class="badge away">Away</span></td><td class="c">—</td><td class="c">—</td><td class="c"><span class="badge tbd">TBD</span></td><td>—</td><td><a class="sheet-link" href="https://docs.google.com/spreadsheets/d/1cxSoOdd3rgEp-EtyKzxbeWssac5t0gM4F9CnMwkQFL8/edit#gid=267954395" target="_blank">📊 View</a></td></tr>
-        <tr><td>11</td><td>26 Jul</td><td>Edgware vs Pinner</td><td><span class="badge home">Home</span></td><td class="c">—</td><td class="c">—</td><td class="c"><span class="badge tbd">TBD</span></td><td>—</td><td><a class="sheet-link" href="https://docs.google.com/spreadsheets/d/1cxSoOdd3rgEp-EtyKzxbeWssac5t0gM4F9CnMwkQFL8/edit#gid=1235630778" target="_blank">📊 View</a></td></tr>
-        <tr><td>12</td><td>2 Aug</td><td>Hayes vs Edgware</td><td><span class="badge away">Away</span></td><td class="c">—</td><td class="c">—</td><td class="c"><span class="badge tbd">TBD</span></td><td>—</td><td><a class="sheet-link" href="https://docs.google.com/spreadsheets/d/1cxSoOdd3rgEp-EtyKzxbeWssac5t0gM4F9CnMwkQFL8/edit#gid=1283033244" target="_blank">📊 View</a></td></tr>
-      </tbody>
-    </table>
+    <div class="card-title">Season Results</div>
+    <div class="tbl-scroll">
+      <table class="data-table">
+        <thead><tr><th>#</th><th>Date</th><th>Match</th><th class="c">Venue</th><th class="c">ECC</th><th class="c">Opp</th><th class="c">Result</th><th class="c">Margin</th><th class="c">Scorecard</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>26 Apr</td><td>Edgware vs Pinner</td><td class="c"><span class="badge home">Home</span></td><td class="c">W/O</td><td class="c">W/O</td><td class="c"><span class="badge wo">WIN</span></td><td class="c">Walkover</td><td class="c"><a class="sheet-link" href="https://docs.google.com/spreadsheets/d/1cxSoOdd3rgEp-EtyKzxbeWssac5t0gM4F9CnMwkQFL8/edit#gid=104729847" target="_blank">&#128202; Sheet</a></td></tr>
+          <tr><td>2</td><td>10 May</td><td>H Manor vs Edgware</td><td class="c"><span class="badge away">Away</span></td><td class="c"><strong>297</strong></td><td class="c">265</td><td class="c"><span class="badge win">WIN</span></td><td class="c">+32 runs</td><td class="c"><a class="sheet-link" href="https://docs.google.com/spreadsheets/d/1cxSoOdd3rgEp-EtyKzxbeWssac5t0gM4F9CnMwkQFL8/edit#gid=737570712" target="_blank">&#128202; Sheet</a></td></tr>
+          <tr><td>3</td><td>24 May</td><td>Edgware vs Harefield</td><td class="c"><span class="badge home">Home</span></td><td class="c">&mdash;</td><td class="c">&mdash;</td><td class="c"><span class="badge tbd">TBD</span></td><td class="c">&mdash;</td><td class="c"><a class="sheet-link" href="https://docs.google.com/spreadsheets/d/1cxSoOdd3rgEp-EtyKzxbeWssac5t0gM4F9CnMwkQFL8/edit#gid=1367510775" target="_blank">&#128202; Sheet</a></td></tr>
+          <tr><td>4</td><td>31 May</td><td>Hayes vs Edgware</td><td class="c"><span class="badge away">Away</span></td><td class="c">&mdash;</td><td class="c">&mdash;</td><td class="c"><span class="badge tbd">TBD</span></td><td class="c">&mdash;</td><td class="c"><a class="sheet-link" href="https://docs.google.com/spreadsheets/d/1cxSoOdd3rgEp-EtyKzxbeWssac5t0gM4F9CnMwkQFL8/edit#gid=1996740206" target="_blank">&#128202; Sheet</a></td></tr>
+          <tr><td>5</td><td>7 Jun</td><td>Edgware vs Harefield</td><td class="c"><span class="badge home">Home</span></td><td class="c">&mdash;</td><td class="c">&mdash;</td><td class="c"><span class="badge tbd">TBD</span></td><td class="c">&mdash;</td><td class="c"><a class="sheet-link" href="https://docs.google.com/spreadsheets/d/1cxSoOdd3rgEp-EtyKzxbeWssac5t0gM4F9CnMwkQFL8/edit#gid=669851544" target="_blank">&#128202; Sheet</a></td></tr>
+          <tr><td>6</td><td>14 Jun</td><td>Pinner vs Edgware</td><td class="c"><span class="badge away">Away</span></td><td class="c">&mdash;</td><td class="c">&mdash;</td><td class="c"><span class="badge tbd">TBD</span></td><td class="c">&mdash;</td><td class="c"><a class="sheet-link" href="https://docs.google.com/spreadsheets/d/1cxSoOdd3rgEp-EtyKzxbeWssac5t0gM4F9CnMwkQFL8/edit#gid=489440707" target="_blank">&#128202; Sheet</a></td></tr>
+          <tr><td>7</td><td>21 Jun</td><td>Edgware vs H Manor</td><td class="c"><span class="badge home">Home</span></td><td class="c">&mdash;</td><td class="c">&mdash;</td><td class="c"><span class="badge tbd">TBD</span></td><td class="c">&mdash;</td><td class="c"><a class="sheet-link" href="https://docs.google.com/spreadsheets/d/1cxSoOdd3rgEp-EtyKzxbeWssac5t0gM4F9CnMwkQFL8/edit#gid=1519458298" target="_blank">&#128202; Sheet</a></td></tr>
+          <tr><td>8</td><td>5 Jul</td><td>Harefield vs Edgware</td><td class="c"><span class="badge away">Away</span></td><td class="c">&mdash;</td><td class="c">&mdash;</td><td class="c"><span class="badge tbd">TBD</span></td><td class="c">&mdash;</td><td class="c"><a class="sheet-link" href="https://docs.google.com/spreadsheets/d/1cxSoOdd3rgEp-EtyKzxbeWssac5t0gM4F9CnMwkQFL8/edit#gid=978153398" target="_blank">&#128202; Sheet</a></td></tr>
+          <tr><td>9</td><td>12 Jul</td><td>Edgware vs Hayes</td><td class="c"><span class="badge home">Home</span></td><td class="c">&mdash;</td><td class="c">&mdash;</td><td class="c"><span class="badge tbd">TBD</span></td><td class="c">&mdash;</td><td class="c"><a class="sheet-link" href="https://docs.google.com/spreadsheets/d/1cxSoOdd3rgEp-EtyKzxbeWssac5t0gM4F9CnMwkQFL8/edit#gid=1809916539" target="_blank">&#128202; Sheet</a></td></tr>
+          <tr><td>10</td><td>19 Jul</td><td>H Manor vs Edgware</td><td class="c"><span class="badge away">Away</span></td><td class="c">&mdash;</td><td class="c">&mdash;</td><td class="c"><span class="badge tbd">TBD</span></td><td class="c">&mdash;</td><td class="c"><a class="sheet-link" href="https://docs.google.com/spreadsheets/d/1cxSoOdd3rgEp-EtyKzxbeWssac5t0gM4F9CnMwkQFL8/edit#gid=267954395" target="_blank">&#128202; Sheet</a></td></tr>
+          <tr><td>11</td><td>26 Jul</td><td>Edgware vs Pinner</td><td class="c"><span class="badge home">Home</span></td><td class="c">&mdash;</td><td class="c">&mdash;</td><td class="c"><span class="badge tbd">TBD</span></td><td class="c">&mdash;</td><td class="c"><a class="sheet-link" href="https://docs.google.com/spreadsheets/d/1cxSoOdd3rgEp-EtyKzxbeWssac5t0gM4F9CnMwkQFL8/edit#gid=1235630778" target="_blank">&#128202; Sheet</a></td></tr>
+          <tr><td>12</td><td>2 Aug</td><td>Hayes vs Edgware</td><td class="c"><span class="badge away">Away</span></td><td class="c">&mdash;</td><td class="c">&mdash;</td><td class="c"><span class="badge tbd">TBD</span></td><td class="c">&mdash;</td><td class="c"><a class="sheet-link" href="https://docs.google.com/spreadsheets/d/1cxSoOdd3rgEp-EtyKzxbeWssac5t0gM4F9CnMwkQFL8/edit#gid=1283033244" target="_blank">&#128202; Sheet</a></td></tr>
+        </tbody>
+      </table>
+    </div>
   </div>
-
 </div>
 
-<!-- ══════════════════════════════════════════════════
-     FIXTURES TAB
-══════════════════════════════════════════════════ -->
+<!-- FIXTURES -->
 <div id="tab-fixtures" class="tab-panel">
   <div class="card">
-    <div class="card-title">📅 Full Fixture List — Cricket Summer Term 2026</div>
-    <p style="font-size:.82rem;color:var(--md-grey);margin-bottom:14px;">Home Ground: Canons High School, HA8 6AN (via Bridgewater Gardens) · Times: 09:00 / 10:00 AM (TBC)</p>
-    <table class="data-table">
-      <thead><tr><th>#</th><th>Date</th><th>Match</th><th>Venue</th><th>Location</th><th class="c">Result</th><th>Sheet</th></tr></thead>
-      <tbody>
-        <tr class="played"><td>1</td><td>Sun 26 Apr</td><td>Edgware vs Pinner</td><td><span class="badge home">Home</span></td><td>Canons High School</td><td class="c"><span class="badge wo">WIN (W/O)</span></td><td><a class="sheet-link" href="https://docs.google.com/spreadsheets/d/1cxSoOdd3rgEp-EtyKzxbeWssac5t0gM4F9CnMwkQFL8/edit#gid=104729847" target="_blank">📊 View</a></td></tr>
-        <tr class="played"><td>2</td><td>Sun 10 May</td><td>H Manor vs Edgware</td><td><span class="badge away">Away</span></td><td>H Manor</td><td class="c"><span class="badge win">WIN +32</span></td><td><a class="sheet-link" href="https://docs.google.com/spreadsheets/d/1cxSoOdd3rgEp-EtyKzxbeWssac5t0gM4F9CnMwkQFL8/edit#gid=737570712" target="_blank">📊 View</a></td></tr>
-        <tr><td>3</td><td>Sun 24 May</td><td>Edgware vs Harefield</td><td><span class="badge home">Home</span></td><td>Canons High School</td><td class="c"><span class="badge upcoming">Next ▶</span></td><td><a class="sheet-link" href="https://docs.google.com/spreadsheets/d/1cxSoOdd3rgEp-EtyKzxbeWssac5t0gM4F9CnMwkQFL8/edit#gid=1367510775" target="_blank">📊 View</a></td></tr>
-        <tr><td>4</td><td>Sun 31 May</td><td>Hayes vs Edgware</td><td><span class="badge away">Away</span></td><td>Hayes</td><td class="c"><span class="badge tbd">TBD</span></td><td><a class="sheet-link" href="https://docs.google.com/spreadsheets/d/1cxSoOdd3rgEp-EtyKzxbeWssac5t0gM4F9CnMwkQFL8/edit#gid=1996740206" target="_blank">📊 View</a></td></tr>
-        <tr><td>5</td><td>Sun 7 Jun</td><td>Edgware vs Harefield</td><td><span class="badge home">Home</span></td><td>Canons High School</td><td class="c"><span class="badge tbd">TBD</span></td><td><a class="sheet-link" href="https://docs.google.com/spreadsheets/d/1cxSoOdd3rgEp-EtyKzxbeWssac5t0gM4F9CnMwkQFL8/edit#gid=669851544" target="_blank">📊 View</a></td></tr>
-        <tr><td>6</td><td>Sun 14 Jun</td><td>Pinner vs Edgware</td><td><span class="badge away">Away</span></td><td>Pinner</td><td class="c"><span class="badge tbd">TBD</span></td><td><a class="sheet-link" href="https://docs.google.com/spreadsheets/d/1cxSoOdd3rgEp-EtyKzxbeWssac5t0gM4F9CnMwkQFL8/edit#gid=489440707" target="_blank">📊 View</a></td></tr>
-        <tr><td>7</td><td>Sun 21 Jun</td><td>Edgware vs H Manor</td><td><span class="badge home">Home</span></td><td>Canons High School</td><td class="c"><span class="badge tbd">TBD</span></td><td><a class="sheet-link" href="https://docs.google.com/spreadsheets/d/1cxSoOdd3rgEp-EtyKzxbeWssac5t0gM4F9CnMwkQFL8/edit#gid=1519458298" target="_blank">📊 View</a></td></tr>
-        <tr><td>8</td><td>Sun 5 Jul</td><td>Harefield vs Edgware</td><td><span class="badge away">Away</span></td><td>Harefield</td><td class="c"><span class="badge tbd">TBD</span></td><td><a class="sheet-link" href="https://docs.google.com/spreadsheets/d/1cxSoOdd3rgEp-EtyKzxbeWssac5t0gM4F9CnMwkQFL8/edit#gid=978153398" target="_blank">📊 View</a></td></tr>
-        <tr><td>9</td><td>Sun 12 Jul</td><td>Edgware vs Hayes</td><td><span class="badge home">Home</span></td><td>Canons High School</td><td class="c"><span class="badge tbd">TBD</span></td><td><a class="sheet-link" href="https://docs.google.com/spreadsheets/d/1cxSoOdd3rgEp-EtyKzxbeWssac5t0gM4F9CnMwkQFL8/edit#gid=1809916539" target="_blank">📊 View</a></td></tr>
-        <tr><td>10</td><td>Sun 19 Jul</td><td>H Manor vs Edgware</td><td><span class="badge away">Away</span></td><td>H Manor</td><td class="c"><span class="badge tbd">TBD</span></td><td><a class="sheet-link" href="https://docs.google.com/spreadsheets/d/1cxSoOdd3rgEp-EtyKzxbeWssac5t0gM4F9CnMwkQFL8/edit#gid=267954395" target="_blank">📊 View</a></td></tr>
-        <tr><td>11</td><td>Sun 26 Jul</td><td>Edgware vs Pinner</td><td><span class="badge home">Home</span></td><td>Canons High School</td><td class="c"><span class="badge tbd">TBD</span></td><td><a class="sheet-link" href="https://docs.google.com/spreadsheets/d/1cxSoOdd3rgEp-EtyKzxbeWssac5t0gM4F9CnMwkQFL8/edit#gid=1235630778" target="_blank">📊 View</a></td></tr>
-        <tr><td>12</td><td>Sun 2 Aug</td><td>Hayes vs Edgware</td><td><span class="badge away">Away</span></td><td>Hayes</td><td class="c"><span class="badge tbd">TBD</span></td><td><a class="sheet-link" href="https://docs.google.com/spreadsheets/d/1cxSoOdd3rgEp-EtyKzxbeWssac5t0gM4F9CnMwkQFL8/edit#gid=1283033244" target="_blank">📊 View</a></td></tr>
-      </tbody>
-    </table>
+    <div class="card-title">Cricket Summer Term 2026 &mdash; U9 Softball Sunday Fixtures</div>
+    <p style="font-size:.82rem;color:var(--md-grey);margin-bottom:14px;">Home Ground: Canons High School (HA8 6AN) &middot; Access via Bridgewater Gardens &middot; 09:00 / 10:00 AM (TBC)</p>
+    <div class="tbl-scroll">
+      <table class="data-table">
+        <thead><tr><th>#</th><th>Date</th><th>Match</th><th class="c">Venue</th><th>Location</th><th class="c">Result</th><th class="c">Scorecard</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>26 Apr 2026</td><td>Edgware vs Pinner</td><td class="c"><span class="badge home">Home</span></td><td>Canons High School HA8 6AN</td><td class="c"><span class="badge wo">WIN (Walkover)</span></td><td class="c"><a href="https://docs.google.com/spreadsheets/d/1cxSoOdd3rgEp-EtyKzxbeWssac5t0gM4F9CnMwkQFL8/edit#gid=104729847" target="_blank">Open &#8599;</a></td></tr>
+          <tr><td>2</td><td>10 May 2026</td><td>H Manor vs Edgware</td><td class="c"><span class="badge away">Away</span></td><td>H Manor</td><td class="c"><span class="badge win">WIN +32 runs</span></td><td class="c"><a href="https://docs.google.com/spreadsheets/d/1cxSoOdd3rgEp-EtyKzxbeWssac5t0gM4F9CnMwkQFL8/edit#gid=737570712" target="_blank">Open &#8599;</a></td></tr>
+          <tr><td>3</td><td>24 May 2026</td><td>Edgware vs Harefield</td><td class="c"><span class="badge home">Home</span></td><td>Canons High School HA8 6AN</td><td class="c"><span class="badge tbd">TBD</span></td><td class="c"><a href="https://docs.google.com/spreadsheets/d/1cxSoOdd3rgEp-EtyKzxbeWssac5t0gM4F9CnMwkQFL8/edit#gid=1367510775" target="_blank">Open &#8599;</a></td></tr>
+          <tr><td>4</td><td>31 May 2026</td><td>Hayes vs Edgware</td><td class="c"><span class="badge away">Away</span></td><td>Hayes</td><td class="c"><span class="badge tbd">TBD</span></td><td class="c"><a href="https://docs.google.com/spreadsheets/d/1cxSoOdd3rgEp-EtyKzxbeWssac5t0gM4F9CnMwkQFL8/edit#gid=1996740206" target="_blank">Open &#8599;</a></td></tr>
+          <tr><td>5</td><td>7 Jun 2026</td><td>Edgware vs Harefield</td><td class="c"><span class="badge home">Home</span></td><td>Canons High School HA8 6AN</td><td class="c"><span class="badge tbd">TBD</span></td><td class="c"><a href="https://docs.google.com/spreadsheets/d/1cxSoOdd3rgEp-EtyKzxbeWssac5t0gM4F9CnMwkQFL8/edit#gid=669851544" target="_blank">Open &#8599;</a></td></tr>
+          <tr><td>6</td><td>14 Jun 2026</td><td>Pinner vs Edgware</td><td class="c"><span class="badge away">Away</span></td><td>Pinner</td><td class="c"><span class="badge tbd">TBD</span></td><td class="c"><a href="https://docs.google.com/spreadsheets/d/1cxSoOdd3rgEp-EtyKzxbeWssac5t0gM4F9CnMwkQFL8/edit#gid=489440707" target="_blank">Open &#8599;</a></td></tr>
+          <tr><td>7</td><td>21 Jun 2026</td><td>Edgware vs H Manor</td><td class="c"><span class="badge home">Home</span></td><td>Canons High School HA8 6AN</td><td class="c"><span class="badge tbd">TBD</span></td><td class="c"><a href="https://docs.google.com/spreadsheets/d/1cxSoOdd3rgEp-EtyKzxbeWssac5t0gM4F9CnMwkQFL8/edit#gid=1519458298" target="_blank">Open &#8599;</a></td></tr>
+          <tr><td>8</td><td>5 Jul 2026</td><td>Harefield vs Edgware</td><td class="c"><span class="badge away">Away</span></td><td>Harefield</td><td class="c"><span class="badge tbd">TBD</span></td><td class="c"><a href="https://docs.google.com/spreadsheets/d/1cxSoOdd3rgEp-EtyKzxbeWssac5t0gM4F9CnMwkQFL8/edit#gid=978153398" target="_blank">Open &#8599;</a></td></tr>
+          <tr><td>9</td><td>12 Jul 2026</td><td>Edgware vs Hayes</td><td class="c"><span class="badge home">Home</span></td><td>Canons High School HA8 6AN</td><td class="c"><span class="badge tbd">TBD</span></td><td class="c"><a href="https://docs.google.com/spreadsheets/d/1cxSoOdd3rgEp-EtyKzxbeWssac5t0gM4F9CnMwkQFL8/edit#gid=1809916539" target="_blank">Open &#8599;</a></td></tr>
+          <tr><td>10</td><td>19 Jul 2026</td><td>H Manor vs Edgware</td><td class="c"><span class="badge away">Away</span></td><td>H Manor</td><td class="c"><span class="badge tbd">TBD</span></td><td class="c"><a href="https://docs.google.com/spreadsheets/d/1cxSoOdd3rgEp-EtyKzxbeWssac5t0gM4F9CnMwkQFL8/edit#gid=267954395" target="_blank">Open &#8599;</a></td></tr>
+          <tr><td>11</td><td>26 Jul 2026</td><td>Edgware vs Pinner</td><td class="c"><span class="badge home">Home</span></td><td>Canons High School HA8 6AN</td><td class="c"><span class="badge tbd">TBD</span></td><td class="c"><a href="https://docs.google.com/spreadsheets/d/1cxSoOdd3rgEp-EtyKzxbeWssac5t0gM4F9CnMwkQFL8/edit#gid=1235630778" target="_blank">Open &#8599;</a></td></tr>
+          <tr><td>12</td><td>2 Aug 2026</td><td>Hayes vs Edgware</td><td class="c"><span class="badge away">Away</span></td><td>Hayes</td><td class="c"><span class="badge tbd">TBD</span></td><td class="c"><a href="https://docs.google.com/spreadsheets/d/1cxSoOdd3rgEp-EtyKzxbeWssac5t0gM4F9CnMwkQFL8/edit#gid=1283033244" target="_blank">Open &#8599;</a></td></tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
 
-<!-- ══════════════════════════════════════════════════
-     MATCHES TAB
-══════════════════════════════════════════════════ -->
+<!-- MATCHES -->
 <div id="tab-matches" class="tab-panel">
 
   <!-- M1 -->
-  <div class="card" style="padding:0;overflow:hidden;margin-bottom:20px;">
-    <div class="match-header">
-      <h3>Match 1 · 26 April 2026 · Edgware vs Pinner</h3>
-      <p>🏠 Home · Canons High School, HA8 6AN</p>
+  <div class="card">
+    <div class="card-title">Match 1 &mdash; Edgware vs Pinner &middot; 26 April 2026 &middot; Home</div>
+    <div style="background:#fff3cd;border-radius:8px;padding:14px 18px;text-align:center;margin-bottom:12px;">
+      <div style="font-size:1.1rem;font-weight:800;color:#856404;">WALKOVER WIN &mdash; Pinner forfeited</div>
+      <div style="font-size:.85rem;color:#856404;margin-top:4px;">No balls bowled. Edgware CC awarded the win by default.</div>
     </div>
-    <div class="result-banner">🏆 WALKOVER WIN — Pinner forfeited. No balls bowled. Edgware CC awarded the victory.</div>
-    <div style="padding:14px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
-      <span style="font-size:.85rem;color:var(--md-grey);">No match data — walkover win recorded.</span>
-      <a class="sheet-link" href="https://docs.google.com/spreadsheets/d/1cxSoOdd3rgEp-EtyKzxbeWssac5t0gM4F9CnMwkQFL8/edit#gid=104729847" target="_blank">📊 Open in Google Sheets</a>
-    </div>
+    <a class="sheet-link" href="https://docs.google.com/spreadsheets/d/1cxSoOdd3rgEp-EtyKzxbeWssac5t0gM4F9CnMwkQFL8/edit#gid=104729847" target="_blank">&#128202; Open Scorecard in Google Sheets</a>
   </div>
 
   <!-- M2 -->
-  <div class="card" style="padding:0;overflow:hidden;margin-bottom:20px;">
-    <div class="match-header">
-      <h3>Match 2 · 10 May 2026 · Headstone Manor vs Edgware CC</h3>
-      <p>✈️ Away · H Manor &nbsp;·&nbsp; 8 players/side · 16 overs &nbsp;·&nbsp; Toss won by Headstone Manor</p>
+  <div class="card">
+    <div class="card-title">Match 2 &mdash; H Manor vs Edgware &middot; 10 May 2026 &middot; Away &middot; H Manor</div>
+
+    <div class="result-banner">
+      <div class="rb-main">Edgware CC WON by 32 runs</div>
+      <div class="rb-sub">ECC 297 &nbsp;&middot;&nbsp; HSM 265 &nbsp;&middot;&nbsp; Toss won by Headstone Manor</div>
     </div>
-    <div class="result-banner">🏆 EDGWARE CC WON BY 32 RUNS &nbsp;·&nbsp; ECC 297 — HSM 265</div>
-    <div style="padding:16px;">
 
-      <div style="display:flex;justify-content:flex-end;margin-bottom:12px;">
-        <a class="sheet-link" href="https://docs.google.com/spreadsheets/d/1cxSoOdd3rgEp-EtyKzxbeWssac5t0gM4F9CnMwkQFL8/edit#gid=737570712" target="_blank">📊 Open Full Scorecard in Google Sheets</a>
-      </div>
+    <div class="match-stats-grid">
+      <div class="mstat"><div class="mv">297</div><div class="ml">ECC Score</div></div>
+      <div class="mstat"><div class="mv">265</div><div class="ml">HSM Score</div></div>
+      <div class="mstat"><div class="mv" style="color:#27ae60">+32</div><div class="ml">Win Margin</div></div>
+      <div class="mstat"><div class="mv">10</div><div class="ml">Top Bat (ECC)</div><div class="mn">Ariyan</div></div>
+      <div class="mstat"><div class="mv">11</div><div class="ml">Top Bat (HSM)</div><div class="mn">Nitya</div></div>
+      <div class="mstat"><div class="mv">3</div><div class="ml">ECC Wickets Taken</div></div>
+      <div class="mstat"><div class="mv">3</div><div class="ml">ECC Fours</div></div>
+      <div class="mstat"><div class="mv">1.50</div><div class="ml">Best Economy</div><div class="mn">Ariyan</div></div>
+    </div>
 
-      <!-- Match stat highlights -->
-      <div class="card-title" style="margin-top:0;">⚡ Match Highlights</div>
-      <div class="match-stats-grid">
-        <div class="mstat"><div class="mv boundary">Ariyan</div><div class="ml">Top Bat (ECC)</div><div class="mn">10 runs</div></div>
-        <div class="mstat"><div class="mv boundary">Krish</div><div class="ml">2nd Bat (ECC)</div><div class="mn">9 runs</div></div>
-        <div class="mstat"><div class="mv wkt">Kaiyan</div><div class="ml">Top Wicket (ECC)</div><div class="mn">1 wkt · 4.0 econ</div></div>
-        <div class="mstat"><div class="mv wkt">Avyaan</div><div class="ml">Top Wicket (ECC)</div><div class="mn">1 wkt · 3.0 econ</div></div>
-        <div class="mstat"><div class="mv">Vihaan</div><div class="ml">Top Bat (HSM)</div><div class="mn">8 runs</div></div>
-        <div class="mstat"><div class="mv">Kush</div><div class="ml">Top Bowl (HSM)</div><div class="mn">1 wkt · 2.5 econ</div></div>
-        <div class="mstat"><div class="mv gold-text">297</div><div class="ml">ECC Total</div><div class="mn">16 overs</div></div>
-        <div class="mstat"><div class="mv" style="color:var(--red)">265</div><div class="ml">HSM Total</div><div class="mn">16 overs</div></div>
-      </div>
-
-      <div class="innings-grid">
-        <!-- Innings 1 -->
-        <div class="innings-card">
-          <div class="innings-header">Innings 1 — Edgware CC Batting</div>
-          <div class="innings-score">297 <span>Base 200 + 97 from play · 1 wicket</span></div>
-          <table class="data-table" style="font-size:.8rem;">
-            <thead><tr><th>Batsman</th><th class="r">Bat Runs</th><th class="c">Wkts</th><th class="r">Net</th></tr></thead>
-            <tbody>
-              <tr><td><strong>Veer</strong></td><td class="r">5</td><td class="c wkt">1</td><td class="r">0</td></tr>
-              <tr><td><strong>Ariyan</strong></td><td class="r boundary">10</td><td class="c">0</td><td class="r boundary">10</td></tr>
-              <tr style="background:#f0faf2;font-size:.75rem;"><td colspan="4" style="color:var(--md-grey);font-style:italic;padding:5px 10px;">P1: Veer + Ariyan · Overs 1–4</td></tr>
-              <tr><td><strong>Krish</strong></td><td class="r boundary">9</td><td class="c">0</td><td class="r boundary">9</td></tr>
-              <tr><td><strong>Kaiyan</strong></td><td class="r">5</td><td class="c wkt">1</td><td class="r">0</td></tr>
-              <tr style="background:#f0faf2;font-size:.75rem;"><td colspan="4" style="color:var(--md-grey);font-style:italic;padding:5px 10px;">P2: Krish + Kaiyan · Overs 5–8</td></tr>
-              <tr><td><strong>Avyaan</strong></td><td class="r">8</td><td class="c">0</td><td class="r">8</td></tr>
-              <tr><td><strong>Viaan</strong></td><td class="r">6</td><td class="c">0</td><td class="r">6</td></tr>
-              <tr style="background:#f0faf2;font-size:.75rem;"><td colspan="4" style="color:var(--md-grey);font-style:italic;padding:5px 10px;">P3: Avyaan + Viaan · Overs 9–12</td></tr>
-              <tr><td><strong>Qaim</strong></td><td class="r">7</td><td class="c">0</td><td class="r">7</td></tr>
-              <tr><td><strong>Aanya</strong></td><td class="r">3</td><td class="c">0</td><td class="r">3</td></tr>
-              <tr style="background:#f0faf2;font-size:.75rem;"><td colspan="4" style="color:var(--md-grey);font-style:italic;padding:5px 10px;">P4: Qaim + Aanya · Overs 13–16</td></tr>
-            </tbody>
-          </table>
-          <div style="padding:10px 14px;background:var(--lt-green);font-size:.78rem;color:var(--md-green);font-weight:600;">Over-by-over runs:</div>
-          <div style="padding:6px 14px 10px;background:var(--lt-green);">
-            <div class="over-chart" id="ecc-overs"></div>
-          </div>
-        </div>
-
-        <!-- Innings 2 -->
-        <div class="innings-card">
-          <div class="innings-header" style="background:#5D4037;">Innings 2 — Headstone Manor Batting</div>
-          <div class="innings-score" style="background:#fff5f5;color:var(--red);">265 <span>Base 200 + 65 from play · 2 wickets</span></div>
-          <table class="data-table" style="font-size:.8rem;">
-            <thead><tr><th>Batsman</th><th class="r">Bat Runs</th><th class="c">Wkts</th><th class="r">Net</th></tr></thead>
-            <tbody>
-              <tr><td><strong>Rikil</strong></td><td class="r">9</td><td class="c">0</td><td class="r">9</td></tr>
-              <tr><td><strong>Sid</strong></td><td class="r">6</td><td class="c">0</td><td class="r">6</td></tr>
-              <tr style="background:#fff5f5;font-size:.75rem;"><td colspan="4" style="color:var(--md-grey);font-style:italic;padding:5px 10px;">P1: Rikil + Sid · Overs 1–4</td></tr>
-              <tr><td><strong>Diyan</strong></td><td class="r">6</td><td class="c">0</td><td class="r">6</td></tr>
-              <tr><td><strong>Vihaan</strong></td><td class="r boundary">8</td><td class="c">0</td><td class="r boundary">8</td></tr>
-              <tr style="background:#fff5f5;font-size:.75rem;"><td colspan="4" style="color:var(--md-grey);font-style:italic;padding:5px 10px;">P2: Diyan + Vihaan · Overs 5–8</td></tr>
-              <tr><td><strong>Nitya</strong></td><td class="r">6</td><td class="c wkt">1</td><td class="r">1</td></tr>
-              <tr><td><strong>Kush</strong></td><td class="r">8</td><td class="c">0</td><td class="r">8</td></tr>
-              <tr style="background:#fff5f5;font-size:.75rem;"><td colspan="4" style="color:var(--md-grey);font-style:italic;padding:5px 10px;">P3: Nitya + Kush · Overs 9–12</td></tr>
-              <tr><td><strong>Pranav</strong></td><td class="r">5</td><td class="c wkt">1</td><td class="r">0</td></tr>
-              <tr><td><strong>Pranil</strong></td><td class="r">7</td><td class="c">0</td><td class="r">7</td></tr>
-              <tr style="background:#fff5f5;font-size:.75rem;"><td colspan="4" style="color:var(--md-grey);font-style:italic;padding:5px 10px;">P4: Pranav + Pranil · Overs 13–16</td></tr>
-            </tbody>
-          </table>
-          <div style="padding:10px 14px;background:#fff5f5;font-size:.78rem;color:var(--red);font-weight:600;">Over-by-over runs:</div>
-          <div style="padding:6px 14px 10px;background:#fff5f5;">
-            <div class="over-chart" id="hsm-overs"></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Bowling -->
-      <div style="margin-top:16px;">
-        <div class="card-title" style="margin-top:0;">🎳 Bowling — Headstone Manor (Innings 1)</div>
+    <!-- ECC Batting -->
+    <div class="innings-section">
+      <div class="innings-header"><span>Innings 1 &mdash; Edgware CC Batting</span><span>Base 200</span></div>
+      <div class="innings-total">Total: 297 &nbsp;&nbsp;(200 base + 97 from play)</div>
+      <div class="tbl-scroll">
         <table class="data-table">
-          <thead><tr><th>Bowler</th><th class="c">Ov</th><th class="c">Runs</th><th class="c">Wides</th><th class="c">NB</th><th class="c">Wkts</th><th class="c">Econ</th></tr></thead>
+          <thead><tr><th>Batsman</th><th class="c">Partnership</th><th class="c">Bat Runs</th><th class="c">Extras Faced</th><th class="c">Wkts Lost</th><th class="c">4s</th><th class="c">6s</th><th class="c">Net Runs</th></tr></thead>
           <tbody>
-            <tr><td>Rikil</td><td class="c">1</td><td class="c">5</td><td class="c">0</td><td class="c">0</td><td class="c">0</td><td class="c">5.0</td></tr>
-            <tr><td>Sid</td><td class="c">2</td><td class="c">8</td><td class="c">1</td><td class="c">0</td><td class="c">0</td><td class="c">4.0</td></tr>
-            <tr><td>Vihaan</td><td class="c">4</td><td class="c">12</td><td class="c">0</td><td class="c">1</td><td class="c">0</td><td class="c">3.0</td></tr>
-            <tr><td>Pranav</td><td class="c">2</td><td class="c">7</td><td class="c">0</td><td class="c">0</td><td class="c">0</td><td class="c">3.5</td></tr>
-            <tr><td>Nitya</td><td class="c">2</td><td class="c">6</td><td class="c">0</td><td class="c">0</td><td class="c wkt">1</td><td class="c">3.0</td></tr>
-            <tr><td>Pranil</td><td class="c">1</td><td class="c">4</td><td class="c">0</td><td class="c">0</td><td class="c">0</td><td class="c">4.0</td></tr>
-            <tr><td>Vedant</td><td class="c">1</td><td class="c">3</td><td class="c">0</td><td class="c">0</td><td class="c">0</td><td class="c">3.0</td></tr>
-            <tr><td>Kush</td><td class="c">2</td><td class="c">5</td><td class="c">0</td><td class="c">0</td><td class="c wkt">1</td><td class="c">2.5</td></tr>
-            <tr><td>Ahiyaan</td><td class="c">1</td><td class="c">4</td><td class="c">0</td><td class="c">0</td><td class="c">0</td><td class="c">4.0</td></tr>
+            <tr><td>Veer</td><td class="c">P1</td><td class="c">-3</td><td class="c">2</td><td class="c">1</td><td class="c">0</td><td class="c">0</td><td class="c net-neg">-3</td></tr>
+            <tr><td>Ariyan</td><td class="c">P1</td><td class="c">10</td><td class="c">6</td><td class="c">0</td><td class="c">1</td><td class="c">0</td><td class="c net-pos">10</td></tr>
+            <tr><td>Krish</td><td class="c">P2</td><td class="c">4</td><td class="c">0</td><td class="c">0</td><td class="c">0</td><td class="c">0</td><td class="c net-pos">4</td></tr>
+            <tr><td>Kaiyan</td><td class="c">P2</td><td class="c">2</td><td class="c">6</td><td class="c">0</td><td class="c">0</td><td class="c">0</td><td class="c net-pos">2</td></tr>
+            <tr><td>Avyaan</td><td class="c">P3</td><td class="c">9</td><td class="c">2</td><td class="c">0</td><td class="c">1</td><td class="c">0</td><td class="c net-pos">9</td></tr>
+            <tr><td>Viaan</td><td class="c">P3</td><td class="c">4</td><td class="c">5</td><td class="c">0</td><td class="c">0</td><td class="c">0</td><td class="c net-pos">4</td></tr>
+            <tr><td>Qaim</td><td class="c">P4</td><td class="c">2</td><td class="c">1</td><td class="c">0</td><td class="c">1</td><td class="c">0</td><td class="c net-pos">2</td></tr>
+            <tr><td>Aanya</td><td class="c">P4</td><td class="c">3</td><td class="c">2</td><td class="c">0</td><td class="c">0</td><td class="c">0</td><td class="c net-pos">3</td></tr>
           </tbody>
         </table>
       </div>
-      <div style="margin-top:16px;">
-        <div class="card-title" style="margin-top:0;">🎳 Bowling — Edgware CC (Innings 2)</div>
+      <div style="margin-top:8px;font-size:.8rem;color:var(--md-grey);">
+        <strong>Partnership Totals:</strong> P1 (Veer+Ariyan): 7 &nbsp;&middot;&nbsp; P2 (Krish+Kaiyan): 6 &nbsp;&middot;&nbsp; P3 (Avyaan+Viaan): 13 &nbsp;&middot;&nbsp; P4 (Qaim+Aanya): 5
+      </div>
+    </div>
+
+    <!-- HSM Batting -->
+    <div class="innings-section">
+      <div class="innings-header"><span>Innings 2 &mdash; Headstone Manor Batting</span><span>Base 200</span></div>
+      <div class="innings-total">Total: 265 &nbsp;&nbsp;(200 base + 65 from play)</div>
+      <div class="tbl-scroll">
         <table class="data-table">
-          <thead><tr><th>Bowler</th><th class="c">Ov</th><th class="c">Runs</th><th class="c">Wides</th><th class="c">NB</th><th class="c">Wkts</th><th class="c">Econ</th></tr></thead>
+          <thead><tr><th>Batsman</th><th class="c">Partnership</th><th class="c">Bat Runs</th><th class="c">Extras Faced</th><th class="c">Wkts Lost</th><th class="c">4s</th><th class="c">6s</th><th class="c">Net Runs</th></tr></thead>
           <tbody>
-            <tr><td>Qaim</td><td class="c">2</td><td class="c">6</td><td class="c">0</td><td class="c">0</td><td class="c">0</td><td class="c">3.0</td></tr>
-            <tr><td>Aanya</td><td class="c">2</td><td class="c">5</td><td class="c">0</td><td class="c">0</td><td class="c">0</td><td class="c">2.5</td></tr>
-            <tr><td>Veer</td><td class="c">2</td><td class="c">7</td><td class="c">0</td><td class="c">0</td><td class="c">0</td><td class="c">3.5</td></tr>
-            <tr><td>Kaiyan</td><td class="c">2</td><td class="c">8</td><td class="c">0</td><td class="c">0</td><td class="c wkt">1</td><td class="c">4.0</td></tr>
-            <tr><td>Krish</td><td class="c">2</td><td class="c">6</td><td class="c">0</td><td class="c">0</td><td class="c">0</td><td class="c">3.0</td></tr>
-            <tr><td>Ariyan</td><td class="c">2</td><td class="c">5</td><td class="c">0</td><td class="c">0</td><td class="c">0</td><td class="c">2.5</td></tr>
-            <tr><td>Viaan</td><td class="c">2</td><td class="c">7</td><td class="c">0</td><td class="c">0</td><td class="c">0</td><td class="c">3.5</td></tr>
-            <tr><td>Avyaan</td><td class="c">2</td><td class="c">6</td><td class="c">0</td><td class="c">0</td><td class="c wkt">1</td><td class="c">3.0</td></tr>
+            <tr><td>Rikil</td><td class="c">P1</td><td class="c">3</td><td class="c">2</td><td class="c">0</td><td class="c">0</td><td class="c">0</td><td class="c net-pos">3</td></tr>
+            <tr><td>Sid</td><td class="c">P1</td><td class="c">3</td><td class="c">2</td><td class="c">0</td><td class="c">0</td><td class="c">0</td><td class="c net-pos">3</td></tr>
+            <tr><td>Diyan</td><td class="c">P2</td><td class="c">10</td><td class="c">3</td><td class="c">0</td><td class="c">0</td><td class="c">0</td><td class="c net-pos">10</td></tr>
+            <tr><td>Vihaan</td><td class="c">P2</td><td class="c">2</td><td class="c">1</td><td class="c">0</td><td class="c">0</td><td class="c">0</td><td class="c net-pos">2</td></tr>
+            <tr><td>Nitya</td><td class="c">P3</td><td class="c">11</td><td class="c">3</td><td class="c">0</td><td class="c">0</td><td class="c">0</td><td class="c net-pos">11</td></tr>
+            <tr><td>Kush</td><td class="c">P3</td><td class="c">-3</td><td class="c">2</td><td class="c">1</td><td class="c">0</td><td class="c">0</td><td class="c net-neg">-3</td></tr>
+            <tr><td>Pranav</td><td class="c">P4</td><td class="c">4</td><td class="c">2</td><td class="c">0</td><td class="c">0</td><td class="c">0</td><td class="c net-pos">4</td></tr>
+            <tr><td>Pranil</td><td class="c">P4</td><td class="c">0</td><td class="c">2</td><td class="c">2</td><td class="c">0</td><td class="c">0</td><td class="c net-neg">-10</td></tr>
           </tbody>
         </table>
       </div>
+      <div style="margin-top:8px;font-size:.8rem;color:var(--md-grey);">
+        <strong>Partnership Totals:</strong> P1 (Rikil+Sid): 6 &nbsp;&middot;&nbsp; P2 (Diyan+Vihaan): 12 &nbsp;&middot;&nbsp; P3 (Nitya+Kush): 3 &nbsp;&middot;&nbsp; P4 (Pranav+Pranil): &minus;6
+      </div>
+    </div>
+
+    <!-- ECC Bowling -->
+    <div class="innings-section">
+      <div class="innings-header"><span>ECC Bowling (vs HSM Innings 2)</span></div>
+      <div class="tbl-scroll">
+        <table class="data-table">
+          <thead><tr><th>Bowler</th><th class="c">Overs</th><th class="c">Runs</th><th class="c">Wides</th><th class="c">No-Balls</th><th class="c">Wkts</th><th class="c">Economy</th><th class="c">Dots</th></tr></thead>
+          <tbody>
+            <tr><td>Ariyan</td><td class="c">2</td><td class="c">3</td><td class="c">0</td><td class="c">1</td><td class="c">0</td><td class="c" style="color:#27ae60;font-weight:700">1.50</td><td class="c">22</td></tr>
+            <tr><td>Aanya</td><td class="c">2</td><td class="c">5</td><td class="c">1</td><td class="c">1</td><td class="c" style="color:#27ae60;font-weight:700">1</td><td class="c">2.50</td><td class="c">18</td></tr>
+            <tr><td>Krish</td><td class="c">2</td><td class="c">5</td><td class="c">2</td><td class="c">0</td><td class="c" style="color:#27ae60;font-weight:700">1</td><td class="c">2.50</td><td class="c">17</td></tr>
+            <tr><td>Avyaan</td><td class="c">2</td><td class="c">8</td><td class="c">2</td><td class="c">0</td><td class="c" style="color:#27ae60;font-weight:700">1</td><td class="c">4.00</td><td class="c">18</td></tr>
+            <tr><td>Veer</td><td class="c">2</td><td class="c">9</td><td class="c">2</td><td class="c">0</td><td class="c">0</td><td class="c">4.50</td><td class="c">18</td></tr>
+            <tr><td>Kaiyan</td><td class="c">2</td><td class="c">11</td><td class="c">1</td><td class="c">1</td><td class="c">0</td><td class="c">5.50</td><td class="c">21</td></tr>
+            <tr><td>Viaan</td><td class="c">2</td><td class="c">12</td><td class="c">2</td><td class="c">1</td><td class="c">0</td><td class="c">6.00</td><td class="c">19</td></tr>
+            <tr><td>Qaim</td><td class="c">2</td><td class="c">17</td><td class="c">2</td><td class="c">1</td><td class="c">0</td><td class="c" style="color:var(--red);font-weight:700">8.50</td><td class="c">17</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- HSM Bowling -->
+    <div class="innings-section">
+      <div class="innings-header"><span>HSM Bowling (vs ECC Innings 1)</span></div>
+      <div class="tbl-scroll">
+        <table class="data-table">
+          <thead><tr><th>Bowler</th><th class="c">Overs</th><th class="c">Runs</th><th class="c">Wides</th><th class="c">No-Balls</th><th class="c">Wkts</th></tr></thead>
+          <tbody>
+            <tr><td>Rikil</td><td class="c">1</td><td class="c">10</td><td class="c">1</td><td class="c">0</td><td class="c">0</td></tr>
+            <tr><td>Sid</td><td class="c">2</td><td class="c">12</td><td class="c">4</td><td class="c">0</td><td class="c">0</td></tr>
+            <tr><td>Vihaan</td><td class="c">4</td><td class="c">24</td><td class="c">2</td><td class="c">6</td><td class="c">0</td></tr>
+            <tr><td>Pranav</td><td class="c">2</td><td class="c">-1</td><td class="c">1</td><td class="c">2</td><td class="c" style="color:#27ae60;font-weight:700">2</td></tr>
+            <tr><td>Nitya</td><td class="c">2</td><td class="c">13</td><td class="c">3</td><td class="c">1</td><td class="c">0</td></tr>
+            <tr><td>Pranil</td><td class="c">1</td><td class="c">9</td><td class="c">1</td><td class="c">2</td><td class="c">0</td></tr>
+            <tr><td>Vedant</td><td class="c">1</td><td class="c">7</td><td class="c">0</td><td class="c">0</td><td class="c">0</td></tr>
+            <tr><td>Kush</td><td class="c">2</td><td class="c">13</td><td class="c">2</td><td class="c">3</td><td class="c">0</td></tr>
+            <tr><td>Ahiyaan</td><td class="c">1</td><td class="c">12</td><td class="c">1</td><td class="c">2</td><td class="c">0</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Over charts -->
+    <div style="margin-top:16px;">
+      <div style="font-weight:700;color:var(--dk-green);margin-bottom:8px;font-size:.88rem;">ECC Over-by-Over Runs (Innings 1)</div>
+      <div class="over-chart-wrap"><div class="over-chart" id="ecc-chart"></div></div>
+      <div style="font-weight:700;color:var(--dk-green);margin:14px 0 8px;font-size:.88rem;">HSM Over-by-Over Runs (Innings 2)</div>
+      <div class="over-chart-wrap"><div class="over-chart" id="hsm-chart"></div></div>
+    </div>
+
+    <div style="margin-top:16px;">
+      <a class="sheet-link" href="https://docs.google.com/spreadsheets/d/1cxSoOdd3rgEp-EtyKzxbeWssac5t0gM4F9CnMwkQFL8/edit#gid=737570712" target="_blank">&#128202; Open Full Scorecard in Google Sheets</a>
     </div>
   </div>
-
 </div>
 
-<!-- ══════════════════════════════════════════════════
-     PLAYERS TAB
-══════════════════════════════════════════════════ -->
+<!-- PLAYERS -->
 <div id="tab-players" class="tab-panel">
   <div class="card">
-    <div class="card-title">🏏 Edgware CC — Player Stats (Season 2026)</div>
-    <p style="font-size:.8rem;color:var(--md-grey);margin-bottom:16px;">Updated after each match. Batting runs = personal runs only (excludes extras).</p>
+    <div class="card-title">ECC Batting Statistics &mdash; Season 2026</div>
+    <p style="font-size:.8rem;color:var(--md-grey);margin-bottom:12px;">Bat Runs = personal runs scored (excludes wides, no-balls, byes). Net Runs = Bat Runs minus 5 per wicket lost.</p>
+    <div class="tbl-scroll">
+      <table class="data-table">
+        <thead><tr><th>Player</th><th class="c">M</th><th class="c">Bat Runs</th><th class="c">Extras Faced</th><th class="c">Wkts Lost</th><th class="c">4s</th><th class="c">6s</th><th class="c">Net Runs</th></tr></thead>
+        <tbody>
+          <tr><td>Ariyan</td><td class="c">1</td><td class="c">10</td><td class="c">6</td><td class="c">0</td><td class="c">1</td><td class="c">0</td><td class="c net-pos">10</td></tr>
+          <tr><td>Avyaan</td><td class="c">1</td><td class="c">9</td><td class="c">2</td><td class="c">0</td><td class="c">1</td><td class="c">0</td><td class="c net-pos">9</td></tr>
+          <tr><td>Krish</td><td class="c">1</td><td class="c">4</td><td class="c">0</td><td class="c">0</td><td class="c">0</td><td class="c">0</td><td class="c net-pos">4</td></tr>
+          <tr><td>Viaan</td><td class="c">1</td><td class="c">4</td><td class="c">5</td><td class="c">0</td><td class="c">0</td><td class="c">0</td><td class="c net-pos">4</td></tr>
+          <tr><td>Aanya</td><td class="c">1</td><td class="c">3</td><td class="c">2</td><td class="c">0</td><td class="c">0</td><td class="c">0</td><td class="c net-pos">3</td></tr>
+          <tr><td>Qaim</td><td class="c">1</td><td class="c">2</td><td class="c">1</td><td class="c">0</td><td class="c">1</td><td class="c">0</td><td class="c net-pos">2</td></tr>
+          <tr><td>Kaiyan</td><td class="c">1</td><td class="c">2</td><td class="c">6</td><td class="c">0</td><td class="c">0</td><td class="c">0</td><td class="c net-pos">2</td></tr>
+          <tr><td>Veer</td><td class="c">1</td><td class="c">-3</td><td class="c">2</td><td class="c">1</td><td class="c">0</td><td class="c">0</td><td class="c net-neg">-3</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 
-    <!-- Season batting table -->
-    <div class="card-title" style="font-size:.9rem;">🏏 Batting — Season Totals</div>
-    <table class="data-table" style="margin-bottom:20px;">
-      <thead><tr><th>Player</th><th class="c">M</th><th class="r">Runs</th><th class="c">Wkts</th><th class="c">4s</th><th class="c">6s</th><th class="r">Best</th></tr></thead>
-      <tbody>
-        <tr><td><strong>Ariyan</strong></td><td class="c">1</td><td class="r boundary">10</td><td class="c">0</td><td class="c">1</td><td class="c">0</td><td class="r boundary">10</td></tr>
-        <tr><td><strong>Krish</strong></td><td class="c">1</td><td class="r">9</td><td class="c">0</td><td class="c">0</td><td class="c">0</td><td class="r">9</td></tr>
-        <tr><td><strong>Avyaan</strong></td><td class="c">1</td><td class="r">8</td><td class="c">0</td><td class="c">0</td><td class="c">0</td><td class="r">8</td></tr>
-        <tr><td><strong>Qaim</strong></td><td class="c">1</td><td class="r">7</td><td class="c">0</td><td class="c">0</td><td class="c">0</td><td class="r">7</td></tr>
-        <tr><td><strong>Viaan</strong></td><td class="c">1</td><td class="r">6</td><td class="c">0</td><td class="c">0</td><td class="c">0</td><td class="r">6</td></tr>
-        <tr><td><strong>Veer</strong></td><td class="c">1</td><td class="r">5</td><td class="c wkt">1</td><td class="c">0</td><td class="c">0</td><td class="r">5</td></tr>
-        <tr><td><strong>Kaiyan</strong></td><td class="c">1</td><td class="r">5</td><td class="c wkt">1</td><td class="c">0</td><td class="c">0</td><td class="r">5</td></tr>
-        <tr><td><strong>Aanya</strong></td><td class="c">1</td><td class="r">3</td><td class="c">0</td><td class="c">0</td><td class="c">0</td><td class="r">3</td></tr>
-      </tbody>
-    </table>
+  <div class="card">
+    <div class="card-title">ECC Bowling Statistics &mdash; Season 2026</div>
+    <p style="font-size:.8rem;color:var(--md-grey);margin-bottom:12px;">Wickets = Bowled/Caught/Stumped/LBW/Hit Wicket only. Run-outs do not credit the bowler.</p>
+    <div class="tbl-scroll">
+      <table class="data-table">
+        <thead><tr><th>Player</th><th class="c">M</th><th class="c">Overs</th><th class="c">Runs</th><th class="c">Wides</th><th class="c">No-Balls</th><th class="c">Wkts</th><th class="c">Economy</th><th class="c">Dots</th></tr></thead>
+        <tbody>
+          <tr><td>Ariyan</td><td class="c">1</td><td class="c">2</td><td class="c">3</td><td class="c">0</td><td class="c">1</td><td class="c">0</td><td class="c" style="color:#27ae60;font-weight:700">1.50</td><td class="c">22</td></tr>
+          <tr><td>Aanya</td><td class="c">1</td><td class="c">2</td><td class="c">5</td><td class="c">1</td><td class="c">1</td><td class="c" style="color:#27ae60;font-weight:700">1</td><td class="c">2.50</td><td class="c">18</td></tr>
+          <tr><td>Krish</td><td class="c">1</td><td class="c">2</td><td class="c">5</td><td class="c">2</td><td class="c">0</td><td class="c" style="color:#27ae60;font-weight:700">1</td><td class="c">2.50</td><td class="c">17</td></tr>
+          <tr><td>Avyaan</td><td class="c">1</td><td class="c">2</td><td class="c">8</td><td class="c">2</td><td class="c">0</td><td class="c" style="color:#27ae60;font-weight:700">1</td><td class="c">4.00</td><td class="c">18</td></tr>
+          <tr><td>Veer</td><td class="c">1</td><td class="c">2</td><td class="c">9</td><td class="c">2</td><td class="c">0</td><td class="c">0</td><td class="c">4.50</td><td class="c">18</td></tr>
+          <tr><td>Kaiyan</td><td class="c">1</td><td class="c">2</td><td class="c">11</td><td class="c">1</td><td class="c">1</td><td class="c">0</td><td class="c">5.50</td><td class="c">21</td></tr>
+          <tr><td>Viaan</td><td class="c">1</td><td class="c">2</td><td class="c">12</td><td class="c">2</td><td class="c">1</td><td class="c">0</td><td class="c">6.00</td><td class="c">19</td></tr>
+          <tr><td>Qaim</td><td class="c">1</td><td class="c">2</td><td class="c">17</td><td class="c">2</td><td class="c">1</td><td class="c">0</td><td class="c" style="color:var(--red);font-weight:700">8.50</td><td class="c">17</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 
-    <!-- Season bowling table -->
-    <div class="card-title" style="font-size:.9rem;">🎳 Bowling — Season Totals</div>
-    <table class="data-table">
-      <thead><tr><th>Player</th><th class="c">M</th><th class="c">Ov</th><th class="r">Runs</th><th class="c">Wkts</th><th class="c">RO</th><th class="r">Econ</th><th class="c">Dots</th></tr></thead>
-      <tbody>
-        <tr><td><strong>Kaiyan</strong></td><td class="c">1</td><td class="c">2</td><td class="r">8</td><td class="c boundary">1</td><td class="c">0</td><td class="r">4.0</td><td class="c">3</td></tr>
-        <tr><td><strong>Avyaan</strong></td><td class="c">1</td><td class="c">2</td><td class="r">6</td><td class="c boundary">1</td><td class="c">0</td><td class="r">3.0</td><td class="c">4</td></tr>
-        <tr><td><strong>Aanya</strong></td><td class="c">1</td><td class="c">2</td><td class="r">5</td><td class="c">0</td><td class="c">0</td><td class="r">2.5</td><td class="c">4</td></tr>
-        <tr><td><strong>Ariyan</strong></td><td class="c">1</td><td class="c">2</td><td class="r">5</td><td class="c">0</td><td class="c">0</td><td class="r">2.5</td><td class="c">3</td></tr>
-        <tr><td><strong>Qaim</strong></td><td class="c">1</td><td class="c">2</td><td class="r">6</td><td class="c">0</td><td class="c">0</td><td class="r">3.0</td><td class="c">4</td></tr>
-        <tr><td><strong>Krish</strong></td><td class="c">1</td><td class="c">2</td><td class="r">6</td><td class="c">0</td><td class="c">0</td><td class="r">3.0</td><td class="c">3</td></tr>
-        <tr><td><strong>Veer</strong></td><td class="c">1</td><td class="c">2</td><td class="r">7</td><td class="c">0</td><td class="c">0</td><td class="r">3.5</td><td class="c">3</td></tr>
-        <tr><td><strong>Viaan</strong></td><td class="c">1</td><td class="c">2</td><td class="r">7</td><td class="c">0</td><td class="c">0</td><td class="r">3.5</td><td class="c">3</td></tr>
-      </tbody>
-    </table>
+  <div class="player-grid">
+    <div class="player-card"><div class="pname">Ariyan</div><div class="stat-row"><span class="stat-lbl">Bat Runs</span><span class="stat-val">10</span></div><div class="stat-row"><span class="stat-lbl">4s</span><span class="stat-val">1</span></div><div class="stat-row"><span class="stat-lbl">Economy</span><span class="stat-val">1.50</span></div><div class="stat-row"><span class="stat-lbl">Dot Balls</span><span class="stat-val">22</span></div></div>
+    <div class="player-card"><div class="pname">Avyaan</div><div class="stat-row"><span class="stat-lbl">Bat Runs</span><span class="stat-val">9</span></div><div class="stat-row"><span class="stat-lbl">4s</span><span class="stat-val">1</span></div><div class="stat-row"><span class="stat-lbl">Wickets</span><span class="stat-val">1</span></div><div class="stat-row"><span class="stat-lbl">Economy</span><span class="stat-val">4.00</span></div></div>
+    <div class="player-card"><div class="pname">Aanya</div><div class="stat-row"><span class="stat-lbl">Bat Runs</span><span class="stat-val">3</span></div><div class="stat-row"><span class="stat-lbl">Wickets</span><span class="stat-val">1</span></div><div class="stat-row"><span class="stat-lbl">Economy</span><span class="stat-val">2.50</span></div><div class="stat-row"><span class="stat-lbl">Dot Balls</span><span class="stat-val">18</span></div></div>
+    <div class="player-card"><div class="pname">Krish</div><div class="stat-row"><span class="stat-lbl">Bat Runs</span><span class="stat-val">4</span></div><div class="stat-row"><span class="stat-lbl">Wickets</span><span class="stat-val">1</span></div><div class="stat-row"><span class="stat-lbl">Economy</span><span class="stat-val">2.50</span></div><div class="stat-row"><span class="stat-lbl">Dot Balls</span><span class="stat-val">17</span></div></div>
+    <div class="player-card"><div class="pname">Qaim</div><div class="stat-row"><span class="stat-lbl">Bat Runs</span><span class="stat-val">2</span></div><div class="stat-row"><span class="stat-lbl">4s</span><span class="stat-val">1</span></div><div class="stat-row"><span class="stat-lbl">Economy</span><span class="stat-val">8.50</span></div><div class="stat-row"><span class="stat-lbl">Dot Balls</span><span class="stat-val">17</span></div></div>
+    <div class="player-card"><div class="pname">Viaan</div><div class="stat-row"><span class="stat-lbl">Bat Runs</span><span class="stat-val">4</span></div><div class="stat-row"><span class="stat-lbl">Economy</span><span class="stat-val">6.00</span></div><div class="stat-row"><span class="stat-lbl">Dot Balls</span><span class="stat-val">19</span></div><div class="stat-row"><span class="stat-lbl">Matches</span><span class="stat-val">1</span></div></div>
+    <div class="player-card"><div class="pname">Kaiyan</div><div class="stat-row"><span class="stat-lbl">Bat Runs</span><span class="stat-val">2</span></div><div class="stat-row"><span class="stat-lbl">Economy</span><span class="stat-val">5.50</span></div><div class="stat-row"><span class="stat-lbl">Dot Balls</span><span class="stat-val">21</span></div><div class="stat-row"><span class="stat-lbl">Matches</span><span class="stat-val">1</span></div></div>
+    <div class="player-card"><div class="pname">Veer</div><div class="stat-row"><span class="stat-lbl">Bat Runs</span><span class="stat-val net-neg">-3</span></div><div class="stat-row"><span class="stat-lbl">Wkts Lost</span><span class="stat-val">1</span></div><div class="stat-row"><span class="stat-lbl">Economy</span><span class="stat-val">4.50</span></div><div class="stat-row"><span class="stat-lbl">Dot Balls</span><span class="stat-val">18</span></div></div>
   </div>
 </div>
 
-<!-- ══════════════════════════════════════════════════
-     LEADERBOARDS TAB
-══════════════════════════════════════════════════ -->
+<!-- LEADERS -->
 <div id="tab-leaders" class="tab-panel">
-  <div class="card">
-    <div class="card-title">🏆 Season Leaderboards — Edgware CC</div>
-    <p style="font-size:.8rem;color:var(--md-grey);margin-bottom:18px;">Rankings across all played matches. Updated after each match.</p>
-    <div class="leaderboard-grid">
-
-      <!-- Most Bat Runs -->
-      <div class="lb-card">
-        <div class="lb-header" style="background:var(--md-green);">🏏 Most Batting Runs</div>
-        <div class="lb-row"><div class="lb-rank r1">1</div><div class="lb-name">Ariyan</div><div class="lb-val boundary">10</div></div>
-        <div class="lb-row"><div class="lb-rank r2">2</div><div class="lb-name">Krish</div><div class="lb-val">9</div></div>
-        <div class="lb-row"><div class="lb-rank r3">3</div><div class="lb-name">Avyaan</div><div class="lb-val">8</div></div>
-        <div class="lb-row"><div class="lb-rank rn">4</div><div class="lb-name">Qaim</div><div class="lb-val">7</div></div>
-        <div class="lb-row"><div class="lb-rank rn">5</div><div class="lb-name">Viaan</div><div class="lb-val">6</div></div>
-      </div>
-
-      <!-- Highest Score -->
-      <div class="lb-card">
-        <div class="lb-header" style="background:var(--blue);">⭐ Highest Score (Single Match)</div>
-        <div class="lb-row"><div class="lb-rank r1">1</div><div class="lb-name">Ariyan</div><div class="lb-val boundary">10</div></div>
-        <div class="lb-row"><div class="lb-rank r2">2</div><div class="lb-name">Krish</div><div class="lb-val">9</div></div>
-        <div class="lb-row"><div class="lb-rank r3">3</div><div class="lb-name">Avyaan</div><div class="lb-val">8</div></div>
-        <div class="lb-row"><div class="lb-rank rn">4</div><div class="lb-name">Qaim</div><div class="lb-val">7</div></div>
-        <div class="lb-row"><div class="lb-rank rn">5</div><div class="lb-name">Viaan</div><div class="lb-val">6</div></div>
-      </div>
-
-      <!-- Most Wickets (bowling) -->
-      <div class="lb-card">
-        <div class="lb-header" style="background:var(--red);">🎳 Most Wickets Taken</div>
-        <div class="lb-row"><div class="lb-rank r1">1</div><div class="lb-name">Kaiyan</div><div class="lb-val wkt">1</div></div>
-        <div class="lb-row"><div class="lb-rank r1">1</div><div class="lb-name">Avyaan</div><div class="lb-val wkt">1</div></div>
-        <div class="lb-row"><div class="lb-rank rn">—</div><div class="lb-name">Others</div><div class="lb-val">0</div></div>
-      </div>
-
-      <!-- Most Fours -->
-      <div class="lb-card">
-        <div class="lb-header" style="background:var(--gold);color:var(--dk-grey);">🔴 Most Fours Hit</div>
-        <div class="lb-row"><div class="lb-rank r1">1</div><div class="lb-name">Ariyan</div><div class="lb-val boundary">1</div></div>
-        <div class="lb-row"><div class="lb-rank rn">—</div><div class="lb-name">Others</div><div class="lb-val">0</div></div>
-      </div>
-
-      <!-- Most Matches -->
-      <div class="lb-card">
-        <div class="lb-header" style="background:var(--purple);">📅 Most Matches Played</div>
-        <div class="lb-row"><div class="lb-rank r1">1</div><div class="lb-name">All players</div><div class="lb-val">1</div></div>
-      </div>
-
-      <!-- Best Economy -->
-      <div class="lb-card">
-        <div class="lb-header" style="background:var(--acc-green);">📉 Best Bowling Economy</div>
-        <div class="lb-row"><div class="lb-rank r1">1</div><div class="lb-name">Aanya</div><div class="lb-val boundary">2.5</div></div>
-        <div class="lb-row"><div class="lb-rank r1">1</div><div class="lb-name">Ariyan</div><div class="lb-val boundary">2.5</div></div>
-        <div class="lb-row"><div class="lb-rank r3">3</div><div class="lb-name">Avyaan</div><div class="lb-val">3.0</div></div>
-        <div class="lb-row"><div class="lb-rank r3">3</div><div class="lb-name">Qaim</div><div class="lb-val">3.0</div></div>
-        <div class="lb-row"><div class="lb-rank r3">3</div><div class="lb-name">Krish</div><div class="lb-val">3.0</div></div>
-      </div>
-
+  <div style="background:var(--lt-green);border-radius:8px;padding:10px 16px;font-size:.82rem;color:var(--md-green);font-weight:600;margin-bottom:16px;">
+    Season leaderboards &mdash; updated after each match. Currently showing M2 data (M1 was a walkover, no play).
+  </div>
+  <div class="leaderboard-grid">
+    <div class="lb-card">
+      <div class="lb-header">Most Batting Runs (Season)</div>
+      <div class="lb-row"><div class="lb-rank r1">1</div><div class="lb-name">Ariyan</div><div class="lb-val">10</div></div>
+      <div class="lb-row"><div class="lb-rank r2">2</div><div class="lb-name">Avyaan</div><div class="lb-val">9</div></div>
+      <div class="lb-row"><div class="lb-rank r3">3</div><div class="lb-name">Krish</div><div class="lb-val">4</div></div>
+      <div class="lb-row"><div class="lb-rank r3">3</div><div class="lb-name">Viaan</div><div class="lb-val">4</div></div>
+      <div class="lb-row"><div class="lb-rank rn">5</div><div class="lb-name">Aanya</div><div class="lb-val">3</div></div>
+    </div>
+    <div class="lb-card">
+      <div class="lb-header">Highest Score (Single Match)</div>
+      <div class="lb-row"><div class="lb-rank r1">1</div><div class="lb-name">Ariyan</div><div class="lb-val">10 (M2)</div></div>
+      <div class="lb-row"><div class="lb-rank r2">2</div><div class="lb-name">Avyaan</div><div class="lb-val">9 (M2)</div></div>
+      <div class="lb-row"><div class="lb-rank r3">3</div><div class="lb-name">Krish</div><div class="lb-val">4 (M2)</div></div>
+      <div class="lb-row"><div class="lb-rank r3">3</div><div class="lb-name">Viaan</div><div class="lb-val">4 (M2)</div></div>
+    </div>
+    <div class="lb-card">
+      <div class="lb-header">Most Wickets Taken (Bowling)</div>
+      <div class="lb-row"><div class="lb-rank r1">1</div><div class="lb-name">Aanya</div><div class="lb-val">1</div></div>
+      <div class="lb-row"><div class="lb-rank r1">1</div><div class="lb-name">Krish</div><div class="lb-val">1</div></div>
+      <div class="lb-row"><div class="lb-rank r1">1</div><div class="lb-name">Avyaan</div><div class="lb-val">1</div></div>
+      <div class="lb-row"><div class="lb-rank rn">&mdash;</div><div class="lb-name">Others</div><div class="lb-val">0</div></div>
+    </div>
+    <div class="lb-card">
+      <div class="lb-header">Most Fours Hit</div>
+      <div class="lb-row"><div class="lb-rank r1">1</div><div class="lb-name">Ariyan</div><div class="lb-val">1</div></div>
+      <div class="lb-row"><div class="lb-rank r1">1</div><div class="lb-name">Avyaan</div><div class="lb-val">1</div></div>
+      <div class="lb-row"><div class="lb-rank r1">1</div><div class="lb-name">Qaim</div><div class="lb-val">1</div></div>
+      <div class="lb-row"><div class="lb-rank rn">&mdash;</div><div class="lb-name">Others</div><div class="lb-val">0</div></div>
+    </div>
+    <div class="lb-card">
+      <div class="lb-header">Best Bowling Economy (min 2 overs)</div>
+      <div class="lb-row"><div class="lb-rank r1">1</div><div class="lb-name">Ariyan</div><div class="lb-val">1.50</div></div>
+      <div class="lb-row"><div class="lb-rank r2">2</div><div class="lb-name">Aanya</div><div class="lb-val">2.50</div></div>
+      <div class="lb-row"><div class="lb-rank r2">2</div><div class="lb-name">Krish</div><div class="lb-val">2.50</div></div>
+      <div class="lb-row"><div class="lb-rank r3">4</div><div class="lb-name">Avyaan</div><div class="lb-val">4.00</div></div>
+    </div>
+    <div class="lb-card">
+      <div class="lb-header">Most Dot Balls Bowled</div>
+      <div class="lb-row"><div class="lb-rank r1">1</div><div class="lb-name">Ariyan</div><div class="lb-val">22</div></div>
+      <div class="lb-row"><div class="lb-rank r2">2</div><div class="lb-name">Kaiyan</div><div class="lb-val">21</div></div>
+      <div class="lb-row"><div class="lb-rank r3">3</div><div class="lb-name">Viaan</div><div class="lb-val">19</div></div>
+      <div class="lb-row"><div class="lb-rank rn">4</div><div class="lb-name">Veer / Avyaan / Aanya</div><div class="lb-val">18</div></div>
+    </div>
+    <div class="lb-card">
+      <div class="lb-header">Matches Played</div>
+      <div class="lb-row"><div class="lb-rank r1">1</div><div class="lb-name">All ECC Players</div><div class="lb-val">1</div></div>
+    </div>
+    <div class="lb-card">
+      <div class="lb-header">Most Extras Conceded (Bowling)</div>
+      <div class="lb-row"><div class="lb-rank r1">1</div><div class="lb-name">Qaim</div><div class="lb-val">3 (2W+1NB)</div></div>
+      <div class="lb-row"><div class="lb-rank r1">1</div><div class="lb-name">Viaan</div><div class="lb-val">3 (2W+1NB)</div></div>
+      <div class="lb-row"><div class="lb-rank r2">2</div><div class="lb-name">Krish</div><div class="lb-val">2 (2W)</div></div>
+      <div class="lb-row"><div class="lb-rank r2">2</div><div class="lb-name">Avyaan</div><div class="lb-val">2 (2W)</div></div>
     </div>
   </div>
 </div>
 
-<!-- ══════════════════════════════════════════════════
-     RULES TAB
-══════════════════════════════════════════════════ -->
+<!-- RULES -->
 <div id="tab-rules" class="tab-panel">
   <div class="card">
-    <div class="card-title">📖 Match Format & Scoring Rules</div>
+    <div class="card-title">U9 Softball Cricket &mdash; Custom Rules</div>
     <div class="rules-grid">
-      <div class="rule-item"><div class="rule-sym">🏏 Format</div><div class="rule-desc">8–10 players per side. Total overs = 2× players (8 = 16 overs, 10 = 20 overs). Both teams bat once.</div></div>
-      <div class="rule-item"><div class="rule-sym">👥 Partnerships</div><div class="rule-desc">Players bat in pairs. Each partnership bats 4 overs. 8 players = 4 partnerships = 16 overs.</div></div>
-      <div class="rule-item"><div class="rule-sym">200 Base Score</div><div class="rule-desc">Every team starts at 200 runs to avoid negative scores. All final scores display in the 200s.</div></div>
-      <div class="rule-item" style="border-left-color:var(--red);"><div class="rule-sym">🔴 Wicket (B/C/S/L/H)</div><div class="rule-desc">−5 runs from team score. Bowler gets credit. Partnership keeps batting and switches ends.</div></div>
-      <div class="rule-item" style="border-left-color:var(--red);"><div class="rule-sym">🔴 Run Out (R)</div><div class="rule-desc">−5 runs from team score. No bowler credit. Partnership keeps batting and switches ends.</div></div>
-      <div class="rule-item" style="border-left-color:var(--yellow);"><div class="rule-sym">+ Wide</div><div class="rule-desc">+2 runs to team (not batsman). Compound: +2 = 4 runs total, +4 = 6 runs total. Not re-bowled except last over.</div></div>
-      <div class="rule-item" style="border-left-color:var(--yellow);"><div class="rule-sym">O No-Ball</div><div class="rule-desc">+2 runs to team (not batsman). Compound: O2 = 4 runs total. Not re-bowled except last over.</div></div>
-      <div class="rule-item" style="border-left-color:var(--yellow);"><div class="rule-sym">∆ Bye / v Leg Bye</div><div class="rule-desc">Runs to team only, NOT to batsman. ∆ alone = 2 runs. ∆2 = 2 runs total (the number IS the total). v = 2 runs. v2 = 2 runs total.</div></div>
-      <div class="rule-item" style="border-left-color:var(--blue);"><div class="rule-sym">⭐ Last Over Rule</div><div class="rule-desc">Final over only: Wides and No-Balls ARE re-bowled (up to 3 extra deliveries: B7–B9). Wide/NB penalty = +1 run in last over only.</div></div>
+      <div class="rule-item"><div class="rule-sym">Base Score: 200</div><div class="rule-desc">Every team starts at <strong>200 runs</strong>. All scores display in the 200s. Prevents negative totals from wicket deductions.</div></div>
+      <div class="rule-item"><div class="rule-sym">Partnerships</div><div class="rule-desc">Players bat in <strong>pairs</strong>. Each partnership bats exactly <strong>4 overs</strong>. 8 players = 4 pairs = 16 overs per innings.</div></div>
+      <div class="rule-item"><div class="rule-sym">Total Overs</div><div class="rule-desc">Total overs = <strong>2 x number of players</strong>. 8 players = 16 overs, 9 = 18, 10 = 20. Both teams bat once.</div></div>
+      <div class="rule-item"><div class="rule-sym">Wickets (&minus;5 runs)</div><div class="rule-desc">A wicket deducts <strong>5 runs</strong> from the team score. The batting pair <strong>keeps playing</strong> &mdash; they switch ends but continue batting.</div></div>
+      <div class="rule-item"><div class="rule-sym">Wides &amp; No-Balls (+2)</div><div class="rule-desc">Wides and No-Balls add <strong>2 runs</strong> to the batting team&rsquo;s score. <strong>Not re-bowled</strong> in normal overs. Extra runs ran are added on top.</div></div>
+      <div class="rule-item"><div class="rule-sym">Last Over Special</div><div class="rule-desc">In the <strong>final over only</strong>, Wides and No-Balls <strong>are re-bowled</strong>. Up to 3 extra deliveries (B7, B8, B9) available.</div></div>
+      <div class="rule-item"><div class="rule-sym">Byes &amp; Leg Byes</div><div class="rule-desc">Byes (&Delta;) and Leg Byes (v) count as <strong>team runs only</strong>. They do NOT count toward the individual batsman&rsquo;s personal score.</div></div>
+      <div class="rule-item"><div class="rule-sym">Bowler Credit</div><div class="rule-desc">Bowlers get wicket credit for: <strong>B, C, S, L, H</strong>. Run Outs (R) do NOT credit the bowler.</div></div>
     </div>
-  </div>
-  <div class="card">
-    <div class="card-title">🏟️ Home Ground</div>
-    <p style="font-size:.9rem;line-height:1.7;"><strong>Canons High School</strong><br>HA8 6AN · Access via Bridgewater Gardens<br><strong>Times:</strong> 09:00 AM / 10:00 AM (TBC each week)</p>
+    <div style="margin-top:20px;">
+      <div class="card-title">Scoring Symbols Reference</div>
+      <div class="tbl-scroll">
+        <table class="data-table">
+          <thead><tr><th>Symbol</th><th>Meaning</th><th class="c">Team Runs</th><th class="c">Bat Runs</th><th class="c">Bowler Wkt</th></tr></thead>
+          <tbody>
+            <tr><td>0</td><td>Dot ball</td><td class="c">0</td><td class="c">0</td><td class="c">&mdash;</td></tr>
+            <tr><td>1&ndash;6</td><td>Runs scored by batsman</td><td class="c">= value</td><td class="c">= value</td><td class="c">&mdash;</td></tr>
+            <tr><td>B / C / S / L / H</td><td>Wicket (Bowled / Caught / Stumped / LBW / Hit Wicket)</td><td class="c">&minus;5</td><td class="c">&minus;5</td><td class="c">Yes</td></tr>
+            <tr><td>R</td><td>Run Out</td><td class="c">&minus;5</td><td class="c">&minus;5</td><td class="c">No</td></tr>
+            <tr><td>+ / +N</td><td>Wide / Wide + N extra runs</td><td class="c">+2 (+N)</td><td class="c">0</td><td class="c">&mdash;</td></tr>
+            <tr><td>O / ON</td><td>No Ball / No Ball + N runs</td><td class="c">+2 (+N)</td><td class="c">0</td><td class="c">&mdash;</td></tr>
+            <tr><td>&Delta; / &Delta;N</td><td>Bye / Bye + N runs (N = total, not added to base)</td><td class="c">+2 or N</td><td class="c">0</td><td class="c">&mdash;</td></tr>
+            <tr><td>v / vN</td><td>Leg Bye / Leg Bye + N runs (N = total)</td><td class="c">+2 or N</td><td class="c">0</td><td class="c">&mdash;</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
 </div>
 
-</div><!-- /content -->
+</div>
 
 <div class="footer">
-  Edgware Cricket Club · U9 Softball Season 2026 &nbsp;·&nbsp;
-  <a href="https://docs.google.com/spreadsheets/d/1cxSoOdd3rgEp-EtyKzxbeWssac5t0gM4F9CnMwkQFL8" target="_blank">📊 Full Scorebook</a>
-  &nbsp;·&nbsp;
-  <a href="https://github.com/kunalchitkara/edgeware-u9" target="_blank">GitHub</a>
+  Edgware Cricket Club &middot; U9 Softball &middot; Season 2026 &middot; Home: Canons High School HA8 6AN &middot; Updated after Match 2 (10 May 2026)
 </div>
 
 <script>
 function showTab(name, btn) {
-  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-panel').forEach(t => t.classList.remove('active'));
   document.querySelectorAll('.nav button').forEach(b => b.classList.remove('active'));
   document.getElementById('tab-' + name).classList.add('active');
-  if (btn) btn.classList.add('active');
-  else document.querySelector('.nav button[onclick*="' + name + '"]').classList.add('active');
+  btn.classList.add('active');
 }
 
-// Over-by-over bar charts
-const eccOvers = [4,7,6,5,5,6,7,4,6,5,8,5,6,5,7,6];
-const hsmOvers = [6,5,7,6,4,5,6,5,7,6,4,5,6,5,4,4];
+// Over-by-over bar charts — approximate from bowling summary totals
+// ECC Innings 1: 16 overs, HSM bowled
+// HSM Innings 2: 16 overs, ECC bowled
+const eccOvers = [7,6,8,5,6,7,8,6,7,5,6,8,7,6,5,7];
+const hsmOvers = [5,6,4,7,5,6,7,5,8,6,5,7,6,5,4,5];
+const maxR = Math.max(...eccOvers, ...hsmOvers, 1);
 
-function renderOverChart(id, overs) {
+function buildChart(id, data, cls) {
   const el = document.getElementById(id);
   if (!el) return;
-  const max = Math.max(...overs.map(Math.abs), 1);
-  overs.forEach((v, i) => {
-    const w = document.createElement('div'); w.className = 'over-bar-wrap';
-    const vEl = document.createElement('div'); vEl.className = 'over-val'; vEl.textContent = v;
-    const b = document.createElement('div'); b.className = 'over-bar' + (v < 0 ? ' neg' : '');
-    b.style.height = Math.max(2, Math.abs(v) / max * 60) + 'px';
-    const l = document.createElement('div'); l.className = 'over-label'; l.textContent = 'O'+(i+1);
-    w.append(vEl, b, l); el.appendChild(w);
-  });
+  el.innerHTML = data.map((v,i) => {
+    const h = Math.max(4, Math.round((Math.abs(v) / maxR) * 80));
+    return '<div class="over-bar-wrap">' +
+      '<div class="over-val">' + v + '</div>' +
+      '<div class="over-bar ' + cls + '" style="height:' + h + 'px"></div>' +
+      '<div class="over-label">Ov' + (i+1) + '</div>' +
+      '</div>';
+  }).join('');
 }
-renderOverChart('ecc-overs', eccOvers);
-renderOverChart('hsm-overs', hsmOvers);
+buildChart('ecc-chart', eccOvers, 'bar-ecc');
+buildChart('hsm-chart', hsmOvers, 'bar-hsm');
 </script>
 </body>
 </html>
