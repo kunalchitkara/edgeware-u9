@@ -104,6 +104,19 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#eef2f7;color:var(--dgre
 .sit span:last-child{font-weight:700;font-size:.9rem;color:var(--dk);text-transform:uppercase;letter-spacing:.5px;}
 .eco-good{color:#27ae60;font-weight:700;}.eco-bad{color:var(--red);font-weight:700;}
 .ftr{background:#0B4169;color:rgba(255,255,255,.6);text-align:center;padding:20px 16px;font-size:.78rem;margin-top:32px;border-top:3px solid #54ACEE;}
+/* Practice tab */
+.pr-banner{background:linear-gradient(135deg,#5B2C8D 0%,#8E44AD 60%,#BB8FCE 100%);color:#fff;border-radius:10px;padding:16px 20px;margin-bottom:20px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;}
+.pr-banner .pr-icon{font-size:2.2rem;}
+.pr-banner .pr-info h3{font-size:1.05rem;font-weight:800;}
+.pr-banner .pr-info p{font-size:.82rem;opacity:.85;margin-top:3px;}
+.pr-badge{display:inline-block;background:#8E44AD;color:#fff;padding:2px 10px;border-radius:20px;font-size:.72rem;font-weight:700;letter-spacing:.5px;vertical-align:middle;margin-left:8px;}
+.pr-ctitle{font-size:1rem;font-weight:700;color:#5B2C8D;border-bottom:2px solid #E8DAEF;padding-bottom:8px;margin-bottom:16px;}
+.pr-lbh{padding:10px 14px;font-weight:700;font-size:.82rem;color:#fff;background:#5B2C8D;}
+.pr-scih{background:#8E44AD;color:#fff;padding:10px 16px;border-radius:8px 8px 0 0;font-weight:700;font-size:.9rem;display:flex;justify-content:space-between;align-items:center;}
+.pr-scih .sct{font-size:1.1rem;font-weight:900;}
+.pr-scsh{background:#F4ECF7;padding:8px 10px;font-weight:700;font-size:.8rem;color:#5B2C8D;border-top:2px solid #BB8FCE;}
+.pr-sctot td{background:#F4ECF7;font-weight:800;font-size:.88rem;}
+.pr-note{background:#F4ECF7;border-left:4px solid #8E44AD;border-radius:0 8px 8px 0;padding:10px 14px;font-size:.8rem;color:#5B2C8D;margin-bottom:16px;}
 @media(max-width:480px){.wrap{padding:12px 10px;}.card{padding:14px;}}
 </style>
 </head>
@@ -121,6 +134,7 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#eef2f7;color:var(--dgre
   <button onclick="showTab('pl',this)">&#128100; Players</button>
   <button onclick="showTab('lb',this)">&#127942; Leaders</button>
   <button onclick="showTab('ru',this)">&#128218; Rules</button>
+  <button onclick="showTab('pr',this)">&#127955; Practice</button>
 </div>
 <div class="wrap">
 
@@ -541,6 +555,142 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#eef2f7;color:var(--dgre
       <div class="ri"><div class="rs">&#128200; Scoring Symbols</div><div class="rd"><strong>B</strong>=Bowled &nbsp; <strong>C</strong>=Caught &nbsp; <strong>S</strong>=Stumped &nbsp; <strong>L</strong>=LBW &nbsp; <strong>H</strong>=Hit Wicket &nbsp; <strong>R</strong>=Run Out &nbsp; <strong>+</strong>=Wide &nbsp; <strong>O</strong>=No Ball &nbsp; <strong>&#916;</strong>=Bye &nbsp; <strong>v</strong>=Leg Bye &nbsp; <strong>0</strong>=Dot ball</div></div>
       <div class="ri"><div class="rs">&#128202; Compound Extras</div><div class="rd">+2 = wide + 2 runs ran (4 total) &nbsp;|&nbsp; O2 = no ball + 2 runs (4 total) &nbsp;|&nbsp; &#916;2 = 2 bye runs total &nbsp;|&nbsp; v2 = 2 leg bye runs total</div></div>
     </div>
+  </div>
+</div>
+
+
+<!-- PRACTICE -->
+<div id="tab-pr" class="tab">
+  <div class="pr-banner">
+    <div class="pr-icon">&#127955;</div>
+    <div class="pr-info">
+      <h3>P1 &mdash; Practice Round Robin &nbsp;<span style="background:rgba(255,255,255,.25);padding:2px 10px;border-radius:20px;font-size:.75rem;">NOT OFFICIAL</span></h3>
+      <p>24 May 2026 &nbsp;&middot;&nbsp; Canons High School &nbsp;&middot;&nbsp; 9 players &nbsp;&middot;&nbsp; 20 overs (5 pairs &times; 4 overs)</p>
+    </div>
+  </div>
+  <div class="pr-note">&#9888;&#65039; Practice stats are kept completely separate from official season records. They do not count towards Season Overview, Player Analytics, or Leaderboards.</div>
+
+  <!-- Batting -->
+  <div class="card">
+    <div class="pr-ctitle"><img src="icons/batsman_dark.png" style="width:16px;height:16px;vertical-align:middle;" alt="bat"> Batting Scorecard</div>
+    <div class="tscroll">
+    <div class="sci">
+      <div class="pr-scih"><span class="sct">ECC Batting</span><span>Total: 62 runs &nbsp;|&nbsp; 6 wkts &nbsp;|&nbsp; Net +32</span></div>
+      <table class="sctbl">
+        <thead><tr><th>Batsman</th><th class="c">Runs</th><th class="c">Balls</th><th class="c">Extras</th><th class="c">4s</th><th class="c">6s</th><th class="c">Wkts</th><th class="c">Net</th></tr></thead>
+        <tbody>
+          <tr><td class="scb">Veer</td><td class="c scr">4</td><td class="c">7</td><td class="c">0</td><td class="c">0</td><td class="c">0</td><td class="c">0</td><td class="c scnp">+4</td></tr>
+          <tr><td class="scb">Aanya</td><td class="c scr">5</td><td class="c">13</td><td class="c">0</td><td class="c">0</td><td class="c">0</td><td class="c">1</td><td class="c" style="color:#888;">0</td></tr>
+          <tr><td class="scb">Ishaan</td><td class="c scr">6</td><td class="c">10</td><td class="c">0</td><td class="c">0</td><td class="c">0</td><td class="c">0</td><td class="c scnp">+6</td></tr>
+          <tr><td class="scb">Taran</td><td class="c scr">9</td><td class="c">11</td><td class="c">0</td><td class="c">0</td><td class="c">0</td><td class="c">0</td><td class="c scnp">+9</td></tr>
+          <tr><td class="scb">Viaan</td><td class="c scr">9</td><td class="c">13</td><td class="c">0</td><td class="c">0</td><td class="c">1</td><td class="c">0</td><td class="c scnp">+9</td></tr>
+          <tr><td class="scb">Shyam</td><td class="c scr">2</td><td class="c">8</td><td class="c">0</td><td class="c">0</td><td class="c">0</td><td class="c">1</td><td class="c scnn">&minus;3</td></tr>
+          <tr><td class="scb">Ariyan</td><td class="c scr">8</td><td class="c">17</td><td class="c">1</td><td class="c">1</td><td class="c">0</td><td class="c">2</td><td class="c scnn">&minus;2</td></tr>
+          <tr><td class="scb">Drish</td><td class="c scr">1</td><td class="c">5</td><td class="c">0</td><td class="c">0</td><td class="c">0</td><td class="c">2</td><td class="c scnn">&minus;9</td></tr>
+          <tr><td class="scb">Avyaan</td><td class="c scr">7</td><td class="c">12</td><td class="c">0</td><td class="c">0</td><td class="c">0</td><td class="c">0</td><td class="c scnp">+7</td></tr>
+          <tr><td class="scb">Viaan <span style="font-size:.72rem;color:var(--mgrey);">(2nd innings)</span></td><td class="c scr">11</td><td class="c">11</td><td class="c">1</td><td class="c">1</td><td class="c">0</td><td class="c">0</td><td class="c scnp">+11</td></tr>
+          <tr class="pr-sctot"><td><strong>TOTAL</strong></td><td class="c"><strong>62</strong></td><td class="c"></td><td class="c"></td><td class="c"><strong>2</strong></td><td class="c"><strong>1</strong></td><td class="c"><strong>6</strong></td><td class="c scnp"><strong>+32</strong></td></tr>
+        </tbody>
+      </table>
+    </div>
+    </div>
+  </div>
+
+  <!-- Partnerships -->
+  <div class="card">
+    <div class="pr-ctitle">&#129309; Batting Partnerships</div>
+    <div class="tscroll">
+    <table class="sctbl">
+      <thead><tr><th>Pair</th><th class="c">Runs</th><th class="c">Balls</th><th class="c">4s</th><th class="c">6s</th><th class="c">Wkts</th><th class="c">Net</th></tr></thead>
+      <tbody>
+        <tr><td class="scb">Veer &amp; Aanya</td><td class="c scr">9</td><td class="c">20</td><td class="c">0</td><td class="c">0</td><td class="c">1</td><td class="c scnp">+4</td></tr>
+        <tr><td class="scb">Ishaan &amp; Taran</td><td class="c scr">15</td><td class="c">21</td><td class="c">0</td><td class="c">0</td><td class="c">0</td><td class="c scnp">+15</td></tr>
+        <tr><td class="scb">Viaan &amp; Shyam</td><td class="c scr">11</td><td class="c">21</td><td class="c">0</td><td class="c">1</td><td class="c">1</td><td class="c scnp">+6</td></tr>
+        <tr><td class="scb">Ariyan &amp; Drish</td><td class="c scr">9</td><td class="c">22</td><td class="c">1</td><td class="c">0</td><td class="c">4</td><td class="c scnn">&minus;11</td></tr>
+        <tr><td class="scb">Avyaan &amp; Viaan <span style="font-size:.72rem;color:var(--mgrey);">(2)</span></td><td class="c scr">18</td><td class="c">23</td><td class="c">1</td><td class="c">0</td><td class="c">0</td><td class="c scnp">+18</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+
+  <!-- Bowling -->
+  <div class="card">
+    <div class="pr-ctitle"><img src="icons/ball_light.png" style="width:16px;height:16px;vertical-align:middle;filter:invert(27%) sepia(60%) saturate(500%) hue-rotate(180deg);" alt="ball"> Bowling Summary</div>
+    <div class="tscroll">
+    <table class="sctbl">
+      <thead><tr><th>Bowler</th><th class="c">Ov</th><th class="c">Runs</th><th class="c">Wkts</th><th class="c">Wides</th><th class="c">NB</th><th class="c">Econ</th><th class="c">Dots</th></tr></thead>
+      <tbody>
+        <tr><td class="scb">Veer</td><td class="c">2</td><td class="c">1</td><td class="c"><strong>2</strong></td><td class="c">0</td><td class="c">0</td><td class="c eco-good">0.5</td><td class="c">8</td></tr>
+        <tr><td class="scb">Aanya</td><td class="c">3</td><td class="c">2</td><td class="c">0</td><td class="c">3</td><td class="c">0</td><td class="c eco-good">0.7</td><td class="c">5</td></tr>
+        <tr><td class="scb">Ariyan</td><td class="c">2</td><td class="c">6</td><td class="c">0</td><td class="c">1</td><td class="c">0</td><td class="c eco-good">3.0</td><td class="c">5</td></tr>
+        <tr><td class="scb">Viaan</td><td class="c">3</td><td class="c">7</td><td class="c">0</td><td class="c">1</td><td class="c">0</td><td class="c eco-good">2.3</td><td class="c">5</td></tr>
+        <tr><td class="scb">Taran</td><td class="c">2</td><td class="c">7</td><td class="c">0</td><td class="c">0</td><td class="c">1</td><td class="c eco-good">3.5</td><td class="c">9</td></tr>
+        <tr><td class="scb">Ishaan</td><td class="c">2</td><td class="c">7</td><td class="c">0</td><td class="c">0</td><td class="c">0</td><td class="c eco-good">3.5</td><td class="c">9</td></tr>
+        <tr><td class="scb">Drish</td><td class="c">2</td><td class="c">9</td><td class="c">0</td><td class="c">0</td><td class="c">0</td><td class="c eco-good">4.5</td><td class="c">6</td></tr>
+        <tr><td class="scb">Avyaan</td><td class="c">2</td><td class="c">13</td><td class="c"><strong>2</strong></td><td class="c">2</td><td class="c">0</td><td class="c eco-bad">6.5</td><td class="c">3</td></tr>
+        <tr><td class="scb">Shyam</td><td class="c">2</td><td class="c">14</td><td class="c">1</td><td class="c">1</td><td class="c">1</td><td class="c eco-bad">7.0</td><td class="c">5</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+
+  <!-- Fielding -->
+  <div class="card">
+    <div class="pr-ctitle"><img src="icons/fielder_dark.png" style="width:16px;height:16px;vertical-align:middle;" alt="field"> Fielding Highlights</div>
+    <table class="sctbl">
+      <thead><tr><th>Fielder</th><th>Type</th><th class="c">Over</th><th>Dismissed</th><th>Bowler</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr class="scfi"><td class="scb">Avyaan</td><td>Catch</td><td class="c">Ov 2</td><td>Aanya</td><td>Viaan</td><td class="scd">c Avyaan b Viaan</td></tr>
+        <tr class="scfi"><td class="scb">Avyaan</td><td>Run Out</td><td class="c">Ov 12</td><td>&mdash;</td><td>&mdash;</td><td class="scd">Run out effected by Avyaan</td></tr>
+        <tr class="scfi"><td class="scb">Viaan</td><td>Run Out</td><td class="c">Ov 14</td><td>&mdash;</td><td>&mdash;</td><td class="scd">Run out effected by Viaan</td></tr>
+      </tbody>
+    </table>
+    <div class="sdiv"></div>
+    <div style="font-size:.82rem;">
+      <strong>Fielding Summary:</strong>
+      <span style="margin-left:12px;">Avyaan &mdash; 1 catch, 1 run out (2 total)</span>
+      <span style="margin-left:12px;">Viaan &mdash; 1 run out</span>
+    </div>
+  </div>
+
+  <!-- Practice Leaderboards -->
+  <div class="card">
+    <div class="pr-ctitle">&#127942; P1 Practice Leaderboards <span class="pr-badge">PRACTICE ONLY</span></div>
+    <div class="lbg">
+      <div class="lbc"><div class="pr-lbh"><img src="icons/batsman_light.png" style="width:16px;height:16px;vertical-align:middle;" alt="bat"> Top Scorer</div>
+        <div class="lbr"><div class="lbrk r1">1</div><div class="lbn">Viaan (2)</div><div class="lbv">11</div></div>
+        <div class="lbr"><div class="lbrk r2">2</div><div class="lbn">Taran</div><div class="lbv">9</div></div>
+        <div class="lbr"><div class="lbrk r2">2</div><div class="lbn">Viaan</div><div class="lbv">9</div></div>
+        <div class="lbr"><div class="lbrk rn">4</div><div class="lbn">Ariyan</div><div class="lbv">8</div></div></div>
+      <div class="lbc"><div class="pr-lbh">&#127942; Best Net Runs</div>
+        <div class="lbr"><div class="lbrk r1">1</div><div class="lbn">Viaan (2)</div><div class="lbv">+11</div></div>
+        <div class="lbr"><div class="lbrk r2">2</div><div class="lbn">Taran</div><div class="lbv">+9</div></div>
+        <div class="lbr"><div class="lbrk r2">2</div><div class="lbn">Viaan</div><div class="lbv">+9</div></div>
+        <div class="lbr"><div class="lbrk rn">4</div><div class="lbn">Avyaan</div><div class="lbv">+7</div></div></div>
+      <div class="lbc"><div class="pr-lbh">&#127942; Best Partnership</div>
+        <div class="lbr"><div class="lbrk r1">1</div><div class="lbn">Avyaan &amp; Viaan (2)</div><div class="lbv">+18</div></div>
+        <div class="lbr"><div class="lbrk r2">2</div><div class="lbn">Ishaan &amp; Taran</div><div class="lbv">+15</div></div>
+        <div class="lbr"><div class="lbrk r3">3</div><div class="lbn">Viaan &amp; Shyam</div><div class="lbv">+6</div></div></div>
+      <div class="lbc"><div class="pr-lbh"><img src="icons/ball_light.png" style="width:16px;height:16px;vertical-align:middle;" alt="ball"> Best Economy</div>
+        <div class="lbr"><div class="lbrk r1">1</div><div class="lbn">Veer</div><div class="lbv">0.5</div></div>
+        <div class="lbr"><div class="lbrk r2">2</div><div class="lbn">Aanya</div><div class="lbv">0.7</div></div>
+        <div class="lbr"><div class="lbrk r3">3</div><div class="lbn">Viaan</div><div class="lbv">2.3</div></div></div>
+      <div class="lbc"><div class="pr-lbh"><img src="icons/ball_light.png" style="width:16px;height:16px;vertical-align:middle;" alt="ball"> Most Wickets</div>
+        <div class="lbr"><div class="lbrk r1">1</div><div class="lbn">Veer</div><div class="lbv">2</div></div>
+        <div class="lbr"><div class="lbrk r1">1</div><div class="lbn">Avyaan</div><div class="lbv">2</div></div>
+        <div class="lbr"><div class="lbrk r3">3</div><div class="lbn">Shyam</div><div class="lbv">1</div></div></div>
+      <div class="lbc"><div class="pr-lbh">&#128308; Most Dot Balls</div>
+        <div class="lbr"><div class="lbrk r1">1</div><div class="lbn">Taran</div><div class="lbv">9</div></div>
+        <div class="lbr"><div class="lbrk r1">1</div><div class="lbn">Ishaan</div><div class="lbv">9</div></div>
+        <div class="lbr"><div class="lbrk r3">3</div><div class="lbn">Veer</div><div class="lbv">8</div></div></div>
+      <div class="lbc"><div class="pr-lbh"><img src="icons/fielder_light.png" style="width:16px;height:16px;vertical-align:middle;" alt="field"> Best Fielder</div>
+        <div class="lbr"><div class="lbrk r1">1</div><div class="lbn">Avyaan</div><div class="lbv">2 (1c + 1ro)</div></div>
+        <div class="lbr"><div class="lbrk r2">2</div><div class="lbn">Viaan</div><div class="lbv">1 (1ro)</div></div></div>
+    </div>
+  </div>
+
+  <div style="text-align:center;margin-top:4px;margin-bottom:8px;">
+    <a class="sl" href="https://docs.google.com/spreadsheets/d/1cxSoOdd3rgEp-EtyKzxbeWssac5t0gM4F9CnMwkQFL8/edit#gid=2000088331" target="_blank">&#128202; Open Full P1 Scorecard in Google Sheets</a>
   </div>
 </div>
 
