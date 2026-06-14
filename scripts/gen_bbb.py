@@ -4,19 +4,55 @@
 from __future__ import annotations
 
 import html
+import json
 import re
 import urllib.request
 from dataclasses import dataclass, field
+from pathlib import Path
 
 SHEET_ID = "1cxSoOdd3rgEp-EtyKzxbeWssac5t0gM4F9CnMwkQFL8"
 BASE_SCORE = 200
 PAIR_OVERS = 4
+DATA_DIR = Path(__file__).resolve().parents[1] / "data"
+
+
+def pair_batter_summaries(
+    batting_order: list[str],
+    pair_idx: int,
+    striker: str,
+    non_striker: str,
+    stats: dict[str, BatterStats],
+) -> list[tuple[str, int, int, bool]]:
+    """U9 pair headers: always show the designated pair, not a substitute from the next block."""
+    b1 = batting_order[pair_idx * 2]
+    b2 = batting_order[pair_idx * 2 + 1]
+    if striker in (b1, b2):
+        on, off = striker, (b2 if striker == b1 else b1)
+    elif non_striker in (b1, b2):
+        on, off = non_striker, (b2 if non_striker == b1 else b1)
+    else:
+        on, off = b1, b2
+    return [
+        (on, stats[on].runs, stats[on].balls, True),
+        (off, stats[off].runs, stats[off].balls, False),
+    ]
 
 MATCHES = {
-    "m2": {"gid": "737570712", "label": "M2"},
-    "m4": {"gid": "1996740206", "label": "M4"},
-    "m5": {"gid": "669851544", "label": "M5"},
+    "m2": {"gid": "737570712", "label": "M2", "overs": 20},
+    "m4": {"gid": "1996740206", "label": "M4", "overs": 20},
+    "m5": {"gid": "669851544", "label": "M5", "overs": 20},
+    "m6": {
+        "gid": "489440707",
+        "label": "M6",
+        "overs": 16,
+        "teams": ("Pinner", "Edgware CC"),
+        "local": "data/m6.json",
+    },
 }
+
+ROOT = Path(__file__).resolve().parents[1]
+
+COMMENTARY_LABEL = "Commentary"
 
 WKT_SYMBOLS = {"B", "C", "S", "L", "H"}
 
@@ -78,6 +114,147 @@ class Innings:
     cumulative_row: int
 
 
+def innings_json_to_render_data(inn: dict) -> tuple[list[list[str]], list[tuple[int, str, list[int]]], Innings]:
+    """Build sheet-like rows and per-innings overs (with correct bowlers) from JSON."""
+    batsmen = list(inn["batsmen"])
+    rows: list[list[str]] = []
+    bat_row_idx: dict[str, int] = {}
+
+    for name in batsmen:
+        bat_row_idx[name] = len(rows)
+        rows.append([name] + [""] * 7)
+
+    over_runs_idx = len(rows)
+    rows.append(["Over Runs"] + [""] * 7)
+    cum_idx = len(rows)
+    rows.append(["Cumulative"] + [""] * 7)
+
+    overs_list: list[tuple[int, str, list[int]]] = []
+    col = 8
+    max_over = max(o["num"] for o in inn["overs"])
+
+    for over in sorted(inn["overs"], key=lambda o: o["num"]):
+        ball_cols: list[int] = []
+        for d in over["deliveries"]:
+            batter = d["batter"]
+            if batter not in bat_row_idx:
+                bat_row_idx[batter] = len(rows)
+                batsmen.append(batter)
+                rows.append([batter] + [""] * 7)
+            idx = bat_row_idx[batter]
+            while len(rows[idx]) <= col:
+                rows[idx].append("")
+            rows[idx][col] = d["symbol"]
+            ball_cols.append(col)
+            col += 1
+        if ball_cols:
+            first_col = ball_cols[0]
+            while len(rows[over_runs_idx]) <= first_col:
+                rows[over_runs_idx].append("")
+                rows[cum_idx].append("")
+            rows[over_runs_idx][first_col] = str(over.get("over_runs", ""))
+            rows[cum_idx][first_col] = str(over["total"])
+        overs_list.append((over["num"], over["bowler"], ball_cols))
+
+    inn_obj = Innings(
+        title=f"Innings {inn['num']} — {inn['batting']}",
+        team_name=inn["batting"],
+        innings_num=inn["num"],
+        batsmen=[(bat_row_idx[n], n) for n in batsmen if n in bat_row_idx],
+        over_runs_row=over_runs_idx,
+        cumulative_row=cum_idx,
+    )
+    return rows, overs_list, inn_obj
+
+
+def render_local_match(path: str, match_id: str) -> str:
+    data = json.loads((ROOT / path).read_text(encoding="utf-8"))
+    parts = ['<div class="bbb-wrap">']
+    for inn in sorted(data["innings"], key=lambda x: x["num"]):
+        rows, overs, inn_obj = innings_json_to_render_data(inn)
+        parts.append(render_innings(inn_obj, rows, overs, match_id))
+    parts.append("</div>")
+    return "".join(parts)
+
+
+def load_local_match(path: str) -> list[list[str]]:
+    data = json.loads((ROOT / path).read_text(encoding="utf-8"))
+    return json_to_sheet_rows(data)
+
+
+def json_to_sheet_rows(data: dict) -> list[list[str]]:
+    """Convert data/m6.json style match file into Google Sheet-like CSV rows."""
+    max_over = max(
+        max(o["num"] for o in inn["overs"]) for inn in data["innings"]
+    )
+    inn1_overs = {o["num"]: o["bowler"] for o in data["innings"][0]["overs"]}
+    header = [""] * 8
+    for onum in range(1, max_over + 1):
+        bowler = inn1_overs.get(onum, "TBD")
+        star = " ★" if onum == max_over else ""
+        header.append(f"Over {onum}{star} {bowler} B1")
+        for b in range(2, 7):
+            header.append(f"B{b}")
+        if onum == max_over:
+            for b in range(7, 10):
+                header.append(f"B{b}")
+    rows: list[list[str]] = [header]
+
+    for inn in data["innings"]:
+        inn_num = inn["num"]
+        title = (
+            f"INNINGS {inn_num} — {inn['batting']} BATTING "
+            f"| {inn['bowling']} BOWLING | Base: 200"
+        )
+        rows.append([title] + [""] * (len(header) - 1))
+
+        batsmen = inn["batsmen"]
+        bat_rows: dict[str, list[str]] = {name: [name] + [""] * 7 for name in batsmen}
+        over_runs = ["Over Runs"] + [""] * 7
+        cumulative = ["Cumulative"] + [""] * 7
+
+        col = 8
+        for over in inn["overs"]:
+            onum = over["num"]
+            deliveries = over["deliveries"]
+            legal = 0
+            for i, d in enumerate(deliveries):
+                batter = d["batter"]
+                symbol = d["symbol"]
+                if batter not in bat_rows:
+                    bat_rows[batter] = [batter] + [""] * 7
+                while len(bat_rows[batter]) <= col:
+                    bat_rows[batter].append("")
+                bat_rows[batter][col] = symbol
+                if symbol not in {"+", "WD", "O", "ON", "NB"} and not symbol.startswith("+"):
+                    if symbol not in WKT_SYMBOLS and symbol != "R":
+                        legal += 1
+                col += 1
+            while len(over_runs) <= col:
+                over_runs.append("")
+                cumulative.append("")
+            first_col = col - len(deliveries)
+            over_runs[first_col] = str(over.get("over_runs", ""))
+            cumulative[first_col] = str(over["total"])
+            # Pad to next over boundary (6 legal slots) when fewer extras columns used
+            if onum < max_over:
+                while (col - first_col) < 6:
+                    col += 1
+
+        for name in batsmen:
+            row = bat_rows[name]
+            while len(row) < len(header):
+                row.append("")
+            rows.append(row)
+        while len(over_runs) < len(header):
+            over_runs.append("")
+            cumulative.append("")
+        rows.append(over_runs)
+        rows.append(cumulative)
+
+    return rows
+
+
 def load_sheet(gid: str) -> list[list[str]]:
     url = (
         f"https://docs.google.com/spreadsheets/d/{SHEET_ID}/gviz/tq"
@@ -100,7 +277,7 @@ def parse_overs(header_row: list[str]) -> list[tuple[int, str, list[int]]]:
     while col < len(header_row):
         h = header_row[col]
         if h and h.startswith("Over"):
-            m = re.match(r"Over\s+(\d+)(?:\s*★)?\s+(.+?)\s+B1", h)
+            m = re.match(r"Over\s+(\d+)(?:\s*★)?\s*(.*?)\s*B1", h)
             if m:
                 max_over = max(max_over, int(m.group(1)))
         col += 1
@@ -109,10 +286,10 @@ def parse_overs(header_row: list[str]) -> list[tuple[int, str, list[int]]]:
     while col < len(header_row):
         h = header_row[col]
         if h and h.startswith("Over"):
-            m = re.match(r"Over\s+(\d+)(?:\s*★)?\s+(.+?)\s+B1", h)
+            m = re.match(r"Over\s+(\d+)(?:\s*★)?\s*(.*?)\s*B1", h)
             if m:
                 onum = int(m.group(1))
-                bowler = m.group(2).strip()
+                bowler = (m.group(2) or "").strip() or "TBD"
                 balls = list(range(col, col + 6))
                 if onum == max_over:
                     extra = col + 6
@@ -152,7 +329,7 @@ def parse_innings(rows: list[list[str]]) -> list[Innings]:
                     cumulative_row=batsmen[1] + 1,
                 )
             )
-        elif not seen_second and i == 0 and "INNINGS 1" in label:
+        elif not seen_second and "INNINGS 1" in label and "BATTING" in label:
             batsmen = collect_batsmen(rows, 1)
             innings_list.append(
                 Innings(
@@ -309,6 +486,18 @@ def expand_symbol(symbol: str, batter: str, bowler: str) -> list[BallEvent]:
             ),
         ]
 
+    if symbol == "0+4":
+        return [
+            BallEvent("+", "Wide (+2)", "bbb-badge-wide", 2, False, False),
+            BallEvent("4", "FOUR", "bbb-badge-4", 4, False, True, 4, True),
+        ]
+
+    if symbol == "O+1":
+        return [
+            BallEvent("o", "No ball (+2)", "bbb-badge-nb", 2, False, False),
+            BallEvent("1", "1 run", "bbb-badge-runs", 1, False, True, 1),
+        ]
+
     return [BallEvent(symbol[:3], symbol, "bbb-badge-other", 0, False, True)]
 
 
@@ -337,7 +526,7 @@ def simulate_innings(
     inn: Innings,
     rows: list[list[str]],
     overs: list[tuple[int, str, list[int]]],
-) -> list[OverBlock]:
+) -> tuple[list[OverBlock], dict[str, BatterStats]]:
     batting_order = [name for _, name in inn.batsmen]
     stats: dict[str, BatterStats] = {name: BatterStats() for name in batting_order}
 
@@ -444,7 +633,8 @@ def simulate_innings(
                 )
 
                 if event.is_wicket:
-                    if next_idx < len(batting_order):
+                    pair_limit = (pair_idx + 1) * 2
+                    if next_idx < len(batting_order) and next_idx < pair_limit:
                         if facing == striker:
                             striker = batting_order[next_idx]
                         else:
@@ -470,13 +660,12 @@ def simulate_innings(
         block.wickets = sum(1 for d in block.deliveries if d.is_wicket)
         block.partnership_runs = total_score - partnership_start
         block.partnership_wickets = partnership_wickets
-        block.batter_summaries = [
-            (striker, stats[striker].runs, stats[striker].balls, True),
-            (non_striker, stats[non_striker].runs, stats[non_striker].balls, False),
-        ]
+        block.batter_summaries = pair_batter_summaries(
+            batting_order, pair_idx, striker, non_striker, stats
+        )
         blocks.append(block)
 
-    return blocks
+    return blocks, stats
 
 
 def format_over_runs_summary(over_runs: str, wickets: int) -> str:
@@ -502,7 +691,7 @@ def render_delivery_row(d: Delivery) -> str:
         f'<span class="bbb-badge {d.badge_class}{boundary}">{html.escape(d.symbol)}</span>'
         f'<span class="bbb-desc">'
         f"{html.escape(d.description)}"
-        f'<span class="bbb-meta">{html.escape(d.batter)}* · {html.escape(d.bowler)}</span>'
+        f'<span class="bbb-meta">{html.escape(d.batter)}*</span>'
         f"</span>"
         f'<span class="bbb-score">{d.total_score}-{d.wickets}</span>'
         f"</li>"
@@ -511,7 +700,7 @@ def render_delivery_row(d: Delivery) -> str:
 
 def render_over(block: OverBlock, uid: str) -> str:
     star = " ★" if block.is_last else ""
-    over_label = ord_over(block.over_num) + star
+    over_label = f"{ord_over(block.over_num)} — {html.escape(block.bowler)}{star}"
 
     batters_bits = []
     for name, runs, balls, is_striker in block.batter_summaries:
@@ -553,20 +742,256 @@ def render_over(block: OverBlock, uid: str) -> str:
     )
 
 
+def events_from_item(item: dict, facing: str, bowler: str) -> list[BallEvent]:
+    """Build BallEvents from JSON delivery, honouring explicit runs/description/fielder."""
+    symbol = (item.get("symbol") or "").strip()
+    desc_override = (item.get("description") or "").strip()
+    fielder = (item.get("fielder") or "").strip()
+    runs_override = item.get("runs")
+    bat_override = item.get("bat_runs")
+    wicket_override = item.get("wicket")
+
+    if symbol == "0+4":
+        events = expand_symbol("0+4", facing, bowler)
+    elif symbol == "O+1":
+        events = expand_symbol("O+1", facing, bowler)
+    else:
+        events = expand_symbol(symbol, facing, bowler)
+
+    if wicket_override:
+        for ev in events:
+            ev.is_wicket = True
+            ev.runs_delta = -5
+            ev.bat_runs = 0
+    if runs_override is not None:
+        events = [BallEvent(
+            symbol=events[0].symbol if events else symbol[:3],
+            description=desc_override or events[0].description if events else symbol,
+            badge_class=events[0].badge_class if events else "bbb-badge-other",
+            runs_delta=int(runs_override),
+            is_wicket=bool(wicket_override or (events and events[0].is_wicket)),
+            is_legal=events[0].is_legal if events else True,
+            bat_runs=int(bat_override) if bat_override is not None else (events[0].bat_runs if events else 0),
+            is_boundary=bool(bat_override == 4 or bat_override == 6 or symbol in {"4", "6"}),
+        )]
+    elif bat_override is not None:
+        for ev in events:
+            if ev.is_legal and not ev.is_wicket:
+                ev.bat_runs = int(bat_override)
+                if bat_override == 4:
+                    ev.is_boundary = True
+                    ev.runs_delta = 4 if ev.runs_delta < 4 else ev.runs_delta
+                elif bat_override == 6:
+                    ev.is_boundary = True
+                    ev.runs_delta = 6 if ev.runs_delta < 6 else ev.runs_delta
+
+    if desc_override:
+        if symbol == "O+1" and len(events) > 1:
+            events[0].description = desc_override
+        elif len(events) == 1:
+            events[0].description = desc_override
+        elif events:
+            events[-1].description = desc_override
+
+    if fielder and symbol == "R":
+        for ev in events:
+            if ev.is_wicket:
+                ev.description = desc_override or f"{facing} run out ({fielder})"
+    elif fielder and symbol == "C":
+        for ev in events:
+            if ev.is_wicket:
+                ev.description = desc_override or f"{facing} c {fielder} b {bowler}"
+
+    if symbol == "5" and not desc_override:
+        for ev in events:
+            ev.description = "5 runs"
+
+    return events
+
+
+def simulate_innings_json(inn_data: dict) -> tuple[list[OverBlock], dict[str, BatterStats]]:
+    """Simulate one innings from data/m6.json style local match file."""
+    batting_order = inn_data["batsmen"]
+    stats: dict[str, BatterStats] = {name: BatterStats() for name in batting_order}
+
+    total_score = BASE_SCORE
+    wickets = 0
+    striker = batting_order[0] if batting_order else ""
+    non_striker = batting_order[1] if len(batting_order) > 1 else striker
+    next_idx = 2
+
+    partnership_idx = 0
+    partnership_start = BASE_SCORE
+    partnership_wickets = 0
+
+    blocks: list[OverBlock] = []
+    overs_list = inn_data["overs"]
+    max_over = overs_list[-1]["num"] if overs_list else 0
+
+    for over in overs_list:
+        onum = over["num"]
+        bowler = over["bowler"]
+        pair_idx = (onum - 1) // PAIR_OVERS
+        if pair_idx != partnership_idx:
+            partnership_idx = pair_idx
+            partnership_start = total_score
+            partnership_wickets = 0
+            i = pair_idx * 2
+            if i < len(batting_order):
+                striker = batting_order[i]
+            if i + 1 < len(batting_order):
+                non_striker = batting_order[i + 1]
+            next_idx = max(next_idx, i + 2)
+
+        block = OverBlock(
+            over_num=onum,
+            bowler=bowler,
+            is_last=onum == max_over,
+            over_runs=str(over.get("over_runs", "")),
+            cumulative=str(over.get("total", "")),
+            partnership_label=f"P{partnership_idx + 1}",
+        )
+
+        deliveries = over["deliveries"]
+        total_deliveries = len(deliveries)
+        delivery_index = 0
+        legal_in_over = 0
+
+        for item in deliveries:
+            facing = item.get("batter") or striker
+            symbol = (item.get("symbol") or "").strip()
+            if not symbol:
+                delivery_index += 1
+                notation = item.get("notation") or ball_label(onum, delivery_index, total_deliveries)
+                st = stats.setdefault(facing, BatterStats())
+                st.balls += 1
+                block.deliveries.append(
+                    Delivery(
+                        notation=notation,
+                        symbol=".",
+                        description=item.get("description") or "no run",
+                        batter=facing,
+                        bowler=bowler,
+                        total_score=total_score,
+                        wickets=wickets,
+                        is_wicket=False,
+                        is_boundary=False,
+                        badge_class="bbb-badge-dot",
+                    )
+                )
+                legal_in_over += 1
+                continue
+
+            events = events_from_item(item, facing, bowler)
+            delivery_index += 1
+            notation = item.get("notation") or ball_label(onum, delivery_index, total_deliveries)
+
+            for event in events:
+                total_score += event.runs_delta
+                if event.is_wicket:
+                    wickets += 1
+                    partnership_wickets += 1
+
+                st = stats.setdefault(facing, BatterStats())
+                if event.is_legal and not event.is_wicket:
+                    st.balls += 1
+                if event.bat_runs > 0:
+                    st.runs += event.bat_runs
+
+                block.deliveries.append(
+                    Delivery(
+                        notation=notation,
+                        symbol=event.symbol,
+                        description=event.description,
+                        batter=facing,
+                        bowler=bowler,
+                        total_score=total_score,
+                        wickets=wickets,
+                        is_wicket=event.is_wicket,
+                        is_boundary=event.is_boundary,
+                        badge_class=event.badge_class,
+                    )
+                )
+
+                if event.is_wicket:
+                    pair_limit = (pair_idx + 1) * 2
+                    if next_idx < len(batting_order) and next_idx < pair_limit:
+                        if facing == striker:
+                            striker = batting_order[next_idx]
+                        else:
+                            non_striker = batting_order[next_idx]
+                        next_idx += 1
+                elif event.bat_runs % 2 == 1:
+                    striker, non_striker = non_striker, striker
+                elif facing == non_striker and event.bat_runs > 0:
+                    striker, non_striker = non_striker, striker
+
+                if event.is_legal:
+                    legal_in_over += 1
+
+        if legal_in_over >= 1:
+            striker, non_striker = non_striker, striker
+
+        cumulative = over.get("total", "")
+        if block.deliveries and cumulative and re.fullmatch(r"-?\d+", str(cumulative)):
+            target = int(cumulative)
+            if block.deliveries[-1].total_score != target:
+                block.deliveries[-1].total_score = target
+            total_score = target
+
+        block.wickets = sum(1 for d in block.deliveries if d.is_wicket)
+        block.partnership_runs = total_score - partnership_start
+        block.partnership_wickets = partnership_wickets
+        block.batter_summaries = pair_batter_summaries(
+            batting_order, pair_idx, striker, non_striker, stats
+        )
+        blocks.append(block)
+
+    return blocks, stats
+
+
+def render_innings_json(inn_data: dict, match_id: str) -> str:
+    blocks, _stats = simulate_innings_json(inn_data)
+    inn_label = (
+        f"{html.escape(inn_data['batting'])} — Innings {inn_data['num']}"
+    )
+    parts = [
+        '<section class="bbb-panel">',
+        '<div class="bbb-inn-bar">',
+        f"<span>{inn_label}</span>",
+        f"<span>{COMMENTARY_LABEL}</span>",
+        "</div>",
+        '<div class="bbb-list">',
+    ]
+    for block in blocks:
+        uid = f"bbb-{match_id}-i{inn_data['num']}-o{block.over_num}"
+        parts.append(render_over(block, uid))
+    parts.extend(["</div></section>"])
+    return "".join(parts)
+
+
+def render_from_json(match_id: str, data: dict) -> str:
+    parts = ['<div class="bbb-wrap">']
+    for inn in data["innings"]:
+        parts.append(render_innings_json(inn, match_id))
+    parts.append("</div>")
+    return "".join(parts)
+
+
 def render_innings(
     inn: Innings,
     rows: list[list[str]],
     overs: list[tuple[int, str, list[int]]],
     match_id: str,
 ) -> str:
-    blocks = simulate_innings(inn, rows, overs)
+    blocks, _stats = simulate_innings(inn, rows, overs)
     inn_label = f"{html.escape(inn.team_name)} — Innings {inn.innings_num}"
 
     parts = [
         '<section class="bbb-panel">',
         '<div class="bbb-inn-bar">',
         f"<span>{inn_label}</span>",
-        "<span>Ball-by-ball</span>",
+        f"<span>{COMMENTARY_LABEL}</span>",
         "</div>",
         '<div class="bbb-list">',
     ]
@@ -577,9 +1002,68 @@ def render_innings(
     return "".join(parts)
 
 
+def sheet_has_ball_data(rows: list[list[str]]) -> bool:
+    """True when at least one delivery cell has a scoring symbol."""
+    symbols = WKT_SYMBOLS | {".", "0", "+", "WD", "O", "ON", "NB", "R"}
+    for row in rows:
+        for val in row[8:]:
+            v = (val or "").strip()
+            if not v:
+                continue
+            if v in symbols or v.isdigit() or re.fullmatch(r"[+O]\d+", v) or v.startswith(("∆", "v")):
+                return True
+    return False
+
+
+def sheet_result_pending(rows: list[list[str]]) -> bool:
+    for row in rows:
+        label = cell(row, 0)
+        if label.startswith("RESULT:") and "TBD" in label.upper():
+            return True
+    return not sheet_has_ball_data(rows)
+
+
+def render_pending(match_id: str, cfg: dict) -> str:
+    teams = cfg.get("teams", ("Opposition", "Edgware CC"))
+    overs = cfg.get("overs", 16)
+    return (
+        '<div class="bbb-wrap">'
+        '<section class="bbb-panel">'
+        '<div class="bbb-inn-bar">'
+        f"<span>{html.escape(teams[0])} — Innings 1</span>"
+        f"<span>{COMMENTARY_LABEL}</span>"
+        "</div>"
+        '<div class="bbb-list">'
+        '<li class="bbb-ball-row empty" style="display:block;padding:20px 14px;">'
+        "<span class=\"bbb-desc\" style=\"text-align:center;\">"
+        f"<strong>Scores pending</strong> — {html.escape(cfg['label'])} ball-by-ball will appear here "
+        "once the Google Sheet is scored."
+        "</span></li>"
+        "</div></section>"
+        '<section class="bbb-panel">'
+        '<div class="bbb-inn-bar">'
+        f"<span>{html.escape(teams[1])} — Innings 2</span>"
+        f"<span>{COMMENTARY_LABEL}</span>"
+        "</div>"
+        '<div class="bbb-list">'
+        '<li class="bbb-ball-row empty" style="display:block;padding:20px 14px;">'
+        "<span class=\"bbb-desc\" style=\"text-align:center;\">"
+        f"<strong>Scores pending</strong> — {overs} overs per innings · base score 200."
+        "</span></li>"
+        "</div></section>"
+        "</div>"
+    )
+
+
 def render_match(match_id: str) -> str:
     cfg = MATCHES[match_id]
+    local = cfg.get("local")
+    if local and (ROOT / local).exists():
+        data = json.loads((ROOT / local).read_text(encoding="utf-8"))
+        return render_from_json(match_id, data)
     rows = load_sheet(cfg["gid"])
+    if sheet_result_pending(rows):
+        return render_pending(match_id, cfg)
     overs = parse_overs(rows[0])
     innings = parse_innings(rows)
 

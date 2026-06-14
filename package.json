@@ -1,0 +1,12 @@
+{
+  "name": "edgeware-u9",
+  "private": true,
+  "scripts": {
+    "postinstall": "PLAYWRIGHT_BROWSERS_PATH=./.playwright-browsers playwright install chromium",
+    "test:e2e": "PLAYWRIGHT_BROWSERS_PATH=./.playwright-browsers playwright test",
+    "test:e2e:ui": "PLAYWRIGHT_BROWSERS_PATH=./.playwright-browsers playwright test --ui"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.51.1"
+  }
+}

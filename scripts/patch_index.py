@@ -10,12 +10,12 @@ ROOT = Path(__file__).resolve().parents[1]
 INDEX = ROOT / "index.html"
 BBB_DIR = ROOT / "bbb"
 
-MATCHES_WITH_BBB = ["m2", "m4", "m5"]
+MATCHES_WITH_BBB = ["m2", "m4", "m5", "m6"]
 WALKOVER_MATCHES = ["m1", "m3"]
 DEFAULT_MATCH = "m1"
 
 CSS = """
-/* Match sub-tabs: Summary | Ball by Ball (underline bar, distinct from .mts pills) */
+/* Match sub-tabs: Summary | Commentary (underline bar, distinct from .mts pills) */
 .mmt{display:flex;width:100%;border-bottom:2px solid #e4e8ef;margin-bottom:16px;}
 .mmtb{flex:1;padding:12px 0;border:none;background:transparent;color:var(--mgrey);font-weight:600;font-size:.9rem;cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;transition:color .2s,border-color .2s,background .2s;}
 .mmtb:hover{color:var(--dk);background:rgba(61,133,198,.06);}
@@ -61,7 +61,7 @@ CSS = """
 
 APP_JS = """const TAB_IDS=['ov','fx','mx','pl','lb','ru','pr'];
 const TAB_ALIASES={fixtures:'fx',matches:'mx',overview:'ov',players:'pl',leaders:'lb',rules:'ru',practice:'pr'};
-const MATCHES_WITH_BBB=['m2','m4','m5'];
+const MATCHES_WITH_BBB=['m2','m4','m5','m6'];
 const DEFAULT_MATCH='m1';
 
 function parseHash(){
@@ -74,7 +74,7 @@ function parseHash(){
   const state={tab};
   if(tab==='mx'){
     state.match=(parts[1]||DEFAULT_MATCH).toLowerCase();
-    state.view=parts[2]==='bbb'?'bbb':'summary';
+    state.view=parts[2]==='bbb'||parts[2]==='commentary'?'bbb':'summary';
   }
   return state;
 }
@@ -114,6 +114,11 @@ function matchBtnForId(matchId){
   return btn;
 }
 
+function deactivateMatches(){
+  document.querySelectorAll('.md2').forEach(d=>d.classList.remove('active'));
+  document.querySelectorAll('.mtb').forEach(b=>b.classList.remove('active'));
+}
+
 function activateTab(tabId,btn){
   document.querySelectorAll('.tab').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.nav button').forEach(b=>b.classList.remove('active'));
@@ -121,6 +126,7 @@ function activateTab(tabId,btn){
   if(tabEl)tabEl.classList.add('active');
   const navBtn=btn||navBtnForTab(tabId);
   if(navBtn)navBtn.classList.add('active');
+  if(tabId!=='mx')deactivateMatches();
 }
 
 function activateMatchView(matchId,view){
@@ -274,7 +280,7 @@ def wrap_match(html: str, match_id: str) -> str:
         f'<div id="match-{match_id}" class="md2">\n'
         f'  <div class="mmt">\n'
         f'    <button type="button" class="mmtb active" onclick="showMatchView(\'{match_id}\',\'summary\',this)">Summary</button>\n'
-        f'    <button type="button" class="mmtb" onclick="showMatchView(\'{match_id}\',\'bbb\',this)">Ball by Ball</button>\n'
+        f'    <button type="button" class="mmtb" onclick="showMatchView(\'{match_id}\',\'bbb\',this)">Commentary</button>\n'
         f"  </div>\n"
         f'  <div id="match-{match_id}-summary" class="mmview active">\n'
         f"{inner}\n"
@@ -300,6 +306,93 @@ def refresh_bbb_panels(html: str) -> str:
         content_start = m.end()
         content_end = find_div_block_end(html, content_start) - len("</div>")
         html = html[:content_start] + "\n" + bbb_html + "\n  " + html[content_end:]
+    return html
+
+
+def _depth_and_stack_before(html: str, pos: int) -> tuple[int, list[str]]:
+    """Return div nesting depth and id stack immediately before `pos`."""
+    depth = 0
+    stack: list[str] = []
+    i = 0
+    while i < pos:
+        if html.startswith("<div", i) and (i + 4 >= len(html) or html[i + 4] in " >/"):
+            gt = html.find(">", i)
+            if gt == -1 or gt >= pos:
+                break
+            tag = html[i : gt + 1]
+            id_m = re.search(r'\bid="([^"]+)"', tag)
+            stack.append(id_m.group(1) if id_m else "?")
+            depth += 1
+            i = gt + 1
+        elif html.startswith("</div>", i):
+            if stack:
+                stack.pop()
+            depth -= 1
+            i += 6
+        else:
+            i += 1
+    return depth, stack
+
+
+def _tab_pl_opens_inside_tab_mx(html: str) -> bool:
+    players = html.find("<!-- PLAYERS -->")
+    tab_pl = html.find('id="tab-pl"')
+    if players == -1 or tab_pl == -1:
+        return False
+    _, stack = _depth_and_stack_before(html, tab_pl)
+    return "tab-mx" in stack
+
+
+def fix_tab_mx_boundary(html: str) -> str:
+    """Remove premature </div> after match-m2 that closes tab-mx before M5/M6."""
+    pattern = (
+        r'(id="match-m2-bbb" class="mmview">.*?</div>\s*</div>)\s*</div>\s*\n\s*<!-- M5 -->'
+    )
+    html = re.sub(pattern, r"\1\n\n  <!-- M5 -->", html, count=1, flags=re.DOTALL)
+    # Remove spurious close inserted before match-m6 (leftover from nested-block fix).
+    html = re.sub(
+        r"\n\s*<!-- M6 -->\s*</div>\s*\n\s*<!-- end m5 -->\n\s*<div id=\"match-m6\"",
+        '\n\n  <!-- M6 -->\n  <div id="match-m6"',
+        html,
+        count=1,
+    )
+    html = re.sub(
+        r"\n\s*<!-- M6 -->\s*</div>\s*\n\s*<div id=\"match-m6\"",
+        '\n\n  <!-- M6 -->\n  <div id="match-m6"',
+        html,
+        count=1,
+    )
+    # tab-pl/tab-lb must be siblings of tab-mx inside .wrap (not nested, not outside).
+    if not re.search(r'id="tab-pl"[^>]*class="tab"', html):
+        return html
+
+    for _ in range(8):
+        if not _tab_pl_opens_inside_tab_mx(html):
+            break
+        html = re.sub(
+            r"\n\s*<!-- PLAYERS -->",
+            "\n</div>\n\n<!-- PLAYERS -->",
+            html,
+            count=1,
+        )
+
+    for _ in range(8):
+        tab_pl = html.find('id="tab-pl"')
+        if tab_pl == -1:
+            break
+        depth, _ = _depth_and_stack_before(html, tab_pl)
+        if depth >= 1:
+            break
+        updated = re.sub(
+            r"(\n\s*)</div>(\s*\n+\s*<!-- PLAYERS -->)",
+            r"\1\2",
+            html,
+            count=1,
+        )
+        if updated == html:
+            break
+        html = updated
+
     return html
 
 
@@ -339,7 +432,7 @@ def update_subtab_buttons(html: str) -> str:
         mid = m.group(1)
         return (
             f'<button type="button" class="mmtb" '
-            f'onclick="showMatchView(\'{mid}\',\'bbb\',this)">Ball by Ball</button>'
+            f'onclick="showMatchView(\'{mid}\',\'bbb\',this)">Commentary</button>'
         )
 
     html = re.sub(
@@ -361,7 +454,7 @@ def match_hash(match_num: int) -> str:
         return f"#mx/{mid}"
     if mid in MATCHES_WITH_BBB:
         return f"#mx/{mid}/bbb"
-    if match_num <= 5:
+    if match_num <= 6:
         return f"#mx/{mid}"
     return "#mx"
 
@@ -403,10 +496,10 @@ def replace_spreadsheet_links(html: str) -> str:
         href = match_hash(num) if num else "#mx"
         tag = re.sub(r'href="[^"]*"', f'href="{href}"', tag)
         if "Open Scorecard in Google Sheets" in tag:
-            text = "Walkover — no scorecard" if num in (1, 3) else "Open Ball by Ball scorecard"
+            text = "Walkover — no scorecard" if num in (1, 3) else "Open Commentary scorecard"
             tag = re.sub(r">[^<]*</a>", f">{text}</a>", tag)
         elif "Open Full Scorecard in Google Sheets" in tag:
-            tag = re.sub(r">[^<]*</a>", ">Open Ball by Ball scorecard</a>", tag)
+            tag = re.sub(r">[^<]*</a>", ">Open Commentary scorecard</a>", tag)
         elif "Open Full P1 Scorecard in Google Sheets" in tag:
             tag = re.sub(r">[^<]*</a>", ">Open Practice tab</a>", tag)
             tag = re.sub(r'href="[^"]*"', 'href="#pr"', tag)
@@ -425,9 +518,18 @@ def replace_spreadsheet_links(html: str) -> str:
     return html
 
 
+def update_visible_labels(html: str) -> str:
+    """Rename Ball by Ball → Commentary in patched index (idempotent)."""
+    html = html.replace("Ball by Ball", "Commentary")
+    html = html.replace("Ball-by-ball", "Commentary")
+    html = html.replace("Open Ball by Ball scorecard", "Open Commentary scorecard")
+    return html
+
+
 def main() -> None:
     html = INDEX.read_text(encoding="utf-8")
     html = inject_css(html)
+    html = fix_tab_mx_boundary(html)
     html = fix_nested_match_blocks(html)
     html = update_subtab_buttons(html)
     for match_id in MATCHES_WITH_BBB:
@@ -443,7 +545,10 @@ def main() -> None:
     html = fix_nested_match_blocks(html)
     html = replace_spreadsheet_links(html)
     html = update_overview_fixtures_scorecard_links(html)
+    html = update_visible_labels(html)
     html = inject_js(html)
+    html = fix_tab_mx_boundary(html)
+    html = fix_nested_match_blocks(html)
     INDEX.write_text(html, encoding="utf-8")
     print(f"Patched {INDEX}")
 
