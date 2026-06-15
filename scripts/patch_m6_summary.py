@@ -108,8 +108,8 @@ def build_m6_fun_facts(data: dict) -> str:
         ),
         (
             "&#127919;",
-            "<strong>Great bowling today:</strong> Qaim and Veer each took <strong>2 bowled wickets in a single over</strong> — "
-            "Veer removed Shrihan &amp; Vivaan in over 12; Qaim bowled Ojas &amp; Riyan in over 13.",
+            "<strong>Great bowling today:</strong> Qaim took <strong>2 bowled wickets in a single over</strong> "
+            "(Ojas &amp; Riyan in over 13); Veer bowled Vivaan in over 12.",
         ),
         (
             "&#9889;",

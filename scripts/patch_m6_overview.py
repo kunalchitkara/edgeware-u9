@@ -45,7 +45,7 @@ BAT_TABLE_BODY = """        <tr><td><strong>Ariyan</strong></td><td class="c">4<
 
 BOWL_TABLE_BODY = """        <tr><td><strong>Avyaan</strong></td><td class="c">4</td><td class="c">8</td><td class="c">36</td><td class="c"><strong>3</strong></td><td class="c">8</td><td class="c">5</td><td class="c">4.5</td><td class="c">23</td></tr>
         <tr><td><strong>Qaim</strong></td><td class="c">4</td><td class="c">8</td><td class="c">66</td><td class="c"><strong>3</strong></td><td class="c">6</td><td class="c">1</td><td class="c eco-bad">8.2</td><td class="c">17</td></tr>
-        <tr><td><strong>Veer</strong></td><td class="c">4</td><td class="c">8</td><td class="c">49</td><td class="c"><strong>2</strong></td><td class="c">5</td><td class="c">0</td><td class="c">6.1</td><td class="c">13</td></tr>
+        <tr><td><strong>Veer</strong></td><td class="c">4</td><td class="c">8</td><td class="c">49</td><td class="c"><strong>1</strong></td><td class="c">5</td><td class="c">0</td><td class="c">6.1</td><td class="c">13</td></tr>
         <tr><td><strong>Krish</strong></td><td class="c">3</td><td class="c">6</td><td class="c">22</td><td class="c"><strong>2</strong></td><td class="c">3</td><td class="c">0</td><td class="c eco-good">3.7</td><td class="c"><strong>19</strong></td></tr>
         <tr><td><strong>Aanya</strong></td><td class="c">3</td><td class="c">6</td><td class="c">27</td><td class="c"><strong>2</strong></td><td class="c">3</td><td class="c">2</td><td class="c">4.5</td><td class="c">14</td></tr>
         <tr><td><strong>Kaiyan</strong></td><td class="c">3</td><td class="c">6</td><td class="c">40</td><td class="c"><strong>2</strong></td><td class="c">3</td><td class="c">2</td><td class="c">6.7</td><td class="c">16</td></tr>
@@ -91,9 +91,9 @@ LEADERS_GRID = """    <div class="lbg">
       <div class="lbc"><div class="lbh"><img src="icons/ball_light.png" style="width:18px;height:18px;vertical-align:middle;" alt="ball"> Most Wickets</div>
         <div class="lbr"><div class="lbrk r1">1</div><div class="lbn">Avyaan</div><div class="lbv">3</div></div>
         <div class="lbr"><div class="lbrk r1">1</div><div class="lbn">Qaim</div><div class="lbv">3</div></div>
-        <div class="lbr"><div class="lbrk r3">3</div><div class="lbn">Veer</div><div class="lbv">2</div></div>
-        <div class="lbr"><div class="lbrk rn">4</div><div class="lbn">Krish</div><div class="lbv">2</div></div>
-        <div class="lbr"><div class="lbrk rn">4</div><div class="lbn">Aanya</div><div class="lbv">2</div></div></div>
+        <div class="lbr"><div class="lbrk r3">3</div><div class="lbn">Krish</div><div class="lbv">2</div></div>
+        <div class="lbr"><div class="lbrk rn">4</div><div class="lbn">Aanya</div><div class="lbv">2</div></div>
+        <div class="lbr"><div class="lbrk rn">4</div><div class="lbn">Kaiyan</div><div class="lbv">2</div></div></div>
       <div class="lbc"><div class="lbh">&#128308; Most Fours</div>
         <div class="lbr"><div class="lbrk r1">1</div><div class="lbn">Qaim</div><div class="lbv">5</div></div>
         <div class="lbr"><div class="lbrk r2">2</div><div class="lbn">Ariyan</div><div class="lbv">4</div></div>
@@ -158,7 +158,7 @@ PLAYER_CARD_UPDATES: dict[str, dict[str, str]] = {
           <div class="psr"><span class="psl">Bat Runs / Avg</span><span class="psv">26 / 6.5</span></div>
           <div class="psr"><span class="psl">4s / 6s</span><span class="psv">1 / 0</span></div>
           <div class="psr"><span class="psl">Net Runs</span><span class="psv np">+16</span></div>""",
-        "bowl": """          <div class="psr"><span class="psl">Overs / Wkts</span><span class="psv">8 / 2</span></div>
+        "bowl": """          <div class="psr"><span class="psl">Overs / Wkts</span><span class="psv">8 / 1</span></div>
           <div class="psr"><span class="psl">Runs / ECO</span><span class="psv">49 / 6.1</span></div>
           <div class="psr"><span class="psl">Dots</span><span class="psv">13</span></div>""",
     },
