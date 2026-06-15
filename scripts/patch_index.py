@@ -60,6 +60,12 @@ CSS = """
 .bbb-meta{display:block;font-size:.7rem;color:#999;margin-top:2px;}
 .bbb-score{font-weight:700;color:var(--dk);font-size:.78rem;white-space:nowrap;}
 @media(max-width:480px){.bbb-over-hd{grid-template-columns:1fr auto auto;}.bbb-over-sum{display:none;}}
+/* Sortable player stats tables (#tab-pl) */
+.dt th.th-sort{cursor:pointer;user-select:none;white-space:nowrap;}
+.dt th.th-sort:hover{background:#0d4d7a;}
+.dt th.th-sort::after{content:'⇅';opacity:.35;font-size:.7rem;margin-left:3px;}
+.dt th.th-sort.asc::after{content:'▲';opacity:1;}
+.dt th.th-sort.desc::after{content:'▼';opacity:1;}
 """
 
 APP_JS = """const TAB_IDS=['ov','fx','mx','pl','lb','ru','pr'];
@@ -216,8 +222,63 @@ function showMatch(id,btn,skipHash){
   if(!skipHash)updateHash({tab:'mx',match:id,view:'summary'},true);
 }
 
+function parsePlSortValue(cell){
+  const t=(cell?.textContent||'').trim().replace(/\\u2212/g,'-').replace(/^\\+/,'');
+  const n=parseFloat(t);
+  return Number.isFinite(n)?n:t.toLowerCase();
+}
+
+function sortPlTable(table,keys){
+  const tbody=table.querySelector('tbody');
+  if(!tbody)return;
+  const rows=[...tbody.querySelectorAll('tr')];
+  rows.sort((a,b)=>{
+    for(const{k,dir}of keys){
+      const va=parsePlSortValue(a.cells[k]);
+      const vb=parsePlSortValue(b.cells[k]);
+      if(va<vb)return dir==='asc'?-1:1;
+      if(va>vb)return dir==='asc'?1:-1;
+    }
+    return 0;
+  });
+  rows.forEach(r=>tbody.appendChild(r));
+}
+
+function setPlSortIndicator(table,col,dir){
+  table.querySelectorAll('thead th.th-sort').forEach(th=>{
+    th.classList.remove('asc','desc');
+  });
+  const th=table.querySelectorAll('thead th')[col];
+  if(th)th.classList.add('th-sort',dir);
+}
+
+function initPlTableSort(){
+  const tab=document.getElementById('tab-pl');
+  if(!tab)return;
+  const tables=[...tab.querySelectorAll('table.dt')];
+  tables.forEach(table=>{
+    table.querySelectorAll('thead th').forEach((th,ci)=>{
+      if(ci===0)return;
+      th.classList.add('th-sort');
+      th.addEventListener('click',()=>{
+        const asc=th.classList.contains('asc');
+        const active=th.classList.contains('asc')||th.classList.contains('desc');
+        const dir=active&&asc?'desc':'asc';
+        setPlSortIndicator(table,ci,dir);
+        sortPlTable(table,[{k:ci,dir}]);
+      });
+    });
+  });
+  const bowl=tables[1];
+  if(bowl){
+    sortPlTable(bowl,[{k:4,dir:'desc'},{k:7,dir:'asc'}]);
+    setPlSortIndicator(bowl,4,'desc');
+  }
+}
+
 window.addEventListener('hashchange',applyHash);
 applyHash();
+initPlTableSort();
 """
 
 

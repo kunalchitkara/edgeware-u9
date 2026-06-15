@@ -196,6 +196,58 @@ test.describe("edgeware-u9 tabs", () => {
     expect(parent).toBe("tab-mx");
   });
 
+  test("bowling table defaults to wickets desc, economy asc tiebreak", async ({
+    page,
+  }) => {
+    await page.goto("/#pl");
+    await page.waitForFunction(() =>
+      document.getElementById("tab-pl")?.classList.contains("active"),
+    );
+
+    const bowlers = await page.evaluate(() => {
+      const tables = document.querySelectorAll("#tab-pl table.dt");
+      const bowl = tables[1];
+      if (!bowl) return [];
+      return [...bowl.querySelectorAll("tbody tr")].map(
+        (r) => r.cells[0]?.textContent?.trim() ?? "",
+      );
+    });
+    expect(bowlers[0]).toBe("Krish");
+    expect(bowlers[1]).toBe("Avyaan");
+    expect(bowlers[2]).toBe("Qaim");
+  });
+
+  test("players tab stat columns are sortable on header click", async ({
+    page,
+  }) => {
+    await page.goto("/#pl");
+    await page.waitForFunction(() =>
+      document.getElementById("tab-pl")?.classList.contains("active"),
+    );
+
+    const batting = page.locator("#tab-pl table.dt").first();
+    const srHeader = batting.locator("thead th", { hasText: "SR" });
+    await srHeader.click();
+    const afterAsc = await page.evaluate(() => {
+      const table = document.querySelectorAll("#tab-pl table.dt")[0];
+      const rows = [...table.querySelectorAll("tbody tr")];
+      return rows.map((r) => parseFloat(r.cells[5]?.textContent || "0"));
+    });
+    const ascSorted = [...afterAsc].sort((a, b) => a - b);
+    expect(afterAsc).toEqual(ascSorted);
+    await expect(srHeader).toHaveClass(/asc/);
+
+    await srHeader.click();
+    const afterDesc = await page.evaluate(() => {
+      const table = document.querySelectorAll("#tab-pl table.dt")[0];
+      const rows = [...table.querySelectorAll("tbody tr")];
+      return rows.map((r) => parseFloat(r.cells[5]?.textContent || "0"));
+    });
+    const descSorted = [...afterDesc].sort((a, b) => b - a);
+    expect(afterDesc).toEqual(descSorted);
+    await expect(srHeader).toHaveClass(/desc/);
+  });
+
   test("player cards only in #tab-pl, full sections on Players tab", async ({
     page,
   }) => {
