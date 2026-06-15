@@ -1091,8 +1091,8 @@
             },
             {
               "symbol": "B",
-              "batter": "Vivaan",
-              "description": "Vivaan b Veer",
+              "batter": "Shrihan",
+              "description": "Shrihan b Veer",
               "runs": -5,
               "bat_runs": null,
               "wicket": true,
@@ -1105,8 +1105,8 @@
             },
             {
               "symbol": "B",
-              "batter": "Shrihan",
-              "description": "Shrihan b Veer",
+              "batter": "Vivaan",
+              "description": "Vivaan b Veer",
               "runs": -5,
               "bat_runs": null,
               "wicket": true,

@@ -491,10 +491,10 @@ def build_innings_1() -> dict:
             d(".", "Shrihan"), d("+", "Shrihan", extras_type="wide"), d(".", "Shrihan"),
             d("1", "Shrihan"), d(".", "Shrihan"), d("1", "Shrihan"),
         ],
-        [  # ov 12 — Veer: . 1 1 . B B — Vivaan (11.5) then Shrihan (12.0) bowled
+        [  # ov 12 — Veer: . 1 1 . B B — Shrihan (11.5) then Vivaan (12.0) bowled
             d(".", "Shrihan"), d("1", "Shrihan"), d("1", "Vivaan"), d(".", "Shrihan"),
-            d("B", "Vivaan", wicket=True, description="Vivaan b Veer"),
             d("B", "Shrihan", wicket=True, description="Shrihan b Veer"),
+            d("B", "Vivaan", wicket=True, description="Vivaan b Veer"),
         ],
         [  # ov 13 — Qaim: Ojas & Riyan bowled; Ojas four on next ball denies hat-trick
             d("4", "Riyan"),
