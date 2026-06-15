@@ -24,6 +24,9 @@ CSS = """
 /* Ball-by-ball list (Howzzat mobile style) */
 .bbb-wrap{margin:0;}
 .bbb-panel{margin-bottom:8px;box-shadow:0 1px 4px rgba(0,0,0,.06);border-radius:0;overflow:hidden;background:#fff;}
+.bbb-toss-panel{box-shadow:0 1px 4px rgba(0,0,0,.06);}
+.bbb-toss{padding:12px 14px;background:#f8f9fb;border-bottom:1px solid #eef1f6;font-size:.85rem;color:var(--dgrey);line-height:1.45;}
+.bbb-toss strong{color:var(--dk);}
 .bbb-inn-bar{display:flex;justify-content:space-between;align-items:center;background:var(--dk);color:#fff;padding:10px 14px;font-weight:700;font-size:.85rem;}
 .bbb-inn-bar span:last-child{font-size:.95rem;font-weight:900;}
 .bbb-list{background:#fff;}
@@ -423,6 +426,73 @@ def fix_tab_mx_boundary(html: str) -> str:
     return html
 
 
+def fix_tab_pl_boundary(html: str) -> str:
+    """Close #tab-pl / .pgrid correctly; keep all .pc cards inside #tab-pl."""
+    # Extra </div> on fielding cards closes #tab-pl early (Ariyan / Avyaan).
+    html = re.sub(
+        r'(<span class="psl">Run Outs</span><span class="psv">1</span></div></div></div>)</div>\s*\n'
+        r'      <div class="pc"><div class="pnb">Avyaan',
+        r'\1\n      <div class="pc"><div class="pnb">Avyaan',
+        html,
+        count=1,
+    )
+    html = re.sub(
+        r'(<span class="psl">Run Outs</span><span class="psv">3</span></div></div></div>)</div>\s*\n'
+        r'      <div class="pc"><div class="pnb">Krish',
+        r'\1\n      <div class="pc"><div class="pnb">Krish',
+        html,
+        count=1,
+    )
+    # Extra </div> on bowling-only cards before the next .pc (Veer, Kaiyan, Drish).
+    for dots_val in ("13", "16", "11"):
+        html = re.sub(
+            rf'(<div class="psr"><span class="psl">Dots</span><span class="psv">{dots_val}</span></div></div></div>)</div>\s*\n'
+            r'(\s*<div class="pc"><div class="pnb">)',
+            r"\1\n\2",
+            html,
+            count=1,
+        )
+    # Shyam card missing .pc close (only when fielding ends with two </div>).
+    html = re.sub(
+        r'(<span class="psl">Catches</span><span class="psv">1</span></div></div>)\s*\n'
+        r'      <div class="pc"><div class="pnb">Qaim',
+        r'\1</div>\n      <div class="pc"><div class="pnb">Qaim',
+        html,
+        count=1,
+    )
+    # Viaan (last card) missing .pc close before .pgrid close.
+    html = re.sub(
+        r'(<span class="psl">Run Outs</span><span class="psv">\d+</span></div></div>)\s*\n'
+        r"    </div>\s*\n  </div>\s*\n</div>\s*\n\s*\n<!-- LEADERS -->",
+        r"\1</div>\n    </div>\n  </div>\n</div>\n\n<!-- LEADERS -->",
+        html,
+        count=1,
+    )
+    # Repair accidental backslash-escaped quotes from older patch runs.
+    html = html.replace('<div class=\\"pc\\">', '<div class="pc">')
+    html = html.replace('<div class=\\"pnb\\">', '<div class="pnb">')
+    return html
+
+
+def fix_tab_lb_boundary(html: str) -> str:
+    """Remove extra </div> after #tab-lb that closes .wrap before #tab-ru."""
+    pattern = (
+        r'(<div class="lbr"><div class="lbrk rn">4</div><div class="lbn">Taran</div><div class="lbv">1</div></div></div>)\n'
+        r'    </div></div>\n'
+        r'  </div>\n'
+        r'</div>\n\n'
+        r'<!-- RULES -->'
+    )
+    replacement = (
+        r"\1\n\n"
+        r"    </div>\n"
+        r"  </div>\n"
+        r"</div>\n\n"
+        r"<!-- RULES -->"
+    )
+    return re.sub(pattern, replacement, html, count=1)
+
+
 def fix_nested_match_blocks(html: str) -> str:
     """Close match blocks that were left open (e.g. m2 nested inside m4)."""
     pattern = r'<div id="match-(m\d+)" class="md2[^"]*">'
@@ -557,6 +627,8 @@ def main() -> None:
     html = INDEX.read_text(encoding="utf-8")
     html = inject_css(html)
     html = fix_tab_mx_boundary(html)
+    html = fix_tab_pl_boundary(html)
+    html = fix_tab_lb_boundary(html)
     html = fix_nested_match_blocks(html)
     html = update_subtab_buttons(html)
     for match_id in MATCHES_WITH_BBB:
@@ -575,6 +647,8 @@ def main() -> None:
     html = update_visible_labels(html)
     html = inject_js(html)
     html = fix_tab_mx_boundary(html)
+    html = fix_tab_lb_boundary(html)
+    html = fix_tab_pl_boundary(html)
     html = fix_nested_match_blocks(html)
     INDEX.write_text(html, encoding="utf-8")
     print(f"Patched {INDEX}")

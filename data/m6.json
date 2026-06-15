@@ -7,7 +7,11 @@
     "away": "Edgware CC",
     "format": "16 overs",
     "result": "Edgware CC won by 45 runs",
-    "margin_runs": 45
+    "margin_runs": 45,
+    "toss": {
+      "winner": "Edgware",
+      "decision": "bowl"
+    }
   },
   "innings": [
     {
@@ -846,13 +850,13 @@
           "total": 240,
           "deliveries": [
             {
-              "symbol": ".",
+              "symbol": "R",
               "batter": "Shrihan",
-              "description": "no run",
-              "runs": 0,
+              "description": "Shrihan run out (Avyaan)",
+              "runs": -5,
               "bat_runs": null,
-              "wicket": false,
-              "fielder": "",
+              "wicket": true,
+              "fielder": "Avyaan",
               "extras_type": "",
               "over": 10,
               "ball_in_over": 1,
@@ -875,7 +879,7 @@
             },
             {
               "symbol": ".",
-              "batter": "Shrihan",
+              "batter": "Vivaan",
               "description": "no run",
               "runs": 0,
               "bat_runs": null,
@@ -888,13 +892,13 @@
               "bowler": "Avyaan"
             },
             {
-              "symbol": "R",
+              "symbol": ".",
               "batter": "Vivaan",
-              "description": "Vivaan run out (Avyaan)",
-              "runs": -5,
+              "description": "no run",
+              "runs": 0,
               "bat_runs": null,
-              "wicket": true,
-              "fielder": "Avyaan",
+              "wicket": false,
+              "fielder": "",
               "extras_type": "",
               "over": 10,
               "ball_in_over": 4,
@@ -903,7 +907,7 @@
             },
             {
               "symbol": ".",
-              "batter": "Shrihan",
+              "batter": "Vivaan",
               "description": "no run",
               "runs": 0,
               "bat_runs": null,
@@ -917,7 +921,7 @@
             },
             {
               "symbol": "+",
-              "batter": "Shrihan",
+              "batter": "Vivaan",
               "description": "Wide (+2)",
               "runs": 2,
               "bat_runs": null,
@@ -1059,7 +1063,7 @@
             },
             {
               "symbol": "1",
-              "batter": "Shrihan",
+              "batter": "Vivaan",
               "description": "1 run",
               "runs": 1,
               "bat_runs": 1,
@@ -1086,12 +1090,12 @@
               "bowler": "Veer"
             },
             {
-              "symbol": ".",
-              "batter": "Shrihan",
-              "description": "no run",
-              "runs": 0,
+              "symbol": "B",
+              "batter": "Vivaan",
+              "description": "Vivaan b Veer",
+              "runs": -5,
               "bat_runs": null,
-              "wicket": false,
+              "wicket": true,
               "fielder": "",
               "extras_type": "",
               "over": 12,
@@ -1504,7 +1508,7 @@
           "b1": "Shrihan",
           "b2": "Vivaan",
           "net": 0,
-          "wickets": 2
+          "wickets": 3
         },
         {
           "label": "P4",
@@ -1558,22 +1562,22 @@
         {
           "name": "Shrihan",
           "dismissal": "b Veer (Ov 12)",
-          "runs": 5,
-          "balls": 16,
+          "runs": 4,
+          "balls": 11,
           "fours": 0,
           "sixes": 0,
           "wkts": 1,
-          "net": 0
+          "net": -1
         },
         {
           "name": "Vivaan",
-          "dismissal": "run out (Avyaan) (Ov 10)",
-          "runs": 2,
-          "balls": 4,
+          "dismissal": "b Veer (Ov 12)",
+          "runs": 3,
+          "balls": 8,
           "fours": 0,
           "sixes": 0,
           "wkts": 1,
-          "net": -3
+          "net": -2
         },
         {
           "name": "Ojas",
@@ -1628,10 +1632,10 @@
           "name": "Veer",
           "overs": 2,
           "runs": 14,
-          "wickets": 1,
+          "wickets": 2,
           "wides": 0,
           "noballs": 0,
-          "dots": 3
+          "dots": 2
         },
         {
           "name": "Qaim",
@@ -1681,9 +1685,11 @@
           "fielder": "Avyaan",
           "catches": 0,
           "run_outs": 1,
-          "detail": "run out (Avyaan) \u2014 Ov 10 (Vivaan)"
+          "detail": "run out (Avyaan) \u2014 Ov 10 (Shrihan)"
         }
-      ]
+      ],
+      "final_total": 263,
+      "wickets": 8
     },
     {
       "num": 2,
@@ -3367,7 +3373,9 @@
           "run_outs": 1,
           "detail": "run out (Ojas) \u2014 Ov 7 (Drish) | c Qaim b Zayden \u2014 Ov 15"
         }
-      ]
+      ],
+      "final_total": 308,
+      "wickets": 3
     }
   ]
 }

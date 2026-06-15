@@ -482,18 +482,18 @@ def build_innings_1() -> dict:
             d("5", "Vivaan", runs=5, bat_runs=1, description="5 runs (incl 4 overthrow Qaim)"),
             d(".", "Shrihan"), d(".", "Vivaan"),
         ],
-        [  # ov 10
-            d(".", "Shrihan"), d(".", "Vivaan"), d(".", "Shrihan"),
-            d("R", "Vivaan", fielder="Avyaan", wicket=True, description="Vivaan run out (Avyaan)"),
-            d(".", "Shrihan"), d("+", "Shrihan", extras_type="wide"),
+        [  # ov 10 — Shrihan run out (Avyaan) 9.1; Vivaan continues
+            d("R", "Shrihan", fielder="Avyaan", wicket=True, description="Shrihan run out (Avyaan)"),
+            d(".", "Vivaan"), d(".", "Vivaan"), d(".", "Vivaan"),
+            d(".", "Vivaan"), d("+", "Vivaan", extras_type="wide"),
         ],
         [  # ov 11
             d(".", "Shrihan"), d("+", "Shrihan", extras_type="wide"), d(".", "Shrihan"),
             d("1", "Shrihan"), d(".", "Shrihan"), d("1", "Shrihan"),
         ],
-        [  # ov 12 — ball 12.0: Shrihan b Veer
-            d(".", "Shrihan"), d("1", "Shrihan"), d("1", "Shrihan"), d(".", "Shrihan"),
-            d(".", "Shrihan"),
+        [  # ov 12 — Veer: . 1 1 . B B — Vivaan (11.5) then Shrihan (12.0) bowled
+            d(".", "Shrihan"), d("1", "Shrihan"), d("1", "Vivaan"), d(".", "Shrihan"),
+            d("B", "Vivaan", wicket=True, description="Vivaan b Veer"),
             d("B", "Shrihan", wicket=True, description="Shrihan b Veer"),
         ],
         [  # ov 13 — Qaim: Ojas & Riyan bowled; Ojas four on next ball denies hat-trick
@@ -658,8 +658,8 @@ def main() -> None:
     margin = s2["final_total"] - s1["final_total"]
     inn2["target"] = chase_target
 
-    inn1.update({k: s1[k] for k in ("partnerships", "batting_summary", "bowling_summary", "fielding")})
-    inn2.update({k: s2[k] for k in ("partnerships", "batting_summary", "bowling_summary", "fielding")})
+    inn1.update({k: s1[k] for k in ("partnerships", "batting_summary", "bowling_summary", "fielding", "final_total", "wickets")})
+    inn2.update({k: s2[k] for k in ("partnerships", "batting_summary", "bowling_summary", "fielding", "final_total", "wickets")})
 
     data = {
         "match": {
@@ -671,6 +671,10 @@ def main() -> None:
             "format": "16 overs",
             "result": f"Edgware CC won by {margin} runs",
             "margin_runs": margin,
+            "toss": {
+                "winner": "Edgware",
+                "decision": "bowl",
+            },
         },
         "innings": [inn1, inn2],
     }

@@ -108,8 +108,8 @@ def build_m6_fun_facts(data: dict) -> str:
         ),
         (
             "&#127919;",
-            "<strong>Great bowling today:</strong> Qaim took <strong>2 bowled wickets in a single over</strong> "
-            "(Ojas &amp; Riyan in over 13); Veer bowled Shrihan in over 12.",
+            "<strong>Great bowling today:</strong> Qaim and Veer each took <strong>2 bowled wickets in a single over</strong> — "
+            "Veer removed Shrihan &amp; Vivaan in over 12; Qaim bowled Ojas &amp; Riyan in over 13.",
         ),
         (
             "&#9889;",
@@ -119,7 +119,7 @@ def build_m6_fun_facts(data: dict) -> str:
         (
             "&#127939;",
             "<strong>Laser guided throws:</strong> Ariyan&apos;s direct hit removed Zayden in over 2; "
-            "Avyaan ran out Vivaan in over 10 — two sharp moments in the field.",
+            "Avyaan ran out Shrihan in over 10 — two sharp moments in the field.",
         ),
         (
             "&#129309;",
@@ -157,6 +157,12 @@ def replace_table(html: str, start_marker: str, end_marker: str, header: str, ro
     return pattern.sub(body, html, count=1)
 
 
+def innings_wickets(inn: dict) -> int:
+    if "wickets" in inn:
+        return int(inn["wickets"])
+    return sum(1 for o in inn["overs"] for d in o["deliveries"] if d.get("wicket"))
+
+
 def build_m6_summary_card(data: dict) -> str:
     inn1, inn2 = data["innings"]
     match = data["match"]
@@ -167,8 +173,8 @@ def build_m6_summary_card(data: dict) -> str:
     pinner_top, pinner_top_r = top_bat(inn1)
     ecc_top, ecc_top_r = top_bat(inn2)
     ecc_bowl, ecc_bowl_r, ecc_bowl_w = top_bowl(inn1)
-    pinner_wkts = sum(b.get("wkts", 0) for b in inn1["batting_summary"])
-    ecc_wkts = sum(b.get("wkts", 0) for b in inn2["batting_summary"])
+    pinner_wkts = innings_wickets(inn1)
+    ecc_wkts = innings_wickets(inn2)
     pinner_play = pinner_total - 200 + 5 * pinner_wkts
     ecc_play = ecc_total - 200 + 5 * ecc_wkts
 
@@ -296,6 +302,18 @@ def inject_m6_match(html: str, data: dict) -> str:
         f'<tr><td>6</td><td>14 Jun</td><td>Pinner vs Edgware</td><td class="c"><span class="bdg away">Away</span></td><td>Pinner</td><td class="c"><span class="bdg win">WIN +{margin} runs</span></td><td class="c"><a class="sl" href="#mx/m6">&#128202;</a></td></tr>',
         1,
     )
+    html = re.sub(
+        r'(<tr><td>6</td><td>14 Jun</td><td>Pinner vs Edgware</td><td class="c"><span class="bdg away">Away</span></td><td class="c"><strong>)\d+(</strong></td><td class="c">)\d+(</td><td class="c"><span class="bdg win">WIN</span></td><td class="c">Won by )\d+( runs</td>)',
+        rf"\g<1>{ecc_total}\g<2>{pinner_total}\g<3>{margin}\g<4>",
+        html,
+        count=1,
+    )
+    html = re.sub(
+        r'(<tr><td>6</td><td>14 Jun</td><td>Pinner vs Edgware</td><td class="c"><span class="bdg away">Away</span></td><td>Pinner</td><td class="c"><span class="bdg win">WIN \+)\d+( runs</span></td>)',
+        rf"\g<1>{margin} runs</span></td>",
+        html,
+        count=1,
+    )
     return html
 
 
@@ -317,7 +335,7 @@ def main() -> None:
 
     bbb = (ROOT / "bbb" / "m6.html").read_text(encoding="utf-8") if (ROOT / "bbb" / "m6.html").exists() else ""
     html, n = re.subn(
-        r'(<div id="match-m6-bbb" class="mmview">\s*).*?(\s*</div>\s*</div>\s*\n\n<!-- PLAYERS -->)',
+        r'(<div id="match-m6-bbb" class="mmview">\s*).*?(\s*</div>\s*</div>\s*</div>\s*\n\n<!-- PLAYERS -->)',
         rf"\1{bbb}\2",
         html,
         count=1,

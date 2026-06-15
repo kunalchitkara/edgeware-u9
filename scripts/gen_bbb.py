@@ -57,6 +57,28 @@ COMMENTARY_LABEL = "Commentary"
 WKT_SYMBOLS = {"B", "C", "S", "L", "H"}
 
 
+def format_toss_decision(decision: str) -> str:
+    d = (decision or "").strip().lower()
+    if d in {"bowl", "bowling", "field", "ball"}:
+        return "ball first"
+    if d in {"bat", "batting"}:
+        return "bat first"
+    return decision or "bat first"
+
+
+def render_toss(toss: dict | None) -> str:
+    if not toss or not toss.get("winner"):
+        return ""
+    winner = html.escape(str(toss["winner"]))
+    decision = html.escape(format_toss_decision(str(toss.get("decision", ""))))
+    return (
+        '<section class="bbb-panel bbb-toss-panel">'
+        '<div class="bbb-toss">'
+        f"<strong>Toss:</strong> {winner} won the toss &amp; elected to {decision}."
+        "</div></section>"
+    )
+
+
 @dataclass
 class BatterStats:
     runs: int = 0
@@ -719,7 +741,7 @@ def render_over(block: OverBlock, uid: str) -> str:
         end_score = html.escape(block.cumulative)
 
     batters_line = " ".join(batters_bits)
-    balls_html = "".join(render_delivery_row(d) for d in block.deliveries)
+    balls_html = "".join(render_delivery_row(d) for d in reversed(block.deliveries))
     if not balls_html:
         balls_html = '<li class="bbb-ball-row empty"><span class="bbb-desc">No balls recorded</span></li>'
 
@@ -963,7 +985,7 @@ def render_innings_json(inn_data: dict, match_id: str) -> str:
         "</div>",
         '<div class="bbb-list">',
     ]
-    for block in blocks:
+    for block in reversed(blocks):
         uid = f"bbb-{match_id}-i{inn_data['num']}-o{block.over_num}"
         parts.append(render_over(block, uid))
     parts.extend(["</div></section>"])
@@ -972,6 +994,10 @@ def render_innings_json(inn_data: dict, match_id: str) -> str:
 
 def render_from_json(match_id: str, data: dict) -> str:
     parts = ['<div class="bbb-wrap">']
+    match_meta = data.get("match") or {}
+    toss_html = render_toss(match_meta.get("toss"))
+    if toss_html:
+        parts.append(toss_html)
     for inn in data["innings"]:
         parts.append(render_innings_json(inn, match_id))
     parts.append("</div>")
@@ -995,7 +1021,7 @@ def render_innings(
         "</div>",
         '<div class="bbb-list">',
     ]
-    for block in blocks:
+    for block in reversed(blocks):
         uid = f"bbb-{match_id}-i{inn.innings_num}-o{block.over_num}"
         parts.append(render_over(block, uid))
     parts.extend(["</div></section>"])

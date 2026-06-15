@@ -269,36 +269,46 @@ def patch_players_tab(html: str, season: dict) -> str:
     return html
 
 
-_WICKETS_END = (
-    '        <div class="lbr"><div class="lbrk rn">4</div><div class="lbn">Aanya</div>'
-    '<div class="lbv">2</div></div></div>'
+_STRIKE_CARD = re.compile(
+    r'\n      <div class="lbc"><div class="lbh">&#9889; Top Strike Rates[^\n]*</div>\n'
+    r'(?:        <div class="lbr">[^\n]*</div>\n)*'
+    r'        <div class="lbr">[^\n]*</div></div>\n'
 )
-_STRIKE_HEADER = '      <div class="lbc"><div class="lbh">&#9889; Top Strike Rates'
+_TAB_LB = '<div id="tab-lb"'
+_RULES_MARKER = "\n\n<!-- RULES -->"
 
 
 def patch_leaders_tab(html: str, season: dict) -> str:
+    """Insert or refresh Top Strike Rates before Most Fours in #tab-lb."""
     board = build_strike_rate_leaderboard(season)
-    start = html.find(_WICKETS_END)
-    if start == -1:
+    tab_lb = html.find(_TAB_LB)
+    if tab_lb == -1:
         return html
-    insert_at = start + len(_WICKETS_END)
-    rest = html[insert_at:]
-    if rest.lstrip().startswith(_STRIKE_HEADER):
-        fours_at = rest.find(_MOST_FOURS)
-        if fours_at == -1:
-            return html
-        rest = rest[fours_at:]
-    fours_at = rest.find(_MOST_FOURS)
+    tab_end = html.find(_RULES_MARKER, tab_lb)
+    if tab_end == -1:
+        return html
+    section = html[tab_lb:tab_end]
+    fours_at = section.find(_MOST_FOURS)
     if fours_at == -1:
         return html
-    rest = rest[fours_at:]
-    return html[:insert_at] + "\n" + board + "\n" + rest
+    section = _STRIKE_CARD.sub("\n", section, count=1)
+    fours_at = section.find(_MOST_FOURS)
+    new_section = section[:fours_at] + "\n" + board + "\n" + section[fours_at:]
+    return html[:tab_lb] + new_section + html[tab_end:]
+
+
+_PC_GRID_END = re.compile(
+    r"\n    </div>\s*\n  </div>\s*\n</div>\s*\n\s*\n<!-- LEADERS -->"
+)
+_PC_NEXT_CARD = re.compile(r"\n      <div class=\"pc\">")
 
 
 def _player_card_pattern(name: str) -> str:
+    """Match a full .pc card (all stat sections), not just through batting pss."""
     return (
-        rf'(<div class="pc"><div class="pnb">{re.escape(name)} <span>ECC</span></div>'
-        rf'(?:(?!</div>\s*<div class="pc">).)*?</div>\s*</div>)'
+        rf"(<div class=\"pc\"><div class=\"pnb\">{re.escape(name)} <span>ECC</span></div>"
+        rf"(?:(?!\n      <div class=\"pc\">).)*?"
+        rf"</div>\s*\n      (?=\n      <div class=\"pc\">|\n    </div>))"
     )
 
 

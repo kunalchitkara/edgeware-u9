@@ -195,4 +195,81 @@ test.describe("edgeware-u9 tabs", () => {
     });
     expect(parent).toBe("tab-mx");
   });
+
+  test("player cards only in #tab-pl, full sections on Players tab", async ({
+    page,
+  }) => {
+    const names = [
+      "Ariyan",
+      "Avyaan",
+      "Viaan",
+      "Shyam",
+      "Qaim",
+      "Krish",
+      "Veer",
+      "Kaiyan",
+      "Aanya",
+      "Taran",
+      "Drish",
+    ];
+
+    for (const { hash, tabId } of TAB_CASES.filter((t) => t.hash !== "pl")) {
+      await page.goto(`/#${hash}`);
+      await page.waitForFunction(
+        (id) => document.getElementById(id)?.classList.contains("active"),
+        tabId,
+      );
+      const pcInTab = await page.locator(`#${tabId} .pc`).count();
+      expect(pcInTab, `#${tabId} should have no .pc`).toBe(0);
+    }
+
+    await page.goto("/#pl");
+    await page.waitForFunction(() =>
+      document.getElementById("tab-pl")?.classList.contains("active"),
+    );
+
+    const plStats = await page.evaluate((playerNames) => {
+      const tab = document.getElementById("tab-pl");
+      const grid = tab?.querySelector(".pgrid");
+      if (!tab || !grid) return null;
+      const cards = [...grid.querySelectorAll(".pc")];
+      const outside = document.querySelectorAll(".pc").length - cards.length;
+      const broken = cards
+        .map((card) => {
+          const name = card.querySelector(".pnb")?.textContent?.trim() ?? "?";
+          const sections = [...card.querySelectorAll(".psst")].map((el) =>
+            el.textContent?.trim(),
+          );
+          return { name, sections };
+        })
+        .filter(
+          (c) =>
+            !c.sections.some((s) => s.includes("Batting")) ||
+            !c.sections.some((s) => s.includes("Bowling")),
+        );
+      return {
+        cardCount: cards.length,
+        outside,
+        broken,
+        tabRuInWrap: !!document.querySelector(".wrap")?.contains(
+          document.getElementById("tab-ru"),
+        ),
+      };
+    }, names);
+
+    expect(plStats).not.toBeNull();
+    expect(plStats.cardCount).toBe(11);
+    expect(plStats.outside).toBe(0);
+    expect(plStats.broken).toEqual([]);
+    expect(plStats.tabRuInWrap).toBe(true);
+
+    for (const name of names) {
+      const card = page.locator("#tab-pl .pc", {
+        has: page.locator(".pnb", { hasText: name }),
+      });
+      await expect(card).toHaveCount(1);
+      await expect(card.locator(".psst", { hasText: "Batting" })).toBeVisible();
+      await expect(card.locator(".psst", { hasText: "Bowling" })).toBeVisible();
+    }
+  });
 });

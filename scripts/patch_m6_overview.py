@@ -31,10 +31,10 @@ PLAYERS_NOTE = (
     "Net Runs = Bat Runs &minus; 5 per wicket lost. Avg = Bat Runs &divide; Innings.</p>"
 )
 
-BAT_TABLE_BODY = """        <tr><td><strong>Ariyan</strong></td><td class="c">4</td><td class="c">4</td><td class="c">34</td><td class="c">8.5</td><td class="c">11</td><td class="c">4</td><td class="c">0</td><td class="c np">+19</td></tr>
-        <tr><td><strong>Qaim</strong></td><td class="c">4</td><td class="c">4</td><td class="c">33</td><td class="c">8.3</td><td class="c">13</td><td class="c">5</td><td class="c">0</td><td class="c np">+13</td></tr>
-        <tr><td><strong>Veer</strong></td><td class="c">4</td><td class="c">4</td><td class="c">26</td><td class="c">6.5</td><td class="c">10</td><td class="c">1</td><td class="c">0</td><td class="c np">+16</td></tr>
-        <tr><td><strong>Avyaan</strong></td><td class="c">4</td><td class="c">4</td><td class="c">23</td><td class="c">5.8</td><td class="c">9</td><td class="c">1</td><td class="c">1</td><td class="c np">+18</td></tr>
+BAT_TABLE_BODY = """        <tr><td><strong>Ariyan</strong></td><td class="c">4</td><td class="c">4</td><td class="c">34</td><td class="c">8.5</td><td class="c">83.9</td><td class="c">11</td><td class="c">4</td><td class="c">0</td><td class="c np">+19</td></tr>
+        <tr><td><strong>Qaim</strong></td><td class="c">4</td><td class="c">4</td><td class="c">33</td><td class="c">8.3</td><td class="c">75.0</td><td class="c">13</td><td class="c">5</td><td class="c">0</td><td class="c np">+13</td></tr>
+        <tr><td><strong>Veer</strong></td><td class="c">4</td><td class="c">4</td><td class="c">26</td><td class="c">6.5</td><td class="c">83.9</td><td class="c">10</td><td class="c">1</td><td class="c">0</td><td class="c np">+16</td></tr>
+        <tr><td><strong>Avyaan</strong></td><td class="c">4</td><td class="c">4</td><td class="c">23</td><td class="c">5.8</td><td class="c">53.7</td><td class="c">9</td><td class="c">1</td><td class="c">1</td><td class="c np">+18</td></tr>
         <tr><td><strong>Kaiyan</strong></td><td class="c">3</td><td class="c">3</td><td class="c">20</td><td class="c">6.7</td><td class="c">14</td><td class="c">3</td><td class="c">0</td><td class="c np">+15</td></tr>
         <tr><td><strong>Viaan</strong></td><td class="c">3</td><td class="c">3</td><td class="c">18</td><td class="c">6.0</td><td class="c">11</td><td class="c">2</td><td class="c">0</td><td class="c np">+13</td></tr>
         <tr><td><strong>Krish</strong></td><td class="c">3</td><td class="c">3</td><td class="c">17</td><td class="c">5.7</td><td class="c">9</td><td class="c">0</td><td class="c">0</td><td class="c nn">&minus;8</td></tr>
@@ -45,8 +45,8 @@ BAT_TABLE_BODY = """        <tr><td><strong>Ariyan</strong></td><td class="c">4<
 
 BOWL_TABLE_BODY = """        <tr><td><strong>Avyaan</strong></td><td class="c">4</td><td class="c">8</td><td class="c">36</td><td class="c"><strong>3</strong></td><td class="c">8</td><td class="c">5</td><td class="c">4.5</td><td class="c">23</td></tr>
         <tr><td><strong>Qaim</strong></td><td class="c">4</td><td class="c">8</td><td class="c">66</td><td class="c"><strong>3</strong></td><td class="c">6</td><td class="c">1</td><td class="c eco-bad">8.2</td><td class="c">17</td></tr>
-        <tr><td><strong>Veer</strong></td><td class="c">4</td><td class="c">8</td><td class="c">49</td><td class="c"><strong>1</strong></td><td class="c">5</td><td class="c">0</td><td class="c">6.1</td><td class="c">13</td></tr>
-        <tr><td><strong>Krish</strong></td><td class="c">3</td><td class="c">6</td><td class="c">22</td><td class="c"><strong>2</strong></td><td class="c">3</td><td class="c">0</td><td class="c eco-good">3.7</td><td class="c"><strong>19</strong></td></tr>
+        <tr><td><strong>Veer</strong></td><td class="c">4</td><td class="c">8</td><td class="c">49</td><td class="c"><strong>2</strong></td><td class="c">5</td><td class="c">0</td><td class="c">6.1</td><td class="c">13</td></tr>
+        <tr><td><strong>Krish</strong></td><td class="c">3</td><td class="c">6</td><td class="c">22</td><td class="c"><strong>3</strong></td><td class="c">3</td><td class="c">0</td><td class="c eco-good">3.7</td><td class="c"><strong>19</strong></td></tr>
         <tr><td><strong>Aanya</strong></td><td class="c">3</td><td class="c">6</td><td class="c">27</td><td class="c"><strong>2</strong></td><td class="c">3</td><td class="c">2</td><td class="c">4.5</td><td class="c">14</td></tr>
         <tr><td><strong>Kaiyan</strong></td><td class="c">3</td><td class="c">6</td><td class="c">40</td><td class="c"><strong>2</strong></td><td class="c">3</td><td class="c">2</td><td class="c">6.7</td><td class="c">16</td></tr>
         <tr><td><strong>Shyam</strong></td><td class="c">3</td><td class="c">6</td><td class="c">43</td><td class="c"><strong>2</strong></td><td class="c">4</td><td class="c">3</td><td class="c eco-bad">7.2</td><td class="c">16</td></tr>
@@ -55,13 +55,13 @@ BOWL_TABLE_BODY = """        <tr><td><strong>Avyaan</strong></td><td class="c">4
         <tr><td><strong>Drish</strong></td><td class="c">3</td><td class="c">6</td><td class="c">36</td><td class="c">0</td><td class="c">4</td><td class="c">2</td><td class="c">6.0</td><td class="c">11</td></tr>
         <tr><td><strong>Taran</strong></td><td class="c">2</td><td class="c">4</td><td class="c">29</td><td class="c"><strong>1</strong></td><td class="c">1</td><td class="c">0</td><td class="c eco-bad">7.2</td><td class="c">4</td></tr>"""
 
-FIELD_TABLE_BODY = """        <tr><td><strong>Avyaan</strong></td><td class="c">4</td><td class="c">0</td><td class="c"><strong>4</strong></td></tr>
-        <tr><td><strong>Viaan</strong></td><td class="c">3</td><td class="c">0</td><td class="c"><strong>2</strong></td></tr>
+FIELD_TABLE_BODY = """        <tr><td><strong>Avyaan</strong></td><td class="c">4</td><td class="c">0</td><td class="c"><strong>3</strong></td></tr>
+        <tr><td><strong>Qaim</strong></td><td class="c">4</td><td class="c">0</td><td class="c"><strong>2</strong></td></tr>
+        <tr><td><strong>Viaan</strong></td><td class="c">3</td><td class="c">0</td><td class="c"><strong>1</strong></td></tr>
         <tr><td><strong>Taran</strong></td><td class="c">2</td><td class="c"><strong>1</strong></td><td class="c"><strong>1</strong></td></tr>
         <tr><td><strong>Shyam</strong></td><td class="c">3</td><td class="c"><strong>1</strong></td><td class="c">0</td></tr>
         <tr><td><strong>Ariyan</strong></td><td class="c">4</td><td class="c">0</td><td class="c"><strong>1</strong></td></tr>
-        <tr><td><strong>Krish</strong></td><td class="c">3</td><td class="c">0</td><td class="c"><strong>1</strong></td></tr>
-        <tr><td><strong>Qaim</strong></td><td class="c">3</td><td class="c">0</td><td class="c"><strong>1</strong></td></tr>"""
+        <tr><td><strong>Krish</strong></td><td class="c">3</td><td class="c">0</td><td class="c"><strong>1</strong></td></tr>"""
 
 LEADERS_NOTE = (
     '<p style="font-size:.8rem;color:var(--mgrey);margin-bottom:16px;">'
@@ -69,6 +69,7 @@ LEADERS_NOTE = (
     "M1 &amp; M3 walkovers. Updated after each match.</p>"
 )
 
+# Top Strike Rates card is inserted by patch_strike_rate.py (before Most Fours).
 LEADERS_GRID = """    <div class="lbg">
       <div class="lbc"><div class="lbh"><img src="icons/batsman_light.png" style="width:18px;height:18px;vertical-align:middle;" alt="bat"> Most Bat Runs</div>
         <div class="lbr"><div class="lbrk r1">1</div><div class="lbn">Ariyan</div><div class="lbv">34</div></div>
@@ -91,8 +92,8 @@ LEADERS_GRID = """    <div class="lbg">
       <div class="lbc"><div class="lbh"><img src="icons/ball_light.png" style="width:18px;height:18px;vertical-align:middle;" alt="ball"> Most Wickets</div>
         <div class="lbr"><div class="lbrk r1">1</div><div class="lbn">Avyaan</div><div class="lbv">3</div></div>
         <div class="lbr"><div class="lbrk r1">1</div><div class="lbn">Qaim</div><div class="lbv">3</div></div>
-        <div class="lbr"><div class="lbrk r3">3</div><div class="lbn">Krish</div><div class="lbv">2</div></div>
-        <div class="lbr"><div class="lbrk rn">4</div><div class="lbn">Aanya</div><div class="lbv">2</div></div>
+        <div class="lbr"><div class="lbrk r1">1</div><div class="lbn">Krish</div><div class="lbv">3</div></div>
+        <div class="lbr"><div class="lbrk rn">4</div><div class="lbn">Veer</div><div class="lbv">2</div></div>
         <div class="lbr"><div class="lbrk rn">4</div><div class="lbn">Kaiyan</div><div class="lbv">2</div></div></div>
       <div class="lbc"><div class="lbh">&#128308; Most Fours</div>
         <div class="lbr"><div class="lbrk r1">1</div><div class="lbn">Qaim</div><div class="lbv">5</div></div>
@@ -122,11 +123,11 @@ LEADERS_GRID = """    <div class="lbg">
         <div class="lbr"><div class="lbrk r1">1</div><div class="lbn">Taran</div><div class="lbv">1</div></div>
         <div class="lbr"><div class="lbrk r1">1</div><div class="lbn">Shyam</div><div class="lbv">1</div></div></div>
       <div class="lbc"><div class="lbh"><img src="icons/fielder_light.png" style="width:18px;height:18px;vertical-align:middle;" alt="field"> Most Run Outs</div>
-        <div class="lbr"><div class="lbrk r1">1</div><div class="lbn">Avyaan</div><div class="lbv">4</div></div>
-        <div class="lbr"><div class="lbrk r2">2</div><div class="lbn">Viaan</div><div class="lbv">2</div></div>
+        <div class="lbr"><div class="lbrk r1">1</div><div class="lbn">Avyaan</div><div class="lbv">3</div></div>
+        <div class="lbr"><div class="lbrk r2">2</div><div class="lbn">Qaim</div><div class="lbv">2</div></div>
         <div class="lbr"><div class="lbrk r3">3</div><div class="lbn">Ariyan</div><div class="lbv">1</div></div>
-        <div class="lbr"><div class="lbrk rn">4</div><div class="lbn">Krish</div><div class="lbv">1</div></div>
-        <div class="lbr"><div class="lbrk rn">4</div><div class="lbn">Taran</div><div class="lbv">1</div></div></div>
+        <div class="lbr"><div class="lbrk r3">3</div><div class="lbn">Viaan</div><div class="lbv">1</div></div>
+        <div class="lbr"><div class="lbrk r3">3</div><div class="lbn">Krish</div><div class="lbv">1</div></div></div>
     </div>"""
 
 # Player card snippets — batting / bowling / fielding lines only
@@ -151,14 +152,14 @@ PLAYER_CARD_UPDATES: dict[str, dict[str, str]] = {
           <div class="psr"><span class="psl">Runs / ECO</span><span class="psv">36 / 4.5</span></div>
           <div class="psr"><span class="psl">Dots</span><span class="psv">23</span></div>""",
         "field": """        <div class="pss"><div class="psst"><span><img src="icons/fielding-role.png" style="width:18px;height:18px;vertical-align:middle;" alt="field"></span> Fielding</div>
-          <div class="psr"><span class="psl">Run Outs</span><span class="psv">4</span></div></div>""",
+          <div class="psr"><span class="psl">Run Outs</span><span class="psv">3</span></div></div>""",
     },
     "Veer": {
         "bat": """          <div class="psr"><span class="psl">Inn</span><span class="psv">4</span></div>
           <div class="psr"><span class="psl">Bat Runs / Avg</span><span class="psv">26 / 6.5</span></div>
           <div class="psr"><span class="psl">4s / 6s</span><span class="psv">1 / 0</span></div>
           <div class="psr"><span class="psl">Net Runs</span><span class="psv np">+16</span></div>""",
-        "bowl": """          <div class="psr"><span class="psl">Overs / Wkts</span><span class="psv">8 / 1</span></div>
+        "bowl": """          <div class="psr"><span class="psl">Overs / Wkts</span><span class="psv">8 / 2</span></div>
           <div class="psr"><span class="psl">Runs / ECO</span><span class="psv">49 / 6.1</span></div>
           <div class="psr"><span class="psl">Dots</span><span class="psv">13</span></div>""",
     },
@@ -179,6 +180,8 @@ PLAYER_CARD_UPDATES: dict[str, dict[str, str]] = {
         "bowl": """          <div class="psr"><span class="psl">Overs / Wkts</span><span class="psv">8 / 3</span></div>
           <div class="psr"><span class="psl">Runs / ECO</span><span class="psv eco-bad">66 / 8.2</span></div>
           <div class="psr"><span class="psl">Dots</span><span class="psv">17</span></div>""",
+        "field": """        <div class="pss"><div class="psst"><span><img src="icons/fielding-role.png" style="width:18px;height:18px;vertical-align:middle;" alt="field"></span> Fielding</div>
+          <div class="psr"><span class="psl">Run Outs</span><span class="psv">2</span></div></div>""",
     },
     "Viaan": {
         "bat": """          <div class="psr"><span class="psl">Inn</span><span class="psv">3</span></div>
@@ -189,7 +192,7 @@ PLAYER_CARD_UPDATES: dict[str, dict[str, str]] = {
           <div class="psr"><span class="psl">Runs / ECO</span><span class="psv">31 / 5.2</span></div>
           <div class="psr"><span class="psl">Dots</span><span class="psv">19</span></div>""",
         "field": """        <div class="pss"><div class="psst"><span><img src="icons/fielding-role.png" style="width:18px;height:18px;vertical-align:middle;" alt="field"></span> Fielding</div>
-          <div class="psr"><span class="psl">Run Outs</span><span class="psv">2</span></div></div>""",
+          <div class="psr"><span class="psl">Run Outs</span><span class="psv">1</span></div></div>""",
     },
     "Drish": {
         "bat": """          <div class="psr"><span class="psl">Inn</span><span class="psv">3</span></div>
@@ -223,22 +226,43 @@ def _replace_table_body(html: str, header_marker: str, new_body: str) -> str:
     return out
 
 
-def _update_player_card(html: str, name: str, updates: dict[str, str]) -> str:
+def _extract_player_card_block(html: str, name: str) -> tuple[int, int, str]:
     marker = f'<div class="pc"><div class="pnb">{name} <span>ECC</span></div>'
     start = html.find(marker)
     if start == -1:
         raise SystemExit(f"Player card not found: {name}")
-    end = html.find('<div class="pc">', start + 1)
-    if end == -1:
-        end = html.find("</div>\n    </div>\n  </div>\n</div>\n\n<!-- LEADERS -->", start)
-    block = html[start:end]
+    rest = html[start:]
+    depth = 0
+    i = 0
+    while i < len(rest):
+        if rest.startswith("<div", i):
+            depth += 1
+            i = rest.find(">", i) + 1
+        elif rest.startswith("</div>", i):
+            depth -= 1
+            i += 6
+            if depth == 0:
+                return start, start + i, rest[:i]
+        else:
+            i += 1
+    raise SystemExit(f"Unclosed player card: {name}")
+
+
+def _update_player_card(html: str, name: str, updates: dict[str, str]) -> str:
+    start, end, block = _extract_player_card_block(html, name)
 
     bat_pat = re.compile(
-        r'(<div class="pss"><div class="psst">.*?Batting</div>\n)(.*?)(</div>\n        <div class="pss"><div class="psst">.*?Bowling)',
+        r'(<div class="pss"><div class="psst"><span><img src="icons/batsman[^"]*\.png"[^>]*></span> Batting</div>\n)(.*?)(</div>\s*\n        <div class="pss"><div class="psst"><span><img src="icons/cricket-ball)',
         re.DOTALL,
     )
     bowl_pat = re.compile(
-        r'(<div class="pss"><div class="psst">.*?Bowling</div>\n)(.*?)(</div>(?:\n        <div class="pss"><div class="psst">.*?Fielding|</div></div>))',
+        r'(<div class="pss"><div class="psst"><span><img src="icons/cricket-ball[^"]*\.png"[^>]*></span> Bowling</div>\n)(.*?)'
+        r'(</div>\s*(?=\n        <div class="pss"><div class="psst"><span><img src="icons/fielding-role'
+        r'|\n      <div class="pc">|</div>\s*$))',
+        re.DOTALL,
+    )
+    field_pat = re.compile(
+        r'<div class="pss"><div class="psst"><span><img src="icons/fielding-role\.png"[^>]*></span> Fielding</div>\n\s*<div class="psr">.*?</div>\s*</div>',
         re.DOTALL,
     )
 
@@ -255,12 +279,8 @@ def _update_player_card(html: str, name: str, updates: dict[str, str]) -> str:
         block = block[: m.start(2)] + updates["bowl"] + block[m.end(2) :]
 
     if "field" in updates:
-        if "Fielding" in block:
-            field_pat = re.compile(
-                r'<div class="pss"><div class="psst">.*?Fielding</div>\n.*?</div></div>',
-                re.DOTALL,
-            )
-            block = field_pat.sub(updates["field"], block, count=1)
+        if field_pat.search(block):
+            block = field_pat.sub(updates["field"].strip(), block, count=1)
         else:
             insert_at = block.rfind("</div></div>")
             block = block[:insert_at] + "\n" + updates["field"] + "\n" + block[insert_at:]
@@ -274,35 +294,35 @@ def patch_overview(html: str) -> str:
         '<h3>Next Match &mdash; 21 Jun 2026</h3><p>&#127968; Edgware vs H Manor &nbsp;&middot;&nbsp; Home &nbsp;&middot;&nbsp; Canons High School &nbsp;&middot;&nbsp; 09:00 / 10:00 AM</p>',
         1,
     )
-    html = html.replace(
-        '<div class="sbox"><div class="v">5</div><div class="l">Played</div></div>\n'
-        '    <div class="sbox win"><div class="v">4</div><div class="l">Wins</div></div>\n'
-        '    <div class="sbox loss"><div class="v">1</div><div class="l">Losses</div></div>\n'
-        '    <div class="sbox"><div class="v">0</div><div class="l">Draws</div></div>\n'
-        '    <div class="sbox"><div class="v">315</div><div class="l">Highest Score</div></div>\n'
-        '    <div class="sbox"><div class="v">+32</div><div class="l">Best Win Margin</div></div>',
-        '<div class="sbox"><div class="v">6</div><div class="l">Played</div></div>\n'
-        '    <div class="sbox win"><div class="v">5</div><div class="l">Wins</div></div>\n'
-        '    <div class="sbox loss"><div class="v">1</div><div class="l">Losses</div></div>\n'
-        '    <div class="sbox"><div class="v">0</div><div class="l">Draws</div></div>\n'
-        '    <div class="sbox"><div class="v">315</div><div class="l">Highest Score</div></div>\n'
-        '    <div class="sbox"><div class="v">+45</div><div class="l">Best Win Margin</div></div>',
-        1,
-    )
+    for old_margin in ("+32", "+45"):
+        html = html.replace(
+            f'<div class="sbox"><div class="v">5</div><div class="l">Played</div></div>\n'
+            '    <div class="sbox win"><div class="v">4</div><div class="l">Wins</div></div>\n'
+            '    <div class="sbox loss"><div class="v">1</div><div class="l">Losses</div></div>\n'
+            '    <div class="sbox"><div class="v">0</div><div class="l">Draws</div></div>\n'
+            '    <div class="sbox"><div class="v">315</div><div class="l">Highest Score</div></div>\n'
+            f'    <div class="sbox"><div class="v">{old_margin}</div><div class="l">Best Win Margin</div></div>',
+            '<div class="sbox"><div class="v">6</div><div class="l">Played</div></div>\n'
+            '    <div class="sbox win"><div class="v">5</div><div class="l">Wins</div></div>\n'
+            '    <div class="sbox loss"><div class="v">1</div><div class="l">Losses</div></div>\n'
+            '    <div class="sbox"><div class="v">0</div><div class="l">Draws</div></div>\n'
+            '    <div class="sbox"><div class="v">315</div><div class="l">Highest Score</div></div>\n'
+            '    <div class="sbox"><div class="v">+45</div><div class="l">Best Win Margin</div></div>',
+            1,
+        )
     return html
 
 
 def patch_players(html: str) -> str:
-    if "Based on M2, M4, M5 &amp; M6" in html:
-        return html
-    html = html.replace(
-        '<p style="font-size:.8rem;color:var(--mgrey);margin-bottom:16px;">Based on M2, M4 &amp; M5 (M1 &amp; M3 walkovers). Net Runs = Bat Runs &minus; 5 per wicket lost. Avg = Bat Runs &divide; Innings.</p>',
-        PLAYERS_NOTE,
-        1,
-    )
+    if "Based on M2, M4, M5 &amp; M6" not in html:
+        html = html.replace(
+            '<p style="font-size:.8rem;color:var(--mgrey);margin-bottom:16px;">Based on M2, M4 &amp; M5 (M1 &amp; M3 walkovers). Net Runs = Bat Runs &minus; 5 per wicket lost. Avg = Bat Runs &divide; Innings.</p>',
+            PLAYERS_NOTE,
+            1,
+        )
     html = _replace_table_body(
         html,
-        '<tr><th>Batter</th><th class="c">M</th><th class="c">Inn</th><th class="c">Bat Runs</th><th class="c">Avg</th><th class="c">HS</th><th class="c">4s</th><th class="c">6s</th><th class="c">Net Runs</th></tr>',
+        '<tr><th>Batter</th><th class="c">M</th><th class="c">Inn</th><th class="c">Bat Runs</th><th class="c">Avg</th><th class="c">SR</th><th class="c">HS</th><th class="c">4s</th><th class="c">6s</th><th class="c">Net Runs</th></tr>',
         BAT_TABLE_BODY,
     )
     html = _replace_table_body(
@@ -368,11 +388,21 @@ def patch_most_sixes(html: str) -> str:
 
 
 def patch_leaders(html: str) -> str:
-    if "M6 vs Pinner" in html:
+    lb_start = html.find('id="tab-lb"')
+    if lb_start == -1:
+        raise SystemExit("tab-lb missing")
+    segment = html[lb_start : html.find("<!-- RULES -->", lb_start)]
+    card_count = segment.count('class="lbc"')
+    needs_wickets_fix = "Krish</div><div class=\"lbv\">2</div></div>" in segment and "Veer</div><div class=\"lbv\">2</div></div>" not in segment
+    needs_runouts_fix = (
+        "Avyaan</div><div class=\"lbv\">4</div></div>" in segment
+        or 'lbn">Viaan</div><div class="lbv">1</div></div>\n        <div class="lbr"><div class="lbrk rn">4' in segment
+    )
+    if card_count >= 10 and not needs_wickets_fix and not needs_runouts_fix:
         return html
     html = re.sub(
         r'(<div id="tab-lb" class="tab">\s*<div class="card">\s*<div class="ctitle">[^<]+</div>\s*)<p style="font-size:\.8rem;color:var\(--mgrey\);margin-bottom:16px;">.*?</p>(\s*<div class="lbg">).*?(</div>\s*</div>\s*</div>\s*\n\n<!-- RULES -->)',
-        rf"\1{LEADERS_NOTE}\2\n{LEADERS_GRID}\3",
+        rf"\1{LEADERS_NOTE}\n{LEADERS_GRID}\3",
         html,
         count=1,
         flags=re.DOTALL,
@@ -386,6 +416,9 @@ def main() -> None:
     html = patch_players(html)
     html = patch_leaders(html)
     html = patch_most_sixes(html)
+    from patch_index import fix_tab_pl_boundary
+
+    html = fix_tab_pl_boundary(html)
     INDEX.write_text(html, encoding="utf-8")
     print(f"Updated overview, players, and leaders in {INDEX}")
 
