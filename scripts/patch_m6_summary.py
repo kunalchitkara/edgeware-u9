@@ -14,6 +14,7 @@ DATA = ROOT / "data" / "m6.json"
 import sys
 
 sys.path.insert(0, str(ROOT / "scripts"))
+from innings_score import format_innings_score  # noqa: E402
 from match_awards import best_batsman, best_bowler, bowl_figure  # noqa: E402
 from match_awards import BatterLine, BowlerLine  # noqa: E402
 from strike_rate import format_sr  # noqa: E402
@@ -219,7 +220,7 @@ def build_m6_summary_card(data: dict) -> str:
 
       <!-- Pinner Batting -->
       <div class="sci">
-        <div class="scih sct2"><span><img src="icons/batsman_light.png" style="width:18px;height:18px;vertical-align:middle;" alt="bat"> Pinner &mdash; Batting 1st Innings</span><span class="sct">{pinner_total} (16 Ov)</span></div>
+        <div class="scih sct2"><span><img src="icons/batsman_light.png" style="width:18px;height:18px;vertical-align:middle;" alt="bat"> Pinner &mdash; Batting 1st Innings</span><span class="sct">{format_innings_score(pinner_total, pinner_wkts, 16)}</span></div>
         {tbl(bat_hdr, chr(10).join(bat_row(b) for b in inn1["batting_summary"]), f'<tr class="sctot"><td colspan="2"><strong>Total</strong></td><td class="c" colspan="5"><strong>{pinner_total} &nbsp;(16 Ov &nbsp;|&nbsp; Base 200 + {pinner_play} from play &nbsp;|&nbsp; {pinner_wkts} wkts)</strong></td></tr>')}
         <div class="scsh">&#129309; Partnerships</div>
         {tbl(p_hdr, chr(10).join(partnership_row(p) for p in inn1["partnerships"]))}
@@ -236,7 +237,7 @@ def build_m6_summary_card(data: dict) -> str:
 
       <!-- ECC Batting -->
       <div class="sci">
-        <div class="scih"><span><img src="icons/batsman_light.png" style="width:18px;height:18px;vertical-align:middle;" alt="bat"> Edgware CC &mdash; Batting 2nd Innings</span><span class="sct">{ecc_total} (16 Ov)</span></div>
+        <div class="scih"><span><img src="icons/batsman_light.png" style="width:18px;height:18px;vertical-align:middle;" alt="bat"> Edgware CC &mdash; Batting 2nd Innings</span><span class="sct">{format_innings_score(ecc_total, ecc_wkts, 16)}</span></div>
         {tbl(bat_hdr, chr(10).join(bat_row(b) for b in inn2["batting_summary"]), f'<tr class="sctot"><td colspan="2"><strong>Total</strong></td><td class="c" colspan="5"><strong>{ecc_total} &nbsp;(16 Ov &nbsp;|&nbsp; Base 200 + {ecc_play} from play &nbsp;|&nbsp; {ecc_wkts} wkts &nbsp;|&nbsp; Target {target})</strong></td></tr>')}
         <div class="scsh">&#129309; Partnerships</div>
         {tbl(p_hdr, chr(10).join(partnership_row(p) for p in inn2["partnerships"]))}
