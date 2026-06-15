@@ -195,7 +195,7 @@
             },
             {
               "symbol": "1",
-              "batter": "Henry",
+              "batter": "Dev",
               "description": "1 run",
               "runs": 1,
               "bat_runs": 1,
@@ -217,7 +217,7 @@
           "deliveries": [
             {
               "symbol": "+",
-              "batter": "Henry",
+              "batter": "Dev",
               "description": "Wide (+2)",
               "runs": 2,
               "bat_runs": null,
@@ -259,7 +259,7 @@
             },
             {
               "symbol": ".",
-              "batter": "Henry",
+              "batter": "Dev",
               "description": "no run",
               "runs": 0,
               "bat_runs": null,
@@ -287,7 +287,7 @@
             },
             {
               "symbol": ".",
-              "batter": "Henry",
+              "batter": "Dev",
               "description": "no run",
               "runs": 0,
               "bat_runs": null,
@@ -323,7 +323,7 @@
             },
             {
               "symbol": "4",
-              "batter": "Henry",
+              "batter": "Dev",
               "description": "FOUR",
               "runs": 4,
               "bat_runs": 4,
@@ -351,7 +351,7 @@
             },
             {
               "symbol": "4",
-              "batter": "Henry",
+              "batter": "Dev",
               "description": "FOUR \u2014 overthrow Avyaan",
               "runs": 4,
               "bat_runs": 4,
@@ -379,7 +379,7 @@
             },
             {
               "symbol": "1",
-              "batter": "Henry",
+              "batter": "Dev",
               "description": "1 run",
               "runs": 1,
               "bat_runs": 1,
@@ -599,7 +599,7 @@
             },
             {
               "symbol": ".",
-              "batter": "Shrihan",
+              "batter": "Rafi",
               "description": "no run",
               "runs": 0,
               "bat_runs": null,
@@ -613,7 +613,7 @@
             },
             {
               "symbol": "0+4",
-              "batter": "Shrihan",
+              "batter": "Rafi",
               "description": "",
               "runs": 6,
               "bat_runs": 4,
@@ -641,7 +641,7 @@
             },
             {
               "symbol": ".",
-              "batter": "Shrihan",
+              "batter": "Rafi",
               "description": "no run",
               "runs": 0,
               "bat_runs": null,
@@ -677,7 +677,7 @@
           "deliveries": [
             {
               "symbol": "+",
-              "batter": "Shrihan",
+              "batter": "Henry",
               "description": "Wide (+2)",
               "runs": 2,
               "bat_runs": null,
@@ -691,7 +691,7 @@
             },
             {
               "symbol": "+",
-              "batter": "Vivaan",
+              "batter": "Rafi",
               "description": "Wide (+2)",
               "runs": 2,
               "bat_runs": null,
@@ -705,7 +705,7 @@
             },
             {
               "symbol": ".",
-              "batter": "Shrihan",
+              "batter": "Henry",
               "description": "no run",
               "runs": 0,
               "bat_runs": null,
@@ -719,7 +719,7 @@
             },
             {
               "symbol": ".",
-              "batter": "Vivaan",
+              "batter": "Rafi",
               "description": "no run",
               "runs": 0,
               "bat_runs": null,
@@ -733,7 +733,7 @@
             },
             {
               "symbol": "1",
-              "batter": "Shrihan",
+              "batter": "Henry",
               "description": "1 run",
               "runs": 1,
               "bat_runs": 1,
@@ -889,8 +889,8 @@
             },
             {
               "symbol": "R",
-              "batter": "Shrihan",
-              "description": "Shrihan run out (Avyaan)",
+              "batter": "Vivaan",
+              "description": "Vivaan run out (Avyaan)",
               "runs": -5,
               "bat_runs": null,
               "wicket": true,
@@ -903,7 +903,7 @@
             },
             {
               "symbol": ".",
-              "batter": "Vivaan",
+              "batter": "Shrihan",
               "description": "no run",
               "runs": 0,
               "bat_runs": null,
@@ -917,7 +917,7 @@
             },
             {
               "symbol": "+",
-              "batter": "Vivaan",
+              "batter": "Shrihan",
               "description": "Wide (+2)",
               "runs": 2,
               "bat_runs": null,
@@ -939,7 +939,7 @@
           "deliveries": [
             {
               "symbol": ".",
-              "batter": "Vivaan",
+              "batter": "Shrihan",
               "description": "no run",
               "runs": 0,
               "bat_runs": null,
@@ -953,7 +953,7 @@
             },
             {
               "symbol": "+",
-              "batter": "Ojas",
+              "batter": "Shrihan",
               "description": "Wide (+2)",
               "runs": 2,
               "bat_runs": null,
@@ -967,7 +967,7 @@
             },
             {
               "symbol": ".",
-              "batter": "Ojas",
+              "batter": "Shrihan",
               "description": "no run",
               "runs": 0,
               "bat_runs": null,
@@ -981,7 +981,7 @@
             },
             {
               "symbol": "1",
-              "batter": "Vivaan",
+              "batter": "Shrihan",
               "description": "1 run",
               "runs": 1,
               "bat_runs": 1,
@@ -995,7 +995,7 @@
             },
             {
               "symbol": ".",
-              "batter": "Ojas",
+              "batter": "Shrihan",
               "description": "no run",
               "runs": 0,
               "bat_runs": null,
@@ -1009,7 +1009,7 @@
             },
             {
               "symbol": "1",
-              "batter": "Vivaan",
+              "batter": "Shrihan",
               "description": "1 run",
               "runs": 1,
               "bat_runs": 1,
@@ -1031,7 +1031,7 @@
           "deliveries": [
             {
               "symbol": ".",
-              "batter": "Vivaan",
+              "batter": "Shrihan",
               "description": "no run",
               "runs": 0,
               "bat_runs": null,
@@ -1045,7 +1045,7 @@
             },
             {
               "symbol": "1",
-              "batter": "Ojas",
+              "batter": "Shrihan",
               "description": "1 run",
               "runs": 1,
               "bat_runs": 1,
@@ -1059,7 +1059,7 @@
             },
             {
               "symbol": "1",
-              "batter": "Vivaan",
+              "batter": "Shrihan",
               "description": "1 run",
               "runs": 1,
               "bat_runs": 1,
@@ -1073,7 +1073,7 @@
             },
             {
               "symbol": ".",
-              "batter": "Ojas",
+              "batter": "Shrihan",
               "description": "no run",
               "runs": 0,
               "bat_runs": null,
@@ -1086,12 +1086,12 @@
               "bowler": "Veer"
             },
             {
-              "symbol": "B",
-              "batter": "Vivaan",
-              "description": "Vivaan b Veer",
-              "runs": -5,
+              "symbol": ".",
+              "batter": "Shrihan",
+              "description": "no run",
+              "runs": 0,
               "bat_runs": null,
-              "wicket": true,
+              "wicket": false,
               "fielder": "",
               "extras_type": "",
               "over": 12,
@@ -1100,12 +1100,12 @@
               "bowler": "Veer"
             },
             {
-              "symbol": ".",
-              "batter": "Ojas",
-              "description": "no run",
-              "runs": 0,
+              "symbol": "B",
+              "batter": "Shrihan",
+              "description": "Shrihan b Veer",
+              "runs": -5,
               "bat_runs": null,
-              "wicket": false,
+              "wicket": true,
               "fielder": "",
               "extras_type": "",
               "over": 12,
@@ -1165,7 +1165,7 @@
             },
             {
               "symbol": "4",
-              "batter": "Dev",
+              "batter": "Ojas",
               "description": "FOUR \u2014 hat-trick missed (Ojas)",
               "runs": 4,
               "bat_runs": 4,
@@ -1179,7 +1179,7 @@
             },
             {
               "symbol": "1",
-              "batter": "Dev",
+              "batter": "Ojas",
               "description": "",
               "runs": 1,
               "bat_runs": 1,
@@ -1193,7 +1193,7 @@
             },
             {
               "symbol": "1",
-              "batter": "Dev",
+              "batter": "Ojas",
               "description": "1 run",
               "runs": 1,
               "bat_runs": 1,
@@ -1215,7 +1215,7 @@
           "deliveries": [
             {
               "symbol": "1",
-              "batter": "Dev",
+              "batter": "Ojas",
               "description": "1 run",
               "runs": 1,
               "bat_runs": 1,
@@ -1307,7 +1307,7 @@
           "deliveries": [
             {
               "symbol": ".",
-              "batter": "Ojas",
+              "batter": "Riyan",
               "description": "no run",
               "runs": 0,
               "bat_runs": null,
@@ -1321,7 +1321,7 @@
             },
             {
               "symbol": "O",
-              "batter": "Ojas",
+              "batter": "Riyan",
               "description": "No ball (+2)",
               "runs": 2,
               "bat_runs": null,
@@ -1334,12 +1334,12 @@
               "bowler": "Shyam"
             },
             {
-              "symbol": ".",
-              "batter": "Ojas",
-              "description": "no run",
-              "runs": 0,
+              "symbol": "B",
+              "batter": "Riyan",
+              "description": "Riyan b Shyam",
+              "runs": -5,
               "bat_runs": null,
-              "wicket": false,
+              "wicket": true,
               "fielder": "",
               "extras_type": "",
               "over": 15,
@@ -1511,19 +1511,19 @@
           "b1": "Ojas",
           "b2": "Riyan",
           "net": 27,
-          "wickets": 2
+          "wickets": 3
         }
       ],
       "batting_summary": [
         {
           "name": "Dev",
           "dismissal": "not out",
-          "runs": 15,
-          "balls": 17,
-          "fours": 1,
+          "runs": 18,
+          "balls": 19,
+          "fours": 2,
           "sixes": 0,
           "wkts": 0,
-          "net": 15
+          "net": 18
         },
         {
           "name": "Zayden",
@@ -1538,58 +1538,58 @@
         {
           "name": "Henry",
           "dismissal": "not out",
-          "runs": 12,
-          "balls": 14,
-          "fours": 2,
+          "runs": 3,
+          "balls": 10,
+          "fours": 0,
           "sixes": 0,
           "wkts": 0,
-          "net": 12
+          "net": 3
         },
         {
           "name": "Rafi",
           "dismissal": "b Kaiyan (Ov 6)",
-          "runs": 9,
-          "balls": 5,
-          "fours": 2,
+          "runs": 13,
+          "balls": 9,
+          "fours": 3,
           "sixes": 0,
           "wkts": 1,
-          "net": 4
+          "net": 8
         },
         {
           "name": "Shrihan",
-          "dismissal": "run out (Avyaan) (Ov 10)",
-          "runs": 6,
-          "balls": 10,
-          "fours": 1,
-          "sixes": 0,
-          "wkts": 1,
-          "net": 1
-        },
-        {
-          "name": "Vivaan",
           "dismissal": "b Veer (Ov 12)",
           "runs": 5,
-          "balls": 11,
+          "balls": 16,
           "fours": 0,
           "sixes": 0,
           "wkts": 1,
           "net": 0
         },
         {
-          "name": "Ojas",
-          "dismissal": "b Qaim (Ov 13)",
-          "runs": 20,
-          "balls": 18,
-          "fours": 4,
+          "name": "Vivaan",
+          "dismissal": "run out (Avyaan) (Ov 10)",
+          "runs": 2,
+          "balls": 4,
+          "fours": 0,
           "sixes": 0,
           "wkts": 1,
-          "net": 15
+          "net": -3
+        },
+        {
+          "name": "Ojas",
+          "dismissal": "b Qaim (Ov 13)",
+          "runs": 26,
+          "balls": 15,
+          "fours": 5,
+          "sixes": 0,
+          "wkts": 1,
+          "net": 21
         },
         {
           "name": "Riyan",
-          "dismissal": "b Qaim (Ov 13)",
+          "dismissal": "b Shyam (Ov 15)",
           "runs": 4,
-          "balls": 1,
+          "balls": 2,
           "fours": 1,
           "sixes": 0,
           "wkts": 1,
@@ -1655,10 +1655,10 @@
           "name": "Shyam",
           "overs": 2,
           "runs": 14,
-          "wickets": 0,
+          "wickets": 1,
           "wides": 2,
           "noballs": 2,
-          "dots": 6
+          "dots": 5
         },
         {
           "name": "Drish",
@@ -1681,7 +1681,7 @@
           "fielder": "Avyaan",
           "catches": 0,
           "run_outs": 1,
-          "detail": "run out (Avyaan) \u2014 Ov 10 (Shrihan)"
+          "detail": "run out (Avyaan) \u2014 Ov 10 (Vivaan)"
         }
       ]
     },

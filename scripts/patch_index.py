@@ -62,7 +62,23 @@ CSS = """
 APP_JS = """const TAB_IDS=['ov','fx','mx','pl','lb','ru','pr'];
 const TAB_ALIASES={fixtures:'fx',matches:'mx',overview:'ov',players:'pl',leaders:'lb',rules:'ru',practice:'pr'};
 const MATCHES_WITH_BBB=['m2','m4','m5','m6'];
-const DEFAULT_MATCH='m1';
+
+function latestMatch(){
+  let latest='m1',n=0;
+  document.querySelectorAll('[id^="match-m"]').forEach(el=>{
+    const m=el.id.match(/^match-m(\\d+)$/);
+    if(m){
+      const num=parseInt(m[1],10);
+      if(num>n){n=num;latest='m'+num;}
+    }
+  });
+  return latest;
+}
+
+function resolveMatch(matchId){
+  const id=(matchId||latestMatch()).toLowerCase();
+  return document.getElementById('match-'+id)?id:latestMatch();
+}
 
 function parseHash(){
   const raw=location.hash.replace(/^#/,'');
@@ -73,7 +89,7 @@ function parseHash(){
   if(!TAB_IDS.includes(tab))return{tab:'ov'};
   const state={tab};
   if(tab==='mx'){
-    state.match=(parts[1]||DEFAULT_MATCH).toLowerCase();
+    state.match=resolveMatch(parts[1]);
     state.view=parts[2]==='bbb'||parts[2]==='commentary'?'bbb':'summary';
   }
   return state;
@@ -82,7 +98,7 @@ function parseHash(){
 function hashFromState(state){
   let hash=state.tab;
   if(state.tab==='mx'){
-    const match=state.match||DEFAULT_MATCH;
+    const match=state.match||latestMatch();
     hash+='/'+match;
     if(state.view==='bbb'&&MATCHES_WITH_BBB.includes(match))hash+='/bbb';
   }
@@ -151,8 +167,12 @@ function applyHash(){
   const state=parseHash();
   activateTab(state.tab);
   if(state.tab==='mx'){
-    const matchId=document.getElementById('match-'+state.match)?state.match:DEFAULT_MATCH;
-    activateMatchView(matchId,state.view||'summary');
+    const matchId=resolveMatch(state.match);
+    const view=state.view||'summary';
+    activateMatchView(matchId,view);
+    const raw=location.hash.replace(/^#/,'');
+    const parts=raw.split('/').filter(Boolean);
+    if(parts.length===1)updateHash({tab:'mx',match:matchId,view},true);
   }
 }
 
@@ -178,7 +198,14 @@ function toggleBbbOver(id){
 
 function showTab(id,btn,skipHash){
   activateTab(id,btn);
-  if(!skipHash)updateHash({tab:id},true);
+  if(skipHash)return;
+  if(id==='mx'){
+    const match=latestMatch();
+    activateMatchView(match,'summary');
+    updateHash({tab:'mx',match,view:'summary'},true);
+  }else{
+    updateHash({tab:id},true);
+  }
 }
 
 function showMatch(id,btn,skipHash){

@@ -450,16 +450,16 @@ def build_innings_1() -> dict:
         [  # ov 2
             d(".", "Dev"), d(".", "Dev"), d(".", "Dev"), d("2", "Dev"), d("R", "Zayden", fielder="Ariyan", wicket=True,
               description="Zayden run out (Ariyan) — brilliant fielding"),
-            d("1", "Henry"),
+            d("1", "Dev"),
         ],
         [  # ov 3
-            d("+", "Henry", extras_type="wide"), d("1", "Dev"), d(".", "Dev"), d(".", "Henry"), d("1", "Dev"), d(".", "Henry"),
+            d("+", "Dev", extras_type="wide"), d("1", "Dev"), d(".", "Dev"), d(".", "Dev"), d("1", "Dev"), d(".", "Dev"),
         ],
         [  # ov 4
-            d("1", "Dev"), d("4", "Henry"), d("1", "Dev"),
-            d("4", "Henry", description="FOUR — overthrow Avyaan", bat_runs=4),
+            d("1", "Dev"), d("4", "Dev"), d("1", "Dev"),
+            d("4", "Dev", description="FOUR — overthrow Avyaan", bat_runs=4),
             d("1", "Dev", description="1 run — catch dropped Qaim"),
-            d("1", "Henry"),
+            d("1", "Dev"),
         ],
         [  # ov 5
             d("+", "Rafi", extras_type="wide"), d("4", "Rafi"), d(".", "Henry"), d("1", "Rafi"), d(".", "Henry"), d(".", "Rafi"),
@@ -470,12 +470,12 @@ def build_innings_1() -> dict:
             d(".", "Henry"),
         ],
         [  # ov 7
-            d("1", "Henry"), d(".", "Shrihan"), d("0+4", "Shrihan"),
-            d(".", "Henry"), d(".", "Shrihan"), d("1", "Henry"),
+            d("1", "Henry"), d(".", "Rafi"), d("0+4", "Rafi"),
+            d(".", "Henry"), d(".", "Rafi"), d("1", "Henry"),
         ],
         [  # ov 8
-            d("+", "Shrihan", extras_type="wide"), d("+", "Vivaan", extras_type="wide"),
-            d(".", "Shrihan"), d(".", "Vivaan"), d("1", "Shrihan"),
+            d("+", "Henry", extras_type="wide"), d("+", "Rafi", extras_type="wide"),
+            d(".", "Henry"), d(".", "Rafi"), d("1", "Henry"),
         ],
         [  # ov 9
             d(".", "Shrihan"), d("1", "Vivaan"), d("1", "Shrihan"),
@@ -484,31 +484,31 @@ def build_innings_1() -> dict:
         ],
         [  # ov 10
             d(".", "Shrihan"), d(".", "Vivaan"), d(".", "Shrihan"),
-            d("R", "Shrihan", fielder="Avyaan", wicket=True, description="Shrihan run out (Avyaan)"),
-            d(".", "Vivaan"), d("+", "Vivaan", extras_type="wide"),
+            d("R", "Vivaan", fielder="Avyaan", wicket=True, description="Vivaan run out (Avyaan)"),
+            d(".", "Shrihan"), d("+", "Shrihan", extras_type="wide"),
         ],
         [  # ov 11
-            d(".", "Vivaan"), d("+", "Ojas", extras_type="wide"), d(".", "Ojas"),
-            d("1", "Vivaan"), d(".", "Ojas"), d("1", "Vivaan"),
+            d(".", "Shrihan"), d("+", "Shrihan", extras_type="wide"), d(".", "Shrihan"),
+            d("1", "Shrihan"), d(".", "Shrihan"), d("1", "Shrihan"),
         ],
-        [  # ov 12
-            d(".", "Vivaan"), d("1", "Ojas"), d("1", "Vivaan"), d(".", "Ojas"),
-            d("B", "Vivaan", wicket=True, description="Vivaan b Veer"),
-            d(".", "Ojas"),
+        [  # ov 12 — ball 12.0: Shrihan b Veer
+            d(".", "Shrihan"), d("1", "Shrihan"), d("1", "Shrihan"), d(".", "Shrihan"),
+            d(".", "Shrihan"),
+            d("B", "Shrihan", wicket=True, description="Shrihan b Veer"),
         ],
         [  # ov 13 — Qaim: Ojas & Riyan bowled; Ojas four on next ball denies hat-trick
             d("4", "Riyan"),
             d("B", "Ojas", wicket=True, description="Ojas b Qaim"),
             d("B", "Riyan", wicket=True, description="Riyan b Qaim"),
-            d("4", "Dev", description="FOUR — hat-trick missed (Ojas)"),
-            d("1", "Dev", runs=1, bat_runs=1), d("1", "Dev"),
+            d("4", "Ojas", description="FOUR — hat-trick missed (Ojas)"),
+            d("1", "Ojas", runs=1, bat_runs=1), d("1", "Ojas"),
         ],
         [  # ov 14
-            d("1", "Dev"), d("4", "Ojas"), d("4", "Ojas"), d(".", "Ojas"),
+            d("1", "Ojas"), d("4", "Ojas"), d("4", "Ojas"), d(".", "Ojas"),
             d("4", "Ojas"), d("4", "Ojas"),
         ],
-        [  # ov 15
-            d(".", "Ojas"), d("O", "Ojas", extras_type="noball"), d(".", "Ojas"),
+        [  # ov 15 — Riyan on strike first 3 balls; Riyan b Shyam ball 3; Ojas last 3
+            d(".", "Riyan"), d("O", "Riyan", extras_type="noball"), d("B", "Riyan", wicket=True, description="Riyan b Shyam"),
             d(".", "Ojas"),
             d("+", "Ojas", extras_type="wide"), d("O", "Ojas", extras_type="noball"),
         ],
