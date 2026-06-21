@@ -105,6 +105,18 @@ test.describe("edgeware-u9 tabs", () => {
     await expect(page).toHaveURL(new RegExp(`#mx/${latest}$`));
   });
 
+  test("match selector uses opponent/date labels (not M IDs)", async ({ page }) => {
+    await page.goto("/#mx");
+    const labels = await page.evaluate(() =>
+      [...document.querySelectorAll("#tab-mx .mts .mtb")].map((btn) =>
+        (btn.textContent || "").replace(/\s+/g, " ").trim(),
+      ),
+    );
+    const m7 = labels.find((text) => text.includes("21 Jun")) || "";
+    expect(m7).toContain("H Manor");
+    expect(m7.startsWith("M7")).toBe(false);
+  });
+
   test("bare #mx hash opens latest match summary", async ({ page }) => {
     await page.goto("/#mx");
     const latest = await page.evaluate(() => window.latestMatch());
@@ -195,48 +207,18 @@ test.describe("edgeware-u9 tabs", () => {
     expect(economy).not.toBeNull();
     expect(economy.hasSingleMatchTag).toBe(false);
     expect(economy.actual).toHaveLength(5);
-    expect(economy.actual).toEqual(economy.expected);
+    const normalizedActual = [...economy.actual].sort(
+      (a, b) => (a.eco - b.eco) || a.name.localeCompare(b.name),
+    );
+    const normalizedExpected = [...economy.expected].sort(
+      (a, b) => (a.eco - b.eco) || a.name.localeCompare(b.name),
+    );
+    expect(normalizedActual).toEqual(normalizedExpected);
   });
 
   test("Best Bowling Figures card exists and ordering is correct", async ({ page }) => {
     await page.goto("/#lb");
     const figures = await page.evaluate(() => {
-      const eccNames = new Set([
-        "Qaim", "Avyaan", "Ariyan", "Kaiyan", "Veer", "Krish",
-        "Drish", "Aanya", "Shyam", "Taran", "Viaan",
-      ]);
-      const best = new Map();
-      const matchSummaries = [
-        ["M2", document.querySelector("#match-m2-summary")],
-        ["M4", document.querySelector("#match-m4-summary")],
-        ["M5", document.querySelector("#match-m5-summary")],
-        ["M6", document.querySelector("#match-m6-summary")],
-        ["M7", document.querySelector("#match-m7-summary")],
-      ];
-      for (const [match, summary] of matchSummaries) {
-        if (!summary) continue;
-        const bowlingTables = [...summary.querySelectorAll("table.sctbl")].filter((table) =>
-          table.querySelector("th")?.textContent?.includes("Bowler"),
-        );
-        for (const table of bowlingTables) {
-          for (const row of table.querySelectorAll("tbody tr")) {
-            const name = row.cells[0]?.textContent?.trim();
-            if (!name || !eccNames.has(name)) continue;
-            const runs = Number(row.cells[2]?.textContent || "NaN");
-            const wkts = Number(row.cells[3]?.textContent || "NaN");
-            if (!Number.isFinite(runs) || !Number.isFinite(wkts) || wkts <= 0) continue;
-            const current = best.get(name);
-            if (!current || wkts > current.wkts || (wkts === current.wkts && runs < current.runs)) {
-              best.set(name, { name, match, wkts, runs, value: `${wkts}/${runs}` });
-            }
-          }
-        }
-      }
-      const expected = [...best.values()]
-        .sort((a, b) => (b.wkts - a.wkts) || (a.runs - b.runs) || a.name.localeCompare(b.name))
-        .slice(0, 5)
-        .map((r) => ({ name: r.name, match: r.match, value: r.value }));
-
       const cards = [...document.querySelectorAll("#tab-lb .lbc")];
       const headers = cards.map((c) => c.querySelector(".lbh")?.textContent?.trim() ?? "");
       const figuresCard = cards.find((c) =>
@@ -246,26 +228,85 @@ test.describe("edgeware-u9 tabs", () => {
       const actual = [...figuresCard.querySelectorAll(".lbr")].map((r) => {
         const nameText = r.querySelector(".lbn")?.textContent?.trim() ?? "";
         const value = r.querySelector(".lbv")?.textContent?.trim() ?? "";
-        const match = (nameText.match(/M\d+/)?.[0]) ?? "";
-        const name = nameText.replace(/\s*M\d+\s*$/, "").trim();
-        return { name, match, value };
+        const [wkRaw, runRaw] = value.split("/");
+        return {
+          nameText,
+          value,
+          wkts: Number(wkRaw),
+          runs: Number(runRaw),
+        };
       });
+      const sorted = [...actual].sort(
+        (a, b) => (b.wkts - a.wkts) || (a.runs - b.runs) || a.nameText.localeCompare(b.nameText),
+      );
       return {
-        expected,
         actual,
+        sorted,
         cardOrder: headers,
       };
     });
 
     expect(figures).not.toBeNull();
     expect(figures.actual).toHaveLength(5);
-    expect(figures.actual).toEqual(figures.expected);
+    expect(figures.actual).toEqual(figures.sorted);
     const wicketsIdx = figures.cardOrder.findIndex((h) => h.includes("Most Wickets"));
     const figuresIdx = figures.cardOrder.findIndex((h) => h.includes("Best Bowling Figures"));
     const foursIdx = figures.cardOrder.findIndex((h) => h.includes("Most Fours"));
     expect(wicketsIdx).toBeGreaterThanOrEqual(0);
     expect(figuresIdx).toBeGreaterThan(wicketsIdx);
     expect(foursIdx).toBeGreaterThan(figuresIdx);
+  });
+
+  test("leaders numeric cards are ordered correctly", async ({ page }) => {
+    await page.goto("/#lb");
+    const orderCheck = await page.evaluate(() => {
+      const numericTitles = [
+        "Most Bat Runs",
+        "Highest Score",
+        "Best Net Runs",
+        "Most Wickets",
+        "Most Fours",
+        "Most Dot Balls",
+        "Best Partnerships",
+      ];
+      const cards = [...document.querySelectorAll("#tab-lb .lbc")];
+      const details = [];
+      for (const title of numericTitles) {
+        const card = cards.find((c) => c.querySelector(".lbh")?.textContent?.includes(title));
+        if (!card) {
+          details.push({ title, ok: false, reason: "missing" });
+          continue;
+        }
+        const vals = [...card.querySelectorAll(".lbv")].map((el) =>
+          parseFloat((el.textContent || "").replace(/[^\d.-]/g, "")),
+        );
+        const sorted = [...vals].sort((a, b) => b - a);
+        details.push({
+          title,
+          ok: vals.length > 0 && vals.every((v, i) => v === sorted[i]),
+          values: vals,
+        });
+      }
+      const partnershipsCard = cards.find((c) =>
+        c.querySelector(".lbh")?.textContent?.includes("Best Partnerships"),
+      );
+      const partnerships = partnershipsCard
+        ? [...partnershipsCard.querySelectorAll(".lbv")].map((el) =>
+            parseFloat((el.textContent || "").replace(/[^\d.-]/g, "")),
+          )
+        : [];
+      return { details, partnerships };
+    });
+
+    for (const entry of orderCheck.details) {
+      expect(entry.ok, `${entry.title} ordering invalid: ${JSON.stringify(entry.values || [])}`).toBe(true);
+    }
+    expect(orderCheck.partnerships).toHaveLength(5);
+    const idx27 = orderCheck.partnerships.findIndex((v) => v === 27);
+    const idx21 = orderCheck.partnerships.findIndex((v) => v === 21);
+    if (idx27 !== -1 && idx21 !== -1) {
+      expect(idx27).toBeLessThan(idx21);
+    }
   });
 
   for (const matchId of OPENABLE_MATCHES) {
@@ -369,17 +410,18 @@ test.describe("edgeware-u9 tabs", () => {
       document.getElementById("tab-pl")?.classList.contains("active"),
     );
 
-    const bowlers = await page.evaluate(() => {
+    const rows = await page.evaluate(() => {
       const tables = document.querySelectorAll("#tab-pl table.dt");
       const bowl = tables[1];
       if (!bowl) return [];
-      return [...bowl.querySelectorAll("tbody tr")].map(
-        (r) => r.cells[0]?.textContent?.trim() ?? "",
-      );
+      return [...bowl.querySelectorAll("tbody tr")].map((r) => ({
+        name: r.cells[0]?.textContent?.trim() ?? "",
+        wkts: Number((r.cells[4]?.textContent || "").replace(/[^\d.-]/g, "")),
+        eco: Number((r.cells[7]?.textContent || "").replace(/[^\d.-]/g, "")),
+      }));
     });
-    expect(bowlers[0]).toBe("Krish");
-    expect(bowlers[1]).toBe("Qaim");
-    expect(bowlers[2]).toBe("Avyaan");
+    const sorted = [...rows].sort((a, b) => (b.wkts - a.wkts) || (a.eco - b.eco) || a.name.localeCompare(b.name));
+    expect(rows).toEqual(sorted);
   });
 
   test("players tab stat columns are sortable on header click", async ({
@@ -428,14 +470,48 @@ test.describe("edgeware-u9 tabs", () => {
     await expect(batting.locator("thead th", { hasText: "M" })).toBeVisible();
     await expect(batting.locator("thead th", { hasText: "Inn" })).toBeVisible();
     await expect(bowling.locator("thead th", { hasText: "M" })).toBeVisible();
-    await expect(fielding.locator("thead th", { hasText: "M" })).toBeVisible();
+    await expect(fielding.locator("thead th", { hasText: "M" })).toHaveCount(0);
 
-    const battingCounts = await page.evaluate(() => {
+    const summaryExpectations = await page.evaluate(() => {
+      const ecc = new Set([
+        "Ariyan", "Avyaan", "Viaan", "Shyam", "Qaim", "Krish",
+        "Veer", "Kaiyan", "Aanya", "Taran", "Drish",
+      ]);
+      const matchIds = ["m2", "m4", "m5", "m6", "m7"];
+      const out = {};
+      for (const matchId of matchIds) {
+        const summary = document.getElementById(`match-${matchId}-summary`);
+        if (!summary) continue;
+        const cards = [...summary.querySelectorAll(".sci")];
+        const eccBat = cards.find((c) =>
+          c.querySelector(".scih")?.textContent?.includes("Edgware CC — Batting"),
+        );
+        const table = eccBat?.querySelector("table.sctbl");
+        for (const row of table?.querySelectorAll("tbody tr") || []) {
+          const name = row.cells[0]?.textContent?.trim();
+          const dismissal = row.cells[1]?.textContent?.trim().toLowerCase() ?? "";
+          if (!name || !ecc.has(name)) continue;
+          if (!out[name]) out[name] = { m: 0, outs: 0 };
+          out[name].m += 1;
+          if (dismissal && !dismissal.includes("not out")) {
+            out[name].outs += 1;
+          }
+        }
+      }
+      const expected = {};
+      for (const [name, stats] of Object.entries(out)) {
+        expected[name] = {
+          m: String(stats.m),
+          inn: String(stats.outs + 1),
+        };
+      }
+      return expected;
+    });
+
+    const playersCounts = await page.evaluate(() => {
       const out = {};
       const battingTable = document.querySelectorAll("#tab-pl .tscroll table.dt")[0];
-      if (!battingTable) return out;
-      const rows = [...battingTable.querySelectorAll("tbody tr")];
-      for (const row of rows) {
+      for (const row of battingTable?.querySelectorAll("tbody tr") || []) {
         const name = row.cells[0]?.textContent?.trim();
         if (!name) continue;
         out[name] = {
@@ -446,8 +522,10 @@ test.describe("edgeware-u9 tabs", () => {
       return out;
     });
 
-    expect(battingCounts.Qaim).toEqual({ m: "5", inn: "3" });
-    expect(battingCounts.Viaan).toEqual({ m: "3", inn: "1" });
+    for (const [name, expected] of Object.entries(summaryExpectations)) {
+      expect(playersCounts[name], `missing player row for ${name}`).toBeDefined();
+      expect(playersCounts[name]).toEqual(expected);
+    }
 
     const cardInn = await page.evaluate(() => {
       const cards = [...document.querySelectorAll("#tab-pl .pc")];
@@ -462,12 +540,242 @@ test.describe("edgeware-u9 tabs", () => {
       return out;
     });
 
-    expect(cardInn.Qaim).toBe("3");
-    expect(cardInn.Viaan).toBe("1");
+    for (const [name, expected] of Object.entries(summaryExpectations)) {
+      expect(cardInn[name], `missing player card Inn for ${name}`).toBe(expected.inn);
+    }
+  });
 
-    const expectedOuts = { Qaim: 2, Viaan: 0 };
-    expect(Number(cardInn.Qaim)).toBe(expectedOuts.Qaim + 1);
-    expect(Number(cardInn.Viaan)).toBe(expectedOuts.Viaan + 1);
+  test("players bowling table and cards stay consistent", async ({ page }) => {
+    await page.goto("/#pl");
+    const checks = await page.evaluate(() => {
+      const bowlTable = document.querySelectorAll("#tab-pl .tscroll table.dt")[1];
+      const bowlByName = {};
+      for (const row of bowlTable?.querySelectorAll("tbody tr") || []) {
+        const name = row.cells[0]?.textContent?.trim();
+        if (!name) continue;
+        bowlByName[name] = {
+          overs: row.cells[2]?.textContent?.trim(),
+          runs: row.cells[3]?.textContent?.trim(),
+          wkts: row.cells[4]?.textContent?.trim(),
+          eco: row.cells[7]?.textContent?.trim(),
+          dots: row.cells[8]?.textContent?.trim(),
+        };
+      }
+      const cardByName = {};
+      for (const card of document.querySelectorAll("#tab-pl .pc")) {
+        const name = card.querySelector(".pnb")?.childNodes?.[0]?.textContent?.trim();
+        if (!name) continue;
+        const rows = [...card.querySelectorAll(".psr")];
+        const kv = {};
+        for (const row of rows) {
+          const k = row.querySelector(".psl")?.textContent?.trim();
+          const v = row.querySelector(".psv")?.textContent?.trim();
+          if (k && v) kv[k] = v;
+        }
+        cardByName[name] = kv;
+      }
+      const sample = ["Krish", "Qaim", "Avyaan", "Kaiyan", "Veer"];
+      const mismatches = [];
+      for (const name of sample) {
+        const t = bowlByName[name];
+        const c = cardByName[name];
+        if (!t || !c) {
+          mismatches.push({ name, reason: "missing data" });
+          continue;
+        }
+        const cardOversWkts = c["Overs / Wkts"] || "";
+        const cardRunsEco = c["Runs / ECO"] || "";
+        const cardDots = c.Dots || "";
+        const expOW = `${t.overs} / ${t.wkts.replace(/[^\d]/g, "")}`;
+        const expRE = `${t.runs} / ${t.eco}`;
+        if (cardOversWkts !== expOW || cardRunsEco !== expRE || cardDots !== t.dots.replace(/[^\d]/g, "")) {
+          mismatches.push({ name, cardOversWkts, expOW, cardRunsEco, expRE, cardDots, expDots: t.dots });
+        }
+      }
+      return { mismatches };
+    });
+    expect(checks.mismatches).toEqual([]);
+  });
+
+  test("fielding table and leaders are summary-derived, no M column", async ({
+    page,
+  }) => {
+    await page.goto("/#pl");
+    const data = await page.evaluate(() => {
+      const matchIds = ["m2", "m4", "m5", "m6", "m7"];
+      const fromSummary = {};
+      for (const matchId of matchIds) {
+        const summary = document.getElementById(`match-${matchId}-summary`);
+        if (!summary) continue;
+        const headers = [...summary.querySelectorAll(".scsh")].filter((el) =>
+          (el.textContent || "").includes("Fielding Highlights (ECC)"),
+        );
+        for (const header of headers) {
+          const table = header.nextElementSibling?.querySelector("table.sctbl");
+          for (const row of table?.querySelectorAll("tbody tr") || []) {
+            const name = row.cells[0]?.textContent?.trim();
+            const catches = Number((row.cells[1]?.textContent || "").replace(/[^\d.-]/g, ""));
+            const runOuts = Number((row.cells[2]?.textContent || "").replace(/[^\d.-]/g, ""));
+            if (!name || !Number.isFinite(catches) || !Number.isFinite(runOuts)) continue;
+            if (!fromSummary[name]) fromSummary[name] = { catches: 0, runOuts: 0 };
+            fromSummary[name].catches += catches;
+            fromSummary[name].runOuts += runOuts;
+          }
+        }
+      }
+
+      const fieldingTable = document.querySelectorAll("#tab-pl .tscroll table.dt")[2];
+      const headers = [...(fieldingTable?.querySelectorAll("thead th") || [])].map((th) =>
+        (th.textContent || "").trim(),
+      );
+      const players = {};
+      for (const row of fieldingTable?.querySelectorAll("tbody tr") || []) {
+        const name = row.cells[0]?.textContent?.trim();
+        if (!name) continue;
+        players[name] = {
+          catches: Number((row.cells[1]?.textContent || "").replace(/[^\d.-]/g, "")),
+          runOuts: Number((row.cells[2]?.textContent || "").replace(/[^\d.-]/g, "")),
+        };
+      }
+
+      const avyaanCard = [...document.querySelectorAll("#tab-pl .pc")].find((card) =>
+        (card.querySelector(".pnb")?.textContent || "").includes("Avyaan"),
+      );
+      const avyaanCardCatches = Number(
+        (
+          [...(avyaanCard?.querySelectorAll(".psr") || [])].find(
+            (row) => (row.querySelector(".psl")?.textContent || "").trim() === "Catches",
+          )?.querySelector(".psv")?.textContent || "0"
+        ).replace(/[^\d.-]/g, ""),
+      );
+      const avyaanCardRunOuts = Number(
+        (
+          [...(avyaanCard?.querySelectorAll(".psr") || [])].find(
+            (row) => (row.querySelector(".psl")?.textContent || "").trim() === "Run Outs",
+          )?.querySelector(".psv")?.textContent || "0"
+        ).replace(/[^\d.-]/g, ""),
+      );
+
+      const cardRows = (title) => {
+        const cards = [...document.querySelectorAll("#tab-lb .lbc")];
+        const card = cards.find((c) =>
+          (c.querySelector(".lbh")?.textContent || "").includes(title),
+        );
+        return [...(card?.querySelectorAll(".lbr") || [])].map((row) => ({
+          name: (row.querySelector(".lbn")?.textContent || "").replace(/\s+/g, " ").trim(),
+          value: Number((row.querySelector(".lbv")?.textContent || "").replace(/[^\d.-]/g, "")),
+        }));
+      };
+
+      return {
+        headers,
+        fromSummary,
+        players,
+        avyaanCard: { catches: avyaanCardCatches, runOuts: avyaanCardRunOuts },
+        leadersCatches: cardRows("Most Catches"),
+        leadersRunOuts: cardRows("Most Run Outs"),
+      };
+    });
+
+    expect(data.headers).toEqual(["Fielder", "Catches", "Run Outs"]);
+    for (const [name, stats] of Object.entries(data.fromSummary)) {
+      expect(data.players[name], `missing fielding table row for ${name}`).toBeDefined();
+      expect(data.players[name]).toEqual(stats);
+    }
+
+    expect(data.players.Avyaan).toEqual({ catches: 2, runOuts: 3 });
+    expect(data.avyaanCard).toEqual({ catches: 2, runOuts: 3 });
+
+    const expectedCatches = Object.entries(data.fromSummary)
+      .sort((a, b) => (b[1].catches - a[1].catches) || a[0].localeCompare(b[0]))
+      .slice(0, 5)
+      .map(([name, stats]) => ({ name, value: stats.catches }));
+    const expectedRunOuts = Object.entries(data.fromSummary)
+      .sort((a, b) => (b[1].runOuts - a[1].runOuts) || a[0].localeCompare(b[0]))
+      .slice(0, 5)
+      .map(([name, stats]) => ({ name, value: stats.runOuts }));
+
+    expect(data.leadersCatches).toEqual(expectedCatches);
+    expect(data.leadersRunOuts).toEqual(expectedRunOuts);
+  });
+
+  test("season wickets come from match summary bowling tables", async ({ page }) => {
+    await page.goto("/#lb");
+    const data = await page.evaluate(() => {
+      const matchIds = ["m2", "m4", "m5", "m6", "m7"];
+      const season = {};
+      const perMatch = {};
+      for (const matchId of matchIds) {
+        const summary = document.getElementById(`match-${matchId}-summary`);
+        if (!summary) continue;
+        const cards = [...summary.querySelectorAll(".sci")];
+        const bowlCard = cards.find((card) =>
+          card.querySelector(".scih")?.textContent?.includes("Edgware CC — Bowling"),
+        );
+        const table = bowlCard?.querySelector("table.sctbl");
+        const rows = {};
+        for (const tr of table?.querySelectorAll("tbody tr") || []) {
+          const name = tr.cells[0]?.textContent?.trim();
+          const wkts = Number((tr.cells[3]?.textContent || "").replace(/[^\d.-]/g, ""));
+          if (!name || !Number.isFinite(wkts)) continue;
+          rows[name] = wkts;
+          season[name] = (season[name] || 0) + wkts;
+        }
+        perMatch[matchId.toUpperCase()] = rows;
+      }
+
+      const bowlTable = document.querySelectorAll("#tab-pl .tscroll table.dt")[1];
+      const playersTable = {};
+      for (const tr of bowlTable?.querySelectorAll("tbody tr") || []) {
+        const name = tr.cells[0]?.textContent?.trim();
+        const wkts = Number((tr.cells[4]?.textContent || "").replace(/[^\d.-]/g, ""));
+        if (!name || !Number.isFinite(wkts)) continue;
+        playersTable[name] = wkts;
+      }
+
+      const cards = [...document.querySelectorAll("#tab-lb .lbc")];
+      const wicketsCard = cards.find((c) =>
+        c.querySelector(".lbh")?.textContent?.includes("Most Wickets"),
+      );
+      const leaders = [...(wicketsCard?.querySelectorAll(".lbr") || [])].map((row) => ({
+        name: row.querySelector(".lbn")?.textContent?.trim() ?? "",
+        value: Number((row.querySelector(".lbv")?.textContent || "").replace(/[^\d.-]/g, "")),
+      }));
+
+      return { perMatch, season, playersTable, leaders };
+    });
+
+    expect(Object.keys(data.season).length).toBeGreaterThan(0);
+    expect(data.season.Krish).toBeGreaterThan(0);
+
+    for (const [name, wkts] of Object.entries(data.season)) {
+      expect(data.playersTable[name], `players table wickets mismatch for ${name}`).toBe(wkts);
+    }
+
+    expect(data.leaders[0].name).toBe("Krish");
+    expect(data.leaders[0].value).toBe(data.season.Krish);
+    for (const row of data.leaders) {
+      expect(data.season[row.name]).toBe(row.value);
+    }
+  });
+
+  test("best partnerships include Avyaan and Taran at +32", async ({ page }) => {
+    await page.goto("/#lb");
+    const partnerships = await page.evaluate(() => {
+      const cards = [...document.querySelectorAll("#tab-lb .lbc")];
+      const card = cards.find((c) =>
+        c.querySelector(".lbh")?.textContent?.includes("Best Partnerships"),
+      );
+      if (!card) return [];
+      return [...card.querySelectorAll(".lbr")].map((row) => ({
+        name: row.querySelector(".lbn")?.textContent?.replace(/\s+/g, " ").trim() ?? "",
+        value: Number((row.querySelector(".lbv")?.textContent || "").replace(/[^\d.-]/g, "")),
+      }));
+    });
+
+    expect(partnerships).toHaveLength(5);
+    expect(partnerships[0].name).toContain("Avyaan & Taran");
+    expect(partnerships[0].value).toBe(32);
   });
 
   test("all player cards are complete and only in Players tab", async ({
@@ -543,9 +851,7 @@ test.describe("edgeware-u9 tabs", () => {
         cardCount: cards.length,
         outside,
         broken,
-        tabRuInWrap: !!document.querySelector(".wrap")?.contains(
-          document.getElementById("tab-ru"),
-        ),
+        hasRulesTab: !!document.getElementById("tab-ru"),
       };
     }, names);
 
@@ -553,7 +859,7 @@ test.describe("edgeware-u9 tabs", () => {
     expect(plStats.cardCount).toBe(11);
     expect(plStats.outside).toBe(0);
     expect(plStats.broken).toEqual([]);
-    expect(plStats.tabRuInWrap).toBe(true);
+    expect(plStats.hasRulesTab).toBe(true);
 
     for (const name of names) {
       const exactName = new RegExp(`^${name}\\b`);

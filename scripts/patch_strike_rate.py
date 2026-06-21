@@ -11,7 +11,8 @@ ROOT = Path(__file__).resolve().parents[1]
 INDEX = ROOT / "index.html"
 
 sys.path.insert(0, str(ROOT / "scripts"))
-from batting_stats import collect_all_innings, collect_ecc_season  # noqa: E402
+from batting_stats import collect_all_innings  # noqa: E402
+from summary_player_stats import collect_summary_season  # noqa: E402
 from strike_rate import MIN_BALLS_LEADERBOARD, format_sr, format_sr_value  # noqa: E402
 
 BAT_HDR_FULL = (
@@ -31,33 +32,20 @@ BAT_HDR_OLD_SHORT = (
     '<th class="c">Net</th></tr></thead>'
 )
 
-MATCHES_PLAYED = {
-    "Qaim": 5,
-    "Avyaan": 5,
-    "Ariyan": 4,
-    "Kaiyan": 4,
-    "Veer": 4,
-    "Krish": 4,
-    "Drish": 4,
-    "Aanya": 4,
-    "Shyam": 4,
-    "Taran": 3,
-    "Viaan": 3,
+ECC_NAMES = {
+    "Ariyan",
+    "Qaim",
+    "Veer",
+    "Avyaan",
+    "Kaiyan",
+    "Viaan",
+    "Krish",
+    "Taran",
+    "Drish",
+    "Shyam",
+    "Aanya",
 }
-ECC_NAMES = set(MATCHES_PLAYED)
 MIN_OVERS_BEST_ECONOMY = 2.0
-FIELDING_TOTALS = {
-    "Avyaan": (2, 3),
-    "Qaim": (1, 2),
-    "Drish": (1, 1),
-    "Taran": (1, 1),
-    "Viaan": (0, 1),
-    "Shyam": (1, 0),
-    "Ariyan": (0, 1),
-    "Krish": (0, 1),
-}
-
-
 def _build_innings_lookup() -> dict[str, list[dict[str, tuple[int, int]]]]:
     """match_id -> list of per-innings {batter: (runs, balls)} dicts."""
     lookup: dict[str, list[dict[str, tuple[int, int]]]] = {}
@@ -204,30 +192,17 @@ def build_players_table_body(season: dict) -> str:
     rows = []
     order = sorted(season.items(), key=lambda x: x[1].runs, reverse=True)
     for name, s in order:
-        if s.innings == 0:
+        if s.matches == 0:
             continue
-        net_sign = "+" if True else ""  # placeholder
-        # Net runs from existing table — keep manual values aligned with patch_m6_overview
-        net_map = {
-            "Ariyan": "+19", "Qaim": "+13", "Veer": "+16", "Avyaan": "+18", "Kaiyan": "+15",
-            "Viaan": "+13", "Krish": "&minus;8", "Taran": "+2", "Drish": "+7",
-            "Shyam": "&minus;11", "Aanya": "&minus;10",
-        }
-        net = net_map.get(name, "+0")
+        net = f"+{s.net}" if s.net >= 0 else f"&minus;{abs(s.net)}"
         net_cls = "np" if net.startswith("+") else "nn"
-        m_map = MATCHES_PLAYED
-        fours = {"Ariyan": 4, "Qaim": 5, "Veer": 1, "Avyaan": 1, "Kaiyan": 3, "Viaan": 2,
-                 "Krish": 0, "Taran": 1, "Drish": 1, "Shyam": 1, "Aanya": 0}
-        sixes = {"Avyaan": 1}
-        hs = {"Ariyan": 11, "Qaim": 13, "Veer": 10, "Avyaan": 9, "Kaiyan": 14, "Viaan": 11,
-              "Krish": 9, "Taran": 7, "Drish": 5, "Shyam": 5, "Aanya": 3}
         sr = format_sr_value(s.sr)
         rows.append(
-            f'        <tr><td><strong>{name}</strong></td><td class="c">{m_map.get(name, 0)}</td>'
+            f'        <tr><td><strong>{name}</strong></td><td class="c">{s.matches}</td>'
             f'<td class="c">{s.innings}</td><td class="c">{s.runs}</td>'
             f'<td class="c">{s.avg:.1f}</td><td class="c">{sr}</td>'
-            f'<td class="c">{hs.get(name, s.hs)}</td><td class="c">{fours.get(name, 0)}</td>'
-            f'<td class="c">{sixes.get(name, 0)}</td><td class="c {net_cls}">{net}</td></tr>'
+            f'<td class="c">{s.hs}</td><td class="c">{s.fours}</td>'
+            f'<td class="c">{s.sixes}</td><td class="c {net_cls}">{net}</td></tr>'
         )
     return "\n".join(rows)
 
@@ -498,6 +473,25 @@ def _player_card_pattern(name: str) -> str:
     )
 
 
+def _find_matching_div_end(html: str, open_tag_end: int) -> int:
+    depth = 1
+    pos = open_tag_end
+    while depth > 0 and pos < len(html):
+        next_open = html.find("<div", pos)
+        next_close = html.find("</div>", pos)
+        if next_close == -1:
+            raise SystemExit("Unclosed div block while patching player cards")
+        if next_open != -1 and next_open < next_close:
+            depth += 1
+            pos = next_open + 4
+        else:
+            depth -= 1
+            pos = next_close + len("</div>")
+            if depth == 0:
+                return pos
+    raise SystemExit("Could not locate closing div while patching player cards")
+
+
 def patch_player_cards(html: str, season: dict) -> str:
     bat_rows: dict[str, dict[str, str]] = {}
     for m in re.finditer(
@@ -520,7 +514,7 @@ def patch_player_cards(html: str, season: dict) -> str:
 
     bowl_rows: dict[str, dict[str, str]] = {}
     for m in re.finditer(
-        r'<tr><td><strong>([^<]+)</strong></td><td class="c">\d+</td><td class="c">(\d+)</td><td class="c">(\d+)'
+        r'<tr><td><strong>([^<]+)</strong></td><td class="c">\d+</td><td class="c">([\d.]+)</td><td class="c">(\d+)'
         r'</td><td class="c">(?:<strong>)?(\d+)(?:</strong>)?</td><td class="c">\d+</td><td class="c">\d+</td>'
         r'<td class="c(?: (eco-good|eco-bad))?">([\d.]+)</td><td class="c">(?:<strong>)?(\d+)(?:</strong>)?</td></tr>',
         html,
@@ -535,12 +529,25 @@ def patch_player_cards(html: str, season: dict) -> str:
         }
 
     field_rows: dict[str, tuple[str, str]] = {name: ("0", "0") for name in ECC_NAMES}
-    for m in re.finditer(
-        r'<tr><td><strong>([^<]+)</strong></td><td class="c">\d+</td><td class="c">(?:<strong>)?(\d+)(?:</strong>)?</td><td class="c">(?:<strong>)?(\d+)(?:</strong>)?</td></tr>',
-        html,
-    ):
-        if m.group(1) in field_rows:
-            field_rows[m.group(1)] = (m.group(2), m.group(3))
+    tab_pl_start = html.find('<div id="tab-pl" class="tab">')
+    tab_lb_start = html.find('<div id="tab-lb" class="tab">', tab_pl_start) if tab_pl_start != -1 else -1
+    if tab_pl_start != -1 and tab_lb_start != -1:
+        tab_pl = html[tab_pl_start:tab_lb_start]
+        tables = list(
+            re.finditer(
+                r"<table class=\"dt\">\s*<thead><tr>.*?</tr></thead>\s*<tbody>(.*?)</tbody>\s*</table>",
+                tab_pl,
+                flags=re.DOTALL,
+            )
+        )
+        if len(tables) >= 3:
+            body = tables[2].group(1)
+            for m in re.finditer(
+                r'<tr><td><strong>([^<]+)</strong></td><td class="c">(?:<strong>)?(\d+)(?:</strong>)?</td><td class="c">(?:<strong>)?(\d+)(?:</strong>)?</td></tr>',
+                body,
+            ):
+                if m.group(1) in field_rows:
+                    field_rows[m.group(1)] = (m.group(2), m.group(3))
     best_bowl_figures = _best_bowling_figures_map(html)
 
     card_order = [
@@ -575,26 +582,37 @@ def patch_player_cards(html: str, season: dict) -> str:
         )
 
     cards_html = "\n".join(cards)
-    html = re.sub(
-        r'(<div class="pgrid">\s*).*?(\s*</div>\s*</div>\s*</div>\s*\n\s*<!-- LEADERS -->)',
-        rf"\1{cards_html}\n    \2",
-        html,
-        count=1,
-        flags=re.DOTALL,
-    )
+    tab_pl_marker = '<div id="tab-pl" class="tab">'
+    tab_pl_start = html.find(tab_pl_marker)
+    if tab_pl_start == -1:
+        raise SystemExit("tab-pl not found while patching player cards")
+    tab_pl_open_end = html.find(">", tab_pl_start) + 1
+    tab_pl_end = _find_matching_div_end(html, tab_pl_open_end)
+    tab_pl_block = html[tab_pl_start:tab_pl_end]
+    pgrid_marker = '<div class="pgrid">'
+    pgrid_local = tab_pl_block.find(pgrid_marker)
+    if pgrid_local == -1:
+        raise SystemExit("pgrid not found while patching player cards")
+    pgrid_start = tab_pl_start + pgrid_local
+    pgrid_open_end = html.find(">", pgrid_start) + 1
+    pgrid_end = _find_matching_div_end(html, pgrid_open_end)
+    pgrid_inner_end = pgrid_end - len("</div>")
+    html = html[:pgrid_open_end] + "\n" + cards_html + "\n    " + html[pgrid_inner_end:]
     return html
 
 
 def main() -> None:
     lookup = _build_innings_lookup()
-    season = collect_ecc_season()
+    season = collect_summary_season().batting
     html = INDEX.read_text(encoding="utf-8")
     html = patch_match_summaries(html, lookup)
     html = patch_players_tab(html, season)
     html = patch_leaders_tab(html, season)
     html = patch_player_cards(html, season)
-    from patch_index import fix_tab_pl_boundary  # noqa: WPS433
+    from patch_index import fix_tab_lb_boundary, fix_tab_mx_boundary, fix_tab_pl_boundary  # noqa: WPS433
 
+    html = fix_tab_mx_boundary(html)
+    html = fix_tab_lb_boundary(html)
     html = fix_tab_pl_boundary(html)
     INDEX.write_text(html, encoding="utf-8")
     print(f"Patched strike rates in {INDEX}")

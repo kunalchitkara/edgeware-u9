@@ -6,6 +6,9 @@ from __future__ import annotations
 import re
 from pathlib import Path
 
+from partnership_stats import collect_ecc_partnerships
+from summary_player_stats import SummarySeason, collect_summary_season
+
 ROOT = Path(__file__).resolve().parents[1]
 INDEX = ROOT / "index.html"
 
@@ -56,14 +59,14 @@ BOWL_TABLE_BODY = """        <tr><td><strong>Krish</strong></td><td class="c">4<
         <tr><td><strong>Viaan</strong></td><td class="c">3</td><td class="c">6</td><td class="c">31</td><td class="c">0</td><td class="c">4</td><td class="c">2</td><td class="c">5.2</td><td class="c">19</td></tr>
         <tr><td><strong>Drish</strong></td><td class="c">4</td><td class="c">8</td><td class="c">44</td><td class="c">0</td><td class="c">5</td><td class="c">2</td><td class="c">5.5</td><td class="c">17</td></tr>"""
 
-FIELD_TABLE_BODY = """        <tr><td><strong>Avyaan</strong></td><td class="c">5</td><td class="c"><strong>2</strong></td><td class="c"><strong>3</strong></td></tr>
-        <tr><td><strong>Qaim</strong></td><td class="c">5</td><td class="c"><strong>1</strong></td><td class="c"><strong>2</strong></td></tr>
-        <tr><td><strong>Drish</strong></td><td class="c">4</td><td class="c"><strong>1</strong></td><td class="c"><strong>1</strong></td></tr>
-        <tr><td><strong>Taran</strong></td><td class="c">3</td><td class="c"><strong>1</strong></td><td class="c"><strong>1</strong></td></tr>
-        <tr><td><strong>Viaan</strong></td><td class="c">3</td><td class="c">0</td><td class="c"><strong>1</strong></td></tr>
-        <tr><td><strong>Shyam</strong></td><td class="c">4</td><td class="c"><strong>1</strong></td><td class="c">0</td></tr>
-        <tr><td><strong>Ariyan</strong></td><td class="c">4</td><td class="c">0</td><td class="c"><strong>1</strong></td></tr>
-        <tr><td><strong>Krish</strong></td><td class="c">4</td><td class="c">0</td><td class="c"><strong>1</strong></td></tr>"""
+FIELD_TABLE_BODY = """        <tr><td><strong>Avyaan</strong></td><td class="c"><strong>2</strong></td><td class="c"><strong>3</strong></td></tr>
+        <tr><td><strong>Qaim</strong></td><td class="c"><strong>1</strong></td><td class="c"><strong>3</strong></td></tr>
+        <tr><td><strong>Taran</strong></td><td class="c"><strong>1</strong></td><td class="c"><strong>2</strong></td></tr>
+        <tr><td><strong>Drish</strong></td><td class="c"><strong>1</strong></td><td class="c"><strong>1</strong></td></tr>
+        <tr><td><strong>Krish</strong></td><td class="c"><strong>1</strong></td><td class="c"><strong>1</strong></td></tr>
+        <tr><td><strong>Shyam</strong></td><td class="c"><strong>1</strong></td><td class="c">0</td></tr>
+        <tr><td><strong>Ariyan</strong></td><td class="c">0</td><td class="c"><strong>1</strong></td></tr>
+        <tr><td><strong>Viaan</strong></td><td class="c">0</td><td class="c"><strong>1</strong></td></tr>"""
 
 LEADERS_NOTE = (
     '<p style="font-size:.8rem;color:var(--mgrey);margin-bottom:16px;">'
@@ -149,6 +152,36 @@ MOST_SIXES_BEFORE_ECONOMY = (
     '        <div class="lbr"><div class="lbrk rn">5</div><div class="lbn">Veer</div><div class="lbv">1</div></div></div>\n'
     '      <div class="lbc"><div class="lbh">&#128200; Best Economy (min 2 overs)</div>'
 )
+
+MATCH_BUTTON_LABELS: dict[str, str] = {
+    "m1": "Pinner &mdash; 26 Apr",
+    "m2": "H Manor &mdash; 10 May &#127942;",
+    "m3": "Harefield &mdash; 24 May",
+    "m4": "Hayes &mdash; 31 May",
+    "m5": "Harefield &mdash; 7 Jun &#127942;",
+    "m6": "Pinner &mdash; 14 Jun",
+    "m7": "H Manor &mdash; 21 Jun &#127942;",
+}
+
+M2_ECC_FIELDING_ROWS = """<tr class="scfi"><td class="scb">Krish</td><td class="c"><strong>1</strong></td><td class="c"><strong>0</strong></td><td>c Aryan b Viaan — Ov 9</td></tr>
+<tr class="scfi"><td class="scb">Qaim</td><td class="c"><strong>0</strong></td><td class="c"><strong>1</strong></td><td>run out (Qaim) — Ov 11 (Rafe)</td></tr>"""
+
+M2_ECC_BOWLING_SECTION = """      <div class="sci" style="margin-top:20px;">
+        <div class="scih"><span><img src="icons/ball_light.png" style="width:18px;height:18px;vertical-align:middle;" alt="ball"> Edgware CC &mdash; Bowling</span></div>
+        <div class="tscroll"><table class="sctbl">
+          <thead><tr><th>Bowler</th><th class="c">O</th><th class="c">R</th><th class="c">W</th><th class="c">WD</th><th class="c">NB</th><th class="c">ECO</th><th class="c">Dots</th></tr></thead>
+          <tbody>
+            <tr><td class="scb">Ariyan</td><td class="c">2</td><td class="c">3</td><td class="c">0</td><td class="c">0</td><td class="c">1</td><td class="c eco-good">1.5</td><td class="c"><strong>10</strong></td></tr>
+            <tr><td class="scb">Aanya</td><td class="c">2</td><td class="c">5</td><td class="c"><strong>1</strong></td><td class="c">1</td><td class="c">1</td><td class="c eco-good">2.5</td><td class="c">6</td></tr>
+            <tr><td class="scb">Krish</td><td class="c">2</td><td class="c">5</td><td class="c"><strong>1</strong></td><td class="c">2</td><td class="c">0</td><td class="c eco-good">2.5</td><td class="c">5</td></tr>
+            <tr><td class="scb">Avyaan</td><td class="c">2</td><td class="c">8</td><td class="c"><strong>1</strong></td><td class="c">2</td><td class="c">0</td><td class="c">4.0</td><td class="c">6</td></tr>
+            <tr><td class="scb">Veer</td><td class="c">2</td><td class="c">8</td><td class="c">0</td><td class="c">2</td><td class="c">0</td><td class="c">4.0</td><td class="c">6</td></tr>
+            <tr><td class="scb">Kaiyan</td><td class="c">2</td><td class="c">11</td><td class="c">0</td><td class="c">1</td><td class="c">1</td><td class="c">5.5</td><td class="c">5</td></tr>
+            <tr><td class="scb">Viaan</td><td class="c">2</td><td class="c">12</td><td class="c">0</td><td class="c">2</td><td class="c">1</td><td class="c">6.0</td><td class="c">7</td></tr>
+            <tr><td class="scb">Qaim</td><td class="c">2</td><td class="c">17</td><td class="c">0</td><td class="c">2</td><td class="c">1</td><td class="c eco-bad">8.5</td><td class="c">5</td></tr>
+          </tbody>
+        </table></div>
+      </div>"""
 
 PLAYER_CARD_UPDATES: dict[str, dict[str, str]] = {
     "Krish": {
@@ -238,11 +271,403 @@ PLAYER_CARD_UPDATES: dict[str, dict[str, str]] = {
 }
 
 
+def _replace_bowling_table_from_source(html: str) -> str:
+    season = collect_summary_season(html)
+    items = sorted(
+        season.bowling.items(),
+        key=lambda kv: (-kv[1].wickets, kv[1].economy, kv[0]),
+    )
+    max_wickets = max((s.wickets for _n, s in items), default=0)
+    max_dots = max((s.dots for _n, s in items), default=0)
+    rows: list[str] = []
+    for name, stats in items:
+        if stats.matches == 0 and stats.balls == 0:
+            continue
+        matches = stats.matches
+        overs = stats.overs_text
+        eco_value = stats.economy
+        eco_cls = " eco-good" if eco_value <= 4.0 else (" eco-bad" if eco_value >= 6.0 else "")
+        wickets = stats.wickets
+        w_cell = f"<strong>{wickets}</strong>" if wickets == max_wickets and wickets > 0 else str(wickets)
+        dots_cell = f"<strong>{stats.dots}</strong>" if stats.dots == max_dots and stats.dots > 0 else str(stats.dots)
+        rows.append(
+            f'        <tr><td><strong>{name}</strong></td><td class="c">{matches}</td><td class="c">{overs}</td>'
+            f'<td class="c">{stats.runs}</td><td class="c">{w_cell}</td><td class="c">{stats.wides}</td>'
+            f'<td class="c">{stats.noballs}</td><td class="c{eco_cls}">{eco_value:.1f}</td><td class="c">{dots_cell}</td></tr>'
+        )
+    from patch_m6_overview import _replace_table_body  # noqa: WPS433
+
+    return _replace_table_body(
+        html,
+        '<tr><th>Bowler</th><th class="c">M</th><th class="c">O</th><th class="c">R</th><th class="c">W</th><th class="c">WD</th><th class="c">NB</th><th class="c">ECO</th><th class="c">Dots</th></tr>',
+        "\n".join(rows),
+    )
+
+
+def _replace_batting_table_from_source(html: str) -> str:
+    season = collect_summary_season(html)
+    rows: list[str] = []
+    ranked = sorted(
+        season.batting.items(),
+        key=lambda kv: (-kv[1].runs, -kv[1].hs, kv[0]),
+    )
+    for name, stats in ranked:
+        if stats.matches == 0:
+            continue
+        net_cls = "np" if stats.net >= 0 else "nn"
+        net_text = f"+{stats.net}" if stats.net >= 0 else f"&minus;{abs(stats.net)}"
+        rows.append(
+            f'        <tr><td><strong>{name}</strong></td><td class="c">{stats.matches}</td><td class="c">{stats.innings}</td>'
+            f'<td class="c">{stats.runs}</td><td class="c">{stats.avg:.1f}</td><td class="c">{stats.sr:.1f}</td>'
+            f'<td class="c">{stats.hs}</td><td class="c">{stats.fours}</td><td class="c">{stats.sixes}</td>'
+            f'<td class="c {net_cls}">{net_text}</td></tr>'
+        )
+    from patch_m6_overview import _replace_table_body  # noqa: WPS433
+    return _replace_table_body(
+        html,
+        '<tr><th>Batter</th><th class="c">M</th><th class="c">Inn</th><th class="c">Bat Runs</th><th class="c">Avg</th><th class="c">SR</th><th class="c">HS</th><th class="c">4s</th><th class="c">6s</th><th class="c">Net Runs</th></tr>',
+        "\n".join(rows),
+    )
+
+
+def _replace_fielding_table_from_source(html: str) -> str:
+    season = collect_summary_season(html)
+    rows: list[str] = []
+    ranked = sorted(
+        season.fielding.items(),
+        key=lambda kv: (-kv[1].catches, -kv[1].run_outs, kv[0]),
+    )
+    for name, stats in ranked:
+        if stats.catches == 0 and stats.run_outs == 0:
+            continue
+        rows.append(
+            f'        <tr><td><strong>{name}</strong></td><td class="c">{stats.catches}</td><td class="c">{stats.run_outs}</td></tr>'
+        )
+    return _replace_players_fielding_table(html, "\n".join(rows))
+
+
+def _replace_players_fielding_table(html: str, body_rows: str) -> str:
+    tab_pl_start = html.find('<div id="tab-pl" class="tab">')
+    if tab_pl_start == -1:
+        raise SystemExit("tab-pl missing")
+    tab_lb_start = html.find('<div id="tab-lb" class="tab">', tab_pl_start)
+    if tab_lb_start == -1:
+        raise SystemExit("tab-lb missing")
+    tab_pl = html[tab_pl_start:tab_lb_start]
+    table_matches = list(
+        re.finditer(
+            r"<table class=\"dt\">\s*<thead><tr>.*?</tr></thead>\s*<tbody>.*?</tbody>\s*</table>",
+            tab_pl,
+            flags=re.DOTALL,
+        )
+    )
+    if len(table_matches) < 3:
+        raise SystemExit("Fielding table not found in tab-pl")
+    fielding_match = table_matches[2]
+    fielding_table = tab_pl[fielding_match.start() : fielding_match.end()]
+    fielding_table = re.sub(
+        r"<thead><tr>.*?</tr></thead>",
+        '<thead><tr><th>Fielder</th><th class="c">Catches</th><th class="c">Run Outs</th></tr></thead>',
+        fielding_table,
+        count=1,
+        flags=re.DOTALL,
+    )
+    fielding_table = re.sub(
+        r"(<tbody>\s*).*?(\s*</tbody>)",
+        rf"\1\n{body_rows}\n      \2",
+        fielding_table,
+        count=1,
+        flags=re.DOTALL,
+    )
+    tab_pl = tab_pl[: fielding_match.start()] + fielding_table + tab_pl[fielding_match.end() :]
+    return html[:tab_pl_start] + tab_pl + html[tab_lb_start:]
+
+
+def _leader_card(title_html: str, rows: list[tuple[str, str]], use_match_tag: bool = False) -> str:
+    card = [f'      <div class="lbc"><div class="lbh">{title_html}</div>']
+    for idx, (name, value) in enumerate(rows[:5]):
+        rank = f"r{idx + 1}" if idx < 3 else "rn"
+        card.append(
+            f'        <div class="lbr"><div class="lbrk {rank}">{idx + 1}</div><div class="lbn">{name}</div><div class="lbv">{value}</div></div>'
+        )
+    card[-1] = f"{card[-1]}</div>"
+    return "\n".join(card)
+
+
+def _replace_most_wickets_card(html: str) -> str:
+    season = collect_summary_season(html)
+    ranked = sorted(
+        ((name, s.wickets) for name, s in season.bowling.items()),
+        key=lambda kv: (-kv[1], kv[0]),
+    )[:5]
+    rows = [(name, str(wickets)) for name, wickets in ranked]
+    card = _leader_card(
+        '<img src="icons/ball_light.png" style="width:18px;height:18px;vertical-align:middle;" alt="ball"> Most Wickets',
+        rows,
+    )
+    return re.sub(
+        r'<div class="lbc"><div class="lbh"><img src="icons/ball_light\.png"[^>]*> Most Wickets</div>.*?</div>\s*(?=<div class="lbc"><div class="lbh">&#128308; Most Fours</div>)',
+        card,
+        html,
+        count=1,
+        flags=re.DOTALL,
+    )
+
+
+def _replace_most_dot_balls_card(html: str) -> str:
+    season = collect_summary_season(html)
+    ranked = sorted(
+        season.bowling.items(),
+        key=lambda kv: (-kv[1].dots, -kv[1].wickets, kv[1].economy, kv[0]),
+    )[:5]
+    rows = [(name, str(stats.dots)) for name, stats in ranked]
+    card = _leader_card("&#128308; Most Dot Balls", rows)
+    return re.sub(
+        r'<div class="lbc"><div class="lbh">&#128308; Most Dot Balls</div>.*?</div>\s*(?=<div class="lbc"><div class="lbh">&#129309; Best Partnerships \(ECC\)</div>)',
+        card,
+        html,
+        count=1,
+        flags=re.DOTALL,
+    )
+
+
+def _replace_best_economy_card(html: str) -> str:
+    season = collect_summary_season(html)
+    ranked = sorted(
+        (
+            (name, stats)
+            for name, stats in season.bowling.items()
+            if stats.balls >= 12
+        ),
+        key=lambda kv: (kv[1].economy, -kv[1].balls, kv[0]),
+    )[:5]
+    rows = [(name, f"{stats.economy:.1f}") for name, stats in ranked]
+    card = _leader_card("&#128200; Best Economy (min 2 overs)", rows)
+    return re.sub(
+        r'<div class="lbc"><div class="lbh">&#128200; Best Economy \(min 2 overs\)</div>.*?</div>\s*(?=<div class="lbc"><div class="lbh">&#128308; Most Dot Balls</div>)',
+        card,
+        html,
+        count=1,
+        flags=re.DOTALL,
+    )
+
+
+def _replace_best_bowling_figures_card(html: str) -> str:
+    best = collect_summary_season(html).best_bowling
+    ranked = sorted(
+        best.items(),
+        key=lambda kv: (-kv[1][1], kv[1][2], kv[0]),
+    )[:5]
+    rows = [
+        (
+            f'{name} <span style="font-size:.7rem;color:var(--mgrey);font-weight:400;">{fig[0]}</span>',
+            f"{fig[1]}/{fig[2]}",
+        )
+        for name, fig in ranked
+    ]
+    card = _leader_card("&#127942; Best Bowling Figures", rows)
+    html = re.sub(
+        r'\n\s*<div class="lbc"><div class="lbh">&#127942; Best Bowling Figures</div>.*?</div>\s*(?=<div class="lbc"><div class="lbh">&#128308; Most Fours</div>)',
+        "\n",
+        html,
+        count=1,
+        flags=re.DOTALL,
+    )
+    return re.sub(
+        r'(\s*<div class="lbc"><div class="lbh">&#128308; Most Fours</div>)',
+        rf"\n{card}\n\1",
+        html,
+        count=1,
+    )
+
+
+def _replace_generic_leader_card(html: str, title_regex: str, title_html: str, rows: list[tuple[str, str]], next_title_regex: str) -> str:
+    card = _leader_card(title_html, rows)
+    return re.sub(
+        rf'<div class="lbc"><div class="lbh">{title_regex}</div>.*?</div>\s*(?=<div class="lbc"><div class="lbh">{next_title_regex}</div>)',
+        card,
+        html,
+        count=1,
+        flags=re.DOTALL,
+    )
+
+
+def _replace_batting_leader_cards(html: str) -> str:
+    season = collect_summary_season(html)
+    most_runs = sorted(season.batting.items(), key=lambda kv: (-kv[1].runs, kv[0]))[:5]
+    html = _replace_generic_leader_card(
+        html,
+        r'<img src="icons/batsman_light\.png"[^>]*> Most Bat Runs',
+        '<img src="icons/batsman_light.png" style="width:18px;height:18px;vertical-align:middle;" alt="bat"> Most Bat Runs',
+        [(n, str(s.runs)) for n, s in most_runs],
+        r'&#127775; Highest Score \(single match\)',
+    )
+    highest = sorted(season.batting.items(), key=lambda kv: (-kv[1].hs, kv[0]))[:5]
+    html = _replace_generic_leader_card(
+        html,
+        r'&#127775; Highest Score \(single match\)',
+        '&#127775; Highest Score (single match)',
+        [(n, str(s.hs)) for n, s in highest],
+        r'&#127942; Best Net Runs',
+    )
+    net = sorted(season.batting.items(), key=lambda kv: (-kv[1].net, kv[0]))[:5]
+    html = _replace_generic_leader_card(
+        html,
+        r'&#127942; Best Net Runs',
+        '&#127942; Best Net Runs',
+        [(n, (f"+{s.net}" if s.net >= 0 else f"&minus;{abs(s.net)}")) for n, s in net],
+        r'<img src="icons/ball_light\.png"[^>]*> Most Wickets',
+    )
+    fours = sorted(season.batting.items(), key=lambda kv: (-kv[1].fours, kv[0]))[:5]
+    html = _replace_generic_leader_card(
+        html,
+        r'&#128308; Most Fours',
+        '&#128308; Most Fours',
+        [(n, str(s.fours)) for n, s in fours],
+        r'&#128200; Best Economy \(min 2 overs\)',
+    )
+    return html
+
+
+def _replace_fielding_leader_cards(html: str) -> str:
+    season = collect_summary_season(html)
+    catches = sorted(season.fielding.items(), key=lambda kv: (-kv[1].catches, kv[0]))[:5]
+    html = _replace_generic_leader_card(
+        html,
+        r'<img src="icons/fielder_light\.png"[^>]*> Most Catches',
+        '<img src="icons/fielder_light.png" style="width:18px;height:18px;vertical-align:middle;" alt="field"> Most Catches',
+        [(n, str(s.catches)) for n, s in catches],
+        r'<img src="icons/fielder_light\.png"[^>]*> Most Run Outs',
+    )
+    run_outs = sorted(season.fielding.items(), key=lambda kv: (-kv[1].run_outs, kv[0]))[:5]
+    runout_card = _leader_card(
+        '<img src="icons/fielder_light.png" style="width:18px;height:18px;vertical-align:middle;" alt="field"> Most Run Outs',
+        [(n, str(s.run_outs)) for n, s in run_outs],
+    )
+    # Replace from the run-outs card start through the .lbg close so stale loose rows cannot survive.
+    tab_start = html.find('<div id="tab-lb" class="tab">')
+    rules_start = html.find("\n<!-- RULES -->", tab_start if tab_start != -1 else 0)
+    if tab_start == -1 or rules_start == -1:
+        return html
+    tab_lb = html[tab_start:rules_start]
+    runouts_marker = (
+        '<div class="lbc"><div class="lbh"><img src="icons/fielder_light.png" '
+        'style="width:18px;height:18px;vertical-align:middle;" alt="field"> Most Run Outs</div>'
+    )
+    runouts_start = tab_lb.find(runouts_marker)
+    if runouts_start == -1:
+        return html
+    lbg_close = tab_lb.find("\n    </div>\n  </div>\n</div>", runouts_start)
+    if lbg_close == -1:
+        return html
+    tab_lb = tab_lb[:runouts_start] + runout_card + tab_lb[lbg_close:]
+    html = html[:tab_start] + tab_lb + html[rules_start:]
+    return html
+
+
+def _replace_best_partnerships_card(html: str) -> str:
+    ranked = sorted(
+        collect_ecc_partnerships(),
+        key=lambda p: (-p.net, p.match, p.label, p.b1, p.b2),
+    )[:5]
+    rows = [
+        (
+            f'{p.b1} &amp; {p.b2} <span style="font-size:.7rem;color:var(--mgrey);font-weight:400;">{p.match}</span>',
+            f"+{p.net}",
+        )
+        for p in ranked
+    ]
+    card = _leader_card("&#129309; Best Partnerships (ECC)", rows)
+    return re.sub(
+        r'<div class="lbc"><div class="lbh">&#129309; Best Partnerships \(ECC\)</div>.*?</div>\s*(?=<div class="lbc"><div class="lbh"><img src="icons/fielder_light\.png")',
+        card,
+        html,
+        count=1,
+        flags=re.DOTALL,
+    )
+
+
+def _replace_tab_lb_block(html: str) -> str:
+    """Rebuild tab-lb shell to prevent leaked leaderboard rows."""
+    tab_start = html.find('<div id="tab-lb" class="tab">')
+    rules_marker = html.find("\n<!-- RULES -->", tab_start if tab_start != -1 else 0)
+    if tab_start == -1 or rules_marker == -1:
+        raise SystemExit("Could not locate tab-lb / rules boundary")
+
+    replacement = (
+        '<div id="tab-lb" class="tab">\n'
+        '  <div class="card">\n'
+        '    <div class="ctitle">&#127942; Season Leaderboards &mdash; ECC Players</div>\n'
+        f"    {LEADERS_NOTE}\n"
+        f"{LEADERS_GRID}\n"
+        "  </div>\n"
+        "</div>\n"
+    )
+    return html[:tab_start] + replacement + html[rules_marker + 1 :]
+
+
+def _replace_match_button_labels(html: str) -> str:
+    for match_id, label in MATCH_BUTTON_LABELS.items():
+        html = re.sub(
+            rf'(<button class="mtb(?: active)?" onclick="showMatch\(\x27{match_id}\x27,this\)">).*?(</button>)',
+            rf"\1{label}\2",
+            html,
+            count=1,
+            flags=re.DOTALL,
+        )
+    return html
+
+
+def _repair_m2_summary_fielding_ecc(html: str) -> str:
+    start = html.find('id="match-m2-summary"')
+    if start == -1:
+        return html
+    end = html.find('id="match-m2-bbb"', start)
+    if end == -1:
+        return html
+    block = html[start:end]
+    repaired = re.sub(
+        r'(Fielding Highlights \(ECC\)</div>\s*<div class="tscroll"><table class="sctbl">\s*<thead>\s*<tr>).*?(</tr>\s*</thead>\s*<tbody>).*?(</tbody>)',
+        r'\1<th>Fielder</th><th class="c">Catches</th><th class="c">Run Outs</th><th>Detail</th>\2'
+        + f"\n{M2_ECC_FIELDING_ROWS}\n"
+        + r"\3",
+        block,
+        count=1,
+        flags=re.DOTALL,
+    )
+    return html[:start] + repaired + html[end:]
+
+
+def _repair_m2_summary_bowling_ecc(html: str) -> str:
+    start = html.find('id="match-m2-summary"')
+    if start == -1:
+        return html
+    end = html.find('id="match-m2-bbb"', start)
+    if end == -1:
+        return html
+    block = html[start:end]
+
+    section_pat = re.compile(
+        r'<div class="sci" style="margin-top:20px;">\s*<div class="scih"><span><img src="icons/ball_light\.png"[^>]*> Edgware CC &mdash; Bowling</span></div>.*?</div>\s*</div>',
+        flags=re.DOTALL,
+    )
+    if section_pat.search(block):
+        repaired = section_pat.sub(M2_ECC_BOWLING_SECTION, block, count=1)
+    else:
+        repaired = re.sub(
+            r'(\n\s*<div class="ff">)',
+            "\n" + M2_ECC_BOWLING_SECTION + r"\1",
+            block,
+            count=1,
+            flags=re.DOTALL,
+        )
+    return html[:start] + repaired + html[end:]
+
+
 def main() -> None:
     from patch_m6_overview import (  # noqa: WPS433
         _most_sixes_block,
         _replace_table_body,
-        _update_player_card,
         patch_leaders,
         patch_most_sixes,
         patch_players,
@@ -285,25 +710,9 @@ def main() -> None:
         '<tr><th>Bowler</th><th class="c">M</th><th class="c">O</th><th class="c">R</th><th class="c">W</th><th class="c">WD</th><th class="c">NB</th><th class="c">ECO</th><th class="c">Dots</th></tr>',
         BOWL_TABLE_BODY,
     )
-    html = _replace_table_body(
-        html,
-        '<tr><th>Fielder</th><th class="c">M</th><th class="c">Catches</th><th class="c">Run Outs</th></tr>',
-        FIELD_TABLE_BODY,
-    )
+    html = _replace_players_fielding_table(html, FIELD_TABLE_BODY)
 
-    for name, updates in PLAYER_CARD_UPDATES.items():
-        html = _update_player_card(html, name, updates)
-
-    lb_start = html.find('id="tab-lb"')
-    if lb_start == -1:
-        raise SystemExit("tab-lb missing")
-    html = re.sub(
-        r'(<div id="tab-lb" class="tab">\s*<div class="card">\s*<div class="ctitle">[^<]+</div>\s*)<p style="font-size:\.8rem;color:var\(--mgrey\);margin-bottom:16px;">.*?</p>(\s*<div class="lbg">).*?(</div>\s*</div>\s*</div>\s*\n\n<!-- RULES -->)',
-        rf"\1{LEADERS_NOTE}\n{LEADERS_GRID}\3",
-        html,
-        count=1,
-        flags=re.DOTALL,
-    )
+    html = _replace_tab_lb_block(html)
 
     if len(SIX_HITTER_LEADER_ROWS) < 2 or MOST_SIXES_BEFORE_ECONOMY not in html:
         pass
@@ -323,8 +732,23 @@ def main() -> None:
         flags=re.DOTALL,
     )
 
-    from patch_index import fix_tab_pl_boundary
+    from patch_index import fix_tab_lb_boundary, fix_tab_mx_boundary, fix_tab_pl_boundary
 
+    html = _repair_m2_summary_fielding_ecc(html)
+    html = _repair_m2_summary_bowling_ecc(html)
+    html = _replace_batting_table_from_source(html)
+    html = _replace_bowling_table_from_source(html)
+    html = _replace_fielding_table_from_source(html)
+    html = _replace_batting_leader_cards(html)
+    html = _replace_most_wickets_card(html)
+    html = _replace_best_economy_card(html)
+    html = _replace_best_bowling_figures_card(html)
+    html = _replace_most_dot_balls_card(html)
+    html = _replace_best_partnerships_card(html)
+    html = _replace_fielding_leader_cards(html)
+    html = _replace_match_button_labels(html)
+    html = fix_tab_mx_boundary(html)
+    html = fix_tab_lb_boundary(html)
     html = fix_tab_pl_boundary(html)
     INDEX.write_text(html, encoding="utf-8")
     print(f"Updated overview, players, and leaders in {INDEX}")

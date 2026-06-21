@@ -409,7 +409,7 @@ def patch_leaders(html: str) -> str:
         return html
     html = re.sub(
         r'(<div id="tab-lb" class="tab">\s*<div class="card">\s*<div class="ctitle">[^<]+</div>\s*)<p style="font-size:\.8rem;color:var\(--mgrey\);margin-bottom:16px;">.*?</p>(\s*<div class="lbg">).*?(</div>\s*</div>\s*</div>\s*\n\n<!-- RULES -->)',
-        rf"\1{LEADERS_NOTE}\n{LEADERS_GRID}\3",
+        rf"\1{LEADERS_NOTE}\n{LEADERS_GRID}\4",
         html,
         count=1,
         flags=re.DOTALL,
