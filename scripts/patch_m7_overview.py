@@ -7,7 +7,7 @@ import re
 from pathlib import Path
 
 from partnership_stats import collect_ecc_partnerships
-from summary_player_stats import SummarySeason, collect_summary_season
+from summary_player_stats import SummarySeason, collect_summary_season, derive_shared_leaderboards
 
 ROOT = Path(__file__).resolve().parents[1]
 INDEX = ROOT / "index.html"
@@ -71,7 +71,8 @@ FIELD_TABLE_BODY = """        <tr><td><strong>Avyaan</strong></td><td class="c">
 LEADERS_NOTE = (
     '<p style="font-size:.8rem;color:var(--mgrey);margin-bottom:16px;">'
     "Based on 5 played matches (M2 vs H Manor, M4 vs Hayes, M5 vs Harefield, M6 vs Pinner, M7 vs H Manor). "
-    "M1 &amp; M3 walkovers. Updated after each match with a positive focus on impact moments.</p>"
+    "M1 &amp; M3 walkovers. Best Batting Averages uses the same Players innings rule (outs + 1) "
+    "with minimum 2 matches played eligibility.</p>"
 )
 
 LEADERS_GRID = """    <div class="lbg">
@@ -81,6 +82,12 @@ LEADERS_GRID = """    <div class="lbg">
         <div class="lbr"><div class="lbrk r3">3</div><div class="lbn">Kaiyan</div><div class="lbv">28</div></div>
         <div class="lbr"><div class="lbrk rn">4</div><div class="lbn">Veer</div><div class="lbv">26</div></div>
         <div class="lbr"><div class="lbrk rn">5</div><div class="lbn">Avyaan</div><div class="lbv">25</div></div></div>
+      <div class="lbc"><div class="lbh">&#127942; Best Batting Averages</div>
+        <div class="lbr"><div class="lbrk r1">1</div><div class="lbn">Qaim</div><div class="lbv">8.4</div></div>
+        <div class="lbr"><div class="lbrk r2">2</div><div class="lbn">Ariyan</div><div class="lbv">8.5</div></div>
+        <div class="lbr"><div class="lbrk r3">3</div><div class="lbn">Kaiyan</div><div class="lbv">7.0</div></div>
+        <div class="lbr"><div class="lbrk rn">4</div><div class="lbn">Veer</div><div class="lbv">6.5</div></div>
+        <div class="lbr"><div class="lbrk rn">5</div><div class="lbn">Taran</div><div class="lbv">6.0</div></div></div>
       <div class="lbc"><div class="lbh">&#127775; Highest Score (single match)</div>
         <div class="lbr"><div class="lbrk r1">1</div><div class="lbn">Kaiyan</div><div class="lbv">14</div></div>
         <div class="lbr"><div class="lbrk r2">2</div><div class="lbn">Qaim</div><div class="lbv">13</div></div>
@@ -271,8 +278,7 @@ PLAYER_CARD_UPDATES: dict[str, dict[str, str]] = {
 }
 
 
-def _replace_bowling_table_from_source(html: str) -> str:
-    season = collect_summary_season(html)
+def _replace_bowling_table_from_source(html: str, season: SummarySeason) -> str:
     items = sorted(
         season.bowling.items(),
         key=lambda kv: (-kv[1].wickets, kv[1].economy, kv[0]),
@@ -304,8 +310,7 @@ def _replace_bowling_table_from_source(html: str) -> str:
     )
 
 
-def _replace_batting_table_from_source(html: str) -> str:
-    season = collect_summary_season(html)
+def _replace_batting_table_from_source(html: str, season: SummarySeason) -> str:
     rows: list[str] = []
     ranked = sorted(
         season.batting.items(),
@@ -330,8 +335,7 @@ def _replace_batting_table_from_source(html: str) -> str:
     )
 
 
-def _replace_fielding_table_from_source(html: str) -> str:
-    season = collect_summary_season(html)
+def _replace_fielding_table_from_source(html: str, season: SummarySeason) -> str:
     rows: list[str] = []
     ranked = sorted(
         season.fielding.items(),
@@ -394,13 +398,8 @@ def _leader_card(title_html: str, rows: list[tuple[str, str]], use_match_tag: bo
     return "\n".join(card)
 
 
-def _replace_most_wickets_card(html: str) -> str:
-    season = collect_summary_season(html)
-    ranked = sorted(
-        ((name, s.wickets) for name, s in season.bowling.items()),
-        key=lambda kv: (-kv[1], kv[0]),
-    )[:5]
-    rows = [(name, str(wickets)) for name, wickets in ranked]
+def _replace_most_wickets_card(html: str, leaders: dict[str, list[tuple[str, str]]]) -> str:
+    rows = leaders["wickets"]
     card = _leader_card(
         '<img src="icons/ball_light.png" style="width:18px;height:18px;vertical-align:middle;" alt="ball"> Most Wickets',
         rows,
@@ -414,13 +413,8 @@ def _replace_most_wickets_card(html: str) -> str:
     )
 
 
-def _replace_most_dot_balls_card(html: str) -> str:
-    season = collect_summary_season(html)
-    ranked = sorted(
-        season.bowling.items(),
-        key=lambda kv: (-kv[1].dots, -kv[1].wickets, kv[1].economy, kv[0]),
-    )[:5]
-    rows = [(name, str(stats.dots)) for name, stats in ranked]
+def _replace_most_dot_balls_card(html: str, leaders: dict[str, list[tuple[str, str]]]) -> str:
+    rows = leaders["dots"]
     card = _leader_card("&#128308; Most Dot Balls", rows)
     return re.sub(
         r'<div class="lbc"><div class="lbh">&#128308; Most Dot Balls</div>.*?</div>\s*(?=<div class="lbc"><div class="lbh">&#129309; Best Partnerships \(ECC\)</div>)',
@@ -431,17 +425,8 @@ def _replace_most_dot_balls_card(html: str) -> str:
     )
 
 
-def _replace_best_economy_card(html: str) -> str:
-    season = collect_summary_season(html)
-    ranked = sorted(
-        (
-            (name, stats)
-            for name, stats in season.bowling.items()
-            if stats.balls >= 12
-        ),
-        key=lambda kv: (kv[1].economy, -kv[1].balls, kv[0]),
-    )[:5]
-    rows = [(name, f"{stats.economy:.1f}") for name, stats in ranked]
+def _replace_best_economy_card(html: str, leaders: dict[str, list[tuple[str, str]]]) -> str:
+    rows = leaders["economy"]
     card = _leader_card("&#128200; Best Economy (min 2 overs)", rows)
     return re.sub(
         r'<div class="lbc"><div class="lbh">&#128200; Best Economy \(min 2 overs\)</div>.*?</div>\s*(?=<div class="lbc"><div class="lbh">&#128308; Most Dot Balls</div>)',
@@ -492,57 +477,67 @@ def _replace_generic_leader_card(html: str, title_regex: str, title_html: str, r
     )
 
 
-def _replace_batting_leader_cards(html: str) -> str:
-    season = collect_summary_season(html)
-    most_runs = sorted(season.batting.items(), key=lambda kv: (-kv[1].runs, kv[0]))[:5]
+def _replace_batting_leader_cards(
+    html: str,
+    leaders: dict[str, list[tuple[str, str]]],
+) -> str:
+    most_runs = leaders["bat_runs"]
     html = _replace_generic_leader_card(
         html,
         r'<img src="icons/batsman_light\.png"[^>]*> Most Bat Runs',
         '<img src="icons/batsman_light.png" style="width:18px;height:18px;vertical-align:middle;" alt="bat"> Most Bat Runs',
-        [(n, str(s.runs)) for n, s in most_runs],
+        most_runs,
+        r'&#127942; Best Batting Averages',
+    )
+    html = _replace_generic_leader_card(
+        html,
+        r'&#127942; Best Batting Averages',
+        '&#127942; Best Batting Averages',
+        leaders["batting_avg"],
         r'&#127775; Highest Score \(single match\)',
     )
-    highest = sorted(season.batting.items(), key=lambda kv: (-kv[1].hs, kv[0]))[:5]
+    highest = leaders["high_score"]
     html = _replace_generic_leader_card(
         html,
         r'&#127775; Highest Score \(single match\)',
         '&#127775; Highest Score (single match)',
-        [(n, str(s.hs)) for n, s in highest],
+        highest,
         r'&#127942; Best Net Runs',
     )
-    net = sorted(season.batting.items(), key=lambda kv: (-kv[1].net, kv[0]))[:5]
+    net = leaders["net_runs"]
     html = _replace_generic_leader_card(
         html,
         r'&#127942; Best Net Runs',
         '&#127942; Best Net Runs',
-        [(n, (f"+{s.net}" if s.net >= 0 else f"&minus;{abs(s.net)}")) for n, s in net],
+        net,
         r'<img src="icons/ball_light\.png"[^>]*> Most Wickets',
     )
-    fours = sorted(season.batting.items(), key=lambda kv: (-kv[1].fours, kv[0]))[:5]
+    fours = leaders["fours"]
     html = _replace_generic_leader_card(
         html,
         r'&#128308; Most Fours',
         '&#128308; Most Fours',
-        [(n, str(s.fours)) for n, s in fours],
+        fours,
         r'&#128200; Best Economy \(min 2 overs\)',
     )
     return html
 
 
-def _replace_fielding_leader_cards(html: str) -> str:
-    season = collect_summary_season(html)
-    catches = sorted(season.fielding.items(), key=lambda kv: (-kv[1].catches, kv[0]))[:5]
+def _replace_fielding_leader_cards(
+    html: str,
+    leaders: dict[str, list[tuple[str, str]]],
+) -> str:
+    catches = leaders["catches"]
     html = _replace_generic_leader_card(
         html,
         r'<img src="icons/fielder_light\.png"[^>]*> Most Catches',
         '<img src="icons/fielder_light.png" style="width:18px;height:18px;vertical-align:middle;" alt="field"> Most Catches',
-        [(n, str(s.catches)) for n, s in catches],
+        catches,
         r'<img src="icons/fielder_light\.png"[^>]*> Most Run Outs',
     )
-    run_outs = sorted(season.fielding.items(), key=lambda kv: (-kv[1].run_outs, kv[0]))[:5]
     runout_card = _leader_card(
         '<img src="icons/fielder_light.png" style="width:18px;height:18px;vertical-align:middle;" alt="field"> Most Run Outs',
-        [(n, str(s.run_outs)) for n, s in run_outs],
+        leaders["run_outs"],
     )
     # Replace from the run-outs card start through the .lbg close so stale loose rows cannot survive.
     tab_start = html.find('<div id="tab-lb" class="tab">')
@@ -736,16 +731,18 @@ def main() -> None:
 
     html = _repair_m2_summary_fielding_ecc(html)
     html = _repair_m2_summary_bowling_ecc(html)
-    html = _replace_batting_table_from_source(html)
-    html = _replace_bowling_table_from_source(html)
-    html = _replace_fielding_table_from_source(html)
-    html = _replace_batting_leader_cards(html)
-    html = _replace_most_wickets_card(html)
-    html = _replace_best_economy_card(html)
+    season = collect_summary_season(html)
+    leaders = derive_shared_leaderboards(season)
+    html = _replace_batting_table_from_source(html, season)
+    html = _replace_bowling_table_from_source(html, season)
+    html = _replace_fielding_table_from_source(html, season)
+    html = _replace_batting_leader_cards(html, leaders)
+    html = _replace_most_wickets_card(html, leaders)
+    html = _replace_best_economy_card(html, leaders)
     html = _replace_best_bowling_figures_card(html)
-    html = _replace_most_dot_balls_card(html)
+    html = _replace_most_dot_balls_card(html, leaders)
     html = _replace_best_partnerships_card(html)
-    html = _replace_fielding_leader_cards(html)
+    html = _replace_fielding_leader_cards(html, leaders)
     html = _replace_match_button_labels(html)
     html = fix_tab_mx_boundary(html)
     html = fix_tab_lb_boundary(html)

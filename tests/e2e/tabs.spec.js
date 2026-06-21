@@ -53,7 +53,7 @@ const TAB_CASES = [
     assert: async (page) => {
       const grid = page.locator("#tab-lb .lbg");
       await expect(grid).toBeVisible();
-      await expect(grid.locator(".lbc")).toHaveCount(11);
+      await expect(grid.locator(".lbc")).toHaveCount(12);
       await expect(grid.getByText("Best Bowling Figures")).toBeVisible();
       await expect(grid.locator(".ftr")).toHaveCount(0);
     },
@@ -262,6 +262,7 @@ test.describe("edgeware-u9 tabs", () => {
     const orderCheck = await page.evaluate(() => {
       const numericTitles = [
         "Most Bat Runs",
+        "Best Batting Averages",
         "Highest Score",
         "Best Net Runs",
         "Most Wickets",
@@ -307,6 +308,151 @@ test.describe("edgeware-u9 tabs", () => {
     if (idx27 !== -1 && idx21 !== -1) {
       expect(idx27).toBeLessThan(idx21);
     }
+  });
+
+  test("Players and Leaders stay consistent for shared metrics", async ({ page }) => {
+    await page.goto("/#lb");
+    const comparison = await page.evaluate(() => {
+      const parseNum = (value) =>
+        Number(
+          (value || "")
+            .replace(/&minus;/g, "-")
+            .replace(/−/g, "-")
+            .replace(/[^\d.-]/g, ""),
+        ) || 0;
+
+      const cards = [...document.querySelectorAll("#tab-lb .lbc")];
+      const cardRows = (title, parser = parseNum) => {
+        const card = cards.find((c) =>
+          (c.querySelector(".lbh")?.textContent || "").includes(title),
+        );
+        if (!card) return [];
+        return [...card.querySelectorAll(".lbr")].map((row) => ({
+          name: (row.querySelector(".lbn")?.textContent || "")
+            .replace(/\s+/g, " ")
+            .trim()
+            .replace(/ M\d+$/, ""),
+          value: parser((row.querySelector(".lbv")?.textContent || "").trim()),
+        }));
+      };
+
+      const battingRows = [...document.querySelectorAll("#tab-pl .tscroll table.dt")[0].querySelectorAll("tbody tr")].map((row) => ({
+        name: row.cells[0]?.textContent?.trim() || "",
+        runs: parseNum(row.cells[3]?.textContent),
+        hs: parseNum(row.cells[6]?.textContent),
+        sr: parseFloat(row.cells[5]?.textContent || "0") || 0,
+        net: parseNum(row.cells[9]?.textContent),
+        fours: parseNum(row.cells[7]?.textContent),
+      }));
+      const bowlingRows = [...document.querySelectorAll("#tab-pl .tscroll table.dt")[1].querySelectorAll("tbody tr")].map((row) => ({
+        name: row.cells[0]?.textContent?.trim() || "",
+        wkts: parseNum(row.cells[4]?.textContent),
+        eco: parseFloat(row.cells[7]?.textContent || "0") || 0,
+        dots: parseNum(row.cells[8]?.textContent),
+      }));
+      const fieldingRows = [...document.querySelectorAll("#tab-pl .tscroll table.dt")[2].querySelectorAll("tbody tr")].map((row) => ({
+        name: row.cells[0]?.textContent?.trim() || "",
+        catches: parseNum(row.cells[1]?.textContent),
+        runOuts: parseNum(row.cells[2]?.textContent),
+      }));
+
+      const top = (rows, key, asc = false) =>
+        [...rows]
+          .sort((a, b) =>
+            asc
+              ? ((a[key] - b[key]) || a.name.localeCompare(b.name))
+              : ((b[key] - a[key]) || a.name.localeCompare(b.name)),
+          )
+          .slice(0, 5)
+          .map((item) => ({ name: item.name, value: item[key] }));
+
+      const expected = {
+        mostBatRuns: top(battingRows, "runs"),
+        highestScore: top(battingRows, "hs"),
+        bestNetRuns: top(battingRows, "net"),
+        mostFours: top(battingRows, "fours"),
+        mostWickets: top(bowlingRows, "wkts"),
+        bestEconomy: top(
+          bowlingRows.filter((row) => Number.isFinite(row.eco) && row.eco > 0),
+          "eco",
+          true,
+        ),
+        mostDots: top(bowlingRows, "dots"),
+        mostCatches: top(fieldingRows, "catches"),
+        mostRunOuts: top(fieldingRows, "runOuts"),
+      };
+
+      const actual = {
+        mostBatRuns: cardRows("Most Bat Runs"),
+        highestScore: cardRows("Highest Score"),
+        bestNetRuns: cardRows("Best Net Runs"),
+        mostFours: cardRows("Most Fours"),
+        mostWickets: cardRows("Most Wickets"),
+        bestEconomy: cardRows("Best Economy", (value) => parseFloat(value || "0") || 0),
+        mostDots: cardRows("Most Dot Balls"),
+        mostCatches: cardRows("Most Catches"),
+        mostRunOuts: cardRows("Most Run Outs"),
+      };
+
+      return { expected, actual };
+    });
+
+    expect(comparison.actual.bestNetRuns).toEqual(comparison.expected.bestNetRuns);
+    expect(comparison.actual.mostWickets).toEqual(comparison.expected.mostWickets);
+    expect(comparison.actual.bestEconomy).toEqual(comparison.expected.bestEconomy);
+    expect(comparison.actual.mostDots).toEqual(comparison.expected.mostDots);
+    expect(comparison.actual.mostCatches).toEqual(comparison.expected.mostCatches);
+    expect(comparison.actual.mostRunOuts).toEqual(comparison.expected.mostRunOuts);
+    expect(comparison.actual.mostBatRuns).toEqual(comparison.expected.mostBatRuns);
+    expect(comparison.actual.highestScore).toEqual(comparison.expected.highestScore);
+    expect(comparison.actual.mostFours).toEqual(comparison.expected.mostFours);
+  });
+
+  test("Best Batting Averages card is present, ordered, and synced with Players", async ({
+    page,
+  }) => {
+    await page.goto("/#lb");
+    const result = await page.evaluate(() => {
+      const MIN_MATCHES = 2;
+      const parseNum = (value) =>
+        Number(
+          (value || "")
+            .replace(/&minus;/g, "-")
+            .replace(/−/g, "-")
+            .replace(/[^\d.-]/g, ""),
+        ) || 0;
+      const parseAvg = (value) => parseFloat(value || "0") || 0;
+
+      const battingTable = document.querySelectorAll("#tab-pl .tscroll table.dt")[0];
+      const expected = [...(battingTable?.querySelectorAll("tbody tr") || [])]
+        .map((row) => ({
+          name: row.cells[0]?.textContent?.trim() || "",
+          matches: parseNum(row.cells[1]?.textContent),
+          runs: parseNum(row.cells[3]?.textContent),
+          avg: parseAvg(row.cells[4]?.textContent),
+        }))
+        .filter((row) => row.name && row.matches >= MIN_MATCHES)
+        .sort((a, b) => (b.avg - a.avg) || (b.runs - a.runs) || a.name.localeCompare(b.name))
+        .slice(0, 5)
+        .map((row) => ({ name: row.name, avg: row.avg }));
+
+      const cards = [...document.querySelectorAll("#tab-lb .lbc")];
+      const avgCard = cards.find((card) =>
+        (card.querySelector(".lbh")?.textContent || "").includes("Best Batting Averages"),
+      );
+      const actual = [...(avgCard?.querySelectorAll(".lbr") || [])].map((row) => ({
+        name: (row.querySelector(".lbn")?.textContent || "").replace(/\s+/g, " ").trim(),
+        avg: parseAvg(row.querySelector(".lbv")?.textContent),
+      }));
+      const actualVals = actual.map((row) => row.avg);
+      const sortedVals = [...actualVals].sort((a, b) => b - a);
+
+      return { expected, actual, actualVals, sortedVals };
+    });
+
+    expect(result.actual).toHaveLength(5);
+    expect(result.actualVals).toEqual(result.sortedVals);
+    expect(result.actual.slice(0, 3)).toEqual(result.expected.slice(0, 3));
   });
 
   for (const matchId of OPENABLE_MATCHES) {

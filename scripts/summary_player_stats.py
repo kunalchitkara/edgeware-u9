@@ -88,6 +88,59 @@ class SummarySeason:
     best_bowling: dict[str, tuple[str, int, int]]
 
 
+def _top_n(
+    pairs: list[tuple[str, int | float]],
+    descending: bool = True,
+    limit: int = 5,
+) -> list[tuple[str, int | float]]:
+    if descending:
+        ranked = sorted(pairs, key=lambda kv: (-kv[1], kv[0]))
+    else:
+        ranked = sorted(pairs, key=lambda kv: (kv[1], kv[0]))
+    return ranked[:limit]
+
+
+def derive_shared_leaderboards(
+    season: SummarySeason,
+    *,
+    economy_min_balls: int = 12,
+    batting_avg_min_matches: int = 2,
+) -> dict[str, list[tuple[str, str]]]:
+    """Build leaderboard rows from the same summary aggregate as Players tab."""
+    batting = season.batting
+    bowling = season.bowling
+    fielding = season.fielding
+
+    rows: dict[str, list[tuple[str, str]]] = {}
+    rows["bat_runs"] = [(n, str(v)) for n, v in _top_n([(n, s.runs) for n, s in batting.items()])]
+    rows["high_score"] = [(n, str(v)) for n, v in _top_n([(n, s.hs) for n, s in batting.items()])]
+    batting_avg = sorted(
+        (
+            (n, s)
+            for n, s in batting.items()
+            if s.matches >= batting_avg_min_matches
+        ),
+        key=lambda kv: (-kv[1].avg, -kv[1].runs, kv[0]),
+    )[:5]
+    rows["batting_avg"] = [(n, f"{s.avg:.1f}") for n, s in batting_avg]
+    rows["net_runs"] = [
+        (n, f"+{v}" if v >= 0 else f"&minus;{abs(v)}")
+        for n, v in _top_n([(n, s.net) for n, s in batting.items()])
+    ]
+    rows["fours"] = [(n, str(v)) for n, v in _top_n([(n, s.fours) for n, s in batting.items()])]
+    rows["wickets"] = [(n, str(v)) for n, v in _top_n([(n, s.wickets) for n, s in bowling.items()])]
+    rows["dots"] = [(n, str(v)) for n, v in _top_n([(n, s.dots) for n, s in bowling.items()])]
+    economy = [
+        (n, s.economy)
+        for n, s in bowling.items()
+        if s.balls >= economy_min_balls
+    ]
+    rows["economy"] = [(n, f"{v:.1f}") for n, v in _top_n(economy, descending=False)]
+    rows["catches"] = [(n, str(v)) for n, v in _top_n([(n, s.catches) for n, s in fielding.items()])]
+    rows["run_outs"] = [(n, str(v)) for n, v in _top_n([(n, s.run_outs) for n, s in fielding.items()])]
+    return rows
+
+
 def _to_int(text: str) -> int:
     t = text.replace("&minus;", "-").replace("−", "-")
     t = re.sub(r"[^\d-]", "", t)
