@@ -19,6 +19,8 @@ STATIC_MATCH_INNINGS: dict[str, list[tuple[int, int, int]]] = {
     "m2": [(297, 3, 16), (265, 4, 16)],
     # ECC vs Harefield (7 Jun) — inn1: 4 wkts total row; inn2: 3 bowler + 7 run-outs.
     "m5": [(315, 4, 20), (307, 10, 20)],
+    "m6": [(263, 4, 16), (308, 3, 16)],
+    "m7": [(253, 4, 16), (192, 6, 16)],
 }
 
 OLD_SCORE_RE = re.compile(r"^(\d+) \((\d+) Ov\)$")

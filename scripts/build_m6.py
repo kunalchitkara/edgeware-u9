@@ -231,9 +231,11 @@ def simulate_innings(inn: dict) -> dict:
                     stats[name]["dismissal"] = ""
 
         legal_in_over = 0
+        legal_balls_seen: set[int] = set()
         for item in over["deliveries"]:
             facing = item.get("batter") or striker
             symbol = item["symbol"]
+            ball_idx = item.get("ball_index")
 
             if symbol == "O+1":
                 nb_runs = 2
@@ -309,6 +311,10 @@ def simulate_innings(inn: dict) -> dict:
                 bowl[bowler]["noballs"] += 1
 
             if wkt:
+                if stats[facing]["out"]:
+                    if symbol in {"B", "C", "S", "L", "H"}:
+                        bowl[bowler]["wickets"] += 1
+                    continue
                 wickets += 1
                 p_wkts += 1
                 stats[facing]["out"] = True
@@ -340,8 +346,11 @@ def simulate_innings(inn: dict) -> dict:
             elif legal:
                 st = stats[facing]
                 st["balls"] += 1
-                bowl[bowler]["legal"] += 1
-                legal_in_over += 1
+                if ball_idx is None or ball_idx not in legal_balls_seen:
+                    if ball_idx is not None:
+                        legal_balls_seen.add(ball_idx)
+                    bowl[bowler]["legal"] += 1
+                    legal_in_over += 1
                 if bat_runs == 0 and runs == 0:
                     bowl[bowler]["dots"] += 1
                 if bat_runs:
@@ -624,15 +633,16 @@ def build_innings_2() -> dict:
 def annotate_notation(inn: dict, max_over: int) -> None:
     for over in inn["overs"]:
         onum = over["num"]
-        is_last = onum == max_over
-        n = len(over["deliveries"])
-        for i, item in enumerate(over["deliveries"], start=1):
+        deliveries = over["deliveries"]
+        max_ball = max((d.get("ball_index") or 0) for d in deliveries) if deliveries else 0
+        for item in deliveries:
             item["over"] = onum
-            item["ball_in_over"] = i
-            if i == n:
+            ball_i = item.get("ball_index") or 1
+            item["ball_in_over"] = ball_i
+            if ball_i == max_ball:
                 item["notation"] = f"{onum}.0"
             else:
-                item["notation"] = f"{onum - 1}.{i}"
+                item["notation"] = f"{onum - 1}.{ball_i}"
             item["bowler"] = over["bowler"]
             if not item.get("description"):
                 _, _, wkt, _, _, desc = delivery_runs(item, over["bowler"])

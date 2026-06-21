@@ -1,0 +1,3124 @@
+{
+  "match": {
+    "label": "M7",
+    "date": "21 June 2026",
+    "venue": "Canons High School",
+    "home": "Edgware CC",
+    "away": "Headstone Manor",
+    "format": "16 overs",
+    "result": "Edgware CC won by 61 runs",
+    "margin_runs": 61,
+    "toss": {
+      "winner": "Headstone Manor",
+      "decision": "bowl"
+    },
+    "sheet_id": "1BLANhVMw69HEuN38wgTXkIOFjNw9a7em",
+    "gid": "1976564850"
+  },
+  "innings": [
+    {
+      "overs": [
+        {
+          "num": 1,
+          "bowler": "Sid",
+          "over_runs": "1",
+          "total": "201",
+          "deliveries": [
+            {
+              "symbol": ".",
+              "batter": "Krish",
+              "ball_index": 1,
+              "over": 1,
+              "ball_in_over": 1,
+              "notation": "0.1",
+              "bowler": "Sid",
+              "description": "no run",
+              "runs": 0,
+              "wicket": false
+            },
+            {
+              "symbol": ".",
+              "batter": "Krish",
+              "ball_index": 2,
+              "over": 1,
+              "ball_in_over": 2,
+              "notation": "0.2",
+              "bowler": "Sid",
+              "description": "no run",
+              "runs": 0,
+              "wicket": false
+            },
+            {
+              "symbol": ".",
+              "batter": "Krish",
+              "ball_index": 3,
+              "over": 1,
+              "ball_in_over": 3,
+              "notation": "0.3",
+              "bowler": "Sid",
+              "description": "no run",
+              "runs": 0,
+              "wicket": false
+            },
+            {
+              "symbol": ".",
+              "batter": "Krish",
+              "ball_index": 4,
+              "over": 1,
+              "ball_in_over": 4,
+              "notation": "0.4",
+              "bowler": "Sid",
+              "description": "no run",
+              "runs": 0,
+              "wicket": false
+            },
+            {
+              "symbol": ".",
+              "batter": "Krish",
+              "ball_index": 5,
+              "over": 1,
+              "ball_in_over": 5,
+              "notation": "0.5",
+              "bowler": "Sid",
+              "description": "no run",
+              "runs": 0,
+              "wicket": false
+            },
+            {
+              "symbol": "1",
+              "batter": "Krish",
+              "ball_index": 6,
+              "over": 1,
+              "ball_in_over": 6,
+              "notation": "1.0",
+              "bowler": "Sid",
+              "description": "1 run",
+              "runs": 1,
+              "bat_runs": 1,
+              "wicket": false
+            }
+          ]
+        },
+        {
+          "num": 2,
+          "bowler": "Hayen",
+          "over_runs": "5",
+          "total": "206",
+          "deliveries": [
+            {
+              "symbol": "1",
+              "batter": "Krish",
+              "ball_index": 1,
+              "over": 2,
+              "ball_in_over": 1,
+              "notation": "1.1",
+              "bowler": "Hayen",
+              "description": "1 run",
+              "runs": 1,
+              "bat_runs": 1,
+              "wicket": false
+            },
+            {
+              "symbol": "+",
+              "batter": "Qaim",
+              "extras_type": "wide",
+              "ball_index": 2,
+              "over": 2,
+              "ball_in_over": 2,
+              "notation": "1.2",
+              "bowler": "Hayen",
+              "description": "Wide (+2)",
+              "runs": 2,
+              "wicket": false
+            },
+            {
+              "symbol": "+",
+              "batter": "Qaim",
+              "extras_type": "wide",
+              "ball_index": 3,
+              "over": 2,
+              "ball_in_over": 3,
+              "notation": "1.3",
+              "bowler": "Hayen",
+              "description": "Wide (+2)",
+              "runs": 2,
+              "wicket": false
+            },
+            {
+              "symbol": ".",
+              "batter": "Qaim",
+              "ball_index": 4,
+              "over": 2,
+              "ball_in_over": 4,
+              "notation": "1.4",
+              "bowler": "Hayen",
+              "description": "no run",
+              "runs": 0,
+              "wicket": false
+            },
+            {
+              "symbol": ".",
+              "batter": "Qaim",
+              "ball_index": 5,
+              "over": 2,
+              "ball_in_over": 5,
+              "notation": "1.5",
+              "bowler": "Hayen",
+              "description": "no run",
+              "runs": 0,
+              "wicket": false
+            },
+            {
+              "symbol": ".",
+              "batter": "Qaim",
+              "ball_index": 6,
+              "over": 2,
+              "ball_in_over": 6,
+              "notation": "2.0",
+              "bowler": "Hayen",
+              "description": "no run",
+              "runs": 0,
+              "wicket": false
+            }
+          ]
+        },
+        {
+          "num": 3,
+          "bowler": "Chloe",
+          "over_runs": "9",
+          "total": "215",
+          "deliveries": [
+            {
+              "symbol": ".",
+              "batter": "Krish",
+              "ball_index": 1,
+              "over": 3,
+              "ball_in_over": 1,
+              "notation": "2.1",
+              "bowler": "Chloe",
+              "description": "no run",
+              "runs": 0,
+              "wicket": false
+            },
+            {
+              "symbol": "1",
+              "batter": "Krish",
+              "ball_index": 2,
+              "over": 3,
+              "ball_in_over": 2,
+              "notation": "2.2",
+              "bowler": "Chloe",
+              "description": "1 run",
+              "runs": 1,
+              "bat_runs": 1,
+              "wicket": false
+            },
+            {
+              "symbol": "4",
+              "batter": "Qaim",
+              "ball_index": 3,
+              "over": 3,
+              "ball_in_over": 3,
+              "notation": "2.3",
+              "bowler": "Chloe",
+              "description": "FOUR",
+              "runs": 4,
+              "bat_runs": 4,
+              "wicket": false
+            },
+            {
+              "symbol": "2",
+              "batter": "Qaim",
+              "ball_index": 4,
+              "over": 3,
+              "ball_in_over": 4,
+              "notation": "2.4",
+              "bowler": "Chloe",
+              "description": "2 runs",
+              "runs": 2,
+              "bat_runs": 2,
+              "wicket": false
+            },
+            {
+              "symbol": "1",
+              "batter": "Qaim",
+              "ball_index": 5,
+              "over": 3,
+              "ball_in_over": 5,
+              "notation": "2.5",
+              "bowler": "Chloe",
+              "description": "1 run",
+              "runs": 1,
+              "bat_runs": 1,
+              "wicket": false
+            },
+            {
+              "symbol": "1",
+              "batter": "Krish",
+              "ball_index": 6,
+              "over": 3,
+              "ball_in_over": 6,
+              "notation": "3.0",
+              "bowler": "Chloe",
+              "description": "1 run",
+              "runs": 1,
+              "bat_runs": 1,
+              "wicket": false
+            }
+          ]
+        },
+        {
+          "num": 4,
+          "bowler": "Dillon",
+          "over_runs": "6",
+          "total": "221",
+          "deliveries": [
+            {
+              "symbol": "1",
+              "batter": "Krish",
+              "ball_index": 1,
+              "over": 4,
+              "ball_in_over": 1,
+              "notation": "3.1",
+              "bowler": "Dillon",
+              "description": "1 run",
+              "runs": 1,
+              "bat_runs": 1,
+              "wicket": false
+            },
+            {
+              "symbol": "1",
+              "batter": "Qaim",
+              "ball_index": 2,
+              "over": 4,
+              "ball_in_over": 2,
+              "notation": "3.2",
+              "bowler": "Dillon",
+              "description": "1 run",
+              "runs": 1,
+              "bat_runs": 1,
+              "wicket": false
+            },
+            {
+              "symbol": "O",
+              "batter": "Qaim",
+              "extras_type": "noball",
+              "ball_index": 3,
+              "over": 4,
+              "ball_in_over": 3,
+              "notation": "3.3",
+              "bowler": "Dillon",
+              "description": "No ball (+2)",
+              "runs": 2,
+              "wicket": false
+            },
+            {
+              "symbol": ".",
+              "batter": "Qaim",
+              "ball_index": 4,
+              "over": 4,
+              "ball_in_over": 4,
+              "notation": "3.4",
+              "bowler": "Dillon",
+              "description": "no run",
+              "runs": 0,
+              "wicket": false
+            },
+            {
+              "symbol": "1",
+              "batter": "Qaim",
+              "ball_index": 5,
+              "over": 4,
+              "ball_in_over": 5,
+              "notation": "3.5",
+              "bowler": "Dillon",
+              "description": "1 run",
+              "runs": 1,
+              "bat_runs": 1,
+              "wicket": false
+            },
+            {
+              "symbol": "1",
+              "batter": "Krish",
+              "ball_index": 6,
+              "over": 4,
+              "ball_in_over": 6,
+              "notation": "4.0",
+              "bowler": "Dillon",
+              "description": "1 run",
+              "runs": 1,
+              "bat_runs": 1,
+              "wicket": false
+            }
+          ]
+        },
+        {
+          "num": 5,
+          "bowler": "Jash",
+          "over_runs": "-4",
+          "total": "217",
+          "deliveries": [
+            {
+              "symbol": ".",
+              "batter": "Avyaan",
+              "ball_index": 1,
+              "over": 5,
+              "ball_in_over": 1,
+              "notation": "4.1",
+              "bowler": "Jash",
+              "description": "no run",
+              "runs": 0,
+              "wicket": false
+            },
+            {
+              "symbol": "C",
+              "batter": "Avyaan",
+              "wicket": true,
+              "ball_index": 2,
+              "over": 5,
+              "ball_in_over": 2,
+              "notation": "4.2",
+              "bowler": "Jash",
+              "description": "Avyaan c & b Jash",
+              "runs": -5
+            },
+            {
+              "symbol": ".",
+              "batter": "Taran",
+              "ball_index": 3,
+              "over": 5,
+              "ball_in_over": 3,
+              "notation": "4.3",
+              "bowler": "Jash",
+              "description": "no run",
+              "runs": 0,
+              "wicket": false
+            },
+            {
+              "symbol": ".",
+              "batter": "Taran",
+              "ball_index": 4,
+              "over": 5,
+              "ball_in_over": 4,
+              "notation": "4.4",
+              "bowler": "Jash",
+              "description": "no run",
+              "runs": 0,
+              "wicket": false
+            },
+            {
+              "symbol": ".",
+              "batter": "Taran",
+              "ball_index": 5,
+              "over": 5,
+              "ball_in_over": 5,
+              "notation": "4.5",
+              "bowler": "Jash",
+              "description": "no run",
+              "runs": 0,
+              "wicket": false
+            },
+            {
+              "symbol": "1",
+              "batter": "Taran",
+              "ball_index": 6,
+              "over": 5,
+              "ball_in_over": 6,
+              "notation": "5.0",
+              "bowler": "Jash",
+              "description": "1 run",
+              "runs": 1,
+              "bat_runs": 1,
+              "wicket": false
+            }
+          ]
+        },
+        {
+          "num": 6,
+          "bowler": "Abhi dev",
+          "over_runs": "7",
+          "total": "224",
+          "deliveries": [
+            {
+              "symbol": ".",
+              "batter": "Taran",
+              "ball_index": 1,
+              "over": 6,
+              "ball_in_over": 1,
+              "notation": "5.1",
+              "bowler": "Abhi dev",
+              "description": "no run",
+              "runs": 0,
+              "wicket": false
+            },
+            {
+              "symbol": "2",
+              "batter": "Taran",
+              "ball_index": 2,
+              "over": 6,
+              "ball_in_over": 2,
+              "notation": "5.2",
+              "bowler": "Abhi dev",
+              "description": "2 runs",
+              "runs": 2,
+              "bat_runs": 2,
+              "wicket": false
+            },
+            {
+              "symbol": "1",
+              "batter": "Taran",
+              "ball_index": 3,
+              "over": 6,
+              "ball_in_over": 3,
+              "notation": "5.3",
+              "bowler": "Abhi dev",
+              "description": "1 run",
+              "runs": 1,
+              "bat_runs": 1,
+              "wicket": false
+            },
+            {
+              "symbol": "+",
+              "batter": "Avyaan",
+              "extras_type": "wide",
+              "ball_index": 4,
+              "over": 6,
+              "ball_in_over": 4,
+              "notation": "5.4",
+              "bowler": "Abhi dev",
+              "description": "Wide (+2)",
+              "runs": 2,
+              "wicket": false
+            },
+            {
+              "symbol": ".",
+              "batter": "Avyaan",
+              "ball_index": 5,
+              "over": 6,
+              "ball_in_over": 5,
+              "notation": "5.5",
+              "bowler": "Abhi dev",
+              "description": "no run",
+              "runs": 0,
+              "wicket": false
+            },
+            {
+              "symbol": "+",
+              "batter": "Avyaan",
+              "extras_type": "wide",
+              "ball_index": 6,
+              "over": 6,
+              "ball_in_over": 6,
+              "notation": "6.0",
+              "bowler": "Abhi dev",
+              "description": "Wide (+2)",
+              "runs": 2,
+              "wicket": false
+            }
+          ]
+        },
+        {
+          "num": 7,
+          "bowler": "Arun",
+          "over_runs": "2",
+          "total": "226",
+          "deliveries": [
+            {
+              "symbol": ".",
+              "batter": "Taran",
+              "ball_index": 1,
+              "over": 7,
+              "ball_in_over": 1,
+              "notation": "6.1",
+              "bowler": "Arun",
+              "description": "no run",
+              "runs": 0,
+              "wicket": false
+            },
+            {
+              "symbol": "1",
+              "batter": "Taran",
+              "ball_index": 2,
+              "over": 7,
+              "ball_in_over": 2,
+              "notation": "6.2",
+              "bowler": "Arun",
+              "description": "1 run",
+              "runs": 1,
+              "bat_runs": 1,
+              "wicket": false
+            },
+            {
+              "symbol": ".",
+              "batter": "Avyaan",
+              "ball_index": 3,
+              "over": 7,
+              "ball_in_over": 3,
+              "notation": "6.3",
+              "bowler": "Arun",
+              "description": "no run",
+              "runs": 0,
+              "wicket": false
+            },
+            {
+              "symbol": "1",
+              "batter": "Avyaan",
+              "ball_index": 4,
+              "over": 7,
+              "ball_in_over": 4,
+              "notation": "6.4",
+              "bowler": "Arun",
+              "description": "1 run",
+              "runs": 1,
+              "bat_runs": 1,
+              "wicket": false
+            },
+            {
+              "symbol": ".",
+              "batter": "Taran",
+              "ball_index": 5,
+              "over": 7,
+              "ball_in_over": 5,
+              "notation": "6.5",
+              "bowler": "Arun",
+              "description": "no run",
+              "runs": 0,
+              "wicket": false
+            },
+            {
+              "symbol": ".",
+              "batter": "Taran",
+              "ball_index": 6,
+              "over": 7,
+              "ball_in_over": 6,
+              "notation": "7.0",
+              "bowler": "Arun",
+              "description": "no run",
+              "runs": 0,
+              "wicket": false
+            }
+          ]
+        },
+        {
+          "num": 8,
+          "bowler": "Milan",
+          "over_runs": "2",
+          "total": "228",
+          "deliveries": [
+            {
+              "symbol": ".",
+              "batter": "Avyaan",
+              "ball_index": 1,
+              "over": 8,
+              "ball_in_over": 1,
+              "notation": "7.1",
+              "bowler": "Milan",
+              "description": "no run",
+              "runs": 0,
+              "wicket": false
+            },
+            {
+              "symbol": "1",
+              "batter": "Avyaan",
+              "ball_index": 2,
+              "over": 8,
+              "ball_in_over": 2,
+              "notation": "7.2",
+              "bowler": "Milan",
+              "description": "1 run",
+              "runs": 1,
+              "bat_runs": 1,
+              "wicket": false
+            },
+            {
+              "symbol": ".",
+              "batter": "Taran",
+              "ball_index": 3,
+              "over": 8,
+              "ball_in_over": 3,
+              "notation": "7.3",
+              "bowler": "Milan",
+              "description": "no run",
+              "runs": 0,
+              "wicket": false
+            },
+            {
+              "symbol": ".",
+              "batter": "Taran",
+              "ball_index": 4,
+              "over": 8,
+              "ball_in_over": 4,
+              "notation": "7.4",
+              "bowler": "Milan",
+              "description": "no run",
+              "runs": 0,
+              "wicket": false
+            },
+            {
+              "symbol": ".",
+              "batter": "Taran",
+              "ball_index": 5,
+              "over": 8,
+              "ball_in_over": 5,
+              "notation": "7.5",
+              "bowler": "Milan",
+              "description": "no run",
+              "runs": 0,
+              "wicket": false
+            },
+            {
+              "symbol": "1",
+              "batter": "Taran",
+              "ball_index": 6,
+              "over": 8,
+              "ball_in_over": 6,
+              "notation": "8.0",
+              "bowler": "Milan",
+              "description": "1 run",
+              "runs": 1,
+              "bat_runs": 1,
+              "wicket": false
+            }
+          ]
+        },
+        {
+          "num": 9,
+          "bowler": "Sid",
+          "over_runs": "7",
+          "total": "235",
+          "deliveries": [
+            {
+              "symbol": ".",
+              "batter": "Shyam",
+              "ball_index": 1,
+              "over": 9,
+              "ball_in_over": 1,
+              "notation": "8.1",
+              "bowler": "Sid",
+              "description": "no run",
+              "runs": 0,
+              "wicket": false
+            },
+            {
+              "symbol": "+",
+              "batter": "Shyam",
+              "extras_type": "wide",
+              "ball_index": 2,
+              "over": 9,
+              "ball_in_over": 2,
+              "notation": "8.2",
+              "bowler": "Sid",
+              "description": "Wide (+2)",
+              "runs": 2,
+              "wicket": false
+            },
+            {
+              "symbol": "1",
+              "batter": "Shyam",
+              "ball_index": 3,
+              "over": 9,
+              "ball_in_over": 3,
+              "notation": "8.3",
+              "bowler": "Sid",
+              "description": "1 run",
+              "runs": 1,
+              "bat_runs": 1,
+              "wicket": false
+            },
+            {
+              "symbol": "2",
+              "batter": "Aanya",
+              "ball_index": 4,
+              "over": 9,
+              "ball_in_over": 4,
+              "notation": "8.4",
+              "bowler": "Sid",
+              "description": "2 runs",
+              "runs": 2,
+              "bat_runs": 2,
+              "wicket": false
+            },
+            {
+              "symbol": ".",
+              "batter": "Aanya",
+              "ball_index": 5,
+              "over": 9,
+              "ball_in_over": 5,
+              "notation": "8.5",
+              "bowler": "Sid",
+              "description": "no run",
+              "runs": 0,
+              "wicket": false
+            },
+            {
+              "symbol": "2",
+              "batter": "Aanya",
+              "ball_index": 6,
+              "over": 9,
+              "ball_in_over": 6,
+              "notation": "9.0",
+              "bowler": "Sid",
+              "description": "2 runs",
+              "runs": 2,
+              "bat_runs": 2,
+              "wicket": false
+            }
+          ]
+        },
+        {
+          "num": 10,
+          "bowler": "Hayen",
+          "over_runs": "4",
+          "total": "239",
+          "deliveries": [
+            {
+              "symbol": ".",
+              "batter": "Shyam",
+              "ball_index": 1,
+              "over": 10,
+              "ball_in_over": 1,
+              "notation": "9.1",
+              "bowler": "Hayen",
+              "description": "no run",
+              "runs": 0,
+              "wicket": false
+            },
+            {
+              "symbol": ".",
+              "batter": "Shyam",
+              "ball_index": 2,
+              "over": 10,
+              "ball_in_over": 2,
+              "notation": "9.2",
+              "bowler": "Hayen",
+              "description": "no run",
+              "runs": 0,
+              "wicket": false
+            },
+            {
+              "symbol": "O",
+              "batter": "Shyam",
+              "extras_type": "noball",
+              "ball_index": 3,
+              "over": 10,
+              "ball_in_over": 3,
+              "notation": "9.3",
+              "bowler": "Hayen",
+              "description": "No ball (+2)",
+              "runs": 2,
+              "wicket": false
+            },
+            {
+              "symbol": "+",
+              "batter": "Shyam",
+              "extras_type": "wide",
+              "ball_index": 4,
+              "over": 10,
+              "ball_in_over": 4,
+              "notation": "9.4",
+              "bowler": "Hayen",
+              "description": "Wide (+2)",
+              "runs": 2,
+              "wicket": false
+            },
+            {
+              "symbol": ".",
+              "batter": "Shyam",
+              "ball_index": 5,
+              "over": 10,
+              "ball_in_over": 5,
+              "notation": "9.5",
+              "bowler": "Hayen",
+              "description": "no run",
+              "runs": 0,
+              "wicket": false
+            },
+            {
+              "symbol": ".",
+              "batter": "Shyam",
+              "ball_index": 6,
+              "over": 10,
+              "ball_in_over": 6,
+              "notation": "10.0",
+              "bowler": "Hayen",
+              "description": "no run",
+              "runs": 0,
+              "wicket": false
+            }
+          ]
+        },
+        {
+          "num": 11,
+          "bowler": "Chloe",
+          "over_runs": "3",
+          "total": "242",
+          "deliveries": [
+            {
+              "symbol": "1",
+              "batter": "Aanya",
+              "ball_index": 1,
+              "over": 11,
+              "ball_in_over": 1,
+              "notation": "10.1",
+              "bowler": "Chloe",
+              "description": "1 run",
+              "runs": 1,
+              "bat_runs": 1,
+              "wicket": false
+            },
+            {
+              "symbol": ".",
+              "batter": "Shyam",
+              "ball_index": 2,
+              "over": 11,
+              "ball_in_over": 2,
+              "notation": "10.2",
+              "bowler": "Chloe",
+              "description": "no run",
+              "runs": 0,
+              "wicket": false
+            },
+            {
+              "symbol": "+",
+              "batter": "Shyam",
+              "extras_type": "wide",
+              "ball_index": 3,
+              "over": 11,
+              "ball_in_over": 3,
+              "notation": "10.3",
+              "bowler": "Chloe",
+              "description": "Wide (+2)",
+              "runs": 2,
+              "wicket": false
+            },
+            {
+              "symbol": ".",
+              "batter": "Shyam",
+              "ball_index": 4,
+              "over": 11,
+              "ball_in_over": 4,
+              "notation": "10.4",
+              "bowler": "Chloe",
+              "description": "no run",
+              "runs": 0,
+              "wicket": false
+            },
+            {
+              "symbol": ".",
+              "batter": "Shyam",
+              "ball_index": 5,
+              "over": 11,
+              "ball_in_over": 5,
+              "notation": "10.5",
+              "bowler": "Chloe",
+              "description": "no run",
+              "runs": 0,
+              "wicket": false
+            },
+            {
+              "symbol": ".",
+              "batter": "Shyam",
+              "ball_index": 6,
+              "over": 11,
+              "ball_in_over": 6,
+              "notation": "11.0",
+              "bowler": "Chloe",
+              "description": "no run",
+              "runs": 0,
+              "wicket": false
+            }
+          ]
+        },
+        {
+          "num": 12,
+          "bowler": "Dillon",
+          "over_runs": "0",
+          "total": "242",
+          "deliveries": [
+            {
+              "symbol": ".",
+              "batter": "Aanya",
+              "ball_index": 1,
+              "over": 12,
+              "ball_in_over": 1,
+              "notation": "11.1",
+              "bowler": "Dillon",
+              "description": "no run",
+              "runs": 0,
+              "wicket": false
+            },
+            {
+              "symbol": "B",
+              "batter": "Aanya",
+              "wicket": true,
+              "ball_index": 2,
+              "over": 12,
+              "ball_in_over": 2,
+              "notation": "11.2",
+              "bowler": "Dillon",
+              "description": "Aanya b Dillon",
+              "runs": -5
+            },
+            {
+              "symbol": "O",
+              "batter": "Shyam",
+              "extras_type": "noball",
+              "ball_index": 3,
+              "over": 12,
+              "ball_in_over": 3,
+              "notation": "11.3",
+              "bowler": "Dillon",
+              "description": "No ball (+2)",
+              "runs": 2,
+              "wicket": false
+            },
+            {
+              "symbol": ".",
+              "batter": "Shyam",
+              "ball_index": 4,
+              "over": 12,
+              "ball_in_over": 4,
+              "notation": "11.4",
+              "bowler": "Dillon",
+              "description": "no run",
+              "runs": 0,
+              "wicket": false
+            },
+            {
+              "symbol": "1",
+              "batter": "Shyam",
+              "ball_index": 5,
+              "over": 12,
+              "ball_in_over": 5,
+              "notation": "11.5",
+              "bowler": "Dillon",
+              "description": "1 run",
+              "runs": 1,
+              "bat_runs": 1,
+              "wicket": false
+            },
+            {
+              "symbol": "2",
+              "batter": "Aanya",
+              "ball_index": 6,
+              "over": 12,
+              "ball_in_over": 6,
+              "notation": "12.0",
+              "bowler": "Dillon",
+              "description": "2 runs",
+              "runs": 2,
+              "bat_runs": 2,
+              "wicket": false
+            }
+          ]
+        },
+        {
+          "num": 13,
+          "bowler": "Arun",
+          "over_runs": "6",
+          "total": "248",
+          "deliveries": [
+            {
+              "symbol": "1",
+              "batter": "Drish",
+              "ball_index": 1,
+              "over": 13,
+              "ball_in_over": 1,
+              "notation": "12.1",
+              "bowler": "Arun",
+              "description": "1 run",
+              "runs": 1,
+              "bat_runs": 1,
+              "wicket": false
+            },
+            {
+              "symbol": "1",
+              "batter": "Kaiyan",
+              "ball_index": 2,
+              "over": 13,
+              "ball_in_over": 2,
+              "notation": "12.2",
+              "bowler": "Arun",
+              "description": "1 run",
+              "runs": 1,
+              "bat_runs": 1,
+              "wicket": false
+            },
+            {
+              "symbol": "+",
+              "batter": "Drish",
+              "extras_type": "wide",
+              "ball_index": 3,
+              "over": 13,
+              "ball_in_over": 3,
+              "notation": "12.3",
+              "bowler": "Arun",
+              "description": "Wide (+2)",
+              "runs": 2,
+              "wicket": false
+            },
+            {
+              "symbol": "2",
+              "batter": "Drish",
+              "ball_index": 4,
+              "over": 13,
+              "ball_in_over": 4,
+              "notation": "12.4",
+              "bowler": "Arun",
+              "description": "2 runs",
+              "runs": 2,
+              "bat_runs": 2,
+              "wicket": false
+            },
+            {
+              "symbol": ".",
+              "batter": "Drish",
+              "ball_index": 5,
+              "over": 13,
+              "ball_in_over": 5,
+              "notation": "12.5",
+              "bowler": "Arun",
+              "description": "no run",
+              "runs": 0,
+              "wicket": false
+            },
+            {
+              "symbol": ".",
+              "batter": "Drish",
+              "ball_index": 6,
+              "over": 13,
+              "ball_in_over": 6,
+              "notation": "13.0",
+              "bowler": "Arun",
+              "description": "no run",
+              "runs": 0,
+              "wicket": false
+            }
+          ]
+        },
+        {
+          "num": 14,
+          "bowler": "Abhidev",
+          "over_runs": "9",
+          "total": "257",
+          "deliveries": [
+            {
+              "symbol": "3",
+              "batter": "Kaiyan",
+              "ball_index": 1,
+              "over": 14,
+              "ball_in_over": 1,
+              "notation": "13.1",
+              "bowler": "Abhidev",
+              "description": "",
+              "runs": 3,
+              "bat_runs": 3,
+              "wicket": false
+            },
+            {
+              "symbol": "+",
+              "batter": "Drish",
+              "extras_type": "wide",
+              "ball_index": 2,
+              "over": 14,
+              "ball_in_over": 2,
+              "notation": "13.2",
+              "bowler": "Abhidev",
+              "description": "Wide (+2)",
+              "runs": 2,
+              "wicket": false
+            },
+            {
+              "symbol": "1",
+              "batter": "Drish",
+              "ball_index": 3,
+              "over": 14,
+              "ball_in_over": 3,
+              "notation": "13.3",
+              "bowler": "Abhidev",
+              "description": "1 run",
+              "runs": 1,
+              "bat_runs": 1,
+              "wicket": false
+            },
+            {
+              "symbol": "1",
+              "batter": "Kaiyan",
+              "ball_index": 4,
+              "over": 14,
+              "ball_in_over": 4,
+              "notation": "13.4",
+              "bowler": "Abhidev",
+              "description": "1 run",
+              "runs": 1,
+              "bat_runs": 1,
+              "wicket": false
+            },
+            {
+              "symbol": "1",
+              "batter": "Kaiyan",
+              "ball_index": 5,
+              "over": 14,
+              "ball_in_over": 5,
+              "notation": "13.5",
+              "bowler": "Abhidev",
+              "description": "1 run",
+              "runs": 1,
+              "bat_runs": 1,
+              "wicket": false
+            },
+            {
+              "symbol": "1",
+              "batter": "Kaiyan",
+              "ball_index": 6,
+              "over": 14,
+              "ball_in_over": 6,
+              "notation": "14.0",
+              "bowler": "Abhidev",
+              "description": "1 run",
+              "runs": 1,
+              "bat_runs": 1,
+              "wicket": false
+            }
+          ]
+        },
+        {
+          "num": 15,
+          "bowler": "Milan",
+          "over_runs": "-1",
+          "total": "256",
+          "deliveries": [
+            {
+              "symbol": "1",
+              "batter": "Kaiyan",
+              "ball_index": 1,
+              "over": 15,
+              "ball_in_over": 1,
+              "notation": "14.1",
+              "bowler": "Milan",
+              "description": "1 run",
+              "runs": 1,
+              "bat_runs": 1,
+              "wicket": false
+            },
+            {
+              "symbol": "1",
+              "batter": "Drish",
+              "ball_index": 2,
+              "over": 15,
+              "ball_in_over": 2,
+              "notation": "14.2",
+              "bowler": "Milan",
+              "description": "1 run",
+              "runs": 1,
+              "bat_runs": 1,
+              "wicket": false
+            },
+            {
+              "symbol": ".",
+              "batter": "Kaiyan",
+              "ball_index": 3,
+              "over": 15,
+              "ball_in_over": 3,
+              "notation": "14.3",
+              "bowler": "Milan",
+              "description": "no run",
+              "runs": 0,
+              "wicket": false
+            },
+            {
+              "symbol": "1",
+              "batter": "Kaiyan",
+              "ball_index": 4,
+              "over": 15,
+              "ball_in_over": 4,
+              "notation": "14.4",
+              "bowler": "Milan",
+              "description": "1 run",
+              "runs": 1,
+              "bat_runs": 1,
+              "wicket": false
+            },
+            {
+              "symbol": "C",
+              "batter": "Drish",
+              "wicket": true,
+              "ball_index": 5,
+              "over": 15,
+              "ball_in_over": 5,
+              "notation": "14.5",
+              "bowler": "Milan",
+              "description": "Drish c & b Milan",
+              "runs": -5
+            },
+            {
+              "symbol": "1",
+              "batter": "Kaiyan",
+              "ball_index": 6,
+              "over": 15,
+              "ball_in_over": 6,
+              "notation": "15.0",
+              "bowler": "Milan",
+              "description": "1 run",
+              "runs": 1,
+              "bat_runs": 1,
+              "wicket": false
+            }
+          ]
+        },
+        {
+          "num": 16,
+          "bowler": "Jash",
+          "over_runs": "-3",
+          "total": "253",
+          "deliveries": [
+            {
+              "symbol": ".",
+              "batter": "Kaiyan",
+              "ball_index": 1,
+              "over": 16,
+              "ball_in_over": 1,
+              "notation": "15.1",
+              "bowler": "Jash",
+              "description": "no run",
+              "runs": 0,
+              "wicket": false
+            },
+            {
+              "symbol": "\u2206+2",
+              "batter": "Kaiyan",
+              "extras_type": "legbye",
+              "ball_index": 2,
+              "over": 16,
+              "ball_in_over": 2,
+              "notation": "15.2",
+              "bowler": "Jash",
+              "description": "2 leg byes",
+              "runs": 2,
+              "wicket": false
+            },
+            {
+              "symbol": ".",
+              "batter": "Kaiyan",
+              "ball_index": 3,
+              "over": 16,
+              "ball_in_over": 3,
+              "notation": "15.3",
+              "bowler": "Jash",
+              "description": "no run",
+              "runs": 0,
+              "wicket": false
+            },
+            {
+              "symbol": ".",
+              "batter": "Kaiyan",
+              "ball_index": 4,
+              "over": 16,
+              "ball_in_over": 4,
+              "notation": "15.4",
+              "bowler": "Jash",
+              "description": "no run",
+              "runs": 0,
+              "wicket": false
+            },
+            {
+              "symbol": "B",
+              "batter": "Kaiyan",
+              "wicket": true,
+              "ball_index": 5,
+              "over": 16,
+              "ball_in_over": 5,
+              "notation": "15.5",
+              "bowler": "Jash",
+              "description": "Kaiyan b Jash",
+              "runs": -5
+            },
+            {
+              "symbol": ".",
+              "batter": "Drish",
+              "ball_index": 6,
+              "over": 16,
+              "ball_in_over": 6,
+              "notation": "16.0",
+              "bowler": "Jash",
+              "description": "no run",
+              "runs": 0,
+              "wicket": false
+            }
+          ]
+        }
+      ],
+      "batsmen": [
+        "Krish",
+        "Qaim",
+        "Avyaan",
+        "Taran",
+        "Shyam",
+        "Aanya",
+        "Drish",
+        "Kaiyan"
+      ],
+      "num": 1,
+      "batting": "Edgware CC",
+      "bowling": "Headstone Manor",
+      "partnerships": [
+        {
+          "label": "P1",
+          "b1": "Krish",
+          "b2": "Qaim",
+          "net": 21,
+          "wickets": 0
+        },
+        {
+          "label": "P2",
+          "b1": "Avyaan",
+          "b2": "Taran",
+          "net": 7,
+          "wickets": 1
+        },
+        {
+          "label": "P3",
+          "b1": "Shyam",
+          "b2": "Aanya",
+          "net": 14,
+          "wickets": 1
+        },
+        {
+          "label": "P4",
+          "b1": "Drish",
+          "b2": "Kaiyan",
+          "net": 11,
+          "wickets": 2
+        }
+      ],
+      "batting_summary": [
+        {
+          "name": "Krish",
+          "dismissal": "not out",
+          "runs": 6,
+          "balls": 12,
+          "fours": 0,
+          "sixes": 0,
+          "wkts": 0,
+          "net": 6
+        },
+        {
+          "name": "Qaim",
+          "dismissal": "not out",
+          "runs": 9,
+          "balls": 9,
+          "fours": 1,
+          "sixes": 0,
+          "wkts": 0,
+          "net": 9
+        },
+        {
+          "name": "Avyaan",
+          "dismissal": "c & b Jash (Ov 5)",
+          "runs": 2,
+          "balls": 6,
+          "fours": 0,
+          "sixes": 0,
+          "wkts": 1,
+          "net": -3
+        },
+        {
+          "name": "Taran",
+          "dismissal": "not out",
+          "runs": 6,
+          "balls": 15,
+          "fours": 0,
+          "sixes": 0,
+          "wkts": 0,
+          "net": 6
+        },
+        {
+          "name": "Shyam",
+          "dismissal": "not out",
+          "runs": 2,
+          "balls": 12,
+          "fours": 0,
+          "sixes": 0,
+          "wkts": 0,
+          "net": 2
+        },
+        {
+          "name": "Aanya",
+          "dismissal": "b Dillon (Ov 12)",
+          "runs": 7,
+          "balls": 6,
+          "fours": 0,
+          "sixes": 0,
+          "wkts": 1,
+          "net": 2
+        },
+        {
+          "name": "Drish",
+          "dismissal": "c & b Milan (Ov 15)",
+          "runs": 5,
+          "balls": 7,
+          "fours": 0,
+          "sixes": 0,
+          "wkts": 1,
+          "net": 0
+        },
+        {
+          "name": "Kaiyan",
+          "dismissal": "b Jash (Ov 16)",
+          "runs": 10,
+          "balls": 12,
+          "fours": 0,
+          "sixes": 0,
+          "wkts": 1,
+          "net": 5
+        }
+      ],
+      "bowling_summary": [
+        {
+          "name": "Sid",
+          "overs": 2,
+          "runs": 8,
+          "wickets": 0,
+          "wides": 1,
+          "noballs": 0,
+          "dots": 7
+        },
+        {
+          "name": "Hayen",
+          "overs": 2,
+          "runs": 9,
+          "wickets": 0,
+          "wides": 3,
+          "noballs": 1,
+          "dots": 7
+        },
+        {
+          "name": "Chloe",
+          "overs": 2,
+          "runs": 12,
+          "wickets": 0,
+          "wides": 1,
+          "noballs": 0,
+          "dots": 5
+        },
+        {
+          "name": "Dillon",
+          "overs": 2,
+          "runs": 11,
+          "wickets": 1,
+          "wides": 0,
+          "noballs": 2,
+          "dots": 3
+        },
+        {
+          "name": "Jash",
+          "overs": 2,
+          "runs": 3,
+          "wickets": 2,
+          "wides": 0,
+          "noballs": 0,
+          "dots": 8
+        },
+        {
+          "name": "Abhi dev",
+          "overs": 1,
+          "runs": 7,
+          "wickets": 0,
+          "wides": 2,
+          "noballs": 0,
+          "dots": 2
+        },
+        {
+          "name": "Arun",
+          "overs": 2,
+          "runs": 8,
+          "wickets": 0,
+          "wides": 1,
+          "noballs": 0,
+          "dots": 6
+        },
+        {
+          "name": "Milan",
+          "overs": 2,
+          "runs": 6,
+          "wickets": 1,
+          "wides": 0,
+          "noballs": 0,
+          "dots": 5
+        },
+        {
+          "name": "Abhidev",
+          "overs": 1,
+          "runs": 9,
+          "wickets": 0,
+          "wides": 1,
+          "noballs": 0,
+          "dots": 0
+        }
+      ],
+      "fielding": [],
+      "final_total": 253,
+      "wickets": 4,
+      "wickets_symbol_events": 4,
+      "wickets_unique_dismissals": 4,
+      "wickets_sheet_events": 4
+    },
+    {
+      "overs": [
+        {
+          "num": 1,
+          "bowler": "Taran",
+          "over_runs": "1",
+          "total": "201",
+          "deliveries": [
+            {
+              "symbol": ".",
+              "batter": "Arun",
+              "ball_index": 1,
+              "over": 1,
+              "ball_in_over": 1,
+              "notation": "0.1",
+              "bowler": "Taran",
+              "description": "no run",
+              "runs": 0,
+              "wicket": false
+            },
+            {
+              "symbol": "1",
+              "batter": "Arun",
+              "ball_index": 2,
+              "over": 1,
+              "ball_in_over": 2,
+              "notation": "0.2",
+              "bowler": "Taran",
+              "description": "1 run",
+              "runs": 1,
+              "bat_runs": 1,
+              "wicket": false
+            },
+            {
+              "symbol": ".",
+              "batter": "Chloe",
+              "ball_index": 3,
+              "over": 1,
+              "ball_in_over": 3,
+              "notation": "0.3",
+              "bowler": "Taran",
+              "description": "no run",
+              "runs": 0,
+              "wicket": false
+            },
+            {
+              "symbol": ".",
+              "batter": "Chloe",
+              "ball_index": 4,
+              "over": 1,
+              "ball_in_over": 4,
+              "notation": "0.4",
+              "bowler": "Taran",
+              "description": "no run",
+              "runs": 0,
+              "wicket": false
+            },
+            {
+              "symbol": ".",
+              "batter": "Chloe",
+              "ball_index": 5,
+              "over": 1,
+              "ball_in_over": 5,
+              "notation": "0.5",
+              "bowler": "Taran",
+              "description": "no run",
+              "runs": 0,
+              "wicket": false
+            },
+            {
+              "symbol": ".",
+              "batter": "Chloe",
+              "ball_index": 6,
+              "over": 1,
+              "ball_in_over": 6,
+              "notation": "1.0",
+              "bowler": "Taran",
+              "description": "no run",
+              "runs": 0,
+              "wicket": false
+            }
+          ]
+        },
+        {
+          "num": 2,
+          "bowler": "Avyaan",
+          "over_runs": "-9",
+          "total": "192",
+          "deliveries": [
+            {
+              "symbol": "1",
+              "batter": "Arun",
+              "ball_index": 1,
+              "over": 2,
+              "ball_in_over": 1,
+              "notation": "1.1",
+              "bowler": "Avyaan",
+              "description": "1 run",
+              "runs": 1,
+              "bat_runs": 1,
+              "wicket": false
+            },
+            {
+              "symbol": ".",
+              "batter": "Chloe",
+              "ball_index": 2,
+              "over": 2,
+              "ball_in_over": 2,
+              "notation": "1.2",
+              "bowler": "Avyaan",
+              "description": "no run",
+              "runs": 0,
+              "wicket": false
+            },
+            {
+              "symbol": "B",
+              "batter": "Chloe",
+              "wicket": true,
+              "ball_index": 3,
+              "over": 2,
+              "ball_in_over": 3,
+              "notation": "1.3",
+              "bowler": "Avyaan",
+              "description": "Chloe b Avyaan",
+              "runs": -5
+            },
+            {
+              "symbol": ".",
+              "batter": "Arun",
+              "ball_index": 4,
+              "over": 2,
+              "ball_in_over": 4,
+              "notation": "1.4",
+              "bowler": "Avyaan",
+              "description": "no run",
+              "runs": 0,
+              "wicket": false
+            },
+            {
+              "symbol": "B",
+              "batter": "Arun",
+              "wicket": true,
+              "ball_index": 5,
+              "over": 2,
+              "ball_in_over": 5,
+              "notation": "1.5",
+              "bowler": "Avyaan",
+              "description": "Arun b Avyaan",
+              "runs": -5
+            },
+            {
+              "symbol": ".",
+              "batter": "Chloe",
+              "ball_index": 6,
+              "over": 2,
+              "ball_in_over": 6,
+              "notation": "2.0",
+              "bowler": "Avyaan",
+              "description": "no run",
+              "runs": 0,
+              "wicket": false
+            }
+          ]
+        },
+        {
+          "num": 3,
+          "bowler": "Aanya",
+          "over_runs": "1",
+          "total": "193",
+          "deliveries": [
+            {
+              "symbol": ".",
+              "batter": "Arun",
+              "ball_index": 1,
+              "over": 3,
+              "ball_in_over": 1,
+              "notation": "2.1",
+              "bowler": "Aanya",
+              "description": "no run",
+              "runs": 0,
+              "wicket": false
+            },
+            {
+              "symbol": ".",
+              "batter": "Arun",
+              "ball_index": 2,
+              "over": 3,
+              "ball_in_over": 2,
+              "notation": "2.2",
+              "bowler": "Aanya",
+              "description": "no run",
+              "runs": 0,
+              "wicket": false
+            },
+            {
+              "symbol": ".",
+              "batter": "Arun",
+              "ball_index": 3,
+              "over": 3,
+              "ball_in_over": 3,
+              "notation": "2.3",
+              "bowler": "Aanya",
+              "description": "no run",
+              "runs": 0,
+              "wicket": false
+            },
+            {
+              "symbol": ".",
+              "batter": "Arun",
+              "ball_index": 4,
+              "over": 3,
+              "ball_in_over": 4,
+              "notation": "2.4",
+              "bowler": "Aanya",
+              "description": "no run",
+              "runs": 0,
+              "wicket": false
+            },
+            {
+              "symbol": ".",
+              "batter": "Arun",
+              "ball_index": 5,
+              "over": 3,
+              "ball_in_over": 5,
+              "notation": "2.5",
+              "bowler": "Aanya",
+              "description": "no run",
+              "runs": 0,
+              "wicket": false
+            },
+            {
+              "symbol": "1",
+              "batter": "Arun",
+              "ball_index": 6,
+              "over": 3,
+              "ball_in_over": 6,
+              "notation": "3.0",
+              "bowler": "Aanya",
+              "description": "1 run",
+              "runs": 1,
+              "bat_runs": 1,
+              "wicket": false
+            }
+          ]
+        },
+        {
+          "num": 4,
+          "bowler": "Avyaan",
+          "over_runs": "-1",
+          "total": "192",
+          "deliveries": [
+            {
+              "symbol": "O",
+              "batter": "Arun",
+              "extras_type": "noball",
+              "ball_index": 1,
+              "over": 4,
+              "ball_in_over": 1,
+              "notation": "3.1",
+              "bowler": "Avyaan",
+              "description": "No ball (+2)",
+              "runs": 2,
+              "wicket": false
+            },
+            {
+              "symbol": ".",
+              "batter": "Arun",
+              "ball_index": 2,
+              "over": 4,
+              "ball_in_over": 2,
+              "notation": "3.2",
+              "bowler": "Avyaan",
+              "description": "no run",
+              "runs": 0,
+              "wicket": false
+            },
+            {
+              "symbol": "R",
+              "batter": "Chloe",
+              "wicket": true,
+              "fielder": "Qaim",
+              "ball_index": 3,
+              "over": 4,
+              "ball_in_over": 3,
+              "notation": "3.3",
+              "bowler": "Avyaan",
+              "description": "Chloe run out (Qaim)",
+              "runs": -5
+            },
+            {
+              "symbol": "O",
+              "batter": "Arun",
+              "extras_type": "noball",
+              "ball_index": 4,
+              "over": 4,
+              "ball_in_over": 4,
+              "notation": "3.4",
+              "bowler": "Avyaan",
+              "description": "No ball (+2)",
+              "runs": 2,
+              "wicket": false
+            },
+            {
+              "symbol": ".",
+              "batter": "Arun",
+              "ball_index": 5,
+              "over": 4,
+              "ball_in_over": 5,
+              "notation": "3.5",
+              "bowler": "Avyaan",
+              "description": "no run",
+              "runs": 0,
+              "wicket": false
+            },
+            {
+              "symbol": ".",
+              "batter": "Arun",
+              "ball_index": 6,
+              "over": 4,
+              "ball_in_over": 6,
+              "notation": "4.0",
+              "bowler": "Avyaan",
+              "description": "no run",
+              "runs": 0,
+              "wicket": false
+            }
+          ]
+        },
+        {
+          "num": 5,
+          "bowler": "Qaim",
+          "over_runs": "5",
+          "total": "197",
+          "deliveries": [
+            {
+              "symbol": "2",
+              "batter": "Milan",
+              "ball_index": 1,
+              "over": 5,
+              "ball_in_over": 1,
+              "notation": "4.1",
+              "bowler": "Qaim",
+              "description": "2 runs",
+              "runs": 2,
+              "bat_runs": 2,
+              "wicket": false
+            },
+            {
+              "symbol": "1",
+              "batter": "Milan",
+              "ball_index": 2,
+              "over": 5,
+              "ball_in_over": 2,
+              "notation": "4.2",
+              "bowler": "Qaim",
+              "description": "1 run",
+              "runs": 1,
+              "bat_runs": 1,
+              "wicket": false
+            },
+            {
+              "symbol": "1",
+              "batter": "Sid",
+              "ball_index": 3,
+              "over": 5,
+              "ball_in_over": 3,
+              "notation": "4.3",
+              "bowler": "Qaim",
+              "description": "1 run",
+              "runs": 1,
+              "bat_runs": 1,
+              "wicket": false
+            },
+            {
+              "symbol": ".",
+              "batter": "Milan",
+              "ball_index": 4,
+              "over": 5,
+              "ball_in_over": 4,
+              "notation": "4.4",
+              "bowler": "Qaim",
+              "description": "no run",
+              "runs": 0,
+              "wicket": false
+            },
+            {
+              "symbol": "1",
+              "batter": "Milan",
+              "ball_index": 5,
+              "over": 5,
+              "ball_in_over": 5,
+              "notation": "4.5",
+              "bowler": "Qaim",
+              "description": "1 run",
+              "runs": 1,
+              "bat_runs": 1,
+              "wicket": false
+            },
+            {
+              "symbol": ".",
+              "batter": "Sid",
+              "ball_index": 6,
+              "over": 5,
+              "ball_in_over": 6,
+              "notation": "5.0",
+              "bowler": "Qaim",
+              "description": "no run",
+              "runs": 0,
+              "wicket": false
+            }
+          ]
+        },
+        {
+          "num": 6,
+          "bowler": "Drish",
+          "over_runs": "-4",
+          "total": "193",
+          "deliveries": [
+            {
+              "symbol": ".",
+              "batter": "Milan",
+              "ball_index": 1,
+              "over": 6,
+              "ball_in_over": 1,
+              "notation": "5.1",
+              "bowler": "Drish",
+              "description": "no run",
+              "runs": 0,
+              "wicket": false
+            },
+            {
+              "symbol": "C",
+              "batter": "Milan",
+              "ball_index": 2,
+              "wicket": true,
+              "fielder": "Avyaan",
+              "over": 6,
+              "ball_in_over": 2,
+              "notation": "5.2",
+              "bowler": "Drish",
+              "description": "Milan c Avyaan b Drish",
+              "runs": -5
+            },
+            {
+              "symbol": ".",
+              "batter": "Sid",
+              "ball_index": 3,
+              "over": 6,
+              "ball_in_over": 3,
+              "notation": "5.3",
+              "bowler": "Drish",
+              "description": "no run",
+              "runs": 0,
+              "wicket": false
+            },
+            {
+              "symbol": ".",
+              "batter": "Sid",
+              "ball_index": 4,
+              "over": 6,
+              "ball_in_over": 4,
+              "notation": "5.4",
+              "bowler": "Drish",
+              "description": "no run",
+              "runs": 0,
+              "wicket": false
+            },
+            {
+              "symbol": "1",
+              "batter": "Sid",
+              "ball_index": 5,
+              "over": 6,
+              "ball_in_over": 5,
+              "notation": "5.5",
+              "bowler": "Drish",
+              "description": "1 run",
+              "runs": 1,
+              "bat_runs": 1,
+              "wicket": false
+            },
+            {
+              "symbol": ".",
+              "batter": "Milan",
+              "ball_index": 6,
+              "over": 6,
+              "ball_in_over": 6,
+              "notation": "6.0",
+              "bowler": "Drish",
+              "description": "no run",
+              "runs": 0,
+              "wicket": false
+            }
+          ]
+        },
+        {
+          "num": 7,
+          "bowler": "Kaiyan",
+          "over_runs": "2",
+          "total": "195",
+          "deliveries": [
+            {
+              "symbol": "\u2206+1",
+              "batter": "Sid",
+              "extras_type": "legbye",
+              "ball_index": 1,
+              "over": 7,
+              "ball_in_over": 1,
+              "notation": "6.1",
+              "bowler": "Kaiyan",
+              "description": "1 leg bye",
+              "runs": 1,
+              "wicket": false
+            },
+            {
+              "symbol": ".",
+              "batter": "Milan",
+              "ball_index": 2,
+              "over": 7,
+              "ball_in_over": 2,
+              "notation": "6.2",
+              "bowler": "Kaiyan",
+              "description": "no run",
+              "runs": 0,
+              "wicket": false
+            },
+            {
+              "symbol": ".",
+              "batter": "Milan",
+              "ball_index": 3,
+              "over": 7,
+              "ball_in_over": 3,
+              "notation": "6.3",
+              "bowler": "Kaiyan",
+              "description": "no run",
+              "runs": 0,
+              "wicket": false
+            },
+            {
+              "symbol": "1",
+              "batter": "Milan",
+              "ball_index": 4,
+              "over": 7,
+              "ball_in_over": 4,
+              "notation": "6.4",
+              "bowler": "Kaiyan",
+              "description": "1 run",
+              "runs": 1,
+              "bat_runs": 1,
+              "wicket": false
+            },
+            {
+              "symbol": ".",
+              "batter": "Sid",
+              "ball_index": 5,
+              "over": 7,
+              "ball_in_over": 5,
+              "notation": "6.5",
+              "bowler": "Kaiyan",
+              "description": "no run",
+              "runs": 0,
+              "wicket": false
+            },
+            {
+              "symbol": ".",
+              "batter": "Sid",
+              "ball_index": 6,
+              "over": 7,
+              "ball_in_over": 6,
+              "notation": "7.0",
+              "bowler": "Kaiyan",
+              "description": "no run",
+              "runs": 0,
+              "wicket": false
+            }
+          ]
+        },
+        {
+          "num": 8,
+          "bowler": "Krish",
+          "over_runs": "-10",
+          "total": "185",
+          "deliveries": [
+            {
+              "symbol": "C",
+              "batter": "Milan",
+              "wicket": true,
+              "fielder": "Avyaan",
+              "ball_index": 1,
+              "over": 8,
+              "ball_in_over": 1,
+              "notation": "7.1",
+              "bowler": "Krish",
+              "description": "Milan c Avyaan b Krish",
+              "runs": -5
+            },
+            {
+              "symbol": ".",
+              "batter": "Sid",
+              "ball_index": 2,
+              "over": 8,
+              "ball_in_over": 2,
+              "notation": "7.2",
+              "bowler": "Krish",
+              "description": "no run",
+              "runs": 0,
+              "wicket": false
+            },
+            {
+              "symbol": "R",
+              "batter": "Milan",
+              "wicket": true,
+              "fielder": "Taran",
+              "ball_index": 3,
+              "over": 8,
+              "ball_in_over": 3,
+              "notation": "7.3",
+              "bowler": "Krish",
+              "description": "Milan run out (Taran)",
+              "runs": -5
+            },
+            {
+              "symbol": "4",
+              "batter": "Milan",
+              "ball_index": 4,
+              "over": 8,
+              "ball_in_over": 4,
+              "notation": "7.4",
+              "bowler": "Krish",
+              "description": "FOUR",
+              "runs": 4,
+              "bat_runs": 4,
+              "wicket": false
+            },
+            {
+              "symbol": "1",
+              "batter": "Milan",
+              "ball_index": 5,
+              "over": 8,
+              "ball_in_over": 5,
+              "notation": "7.5",
+              "bowler": "Krish",
+              "description": "1 run",
+              "runs": 1,
+              "bat_runs": 1,
+              "wicket": false
+            },
+            {
+              "symbol": "B",
+              "batter": "Sid",
+              "wicket": true,
+              "ball_index": 6,
+              "over": 8,
+              "ball_in_over": 6,
+              "notation": "8.0",
+              "bowler": "Krish",
+              "description": "Sid b Krish",
+              "runs": -5
+            }
+          ]
+        },
+        {
+          "num": 9,
+          "bowler": "Shyam",
+          "over_runs": "5",
+          "total": "190",
+          "deliveries": [
+            {
+              "symbol": ".",
+              "batter": "Dillon",
+              "ball_index": 1,
+              "over": 9,
+              "ball_in_over": 1,
+              "notation": "8.1",
+              "bowler": "Shyam",
+              "description": "no run",
+              "runs": 0,
+              "wicket": false
+            },
+            {
+              "symbol": ".",
+              "batter": "Dillon",
+              "ball_index": 2,
+              "over": 9,
+              "ball_in_over": 2,
+              "notation": "8.2",
+              "bowler": "Shyam",
+              "description": "no run",
+              "runs": 0,
+              "wicket": false
+            },
+            {
+              "symbol": "1",
+              "batter": "Dillon",
+              "ball_index": 3,
+              "over": 9,
+              "ball_in_over": 3,
+              "notation": "8.3",
+              "bowler": "Shyam",
+              "description": "1 run",
+              "runs": 1,
+              "bat_runs": 1,
+              "wicket": false
+            },
+            {
+              "symbol": "2",
+              "batter": "Hayen",
+              "ball_index": 4,
+              "over": 9,
+              "ball_in_over": 4,
+              "notation": "8.4",
+              "bowler": "Shyam",
+              "description": "2 runs",
+              "runs": 2,
+              "bat_runs": 2,
+              "wicket": false
+            },
+            {
+              "symbol": ".",
+              "batter": "Hayen",
+              "ball_index": 5,
+              "over": 9,
+              "ball_in_over": 5,
+              "notation": "8.5",
+              "bowler": "Shyam",
+              "description": "no run",
+              "runs": 0,
+              "wicket": false
+            },
+            {
+              "symbol": "2",
+              "batter": "Hayen",
+              "ball_index": 6,
+              "over": 9,
+              "ball_in_over": 6,
+              "notation": "9.0",
+              "bowler": "Shyam",
+              "description": "2 runs",
+              "runs": 2,
+              "bat_runs": 2,
+              "wicket": false
+            }
+          ]
+        },
+        {
+          "num": 10,
+          "bowler": "Drish",
+          "over_runs": "12",
+          "total": "202",
+          "deliveries": [
+            {
+              "symbol": "+",
+              "batter": "Dillon",
+              "extras_type": "wide",
+              "ball_index": 1,
+              "over": 10,
+              "ball_in_over": 1,
+              "notation": "9.1",
+              "bowler": "Drish",
+              "description": "Wide (+2)",
+              "runs": 2,
+              "wicket": false
+            },
+            {
+              "symbol": ".",
+              "batter": "Dillon",
+              "ball_index": 2,
+              "over": 10,
+              "ball_in_over": 2,
+              "notation": "9.2",
+              "bowler": "Drish",
+              "description": "no run",
+              "runs": 0,
+              "wicket": false
+            },
+            {
+              "symbol": ".",
+              "batter": "Dillon",
+              "ball_index": 3,
+              "over": 10,
+              "ball_in_over": 3,
+              "notation": "9.3",
+              "bowler": "Drish",
+              "description": "no run",
+              "runs": 0,
+              "wicket": false
+            },
+            {
+              "symbol": "4",
+              "batter": "Dillon",
+              "ball_index": 4,
+              "over": 10,
+              "ball_in_over": 4,
+              "notation": "9.4",
+              "bowler": "Drish",
+              "description": "FOUR",
+              "runs": 4,
+              "bat_runs": 4,
+              "wicket": false
+            },
+            {
+              "symbol": "4",
+              "batter": "Dillon",
+              "ball_index": 5,
+              "over": 10,
+              "ball_in_over": 5,
+              "notation": "9.5",
+              "bowler": "Drish",
+              "description": "FOUR",
+              "runs": 4,
+              "bat_runs": 4,
+              "wicket": false
+            },
+            {
+              "symbol": "2",
+              "batter": "Dillon",
+              "ball_index": 6,
+              "over": 10,
+              "ball_in_over": 6,
+              "notation": "10.0",
+              "bowler": "Drish",
+              "description": "2 runs",
+              "runs": 2,
+              "bat_runs": 2,
+              "wicket": false
+            }
+          ]
+        },
+        {
+          "num": 11,
+          "bowler": "Aanya",
+          "over_runs": "6",
+          "total": "208",
+          "deliveries": [
+            {
+              "symbol": ".",
+              "batter": "Hayen",
+              "ball_index": 1,
+              "over": 11,
+              "ball_in_over": 1,
+              "notation": "10.1",
+              "bowler": "Aanya",
+              "description": "no run",
+              "runs": 0,
+              "wicket": false
+            },
+            {
+              "symbol": ".",
+              "batter": "Hayen",
+              "ball_index": 2,
+              "over": 11,
+              "ball_in_over": 2,
+              "notation": "10.2",
+              "bowler": "Aanya",
+              "description": "no run",
+              "runs": 0,
+              "wicket": false
+            },
+            {
+              "symbol": "1",
+              "batter": "Hayen",
+              "ball_index": 3,
+              "over": 11,
+              "ball_in_over": 3,
+              "notation": "10.3",
+              "bowler": "Aanya",
+              "description": "1 run",
+              "runs": 1,
+              "bat_runs": 1,
+              "wicket": false
+            },
+            {
+              "symbol": "1",
+              "batter": "Dillon",
+              "ball_index": 4,
+              "over": 11,
+              "ball_in_over": 4,
+              "notation": "10.4",
+              "bowler": "Aanya",
+              "description": "1 run",
+              "runs": 1,
+              "bat_runs": 1,
+              "wicket": false
+            },
+            {
+              "symbol": ".",
+              "batter": "Dillon",
+              "ball_index": 5,
+              "over": 11,
+              "ball_in_over": 5,
+              "notation": "10.5",
+              "bowler": "Aanya",
+              "description": "no run",
+              "runs": 0,
+              "wicket": false
+            },
+            {
+              "symbol": "4",
+              "batter": "Dillon",
+              "ball_index": 6,
+              "over": 11,
+              "ball_in_over": 6,
+              "notation": "11.0",
+              "bowler": "Aanya",
+              "description": "FOUR",
+              "runs": 4,
+              "bat_runs": 4,
+              "wicket": false
+            }
+          ]
+        },
+        {
+          "num": 12,
+          "bowler": "Taran",
+          "over_runs": "0",
+          "total": "208",
+          "deliveries": [
+            {
+              "symbol": ".",
+              "batter": "Dillon",
+              "ball_index": 1,
+              "over": 12,
+              "ball_in_over": 1,
+              "notation": "11.1",
+              "bowler": "Taran",
+              "description": "no run",
+              "runs": 0,
+              "wicket": false
+            },
+            {
+              "symbol": "2",
+              "batter": "Dillon",
+              "ball_index": 2,
+              "over": 12,
+              "ball_in_over": 2,
+              "notation": "11.2",
+              "bowler": "Taran",
+              "description": "2 runs",
+              "runs": 2,
+              "bat_runs": 2,
+              "wicket": false
+            },
+            {
+              "symbol": ".",
+              "batter": "Dillon",
+              "ball_index": 3,
+              "over": 12,
+              "ball_in_over": 3,
+              "notation": "11.3",
+              "bowler": "Taran",
+              "description": "no run",
+              "runs": 0,
+              "wicket": false
+            },
+            {
+              "symbol": "1",
+              "batter": "Dillon",
+              "ball_index": 4,
+              "over": 12,
+              "ball_in_over": 4,
+              "notation": "11.4",
+              "bowler": "Taran",
+              "description": "1 run",
+              "runs": 1,
+              "bat_runs": 1,
+              "wicket": false
+            },
+            {
+              "symbol": "R",
+              "batter": "Hayen",
+              "wicket": true,
+              "fielder": "Drish",
+              "ball_index": 4,
+              "over": 12,
+              "ball_in_over": 4,
+              "notation": "11.4",
+              "bowler": "Taran",
+              "description": "Hayen run out (Drish)",
+              "runs": -5
+            },
+            {
+              "symbol": ".",
+              "batter": "Hayen",
+              "ball_index": 5,
+              "over": 12,
+              "ball_in_over": 5,
+              "notation": "11.5",
+              "bowler": "Taran",
+              "description": "no run",
+              "runs": 0,
+              "wicket": false
+            },
+            {
+              "symbol": "2",
+              "batter": "Dillon",
+              "ball_index": 6,
+              "over": 12,
+              "ball_in_over": 6,
+              "notation": "12.0",
+              "bowler": "Taran",
+              "description": "2 runs",
+              "runs": 2,
+              "bat_runs": 2,
+              "wicket": false
+            }
+          ]
+        },
+        {
+          "num": 13,
+          "bowler": "Kaiyan",
+          "over_runs": "3",
+          "total": "211",
+          "deliveries": [
+            {
+              "symbol": ".",
+              "batter": "Jash",
+              "ball_index": 1,
+              "over": 13,
+              "ball_in_over": 1,
+              "notation": "12.1",
+              "bowler": "Kaiyan",
+              "description": "no run",
+              "runs": 0,
+              "wicket": false
+            },
+            {
+              "symbol": ".",
+              "batter": "Jash",
+              "ball_index": 2,
+              "over": 13,
+              "ball_in_over": 2,
+              "notation": "12.2",
+              "bowler": "Kaiyan",
+              "description": "no run",
+              "runs": 0,
+              "wicket": false
+            },
+            {
+              "symbol": "1",
+              "batter": "Jash",
+              "ball_index": 3,
+              "over": 13,
+              "ball_in_over": 3,
+              "notation": "12.3",
+              "bowler": "Kaiyan",
+              "description": "1 run",
+              "runs": 1,
+              "bat_runs": 1,
+              "wicket": false
+            },
+            {
+              "symbol": ".",
+              "batter": "Abhidev",
+              "ball_index": 4,
+              "over": 13,
+              "ball_in_over": 4,
+              "notation": "12.4",
+              "bowler": "Kaiyan",
+              "description": "no run",
+              "runs": 0,
+              "wicket": false
+            },
+            {
+              "symbol": "1",
+              "batter": "Abhidev",
+              "ball_index": 5,
+              "over": 13,
+              "ball_in_over": 5,
+              "notation": "12.5",
+              "bowler": "Kaiyan",
+              "description": "1 run",
+              "runs": 1,
+              "bat_runs": 1,
+              "wicket": false
+            },
+            {
+              "symbol": "1",
+              "batter": "Jash",
+              "ball_index": 6,
+              "over": 13,
+              "ball_in_over": 6,
+              "notation": "13.0",
+              "bowler": "Kaiyan",
+              "description": "1 run",
+              "runs": 1,
+              "bat_runs": 1,
+              "wicket": false
+            }
+          ]
+        },
+        {
+          "num": 14,
+          "bowler": "Shyam",
+          "over_runs": "0",
+          "total": "211",
+          "deliveries": [
+            {
+              "symbol": "1",
+              "batter": "Jash",
+              "ball_index": 1,
+              "over": 14,
+              "ball_in_over": 1,
+              "notation": "13.1",
+              "bowler": "Shyam",
+              "description": "1 run",
+              "runs": 1,
+              "bat_runs": 1,
+              "wicket": false
+            },
+            {
+              "symbol": "B",
+              "batter": "Arun",
+              "ball_index": 2,
+              "wicket": true,
+              "over": 14,
+              "ball_in_over": 2,
+              "notation": "13.2",
+              "bowler": "Shyam",
+              "description": "Arun b Shyam",
+              "runs": -5
+            },
+            {
+              "symbol": ".",
+              "batter": "Jash",
+              "ball_index": 3,
+              "over": 14,
+              "ball_in_over": 3,
+              "notation": "13.3",
+              "bowler": "Shyam",
+              "description": "no run",
+              "runs": 0,
+              "wicket": false
+            },
+            {
+              "symbol": "1",
+              "batter": "Jash",
+              "ball_index": 4,
+              "over": 14,
+              "ball_in_over": 4,
+              "notation": "13.4",
+              "bowler": "Shyam",
+              "description": "1 run",
+              "runs": 1,
+              "bat_runs": 1,
+              "wicket": false
+            },
+            {
+              "symbol": "O",
+              "batter": "Abhidev",
+              "extras_type": "noball",
+              "ball_index": 5,
+              "over": 14,
+              "ball_in_over": 5,
+              "notation": "13.5",
+              "bowler": "Shyam",
+              "description": "No ball (+2)",
+              "runs": 2,
+              "wicket": false
+            },
+            {
+              "symbol": "\u2206+1",
+              "batter": "Abhidev",
+              "extras_type": "legbye",
+              "ball_index": 6,
+              "over": 14,
+              "ball_in_over": 6,
+              "notation": "14.0",
+              "bowler": "Shyam",
+              "description": "1 leg bye",
+              "runs": 1,
+              "wicket": false
+            }
+          ]
+        },
+        {
+          "num": 15,
+          "bowler": "Krish",
+          "over_runs": "-19",
+          "total": "192",
+          "deliveries": [
+            {
+              "symbol": "C",
+              "batter": "Abhidev",
+              "wicket": true,
+              "fielder": "Drish",
+              "ball_index": 1,
+              "over": 15,
+              "ball_in_over": 1,
+              "notation": "14.1",
+              "bowler": "Krish",
+              "description": "Abhidev c Drish b Krish",
+              "runs": -5
+            },
+            {
+              "symbol": ".",
+              "batter": "Jash",
+              "ball_index": 2,
+              "over": 15,
+              "ball_in_over": 2,
+              "notation": "14.2",
+              "bowler": "Krish",
+              "description": "no run",
+              "runs": 0,
+              "wicket": false
+            },
+            {
+              "symbol": "1",
+              "batter": "Jash",
+              "ball_index": 3,
+              "over": 15,
+              "ball_in_over": 3,
+              "notation": "14.3",
+              "bowler": "Krish",
+              "description": "1 run",
+              "runs": 1,
+              "bat_runs": 1,
+              "wicket": false
+            },
+            {
+              "symbol": "B",
+              "batter": "Abhidev",
+              "wicket": true,
+              "ball_index": 4,
+              "over": 15,
+              "ball_in_over": 4,
+              "notation": "14.4",
+              "bowler": "Krish",
+              "description": "Abhidev b Krish",
+              "runs": -5
+            },
+            {
+              "symbol": "B",
+              "batter": "Jash",
+              "wicket": true,
+              "ball_index": 5,
+              "over": 15,
+              "ball_in_over": 5,
+              "notation": "14.5",
+              "bowler": "Krish",
+              "description": "Jash b Krish",
+              "runs": -5
+            },
+            {
+              "symbol": "C",
+              "batter": "Abhidev",
+              "wicket": true,
+              "fielder": "Qaim",
+              "ball_index": 6,
+              "over": 15,
+              "ball_in_over": 6,
+              "notation": "15.0",
+              "bowler": "Krish",
+              "description": "Abhidev c Qaim b Krish",
+              "runs": -5
+            }
+          ]
+        },
+        {
+          "num": 16,
+          "bowler": "Qaim",
+          "over_runs": "0",
+          "total": "192",
+          "deliveries": [
+            {
+              "symbol": ".",
+              "batter": "Jash",
+              "ball_index": 1,
+              "over": 16,
+              "ball_in_over": 1,
+              "notation": "15.1",
+              "bowler": "Qaim",
+              "description": "no run",
+              "runs": 0,
+              "wicket": false
+            },
+            {
+              "symbol": ".",
+              "batter": "Jash",
+              "ball_index": 2,
+              "over": 16,
+              "ball_in_over": 2,
+              "notation": "15.2",
+              "bowler": "Qaim",
+              "description": "no run",
+              "runs": 0,
+              "wicket": false
+            },
+            {
+              "symbol": ".",
+              "batter": "Jash",
+              "ball_index": 3,
+              "over": 16,
+              "ball_in_over": 3,
+              "notation": "15.3",
+              "bowler": "Qaim",
+              "description": "no run",
+              "runs": 0,
+              "wicket": false
+            },
+            {
+              "symbol": ".",
+              "batter": "Jash",
+              "ball_index": 4,
+              "over": 16,
+              "ball_in_over": 4,
+              "notation": "15.4",
+              "bowler": "Qaim",
+              "description": "no run",
+              "runs": 0,
+              "wicket": false
+            },
+            {
+              "symbol": ".",
+              "batter": "Jash",
+              "ball_index": 5,
+              "over": 16,
+              "ball_in_over": 5,
+              "notation": "15.5",
+              "bowler": "Qaim",
+              "description": "no run",
+              "runs": 0,
+              "wicket": false
+            },
+            {
+              "symbol": ".",
+              "batter": "Jash",
+              "ball_index": 6,
+              "over": 16,
+              "ball_in_over": 6,
+              "notation": "16.0",
+              "bowler": "Qaim",
+              "description": "no run",
+              "runs": 0,
+              "wicket": false
+            }
+          ]
+        }
+      ],
+      "batsmen": [
+        "Arun",
+        "Chloe",
+        "Milan",
+        "Sid",
+        "Dillon",
+        "Hayen",
+        "Jash",
+        "Abhidev"
+      ],
+      "num": 2,
+      "batting": "Headstone Manor",
+      "bowling": "Edgware CC",
+      "target": 254,
+      "partnerships": [
+        {
+          "label": "P1",
+          "b1": "Arun",
+          "b2": "Chloe",
+          "net": -8,
+          "wickets": 2
+        },
+        {
+          "label": "P2",
+          "b1": "Milan",
+          "b2": "Sid",
+          "net": -7,
+          "wickets": 2
+        },
+        {
+          "label": "P3",
+          "b1": "Dillon",
+          "b2": "Hayen",
+          "net": 23,
+          "wickets": 1
+        },
+        {
+          "label": "P4",
+          "b1": "Jash",
+          "b2": "Abhidev",
+          "net": -16,
+          "wickets": 2
+        }
+      ],
+      "batting_summary": [
+        {
+          "name": "Arun",
+          "dismissal": "b Avyaan (Ov 2)",
+          "runs": 3,
+          "balls": 13,
+          "fours": 0,
+          "sixes": 0,
+          "wkts": 1,
+          "net": -2
+        },
+        {
+          "name": "Chloe",
+          "dismissal": "b Avyaan (Ov 2)",
+          "runs": 0,
+          "balls": 6,
+          "fours": 0,
+          "sixes": 0,
+          "wkts": 1,
+          "net": -5
+        },
+        {
+          "name": "Milan",
+          "dismissal": "c Avyaan b Drish (Ov 6)",
+          "runs": 10,
+          "balls": 11,
+          "fours": 1,
+          "sixes": 0,
+          "wkts": 1,
+          "net": 5
+        },
+        {
+          "name": "Sid",
+          "dismissal": "b Krish (Ov 8)",
+          "runs": 2,
+          "balls": 8,
+          "fours": 0,
+          "sixes": 0,
+          "wkts": 1,
+          "net": -3
+        },
+        {
+          "name": "Dillon",
+          "dismissal": "not out",
+          "runs": 21,
+          "balls": 16,
+          "fours": 3,
+          "sixes": 0,
+          "wkts": 0,
+          "net": 21
+        },
+        {
+          "name": "Hayen",
+          "dismissal": "run out (Drish) (Ov 12)",
+          "runs": 5,
+          "balls": 7,
+          "fours": 0,
+          "sixes": 0,
+          "wkts": 1,
+          "net": 0
+        },
+        {
+          "name": "Jash",
+          "dismissal": "b Krish (Ov 15)",
+          "runs": 5,
+          "balls": 15,
+          "fours": 0,
+          "sixes": 0,
+          "wkts": 1,
+          "net": 0
+        },
+        {
+          "name": "Abhidev",
+          "dismissal": "c Drish b Krish (Ov 15)",
+          "runs": 1,
+          "balls": 2,
+          "fours": 0,
+          "sixes": 0,
+          "wkts": 1,
+          "net": -4
+        }
+      ],
+      "bowling_summary": [
+        {
+          "name": "Taran",
+          "overs": 2,
+          "runs": 6,
+          "wickets": 0,
+          "wides": 0,
+          "noballs": 0,
+          "dots": 8
+        },
+        {
+          "name": "Avyaan",
+          "overs": 2,
+          "runs": 5,
+          "wickets": 2,
+          "wides": 0,
+          "noballs": 2,
+          "dots": 6
+        },
+        {
+          "name": "Aanya",
+          "overs": 2,
+          "runs": 7,
+          "wickets": 0,
+          "wides": 0,
+          "noballs": 0,
+          "dots": 8
+        },
+        {
+          "name": "Qaim",
+          "overs": 2,
+          "runs": 5,
+          "wickets": 0,
+          "wides": 0,
+          "noballs": 0,
+          "dots": 8
+        },
+        {
+          "name": "Drish",
+          "overs": 2,
+          "runs": 13,
+          "wickets": 1,
+          "wides": 1,
+          "noballs": 0,
+          "dots": 6
+        },
+        {
+          "name": "Kaiyan",
+          "overs": 2,
+          "runs": 5,
+          "wickets": 0,
+          "wides": 0,
+          "noballs": 0,
+          "dots": 7
+        },
+        {
+          "name": "Krish",
+          "overs": 2,
+          "runs": 6,
+          "wickets": 6,
+          "wides": 0,
+          "noballs": 0,
+          "dots": 2
+        },
+        {
+          "name": "Shyam",
+          "overs": 2,
+          "runs": 10,
+          "wickets": 1,
+          "wides": 0,
+          "noballs": 1,
+          "dots": 4
+        }
+      ],
+      "fielding": [
+        {
+          "fielder": "Avyaan",
+          "catches": 1,
+          "run_outs": 0,
+          "detail": "c Milan b Drish \u2014 Ov 6"
+        },
+        {
+          "fielder": "Drish",
+          "catches": 1,
+          "run_outs": 1,
+          "detail": "run out (Drish) \u2014 Ov 12 (Hayen) | c Abhidev b Krish \u2014 Ov 15"
+        }
+      ],
+      "final_total": 192,
+      "wickets": 13,
+      "wickets_symbol_events": 13,
+      "wickets_unique_dismissals": 7,
+      "wickets_sheet_events": 13
+    }
+  ]
+}

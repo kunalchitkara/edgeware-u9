@@ -102,11 +102,11 @@ LEADERS_GRID = """    <div class="lbg">
         <div class="lbr"><div class="lbrk rn">4</div><div class="lbn">Viaan</div><div class="lbv">2</div></div>
         <div class="lbr"><div class="lbrk rn">5</div><div class="lbn">Veer</div><div class="lbv">1</div></div></div>
       <div class="lbc"><div class="lbh">&#128200; Best Economy (min 2 overs)</div>
-        <div class="lbr"><div class="lbrk r1">1</div><div class="lbn">Avyaan <span style="font-size:.7rem;color:var(--mgrey);font-weight:400;">M6</span></div><div class="lbv">2.5</div></div>
-        <div class="lbr"><div class="lbrk r2">2</div><div class="lbn">Krish</div><div class="lbv">3.7</div></div>
+        <div class="lbr"><div class="lbrk r1">1</div><div class="lbn">Krish</div><div class="lbv">3.7</div></div>
+        <div class="lbr"><div class="lbrk r2">2</div><div class="lbn">Avyaan</div><div class="lbv">4.5</div></div>
         <div class="lbr"><div class="lbrk r3">3</div><div class="lbn">Aanya</div><div class="lbv">4.5</div></div>
-        <div class="lbr"><div class="lbrk rn">4</div><div class="lbn">Avyaan</div><div class="lbv">4.5</div></div>
-        <div class="lbr"><div class="lbrk rn">5</div><div class="lbn">Ariyan</div><div class="lbv">4.9</div></div></div>
+        <div class="lbr"><div class="lbrk rn">4</div><div class="lbn">Ariyan</div><div class="lbv">4.9</div></div>
+        <div class="lbr"><div class="lbrk rn">5</div><div class="lbn">Viaan</div><div class="lbv">5.2</div></div></div>
       <div class="lbc"><div class="lbh">&#128308; Most Dot Balls</div>
         <div class="lbr"><div class="lbrk r1">1</div><div class="lbn">Ariyan</div><div class="lbv">25</div></div>
         <div class="lbr"><div class="lbrk r2">2</div><div class="lbn">Avyaan</div><div class="lbv">23</div></div>
@@ -350,6 +350,13 @@ MOST_SIXES_BEFORE_ECONOMY = (
     '      <div class="lbc"><div class="lbh">&#128200; Best Economy (min 2 overs)</div>'
 )
 
+BEST_ECONOMY_CARD = """      <div class="lbc"><div class="lbh">&#128200; Best Economy (min 2 overs)</div>
+        <div class="lbr"><div class="lbrk r1">1</div><div class="lbn">Krish</div><div class="lbv">3.7</div></div>
+        <div class="lbr"><div class="lbrk r2">2</div><div class="lbn">Avyaan</div><div class="lbv">4.5</div></div>
+        <div class="lbr"><div class="lbrk r3">3</div><div class="lbn">Aanya</div><div class="lbv">4.5</div></div>
+        <div class="lbr"><div class="lbrk rn">4</div><div class="lbn">Ariyan</div><div class="lbv">4.9</div></div>
+        <div class="lbr"><div class="lbrk rn">5</div><div class="lbn">Viaan</div><div class="lbv">5.2</div></div></div>"""
+
 
 def _most_sixes_block(rows: list[tuple[str, str, int]]) -> str:
     lines = ['      <div class="lbc"><div class="lbh">&#127919; Most Sixes</div>']
@@ -403,6 +410,13 @@ def patch_leaders(html: str) -> str:
     html = re.sub(
         r'(<div id="tab-lb" class="tab">\s*<div class="card">\s*<div class="ctitle">[^<]+</div>\s*)<p style="font-size:\.8rem;color:var\(--mgrey\);margin-bottom:16px;">.*?</p>(\s*<div class="lbg">).*?(</div>\s*</div>\s*</div>\s*\n\n<!-- RULES -->)',
         rf"\1{LEADERS_NOTE}\n{LEADERS_GRID}\3",
+        html,
+        count=1,
+        flags=re.DOTALL,
+    )
+    html = re.sub(
+        r'<div class="lbc"><div class="lbh">&#128200; Best Economy \(min 2 overs\)</div>.*?</div>\s*(?=<div class="lbc"><div class="lbh">&#128308; Most Dot Balls</div>)',
+        BEST_ECONOMY_CARD,
         html,
         count=1,
         flags=re.DOTALL,

@@ -29,21 +29,30 @@ class InningsBatting:
     match_id: str
     team: str
     batters: dict[str, tuple[int, int]]  # name -> (runs, balls)
+    dismissals: dict[str, int]  # name -> dismissals in innings
 
 
 @dataclass
 class SeasonBatting:
     runs: int = 0
     balls: int = 0
-    innings: int = 0
+    dismissals: int = 0
+    appearances: int = 0
     hs: int = 0
 
-    def add_innings(self, runs: int, balls: int) -> None:
-        self.innings += 1
+    def add_innings(self, runs: int, balls: int, dismissals: int) -> None:
+        self.appearances += 1
         self.runs += runs
         self.balls += balls
+        self.dismissals += dismissals
         if runs > self.hs:
             self.hs = runs
+
+    @property
+    def innings(self) -> int:
+        if self.appearances == 0:
+            return 0
+        return self.dismissals + 1
 
     @property
     def avg(self) -> float:
@@ -62,7 +71,8 @@ def _innings_from_sheet(match_id: str) -> list[InningsBatting]:
     for inn in parse_innings(rows):
         _blocks, stats = simulate_innings(inn, rows, overs)
         batters = {name: (st.runs, st.balls) for name, st in stats.items()}
-        out.append(InningsBatting(match_id, inn.team_name, batters))
+        dismissals = {name: st.dismissals for name, st in stats.items()}
+        out.append(InningsBatting(match_id, inn.team_name, batters, dismissals))
     return out
 
 
@@ -72,8 +82,9 @@ def _innings_from_json(match_id: str, path: Path) -> list[InningsBatting]:
     for inn in data["innings"]:
         _blocks, stats = simulate_innings_json(inn)
         batters = {name: (st.runs, st.balls) for name, st in stats.items()}
+        dismissals = {name: st.dismissals for name, st in stats.items()}
         team = inn.get("batting", inn.get("team", ""))
-        out.append(InningsBatting(match_id, team, batters))
+        out.append(InningsBatting(match_id, team, batters, dismissals))
     return out
 
 
@@ -97,9 +108,10 @@ def collect_ecc_season() -> dict[str, SeasonBatting]:
         for name, (runs, balls) in inn.batters.items():
             if name not in season:
                 continue
-            if balls == 0 and runs == 0:
+            dismissals = inn.dismissals.get(name, 0)
+            if balls == 0 and runs == 0 and dismissals == 0:
                 continue
-            season[name].add_innings(runs, balls)
+            season[name].add_innings(runs, balls, dismissals)
     return season
 
 

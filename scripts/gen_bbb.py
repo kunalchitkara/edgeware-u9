@@ -48,6 +48,14 @@ MATCHES = {
         "teams": ("Pinner", "Edgware CC"),
         "local": "data/m6.json",
     },
+    "m7": {
+        "gid": "1976564850",
+        "sheet_id": "1BLANhVMw69HEuN38wgTXkIOFjNw9a7em",
+        "label": "M7",
+        "overs": 16,
+        "teams": ("Edgware CC", "Headstone Manor"),
+        "local": "data/m7.json",
+    },
 }
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -79,10 +87,40 @@ def render_toss(toss: dict | None) -> str:
     )
 
 
+def innings_score_line(inn: dict) -> str:
+    total = inn.get("final_total")
+    wkts = inn.get("wickets")
+    if total is None or wkts is None:
+        return ""
+    return f"{html.escape(str(inn['batting']))} {total}-{wkts}"
+
+
+def render_result(match_meta: dict, innings: list[dict]) -> str:
+    result = (match_meta.get("result") or "").strip()
+    if not result:
+        return ""
+    score_bits = [line for inn in innings if (line := innings_score_line(inn))]
+    parts = [
+        '<section class="bbb-panel bbb-result-panel">',
+        '<div class="bbb-inn-bar">',
+        "<span>Result</span>",
+        f"<span>{COMMENTARY_LABEL}</span>",
+        "</div>",
+        '<div class="bbb-result">',
+        f"<strong>{html.escape(result)}</strong>",
+    ]
+    if score_bits:
+        parts.append(f'<div class="bbb-result-scores">{" vs ".join(score_bits)}</div>')
+    parts.extend(["</div></section>"])
+    return "".join(parts)
+
+
 @dataclass
 class BatterStats:
     runs: int = 0
     balls: int = 0
+    out: bool = False
+    dismissals: int = 0
 
 
 @dataclass
@@ -630,6 +668,8 @@ def simulate_innings(
 
                 total_score += event.runs_delta
                 if event.is_wicket:
+                    st.out = True
+                    st.dismissals += 1
                     wickets += 1
                     partnership_wickets += 1
 
@@ -874,17 +914,24 @@ def simulate_innings_json(inn_data: dict) -> tuple[list[OverBlock], dict[str, Ba
             partnership_label=f"P{partnership_idx + 1}",
         )
 
+        wickets_at_over_start = wickets
         deliveries = over["deliveries"]
-        total_deliveries = len(deliveries)
-        delivery_index = 0
         legal_in_over = 0
+        legal_balls_seen: set[int] = set()
 
         for item in deliveries:
             facing = item.get("batter") or striker
             symbol = (item.get("symbol") or "").strip()
+            ball_idx = item.get("ball_index")
+            if item.get("notation"):
+                notation = item["notation"]
+            elif ball_idx is not None:
+                max_ball = max((d.get("ball_index") or 0) for d in deliveries) or ball_idx
+                notation = f"{onum}.0" if ball_idx == max_ball else f"{onum - 1}.{ball_idx}"
+            else:
+                notation = f"{onum}.0"
+
             if not symbol:
-                delivery_index += 1
-                notation = item.get("notation") or ball_label(onum, delivery_index, total_deliveries)
                 st = stats.setdefault(facing, BatterStats())
                 st.balls += 1
                 block.deliveries.append(
@@ -901,20 +948,23 @@ def simulate_innings_json(inn_data: dict) -> tuple[list[OverBlock], dict[str, Ba
                         badge_class="bbb-badge-dot",
                     )
                 )
-                legal_in_over += 1
+                if ball_idx is None or ball_idx not in legal_balls_seen:
+                    if ball_idx is not None:
+                        legal_balls_seen.add(ball_idx)
+                    legal_in_over += 1
                 continue
 
             events = events_from_item(item, facing, bowler)
-            delivery_index += 1
-            notation = item.get("notation") or ball_label(onum, delivery_index, total_deliveries)
 
             for event in events:
+                st = stats.setdefault(facing, BatterStats())
                 total_score += event.runs_delta
                 if event.is_wicket:
+                    st.out = True
+                    st.dismissals += 1
                     wickets += 1
                     partnership_wickets += 1
 
-                st = stats.setdefault(facing, BatterStats())
                 if event.is_legal and not event.is_wicket:
                     st.balls += 1
                 if event.bat_runs > 0:
@@ -949,7 +999,10 @@ def simulate_innings_json(inn_data: dict) -> tuple[list[OverBlock], dict[str, Ba
                     striker, non_striker = non_striker, striker
 
                 if event.is_legal:
-                    legal_in_over += 1
+                    if ball_idx is None or ball_idx not in legal_balls_seen:
+                        if ball_idx is not None:
+                            legal_balls_seen.add(ball_idx)
+                        legal_in_over += 1
 
         if legal_in_over >= 1:
             striker, non_striker = non_striker, striker
@@ -961,7 +1014,7 @@ def simulate_innings_json(inn_data: dict) -> tuple[list[OverBlock], dict[str, Ba
                 block.deliveries[-1].total_score = target
             total_score = target
 
-        block.wickets = sum(1 for d in block.deliveries if d.is_wicket)
+        block.wickets = wickets - wickets_at_over_start
         block.partnership_runs = total_score - partnership_start
         block.partnership_wickets = partnership_wickets
         block.batter_summaries = pair_batter_summaries(
@@ -993,13 +1046,18 @@ def render_innings_json(inn_data: dict, match_id: str) -> str:
 
 
 def render_from_json(match_id: str, data: dict) -> str:
+    """Commentary panels top-to-bottom: Result, Inn2, Inn1, Toss."""
     parts = ['<div class="bbb-wrap">']
     match_meta = data.get("match") or {}
+    innings = data.get("innings") or []
+    result_html = render_result(match_meta, innings)
+    if result_html:
+        parts.append(result_html)
+    for inn in sorted(innings, key=lambda x: x["num"], reverse=True):
+        parts.append(render_innings_json(inn, match_id))
     toss_html = render_toss(match_meta.get("toss"))
     if toss_html:
         parts.append(toss_html)
-    for inn in data["innings"]:
-        parts.append(render_innings_json(inn, match_id))
     parts.append("</div>")
     return "".join(parts)
 

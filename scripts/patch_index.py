@@ -10,7 +10,7 @@ ROOT = Path(__file__).resolve().parents[1]
 INDEX = ROOT / "index.html"
 BBB_DIR = ROOT / "bbb"
 
-MATCHES_WITH_BBB = ["m2", "m4", "m5", "m6"]
+MATCHES_WITH_BBB = ["m2", "m4", "m5", "m6", "m7"]
 WALKOVER_MATCHES = ["m1", "m3"]
 DEFAULT_MATCH = "m1"
 
@@ -27,6 +27,9 @@ CSS = """
 .bbb-toss-panel{box-shadow:0 1px 4px rgba(0,0,0,.06);}
 .bbb-toss{padding:12px 14px;background:#f8f9fb;border-bottom:1px solid #eef1f6;font-size:.85rem;color:var(--dgrey);line-height:1.45;}
 .bbb-toss strong{color:var(--dk);}
+.bbb-result{padding:14px;background:#f0f7ff;border-bottom:1px solid #dce8f5;font-size:.88rem;color:var(--dgrey);line-height:1.5;}
+.bbb-result strong{display:block;color:var(--dk);font-size:.95rem;margin-bottom:4px;}
+.bbb-result-scores{font-size:.85rem;color:var(--mgrey);}
 .bbb-inn-bar{display:flex;justify-content:space-between;align-items:center;background:var(--dk);color:#fff;padding:10px 14px;font-weight:700;font-size:.85rem;}
 .bbb-inn-bar span:last-child{font-size:.95rem;font-weight:900;}
 .bbb-list{background:#fff;}
@@ -70,7 +73,7 @@ CSS = """
 
 APP_JS = """const TAB_IDS=['ov','fx','mx','pl','lb','ru','pr'];
 const TAB_ALIASES={fixtures:'fx',matches:'mx',overview:'ov',players:'pl',leaders:'lb',rules:'ru',practice:'pr'};
-const MATCHES_WITH_BBB=['m2','m4','m5','m6'];
+const MATCHES_WITH_BBB=['m2','m4','m5','m6','m7'];
 
 function latestMatch(){
   let latest='m1',n=0;
@@ -537,6 +540,30 @@ def fix_tab_pl_boundary(html: str) -> str:
 
 def fix_tab_lb_boundary(html: str) -> str:
     """Remove extra </div> after #tab-lb that closes .wrap before #tab-ru."""
+    rules = html.find("<!-- RULES -->")
+    if rules == -1:
+        return html
+    depth, _ = _depth_and_stack_before(html, rules)
+    if depth >= 1:
+        return html
+    # Premature .wrap close leaves #tab-ru / #tab-pr as siblings outside .wrap.
+    updated = re.sub(
+        r"\n  </div>\s*\n\s*<!-- RULES -->",
+        "\n\n<!-- RULES -->",
+        html,
+        count=1,
+    )
+    if updated != html:
+        return updated
+    updated = re.sub(
+        r"(</div>)\s*\n\s*<!-- RULES -->",
+        r"\n<!-- RULES -->",
+        html,
+        count=1,
+    )
+    if updated != html:
+        return updated
+    # Legacy M6 leaderboard ending (Taran 4th in run-outs card).
     pattern = (
         r'(<div class="lbr"><div class="lbrk rn">4</div><div class="lbn">Taran</div><div class="lbv">1</div></div></div>)\n'
         r'    </div></div>\n'
@@ -612,7 +639,7 @@ def match_hash(match_num: int) -> str:
         return f"#mx/{mid}"
     if mid in MATCHES_WITH_BBB:
         return f"#mx/{mid}/bbb"
-    if match_num <= 6:
+    if match_num <= 7:
         return f"#mx/{mid}"
     return "#mx"
 
@@ -643,6 +670,7 @@ def replace_spreadsheet_links(html: str) -> str:
             "1996740206": 4,
             "669851544": 5,
             "489440707": 6,
+            "1976564850": 7,
             "1519458298": 7,
             "978153398": 8,
             "1809916539": 9,
