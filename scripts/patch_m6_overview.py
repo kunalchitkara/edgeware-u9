@@ -4,14 +4,18 @@
 from __future__ import annotations
 
 import re
+import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 INDEX = ROOT / "index.html"
 
+sys.path.insert(0, str(ROOT / "scripts"))
+from summary_player_stats import render_leader_card  # noqa: E402
+
 NEXT_MATCH = (
     '  <div class="nm"><div class="nmi">&#128197;</div>'
-    '<div class="nminfo"><h3>Next Match &mdash; 21 Jun 2026</h3>'
+    '<div class="nminfo"><h3>Next Match · 21 Jun 2026</h3>'
     "<p>&#127968; Edgware vs H Manor &nbsp;&middot;&nbsp; Home &nbsp;&middot;&nbsp; "
     "Canons High School &nbsp;&middot;&nbsp; 09:00 / 10:00 AM</p></div></div>"
 )
@@ -130,7 +134,7 @@ LEADERS_GRID = """    <div class="lbg">
         <div class="lbr"><div class="lbrk r3">3</div><div class="lbn">Krish</div><div class="lbv">1</div></div></div>
     </div>"""
 
-# Player card snippets — batting / bowling / fielding lines only
+# Player card snippets, batting / bowling / fielding lines only
 PLAYER_CARD_UPDATES: dict[str, dict[str, str]] = {
     "Ariyan": {
         "bat": """          <div class="psr"><span class="psl">Inn</span><span class="psv">4</span></div>
@@ -290,8 +294,8 @@ def _update_player_card(html: str, name: str, updates: dict[str, str]) -> str:
 
 def patch_overview(html: str) -> str:
     html = html.replace(
-        '<h3>Next Match &mdash; 14 Jun 2026</h3><p>&#9992;&#65039; Pinner vs Edgware &nbsp;&middot;&nbsp; Away &nbsp;&middot;&nbsp; Pinner &nbsp;&middot;&nbsp; 09:00 / 10:00 AM</p>',
-        '<h3>Next Match &mdash; 21 Jun 2026</h3><p>&#127968; Edgware vs H Manor &nbsp;&middot;&nbsp; Home &nbsp;&middot;&nbsp; Canons High School &nbsp;&middot;&nbsp; 09:00 / 10:00 AM</p>',
+        '<h3>Next Match · 14 Jun 2026</h3><p>&#9992;&#65039; Pinner vs Edgware &nbsp;&middot;&nbsp; Away &nbsp;&middot;&nbsp; Pinner &nbsp;&middot;&nbsp; 09:00 / 10:00 AM</p>',
+        '<h3>Next Match · 21 Jun 2026</h3><p>&#127968; Edgware vs H Manor &nbsp;&middot;&nbsp; Home &nbsp;&middot;&nbsp; Canons High School &nbsp;&middot;&nbsp; 09:00 / 10:00 AM</p>',
         1,
     )
     for old_margin in ("+32", "+45"):
@@ -340,7 +344,7 @@ def patch_players(html: str) -> str:
     return html
 
 
-# (name, match label, six count) — show Most Sixes board only when len >= 2
+# (name, match label, six count), show Most Sixes board only when len >= 2
 SIX_HITTER_LEADER_ROWS: list[tuple[str, str, int]] = [
     ("Avyaan", "M6", 1),
 ]
@@ -359,20 +363,18 @@ BEST_ECONOMY_CARD = """      <div class="lbc"><div class="lbh">&#128200; Best Ec
 
 
 def _most_sixes_block(rows: list[tuple[str, str, int]]) -> str:
-    lines = ['      <div class="lbc"><div class="lbh">&#127919; Most Sixes</div>']
-    for i, (name, match, count) in enumerate(rows[:5]):
-        rank = f"r{i + 1}" if i < 3 else "rn"
+    top = rows[:5]
+    display: list[tuple[str, str]] = []
+    sort_keys: list[int] = []
+    for name, match, count in top:
         match_tag = (
             f' <span style="font-size:.7rem;color:var(--mgrey);font-weight:400;">{match}</span>'
             if match
             else ""
         )
-        lines.append(
-            f'        <div class="lbr"><div class="lbrk {rank}">{i + 1}</div>'
-            f'<div class="lbn">{name}{match_tag}</div><div class="lbv">{count}</div></div>'
-        )
-    lines.append("</div>")
-    return "\n".join(lines)
+        display.append((f"{name}{match_tag}", str(count)))
+        sort_keys.append(count)
+    return render_leader_card("&#127919; Most Sixes", display, sort_keys)
 
 
 def patch_most_sixes(html: str) -> str:

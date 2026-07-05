@@ -26,30 +26,30 @@ from match_awards import (  # noqa: E402
 MATCH_CONFIG = {
     "m2": {
         "top_bowl_label": "Top Bowl HSM",
-        "bowling_marker": "Headstone Manor &mdash; Bowling",
-        "ecc_bat_marker": "Edgware CC &mdash; Batting",
-        "opp_bat_marker": "Headstone Manor &mdash; Batting",
+        "bowling_marker": "Headstone Manor · Bowling",
+        "ecc_bat_marker": "Edgware CC · Batting",
+        "opp_bat_marker": "Headstone Manor · Batting",
         "opp_short": "HSM",
     },
     "m4": {
         "top_bowl_label": "Top Bowl Hayes",
-        "bowling_marker": "Hayes &mdash; Bowling",
-        "ecc_bat_marker": "Edgware CC &mdash; Batting",
-        "opp_bat_marker": "Hayes &mdash; Batting",
+        "bowling_marker": "Hayes · Bowling",
+        "ecc_bat_marker": "Edgware CC · Batting",
+        "opp_bat_marker": "Hayes · Batting",
         "opp_short": "Hayes",
     },
     "m5": {
         "top_bowl_label": "Top Bowl Harefield",
-        "bowling_marker": "Harefield &mdash; Bowling",
-        "ecc_bat_marker": "Edgware CC &mdash; Batting",
-        "opp_bat_marker": "Harefield &mdash; Batting",
+        "bowling_marker": "Harefield · Bowling",
+        "ecc_bat_marker": "Edgware CC · Batting",
+        "opp_bat_marker": "Harefield · Batting",
         "opp_short": "Harefield",
     },
     "m6": {
         "top_bowl_label": "Top Bowl ECC",
-        "bowling_marker": "Edgware CC &mdash; Bowling",
-        "ecc_bat_marker": "Edgware CC &mdash; Batting",
-        "opp_bat_marker": "Pinner &mdash; Batting",
+        "bowling_marker": "Edgware CC · Bowling",
+        "ecc_bat_marker": "Edgware CC · Batting",
+        "opp_bat_marker": "Pinner · Batting",
         "opp_short": "Pinner",
         "use_m6_json": True,
     },
@@ -58,7 +58,7 @@ MATCH_CONFIG = {
 
 def parse_runs(text: str) -> int:
     t = text.strip()
-    if t in {"&mdash;", "—", "-", ""}:
+    if t in {"&mdash;", "-", ""}:
         return 0
     if "&minus;" in t or t.startswith("-"):
         return -int(re.sub(r"[^\d]", "", t) or "0")
@@ -69,7 +69,7 @@ def parse_wickets(cell: str) -> int:
     if "<strong>" in cell:
         return int(re.sub(r"[^\d]", "", cell) or "0")
     t = cell.strip()
-    if t in {"0", "&mdash;", "—", ""}:
+    if t in {"0", "&mdash;", "-", ""}:
         return 0
     return int(re.sub(r"[^\d]", "", t) or "0")
 
@@ -93,7 +93,7 @@ def extract_bowling_table(section_html: str) -> list[BowlerLine]:
             continue
         runs = parse_runs(cell_text(cells[1]))
         wtxt = cell_text(cells[2])
-        wickets = int(re.sub(r"[^\d]", "", wtxt) or "0") if wtxt not in {"—", "&mdash;"} else 0
+        wickets = int(re.sub(r"[^\d]", "", wtxt) or "0") if wtxt not in {"-", "&mdash;"} else 0
         out.append(BowlerLine(name.strip(), runs, wickets))
     return out
 
@@ -110,7 +110,7 @@ def extract_batting_table(section_html: str, team: str) -> list[BatterLine]:
     )
     totals: dict[str, int] = {}
     for name, runs_cell in rows:
-        if runs_cell.strip() in {"&mdash;", "—"}:
+        if runs_cell.strip() in {"&mdash;", "-"}:
             continue
         key = normalize_batter_name(name)
         totals[key] = totals.get(key, 0) + parse_runs(runs_cell)
@@ -145,7 +145,7 @@ def m6_batting_from_json() -> tuple[list[BatterLine], list[BatterLine]]:
 
 
 def extract_summary_block(match_block: str, match_id: str) -> str:
-    """Summary scorecard only — exclude ball-by-ball commentary HTML."""
+    """Summary scorecard only, exclude ball-by-ball commentary HTML."""
     m = re.search(rf'id="match-{match_id}-summary" class="mmview active">(.*)', match_block, re.DOTALL)
     if not m:
         return match_block

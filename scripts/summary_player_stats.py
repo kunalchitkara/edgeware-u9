@@ -9,7 +9,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 INDEX = ROOT / "index.html"
-MATCH_IDS = ("m2", "m4", "m5", "m6", "m7")
+MATCH_IDS = ("m2", "m4", "m5", "m6", "m7", "m8")
 ECC_NAMES = {
     "Ariyan",
     "Qaim",
@@ -22,6 +22,7 @@ ECC_NAMES = {
     "Drish",
     "Shyam",
     "Aanya",
+    "Ishaan",
 }
 ECC_FIELDING_TEAMS = {"ECC", "Edgware CC"}
 
@@ -42,8 +43,16 @@ class BatSeason:
         return self.outs + 1 if self.matches else 0
 
     @property
-    def avg(self) -> float:
+    def avg_inn(self) -> float:
         return (self.runs / self.innings) if self.innings else 0.0
+
+    @property
+    def avg_match(self) -> float:
+        return (self.runs / self.matches) if self.matches else 0.0
+
+    @property
+    def avg(self) -> float:
+        return self.avg_inn
 
     @property
     def sr(self) -> float:
@@ -100,20 +109,76 @@ def _top_n(
     return ranked[:limit]
 
 
+def competition_ranks(sorted_values: list[int | float | tuple]) -> list[int]:
+    """Competition ranking (1224): tied values share rank; next rank skips."""
+    if not sorted_values:
+        return []
+    ranks = [1]
+    for i in range(1, len(sorted_values)):
+        if sorted_values[i] == sorted_values[i - 1]:
+            ranks.append(ranks[-1])
+        else:
+            ranks.append(i + 1)
+    return ranks
+
+
+def rank_medal_class(rank: int) -> str:
+    if rank == 1:
+        return "r1"
+    if rank == 2:
+        return "r2"
+    if rank == 3:
+        return "r3"
+    return "rn"
+
+
+def render_leader_card(
+    title_html: str,
+    rows: list[tuple[str, str]],
+    sort_keys: list[int | float | tuple],
+    *,
+    limit: int = 5,
+) -> str:
+    """Build one .lbc card with competition ranks from pre-sorted rows."""
+    rows = rows[:limit]
+    sort_keys = sort_keys[:limit]
+    ranks = competition_ranks(sort_keys)
+    card = [f'      <div class="lbc"><div class="lbh">{title_html}</div>']
+    for idx, ((name, value), rank) in enumerate(zip(rows, ranks)):
+        medal = rank_medal_class(rank)
+        row = (
+            f'        <div class="lbr"><div class="lbrk {medal}">{rank}</div>'
+            f'<div class="lbn">{name}</div><div class="lbv">{value}</div></div>'
+        )
+        if idx == len(rows) - 1:
+            row += "</div>"
+        card.append(row)
+    if not rows:
+        card.append("</div>")
+    return "\n".join(card)
+
+
 def derive_shared_leaderboards(
     season: SummarySeason,
     *,
     economy_min_balls: int = 12,
     batting_avg_min_matches: int = 2,
-) -> dict[str, list[tuple[str, str]]]:
-    """Build leaderboard rows from the same summary aggregate as Players tab."""
+) -> dict[str, list[tuple[str, str, int | float]]]:
+    """Build leaderboard rows from the same summary aggregate as Players tab.
+
+    Each entry is (name, display_value, sort_key) with sort_key used for ties.
+    """
     batting = season.batting
     bowling = season.bowling
     fielding = season.fielding
 
-    rows: dict[str, list[tuple[str, str]]] = {}
-    rows["bat_runs"] = [(n, str(v)) for n, v in _top_n([(n, s.runs) for n, s in batting.items()])]
-    rows["high_score"] = [(n, str(v)) for n, v in _top_n([(n, s.hs) for n, s in batting.items()])]
+    rows: dict[str, list[tuple[str, str, int | float]]] = {}
+    rows["bat_runs"] = [
+        (n, str(v), v) for n, v in _top_n([(n, s.runs) for n, s in batting.items()])
+    ]
+    rows["high_score"] = [
+        (n, str(v), v) for n, v in _top_n([(n, s.hs) for n, s in batting.items()])
+    ]
     batting_avg = sorted(
         (
             (n, s)
@@ -122,22 +187,34 @@ def derive_shared_leaderboards(
         ),
         key=lambda kv: (-kv[1].avg, -kv[1].runs, kv[0]),
     )[:5]
-    rows["batting_avg"] = [(n, f"{s.avg:.1f}") for n, s in batting_avg]
+    rows["batting_avg"] = [(n, f"{s.avg:.1f}", s.avg) for n, s in batting_avg]
     rows["net_runs"] = [
-        (n, f"+{v}" if v >= 0 else f"&minus;{abs(v)}")
+        (n, f"+{v}" if v >= 0 else f"&minus;{abs(v)}", v)
         for n, v in _top_n([(n, s.net) for n, s in batting.items()])
     ]
-    rows["fours"] = [(n, str(v)) for n, v in _top_n([(n, s.fours) for n, s in batting.items()])]
-    rows["wickets"] = [(n, str(v)) for n, v in _top_n([(n, s.wickets) for n, s in bowling.items()])]
-    rows["dots"] = [(n, str(v)) for n, v in _top_n([(n, s.dots) for n, s in bowling.items()])]
+    rows["fours"] = [
+        (n, str(v), v) for n, v in _top_n([(n, s.fours) for n, s in batting.items()])
+    ]
+    rows["wickets"] = [
+        (n, str(v), v) for n, v in _top_n([(n, s.wickets) for n, s in bowling.items()])
+    ]
+    rows["dots"] = [
+        (n, str(v), v) for n, v in _top_n([(n, s.dots) for n, s in bowling.items()])
+    ]
     economy = [
         (n, s.economy)
         for n, s in bowling.items()
         if s.balls >= economy_min_balls
     ]
-    rows["economy"] = [(n, f"{v:.1f}") for n, v in _top_n(economy, descending=False)]
-    rows["catches"] = [(n, str(v)) for n, v in _top_n([(n, s.catches) for n, s in fielding.items()])]
-    rows["run_outs"] = [(n, str(v)) for n, v in _top_n([(n, s.run_outs) for n, s in fielding.items()])]
+    rows["economy"] = [
+        (n, f"{v:.1f}", v) for n, v in _top_n(economy, descending=False)
+    ]
+    rows["catches"] = [
+        (n, str(v), v) for n, v in _top_n([(n, s.catches) for n, s in fielding.items()])
+    ]
+    rows["run_outs"] = [
+        (n, str(v), v) for n, v in _top_n([(n, s.run_outs) for n, s in fielding.items()])
+    ]
     return rows
 
 
@@ -145,6 +222,25 @@ def _to_int(text: str) -> int:
     t = text.replace("&minus;", "-").replace("−", "-")
     t = re.sub(r"[^\d-]", "", t)
     return int(t) if t and t != "-" else 0
+
+
+def _dismissal_outs(dismissal: str) -> int:
+    """Count outs from a summary dismissal cell (pairs wkt ×N, standard dismissals)."""
+    if not dismissal:
+        return 0
+    d = dismissal.replace("&times;", "×").replace("−", "-").strip()
+    lower = d.lower()
+    if "not out" in lower:
+        return 0
+    # Pairs aggregate: "wkt ×4", "run out ×1", "wkt &times;2" (after entity decode)
+    pairs = re.search(r"(?:wkt|run\s*out)\s*[×x]\s*(\d+)", lower)
+    if pairs:
+        return int(pairs.group(1))
+    # Multiple standard dismissals in one cell (e.g. "b X; b Y")
+    parts = [p.strip() for p in d.split(";") if p.strip()]
+    if len(parts) > 1:
+        return sum(1 for p in parts if "not out" not in p.lower())
+    return 1
 
 
 def _overs_to_balls(text: str) -> int:
@@ -174,14 +270,19 @@ def _section_tables(block: str) -> list[tuple[str, str, str]]:
     )
     for m in pattern.finditer(block):
         heading = re.sub(r"<[^>]+>", "", m.group(1)).strip()
-        heading = heading.replace("—", "&mdash;")
         if "Batting" in heading:
             kind = "Batting"
         elif "Bowling" in heading:
             kind = "Bowling"
         else:
             continue
-        team = heading.split("&mdash;", 1)[0].strip()
+        if " · " in heading:
+            team, _rest = heading.split(" · ", 1)
+        elif "&mdash;" in heading:
+            team = heading.split("&mdash;", 1)[0].strip()
+        else:
+            team = heading.strip()
+        team = team.strip()
         body = m.group(2)
         out.append((team, kind, body))
     return out
@@ -287,8 +388,7 @@ def collect_summary_season(html_override: str | None = None) -> SummarySeason:
                         batting[name].sixes += sixes
                         batting[name].net += net
                         batting[name].hs = max(batting[name].hs, runs)
-                        if dismissal and "not out" not in dismissal.lower():
-                            batting[name].outs += 1
+                        batting[name].outs += _dismissal_outs(dismissal)
                         if sr > 0 and runs > 0:
                             balls = max(1, round((runs * 100.0) / sr))
                             batting[name].balls += balls

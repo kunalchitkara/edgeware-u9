@@ -61,7 +61,7 @@ def load_rows() -> list[list[str]]:
 
 
 def parse_over_blocks(header: list[str], ball_row: list[str]) -> list[tuple[int, str, list[int]]]:
-    """Return (over_num, default_bowler, ball_cols) using B1–B6 labels (B7–B9 on last over only)."""
+    """Return (over_num, default_bowler, ball_cols) using B1-B6 labels (B7-B9 on last over only)."""
     markers: list[tuple[int, int, str]] = []
     for col, label in enumerate(header):
         m = re.match(r"Over\s+(\d+)(?:\s*★)?(?:\s+(.*?))?\s*$", label or "")

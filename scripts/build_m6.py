@@ -37,7 +37,7 @@ def pair_batter_summaries(
 
 
 def bowler_conceded(runs: int, wicket: bool) -> int:
-    """Runs on bowler's figures — U9 wicket -5 penalty is not 'conceded'."""
+    """Runs on bowler's figures, U9 wicket -5 penalty is not 'conceded'."""
     if wicket and runs == WKT_PENALTY:
         return 0
     return runs
@@ -324,7 +324,7 @@ def simulate_innings(inn: dict) -> dict:
                         fielding.setdefault(fielder, {"catches": 0, "run_outs": 0, "detail_parts": []})
                         fielding[fielder]["run_outs"] += 1
                         fielding[fielder]["detail_parts"].append(
-                            f"run out ({fielder}) — Ov {onum} ({facing})"
+                            f"run out ({fielder}), Ov {onum} ({facing})"
                         )
                 elif symbol == "C":
                     stats[facing]["dismissal"] = f"c {fielder} b {bowler} (Ov {onum})" if fielder else f"c & b {bowler} (Ov {onum})"
@@ -332,7 +332,7 @@ def simulate_innings(inn: dict) -> dict:
                     if fielder:
                         fielding.setdefault(fielder, {"catches": 0, "run_outs": 0, "detail_parts": []})
                         fielding[fielder]["catches"] += 1
-                        fielding[fielder]["detail_parts"].append(f"c {facing} b {bowler} — Ov {onum}")
+                        fielding[fielder]["detail_parts"].append(f"c {facing} b {bowler}, Ov {onum}")
                 else:
                     stats[facing]["dismissal"] = f"b {bowler} (Ov {onum})"
                     bowl[bowler]["wickets"] += 1
@@ -458,7 +458,7 @@ def build_innings_1() -> dict:
         ],
         [  # ov 2
             d(".", "Dev"), d(".", "Dev"), d(".", "Dev"), d("2", "Dev"), d("R", "Zayden", fielder="Ariyan", wicket=True,
-              description="Zayden run out (Ariyan) — brilliant fielding"),
+              description="Zayden run out (Ariyan), brilliant fielding"),
             d("1", "Dev"),
         ],
         [  # ov 3
@@ -466,8 +466,8 @@ def build_innings_1() -> dict:
         ],
         [  # ov 4
             d("1", "Dev"), d("4", "Dev"), d("1", "Dev"),
-            d("4", "Dev", description="FOUR — overthrow Avyaan", bat_runs=4),
-            d("1", "Dev", description="1 run — catch dropped Qaim"),
+            d("4", "Dev", description="FOUR: overthrow Avyaan", bat_runs=4),
+            d("1", "Dev", description="1 run, catch dropped Qaim"),
             d("1", "Dev"),
         ],
         [  # ov 5
@@ -491,7 +491,7 @@ def build_innings_1() -> dict:
             d("5", "Vivaan", runs=5, bat_runs=1, description="5 runs (incl 4 overthrow Qaim)"),
             d(".", "Shrihan"), d(".", "Vivaan"),
         ],
-        [  # ov 10 — Shrihan run out (Avyaan) 9.1; Vivaan continues
+        [  # ov 10, Shrihan run out (Avyaan) 9.1; Vivaan continues
             d("R", "Shrihan", fielder="Avyaan", wicket=True, description="Shrihan run out (Avyaan)"),
             d(".", "Vivaan"), d(".", "Vivaan"), d(".", "Vivaan"),
             d(".", "Vivaan"), d("+", "Vivaan", extras_type="wide"),
@@ -500,23 +500,23 @@ def build_innings_1() -> dict:
             d(".", "Shrihan"), d("+", "Shrihan", extras_type="wide"), d(".", "Shrihan"),
             d("1", "Shrihan"), d(".", "Shrihan"), d("1", "Shrihan"),
         ],
-        [  # ov 12 — Veer: . 1 1 . B B — Shrihan (11.5) then Vivaan (12.0) bowled
+        [  # ov 12, Veer: . 1 1 . B B, Shrihan (11.5) then Vivaan (12.0) bowled
             d(".", "Shrihan"), d("1", "Shrihan"), d("1", "Vivaan"), d(".", "Shrihan"),
             d("B", "Shrihan", wicket=True, description="Shrihan b Veer"),
             d("B", "Vivaan", wicket=True, description="Vivaan b Veer"),
         ],
-        [  # ov 13 — Qaim: Ojas & Riyan bowled; Ojas four on next ball denies hat-trick
+        [  # ov 13, Qaim: Ojas & Riyan bowled; Ojas four on next ball denies hat-trick
             d("4", "Riyan"),
             d("B", "Ojas", wicket=True, description="Ojas b Qaim"),
             d("B", "Riyan", wicket=True, description="Riyan b Qaim"),
-            d("4", "Ojas", description="FOUR — hat-trick missed (Ojas)"),
+            d("4", "Ojas", description="FOUR: hat-trick missed (Ojas)"),
             d("1", "Ojas", runs=1, bat_runs=1), d("1", "Ojas"),
         ],
         [  # ov 14
             d("1", "Ojas"), d("4", "Ojas"), d("4", "Ojas"), d(".", "Ojas"),
             d("4", "Ojas"), d("4", "Ojas"),
         ],
-        [  # ov 15 — Riyan on strike first 3 balls; Riyan b Shyam ball 3; Ojas last 3
+        [  # ov 15, Riyan on strike first 3 balls; Riyan b Shyam ball 3; Ojas last 3
             d(".", "Riyan"), d("O", "Riyan", extras_type="noball"), d("B", "Riyan", wicket=True, description="Riyan b Shyam"),
             d(".", "Ojas"),
             d("+", "Ojas", extras_type="wide"), d("O", "Ojas", extras_type="noball"),
@@ -539,7 +539,7 @@ def build_innings_1() -> dict:
 
 
 def build_innings_2() -> dict:
-    # Ov 1 cumulative corrected to 202-1 (sheet row still 211 from ov 2); ovs 2–16 unchanged.
+    # Ov 1 cumulative corrected to 202-1 (sheet row still 211 from ov 2); ovs 2-16 unchanged.
     totals = [202, 211, 217, 225, 228, 232, 245, 251, 252, 257, 273, 281, 285, 296, 299, 308]
     over_runs = ["2", "0", "6", "8", "3", "4", "13", "6", "1", "5", "16", "8", "4", "11", "3", "9"]
     bowlers = [
@@ -547,7 +547,7 @@ def build_innings_2() -> dict:
         "Ojas", "Riyan", "Vivaan", "Shrihan", "Henry", "Rafi", "Zayden", "Dev",
     ]
     specs = [
-        [  # ov 1 — Veer bowled ball 2; Ariyan 2 runs; ends 202-1
+        [  # ov 1, Veer bowled ball 2; Ariyan 2 runs; ends 202-1
             d("+", "Veer", extras_type="wide"),
             d("B", "Veer", wicket=True, description="Veer b Ojas"),
             d("1", "Ariyan"),
@@ -572,24 +572,24 @@ def build_innings_2() -> dict:
             d("+", "Kaiyan", extras_type="wide"), d(".", "Kaiyan"), d(".", "Kaiyan"),
             d(".", "Kaiyan"), d(".", "Kaiyan"), d("1", "Kaiyan"),
         ],
-        [  # ov 6 — Drish 1 on 6.1; rest Kaiyan (pair 2)
+        [  # ov 6, Drish 1 on 6.1; rest Kaiyan (pair 2)
             d("1", "Drish"), d(".", "Kaiyan"),
             d("4", "Kaiyan"), d("+", "Kaiyan", extras_type="wide"), d(".", "Kaiyan"),
             d("O", "Kaiyan", extras_type="noball"),
         ],
-        [  # ov 7 — Drish 4 on 7.3 only; other runs Kaiyan; RO after four
+        [  # ov 7, Drish 4 on 7.3 only; other runs Kaiyan; RO after four
             d("1", "Kaiyan"), d("+", "Kaiyan", extras_type="wide"), d("4", "Drish"),
             d("R", "Drish", fielder="Ojas", wicket=True, description="Drish run out (Ojas)"),
             d("4", "Kaiyan"), d(".", "Shyam"),
         ],
-        [  # ov 8 — Kaiyan all balls (user: Kaiyan/Drish pair after RO)
+        [  # ov 8, Kaiyan all balls (user: Kaiyan/Drish pair after RO)
             d(".", "Kaiyan"), d(".", "Kaiyan"), d("4", "Kaiyan"), d("+", "Kaiyan", extras_type="wide"),
             d(".", "Kaiyan"), d(".", "Kaiyan"),
         ],
-        [  # ov 9 — Viaan only ball 1
+        [  # ov 9, Viaan only ball 1
             d("1", "Viaan"), d(".", "Shyam"), d(".", "Shyam"), d(".", "Shyam"), d(".", "Shyam"), d(".", "Shyam"),
         ],
-        [  # ov 10 — Shyam only ball 3
+        [  # ov 10, Shyam only ball 3
             d(".", "Viaan"), d("1", "Viaan"), d("1", "Shyam"), d(".", "Viaan"),
             d("+", "Viaan", extras_type="wide"), d("1", "Viaan"),
         ],
@@ -601,14 +601,14 @@ def build_innings_2() -> dict:
             d("+", "Shyam", extras_type="wide"), d(".", "Shyam"), d(".", "Shyam"),
             d("4", "Shyam"), d("+", "Shyam", extras_type="wide"), d(".", "Shyam"),
         ],
-        [  # ov 13 — Avyaan first 3 balls
+        [  # ov 13, Avyaan first 3 balls
             d(".", "Avyaan"), d(".", "Avyaan"), d("1", "Avyaan"), d("1", "Qaim"), d(".", "Qaim"), d("+", "Qaim", extras_type="wide"),
         ],
-        [  # ov 14 — Avyaan faces ball 6 only
+        [  # ov 14, Avyaan faces ball 6 only
             d("4", "Qaim"), d("O", "Qaim", extras_type="noball"), d(".", "Qaim"),
             d("4", "Qaim"), d("1", "Qaim"), d(".", "Avyaan"),
         ],
-        [  # ov 15 — Avyaan last 3 balls; Qaim caught ball 3
+        [  # ov 15, Avyaan last 3 balls; Qaim caught ball 3
             d(".", "Avyaan"), d(".", "Qaim"),
             d("C", "Qaim", fielder="Ojas", wicket=True, description="Qaim c Ojas b Zayden"),
             d("6", "Avyaan"), d("+", "Avyaan", extras_type="wide"), d(".", "Avyaan"),

@@ -12,7 +12,7 @@ INDEX = ROOT / "index.html"
 
 sys.path.insert(0, str(ROOT / "scripts"))
 from batting_stats import collect_all_innings  # noqa: E402
-from summary_player_stats import collect_summary_season  # noqa: E402
+from summary_player_stats import collect_summary_season, render_leader_card  # noqa: E402
 from strike_rate import MIN_BALLS_LEADERBOARD, format_sr, format_sr_value  # noqa: E402
 
 BAT_HDR_FULL = (
@@ -44,6 +44,7 @@ ECC_NAMES = {
     "Drish",
     "Shyam",
     "Aanya",
+    "Ishaan",
 }
 MIN_OVERS_BEST_ECONOMY = 2.0
 def _build_innings_lookup() -> dict[str, list[dict[str, tuple[int, int]]]]:
@@ -200,8 +201,8 @@ def build_players_table_body(season: dict) -> str:
         rows.append(
             f'        <tr><td><strong>{name}</strong></td><td class="c">{s.matches}</td>'
             f'<td class="c">{s.innings}</td><td class="c">{s.runs}</td>'
-            f'<td class="c">{s.avg:.1f}</td><td class="c">{sr}</td>'
-            f'<td class="c">{s.hs}</td><td class="c">{s.fours}</td>'
+            f'<td class="c">{s.avg_match:.1f}</td><td class="c">{s.avg_inn:.1f}</td>'
+            f'<td class="c">{sr}</td><td class="c">{s.hs}</td><td class="c">{s.fours}</td>'
             f'<td class="c">{s.sixes}</td><td class="c {net_cls}">{net}</td></tr>'
         )
     return "\n".join(rows)
@@ -219,23 +220,15 @@ def build_strike_rate_leaderboard(season: dict) -> str:
         if s.balls >= MIN_BALLS_LEADERBOARD and s.sr is not None
     ]
     ranked.sort(key=lambda x: x[1].sr or 0, reverse=True)
-    lines = [
-        '      <div class="lbc"><div class="lbh">&#9889; Top Strike Rates '
+    top = ranked[:5]
+    title = (
+        '&#9889; Top Strike Rates '
         f'<span style="font-size:.7rem;color:var(--mgrey);font-weight:400;">'
-        f"(min {MIN_BALLS_LEADERBOARD} balls)</span></div>"
-    ]
-    for i, (name, s) in enumerate(ranked[:5]):
-        rank = f"r{i + 1}" if i < 3 else "rn"
-        row = (
-            f'        <div class="lbr"><div class="lbrk {rank}">{i + 1}</div>'
-            f'<div class="lbn">{name}</div><div class="lbv">{s.sr:.1f}</div></div>'
-        )
-        if i == len(ranked[:5]) - 1:
-            row += "</div>"
-        lines.append(row)
-    if not ranked[:5]:
-        lines.append("      </div>")
-    return "\n".join(lines)
+        f"(min {MIN_BALLS_LEADERBOARD} balls)</span>"
+    )
+    rows = [(name, f"{s.sr:.1f}") for name, s in top]
+    sort_keys = [s.sr or 0 for _name, s in top]
+    return render_leader_card(title, rows, sort_keys)
 
 
 def _season_best_economy_rows(html: str) -> list[tuple[str, float]]:
@@ -273,14 +266,9 @@ def _best_economy_card_from_html(html: str) -> str | None:
     rows = _season_best_economy_rows(html)
     if not rows:
         return None
-    lines = ['      <div class="lbc"><div class="lbh">&#128200; Best Economy (min 2 overs)</div>']
-    for i, (name, eco) in enumerate(rows):
-        rank = f"r{i + 1}" if i < 3 else "rn"
-        lines.append(
-            f'        <div class="lbr"><div class="lbrk {rank}">{i + 1}</div><div class="lbn">{name}</div><div class="lbv">{eco:.1f}</div></div>'
-        )
-    lines[-1] = f"{lines[-1]}</div>"
-    return "\n".join(lines)
+    display = [(name, f"{eco:.1f}") for name, eco in rows]
+    sort_keys = [eco for _name, eco in rows]
+    return render_leader_card("&#128200; Best Economy (min 2 overs)", display, sort_keys)
 
 
 def _match_summary_blocks(html: str) -> list[tuple[str, str]]:
@@ -362,33 +350,37 @@ def _best_bowling_figures_card(html: str) -> str | None:
     rows = _best_bowling_figures_rows(html)
     if not rows:
         return None
-    lines = ['      <div class="lbc"><div class="lbh">&#127942; Best Bowling Figures</div>']
-    for i, (name, match, wkts, runs) in enumerate(rows):
-        rank = f"r{i + 1}" if i < 3 else "rn"
-        lines.append(
-            f'        <div class="lbr"><div class="lbrk {rank}">{i + 1}</div>'
-            f'<div class="lbn">{name} <span style="font-size:.7rem;color:var(--mgrey);font-weight:400;">{match}</span></div>'
-            f'<div class="lbv">{wkts}/{runs}</div></div>'
+    display = [
+        (
+            f'{name} <span style="font-size:.7rem;color:var(--mgrey);font-weight:400;">{match}</span>',
+            f"{wkts}/{runs}",
         )
-    lines[-1] = f"{lines[-1]}</div>"
-    return "\n".join(lines)
+        for name, match, wkts, runs in rows
+    ]
+    sort_keys = [(wkts, runs) for _name, _match, wkts, runs in rows]
+    return render_leader_card("&#127942; Best Bowling Figures", display, sort_keys)
 
 
 def patch_players_tab(html: str, season: dict) -> str:
     html = re.sub(
-        r"Net Runs = Bat Runs &minus; 5 per wicket lost\. Avg = Bat Runs &divide; Innings\.(?: SR = runs &divide; balls faced &times; 100\.)?",
-        "Net Runs = Bat Runs &minus; 5 per wicket lost. "
-        "Avg = Bat Runs &divide; Innings. SR = runs &divide; balls faced &times; 100.",
+        r"Net Runs = Bat Runs &minus; 5 per wicket lost\.(?: Inn = dismissals \+ 1\.)? "
+        r"(?:Avg/M = Bat Runs &divide; M\. Avg/Inn = Bat Runs &divide; Inn\.|Avg = Bat Runs &divide; Innings\.) "
+        r"SR = runs &divide; balls faced &times; 100\.",
+        "Net Runs = Bat Runs &minus; 5 per wicket lost. Inn = dismissals + 1. "
+        "Avg/M = Bat Runs &divide; M. Avg/Inn = Bat Runs &divide; Inn. "
+        "SR = runs &divide; balls faced &times; 100.",
         html,
     )
     html = re.sub(
         r'<thead><tr><th>Batter</th><th class="c">M</th><th class="c">Inn</th>'
-        r'<th class="c">Bat Runs</th><th class="c">Avg</th>'
+        r'<th class="c">Bat Runs</th><th class="c">(?:Avg/M|Avg)</th>'
+        r'(?:<th class="c">Avg/Inn</th>)?'
         r'(?:<th class="c">SR</th>)?'
         r'<th class="c">HS</th><th class="c">4s</th><th class="c">6s</th><th class="c">Net Runs</th></tr></thead>',
         '<thead><tr><th>Batter</th><th class="c">M</th><th class="c">Inn</th>'
-        '<th class="c">Bat Runs</th><th class="c">Avg</th><th class="c">SR</th><th class="c">HS</th>'
-        '<th class="c">4s</th><th class="c">6s</th><th class="c">Net Runs</th></tr></thead>',
+        '<th class="c">Bat Runs</th><th class="c">Avg/M</th><th class="c">Avg/Inn</th>'
+        '<th class="c">SR</th><th class="c">HS</th><th class="c">4s</th><th class="c">6s</th>'
+        '<th class="c">Net Runs</th></tr></thead>',
         html,
         count=1,
     )
@@ -496,20 +488,22 @@ def patch_player_cards(html: str, season: dict) -> str:
     bat_rows: dict[str, dict[str, str]] = {}
     for m in re.finditer(
         r'<tr><td><strong>([^<]+)</strong></td><td class="c">\d+</td><td class="c">(\d+)</td><td class="c">(\d+)</td>'
-        r'<td class="c">([\d.]+)</td><td class="c">([\d.]+)</td><td class="c">(\d+)</td><td class="c">(\d+)</td><td class="c">(\d+)</td>'
+        r'<td class="c">([\d.]+)</td><td class="c">([\d.]+)</td><td class="c">([\d.]+)</td><td class="c">(\d+)</td>'
+        r'<td class="c">(\d+)</td><td class="c">(\d+)</td>'
         r'<td class="c (np|nn)">([^<]+)</td></tr>',
         html,
     ):
         bat_rows[m.group(1)] = {
             "inn": m.group(2),
             "runs": m.group(3),
-            "avg": m.group(4),
-            "sr": m.group(5),
-            "hs": m.group(6),
-            "fours": m.group(7),
-            "sixes": m.group(8),
-            "net_cls": m.group(9),
-            "net": m.group(10),
+            "avg_match": m.group(4),
+            "avg_inn": m.group(5),
+            "sr": m.group(6),
+            "hs": m.group(7),
+            "fours": m.group(8),
+            "sixes": m.group(9),
+            "net_cls": m.group(10),
+            "net": m.group(11),
         }
 
     bowl_rows: dict[str, dict[str, str]] = {}
@@ -552,7 +546,7 @@ def patch_player_cards(html: str, season: dict) -> str:
 
     card_order = [
         "Ariyan", "Avyaan", "Krish", "Veer", "Kaiyan", "Aanya",
-        "Taran", "Drish", "Shyam", "Qaim", "Viaan",
+        "Taran", "Drish", "Shyam", "Qaim", "Viaan", "Ishaan",
     ]
     cards: list[str] = []
     for name in card_order:
@@ -566,7 +560,9 @@ def patch_player_cards(html: str, season: dict) -> str:
             f'      <div class="pc"><div class="pnb">{name} <span>ECC</span></div>\n'
             '        <div class="pss"><div class="psst"><span><img src="icons/batsman_dark.png" style="width:18px;height:18px;vertical-align:middle;" alt="bat"></span> Batting</div>\n'
             f'          <div class="psr"><span class="psl">Inn</span><span class="psv">{b["inn"]}</span></div>\n'
-            f'          <div class="psr"><span class="psl">Bat Runs / Avg</span><span class="psv">{b["runs"]} / {b["avg"]}</span></div>\n'
+            f'          <div class="psr"><span class="psl">Bat Runs</span><span class="psv">{b["runs"]}</span></div>\n'
+            f'          <div class="psr"><span class="psl">Avg/Match</span><span class="psv">{b["avg_match"]}</span></div>\n'
+            f'          <div class="psr"><span class="psl">Avg/Inn</span><span class="psv">{b["avg_inn"]}</span></div>\n'
             f'          <div class="psr"><span class="psl">Best Batting Score</span><span class="psv">{b["hs"]}</span></div>\n'
             f'          <div class="psr"><span class="psl">Strike Rate</span><span class="psv">{b["sr"]}</span></div>\n'
             f'          <div class="psr"><span class="psl">4s / 6s</span><span class="psv">{b["fours"]} / {b["sixes"]}</span></div>\n'

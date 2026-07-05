@@ -164,7 +164,7 @@ def _record_best_figure(
 
 
 def _sheet_team_name(label: str) -> str:
-    m = re.search(r"INNINGS\s+\d+\s*[—–-]\s*(.+?)\s+BATTING", label, re.I)
+    m = re.search(r"INNINGS\s+\d+\s*[·-]\s*(.+?)\s+BATTING", label, re.I)
     return m.group(1).strip() if m else label
 
 

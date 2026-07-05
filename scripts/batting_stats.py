@@ -100,7 +100,7 @@ def collect_all_innings() -> list[InningsBatting]:
 
 
 def collect_ecc_season() -> dict[str, SeasonBatting]:
-    """Aggregate ECC batting across M2–M6 (Edgware CC innings only)."""
+    """Aggregate ECC batting across M2-M6 (Edgware CC innings only)."""
     season: dict[str, SeasonBatting] = {name: SeasonBatting() for name in ECC_NAMES}
     for inn in collect_all_innings():
         if "Edgware" not in inn.team and inn.team != "Edgware CC":

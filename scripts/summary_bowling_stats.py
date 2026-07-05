@@ -43,7 +43,7 @@ def _match_summary_block(html: str, match_id: str) -> str:
 
 
 def _extract_ecc_bowling_table(block: str) -> str:
-    marker = "Edgware CC &mdash; Bowling"
+    marker = "Edgware CC · Bowling"
     at = block.find(marker)
     if at == -1:
         return ""

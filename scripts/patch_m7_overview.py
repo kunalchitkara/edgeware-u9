@@ -7,14 +7,19 @@ import re
 from pathlib import Path
 
 from partnership_stats import collect_ecc_partnerships
-from summary_player_stats import SummarySeason, collect_summary_season, derive_shared_leaderboards
+from summary_player_stats import (
+    SummarySeason,
+    collect_summary_season,
+    derive_shared_leaderboards,
+    render_leader_card,
+)
 
 ROOT = Path(__file__).resolve().parents[1]
 INDEX = ROOT / "index.html"
 
 NEXT_MATCH = (
     '  <div class="nm"><div class="nmi">&#128197;</div>'
-    '<div class="nminfo"><h3>Next Match &mdash; 5 Jul 2026</h3>'
+    '<div class="nminfo"><h3>Next Match · 5 Jul 2026</h3>'
     "<p>&#9992;&#65039; Harefield vs Edgware &nbsp;&middot;&nbsp; Away &nbsp;&middot;&nbsp; "
     "Harefield &nbsp;&middot;&nbsp; 09:00 / 10:00 AM</p></div></div>"
 )
@@ -31,7 +36,8 @@ OVERVIEW_STATS = """  <div class="sgrid">
 PLAYERS_NOTE = (
     '<p style="font-size:.8rem;color:var(--mgrey);margin-bottom:16px;">'
     "Based on M2, M4, M5, M6 &amp; M7 (M1 &amp; M3 walkovers). "
-    "Net Runs = Bat Runs &minus; 5 per wicket lost. Avg = Bat Runs &divide; Innings. "
+    "Net Runs = Bat Runs &minus; 5 per wicket lost. Inn = dismissals + 1. "
+    "Avg/M = Bat Runs &divide; M. Avg/Inn = Bat Runs &divide; Inn. "
     "SR = runs &divide; balls faced &times; 100. Updated with M7 pressure-phase bowling and fielding highlights.</p>"
 )
 
@@ -161,20 +167,20 @@ MOST_SIXES_BEFORE_ECONOMY = (
 )
 
 MATCH_BUTTON_LABELS: dict[str, str] = {
-    "m1": "Pinner &mdash; 26 Apr",
-    "m2": "H Manor &mdash; 10 May &#127942;",
-    "m3": "Harefield &mdash; 24 May",
-    "m4": "Hayes &mdash; 31 May",
-    "m5": "Harefield &mdash; 7 Jun &#127942;",
-    "m6": "Pinner &mdash; 14 Jun",
-    "m7": "H Manor &mdash; 21 Jun &#127942;",
+    "m1": "Pinner · 26 Apr",
+    "m2": "H Manor · 10 May &#127942;",
+    "m3": "Harefield · 24 May",
+    "m4": "Hayes · 31 May",
+    "m5": "Harefield · 7 Jun &#127942;",
+    "m6": "Pinner · 14 Jun",
+    "m7": "H Manor · 21 Jun &#127942;",
 }
 
-M2_ECC_FIELDING_ROWS = """<tr class="scfi"><td class="scb">Krish</td><td class="c"><strong>1</strong></td><td class="c"><strong>0</strong></td><td>c Aryan b Viaan — Ov 9</td></tr>
-<tr class="scfi"><td class="scb">Qaim</td><td class="c"><strong>0</strong></td><td class="c"><strong>1</strong></td><td>run out (Qaim) — Ov 11 (Rafe)</td></tr>"""
+M2_ECC_FIELDING_ROWS = """<tr class="scfi"><td class="scb">Krish</td><td class="c"><strong>1</strong></td><td class="c"><strong>0</strong></td><td>c Aryan b Viaan, Ov 9</td></tr>
+<tr class="scfi"><td class="scb">Qaim</td><td class="c"><strong>0</strong></td><td class="c"><strong>1</strong></td><td>run out (Qaim), Ov 11 (Rafe)</td></tr>"""
 
 M2_ECC_BOWLING_SECTION = """      <div class="sci" style="margin-top:20px;">
-        <div class="scih"><span><img src="icons/ball_light.png" style="width:18px;height:18px;vertical-align:middle;" alt="ball"> Edgware CC &mdash; Bowling</span></div>
+        <div class="scih"><span><img src="icons/ball_light.png" style="width:18px;height:18px;vertical-align:middle;" alt="ball"> Edgware CC · Bowling</span></div>
         <div class="tscroll"><table class="sctbl">
           <thead><tr><th>Bowler</th><th class="c">O</th><th class="c">R</th><th class="c">W</th><th class="c">WD</th><th class="c">NB</th><th class="c">ECO</th><th class="c">Dots</th></tr></thead>
           <tbody>
@@ -323,14 +329,16 @@ def _replace_batting_table_from_source(html: str, season: SummarySeason) -> str:
         net_text = f"+{stats.net}" if stats.net >= 0 else f"&minus;{abs(stats.net)}"
         rows.append(
             f'        <tr><td><strong>{name}</strong></td><td class="c">{stats.matches}</td><td class="c">{stats.innings}</td>'
-            f'<td class="c">{stats.runs}</td><td class="c">{stats.avg:.1f}</td><td class="c">{stats.sr:.1f}</td>'
-            f'<td class="c">{stats.hs}</td><td class="c">{stats.fours}</td><td class="c">{stats.sixes}</td>'
-            f'<td class="c {net_cls}">{net_text}</td></tr>'
+            f'<td class="c">{stats.runs}</td><td class="c">{stats.avg_match:.1f}</td><td class="c">{stats.avg_inn:.1f}</td>'
+            f'<td class="c">{stats.sr:.1f}</td><td class="c">{stats.hs}</td><td class="c">{stats.fours}</td>'
+            f'<td class="c">{stats.sixes}</td><td class="c {net_cls}">{net_text}</td></tr>'
         )
     from patch_m6_overview import _replace_table_body  # noqa: WPS433
     return _replace_table_body(
         html,
-        '<tr><th>Batter</th><th class="c">M</th><th class="c">Inn</th><th class="c">Bat Runs</th><th class="c">Avg</th><th class="c">SR</th><th class="c">HS</th><th class="c">4s</th><th class="c">6s</th><th class="c">Net Runs</th></tr>',
+        '<tr><th>Batter</th><th class="c">M</th><th class="c">Inn</th><th class="c">Bat Runs</th>'
+        '<th class="c">Avg/M</th><th class="c">Avg/Inn</th><th class="c">SR</th><th class="c">HS</th>'
+        '<th class="c">4s</th><th class="c">6s</th><th class="c">Net Runs</th></tr>',
         "\n".join(rows),
     )
 
@@ -387,15 +395,15 @@ def _replace_players_fielding_table(html: str, body_rows: str) -> str:
     return html[:tab_pl_start] + tab_pl + html[tab_lb_start:]
 
 
-def _leader_card(title_html: str, rows: list[tuple[str, str]], use_match_tag: bool = False) -> str:
-    card = [f'      <div class="lbc"><div class="lbh">{title_html}</div>']
-    for idx, (name, value) in enumerate(rows[:5]):
-        rank = f"r{idx + 1}" if idx < 3 else "rn"
-        card.append(
-            f'        <div class="lbr"><div class="lbrk {rank}">{idx + 1}</div><div class="lbn">{name}</div><div class="lbv">{value}</div></div>'
-        )
-    card[-1] = f"{card[-1]}</div>"
-    return "\n".join(card)
+def _leader_card(
+    title_html: str,
+    rows: list[tuple[str, str, int | float]],
+    *,
+    limit: int = 5,
+) -> str:
+    display = [(name, value) for name, value, _sort in rows]
+    sort_keys = [sort for _name, _value, sort in rows]
+    return render_leader_card(title_html, display, sort_keys, limit=limit)
 
 
 def _replace_most_wickets_card(html: str, leaders: dict[str, list[tuple[str, str]]]) -> str:
@@ -447,6 +455,7 @@ def _replace_best_bowling_figures_card(html: str) -> str:
         (
             f'{name} <span style="font-size:.7rem;color:var(--mgrey);font-weight:400;">{fig[0]}</span>',
             f"{fig[1]}/{fig[2]}",
+            (fig[1], fig[2]),
         )
         for name, fig in ranked
     ]
@@ -569,6 +578,7 @@ def _replace_best_partnerships_card(html: str) -> str:
         (
             f'{p.b1} &amp; {p.b2} <span style="font-size:.7rem;color:var(--mgrey);font-weight:400;">{p.match}</span>',
             f"+{p.net}",
+            p.net,
         )
         for p in ranked
     ]
@@ -592,7 +602,7 @@ def _replace_tab_lb_block(html: str) -> str:
     replacement = (
         '<div id="tab-lb" class="tab">\n'
         '  <div class="card">\n'
-        '    <div class="ctitle">&#127942; Season Leaderboards &mdash; ECC Players</div>\n'
+        '    <div class="ctitle">&#127942; Season Leaderboards · ECC Players</div>\n'
         f"    {LEADERS_NOTE}\n"
         f"{LEADERS_GRID}\n"
         "  </div>\n"
@@ -643,7 +653,7 @@ def _repair_m2_summary_bowling_ecc(html: str) -> str:
     block = html[start:end]
 
     section_pat = re.compile(
-        r'<div class="sci" style="margin-top:20px;">\s*<div class="scih"><span><img src="icons/ball_light\.png"[^>]*> Edgware CC &mdash; Bowling</span></div>.*?</div>\s*</div>',
+        r'<div class="sci" style="margin-top:20px;">\s*<div class="scih"><span><img src="icons/ball_light\.png"[^>]*> Edgware CC · Bowling</span></div>.*?</div>\s*</div>',
         flags=re.DOTALL,
     )
     if section_pat.search(block):
@@ -671,8 +681,8 @@ def main() -> None:
     html = INDEX.read_text(encoding="utf-8")
 
     html = html.replace(
-        '<h3>Next Match &mdash; 21 Jun 2026</h3><p>&#127968; Edgware vs H Manor &nbsp;&middot;&nbsp; Home &nbsp;&middot;&nbsp; Canons High School &nbsp;&middot;&nbsp; 09:00 / 10:00 AM</p>',
-        '<h3>Next Match &mdash; 5 Jul 2026</h3><p>&#9992;&#65039; Harefield vs Edgware &nbsp;&middot;&nbsp; Away &nbsp;&middot;&nbsp; Harefield &nbsp;&middot;&nbsp; 09:00 / 10:00 AM</p>',
+        '<h3>Next Match · 21 Jun 2026</h3><p>&#127968; Edgware vs H Manor &nbsp;&middot;&nbsp; Home &nbsp;&middot;&nbsp; Canons High School &nbsp;&middot;&nbsp; 09:00 / 10:00 AM</p>',
+        '<h3>Next Match · 5 Jul 2026</h3><p>&#9992;&#65039; Harefield vs Edgware &nbsp;&middot;&nbsp; Away &nbsp;&middot;&nbsp; Harefield &nbsp;&middot;&nbsp; 09:00 / 10:00 AM</p>',
         1,
     )
 
@@ -697,7 +707,9 @@ def main() -> None:
 
     html = _replace_table_body(
         html,
-        '<tr><th>Batter</th><th class="c">M</th><th class="c">Inn</th><th class="c">Bat Runs</th><th class="c">Avg</th><th class="c">SR</th><th class="c">HS</th><th class="c">4s</th><th class="c">6s</th><th class="c">Net Runs</th></tr>',
+        '<tr><th>Batter</th><th class="c">M</th><th class="c">Inn</th><th class="c">Bat Runs</th>'
+        '<th class="c">Avg/M</th><th class="c">Avg/Inn</th><th class="c">SR</th><th class="c">HS</th>'
+        '<th class="c">4s</th><th class="c">6s</th><th class="c">Net Runs</th></tr>',
         BAT_TABLE_BODY,
     )
     html = _replace_table_body(

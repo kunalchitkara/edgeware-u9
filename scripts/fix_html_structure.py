@@ -12,7 +12,7 @@ INDEX = ROOT / "index.html"
 
 # Import boundary helpers from patch_index when run as module/script.
 sys.path.insert(0, str(ROOT / "scripts"))
-from patch_index import fix_tab_lb_boundary, fix_tab_mx_boundary, fix_tab_pl_boundary  # noqa: E402
+from patch_index import fix_tab_lb_boundary, fix_tab_mx_boundary, fix_tab_ov_boundary, fix_tab_pl_boundary  # noqa: E402
 
 
 MOST_WICKETS = """      <div class="lbc"><div class="lbh"><img src="icons/ball_light.png" style="width:18px;height:18px;vertical-align:middle;" alt="ball"> Most Wickets</div>
@@ -158,6 +158,7 @@ def validate_structure(html: str) -> None:
 
 def main() -> None:
     html = INDEX.read_text(encoding="utf-8")
+    html = fix_tab_ov_boundary(html)
     html = fix_tab_mx_boundary(html)
     html = fix_tab_pl_boundary(html)
     html = fix_tab_lb_boundary(html)

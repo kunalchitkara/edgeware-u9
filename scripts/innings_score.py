@@ -11,13 +11,13 @@ def format_innings_score(runs: int, wickets: int, overs: int) -> str:
     return f"{runs} - {wickets} ({overs} Ov)"
 
 
-# (runs, wickets, overs) per innings — sourced from summary totals / fall-of-wickets.
+# (runs, wickets, overs) per innings, sourced from summary totals / fall-of-wickets.
 STATIC_MATCH_INNINGS: dict[str, list[tuple[int, int, int]]] = {
-    # Hayes vs ECC (31 May) — wicket counts from innings total rows.
+    # Hayes vs ECC (31 May), wicket counts from innings total rows.
     "m4": [(281, 9, 20), (230, 15, 20)],
-    # H Manor vs ECC (10 May) — inn1: 3 FoW; inn2: 4 FoW (Pranil out twice).
+    # H Manor vs ECC (10 May), inn1: 3 FoW; inn2: 4 FoW (Pranil out twice).
     "m2": [(297, 3, 16), (265, 4, 16)],
-    # ECC vs Harefield (7 Jun) — inn1: 4 wkts total row; inn2: 3 bowler + 7 run-outs.
+    # ECC vs Harefield (7 Jun), inn1: 4 wkts total row; inn2: 3 bowler + 7 run-outs.
     "m5": [(315, 4, 20), (307, 10, 20)],
     "m6": [(263, 4, 16), (308, 3, 16)],
     # M7 uses wicket-event scoring convention (repeat dismissals count as events): 192-13.

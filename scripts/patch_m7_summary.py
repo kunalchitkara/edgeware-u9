@@ -55,7 +55,7 @@ def partnership_row(p: dict) -> str:
     net = p["net"]
     sign = "+" if net >= 0 else "&minus;"
     cls = "scnp" if net >= 0 else "scnn"
-    ov_range = {"P1": "1&ndash;4", "P2": "5&ndash;8", "P3": "9&ndash;12", "P4": "13&ndash;16"}[p["label"]]
+    ov_range = {"P1": "1-4", "P2": "5-8", "P3": "9-12", "P4": "13-16"}[p["label"]]
     return (
         f'<tr><td>{p["label"]} (Ov {ov_range})</td><td class="scpb1">{p["b1"]}</td>'
         f'<td class="c {cls}"><strong>{sign}{abs(net)}</strong></td><td class="scpb2">{p["b2"]}</td></tr>'
@@ -104,10 +104,10 @@ def fielding_from_bbb(inn: dict) -> list[dict]:
             )
             if symbol == "C":
                 row["catches"] = int(row["catches"]) + 1
-                row["detail_parts"].append(f"c {batter} b {bowler} — Ov {over_num}")
+                row["detail_parts"].append(f"c {batter} b {bowler}, Ov {over_num}")
             else:
                 row["run_outs"] = int(row["run_outs"]) + 1
-                row["detail_parts"].append(f"run out ({fielder}) — Ov {over_num} ({batter})")
+                row["detail_parts"].append(f"run out ({fielder}), Ov {over_num} ({batter})")
 
     rows: list[dict] = []
     for value in summary.values():
@@ -135,7 +135,7 @@ def build_m7_fun_facts(data: dict) -> str:
         ),
         (
             "&#127919;",
-            f"<strong>Two-over pressure:</strong> Avyaan struck twice in over 2 and Krish struck twice in over 8 — "
+            f"<strong>Two-over pressure:</strong> Avyaan struck twice in over 2 and Krish struck twice in over 8, "
             f"a pair of key two-wicket overs that built scoreboard pressure.",
         ),
         (
@@ -224,7 +224,7 @@ def build_m7_summary_card(data: dict) -> str:
       </div>
 
       <div class="sci">
-        <div class="scih"><span><img src="icons/batsman_light.png" style="width:18px;height:18px;vertical-align:middle;" alt="bat"> Edgware CC &mdash; Batting 1st Innings</span><span class="sct">{format_innings_score(ecc_total, ecc_wkts, 16)}</span></div>
+        <div class="scih"><span><img src="icons/batsman_light.png" style="width:18px;height:18px;vertical-align:middle;" alt="bat"> Edgware CC · Batting 1st Innings</span><span class="sct">{format_innings_score(ecc_total, ecc_wkts, 16)}</span></div>
         {tbl(bat_hdr, chr(10).join(bat_row(b) for b in inn1["batting_summary"]), f'<tr class="sctot"><td colspan="2"><strong>Total</strong></td><td class="c" colspan="5"><strong>{ecc_total} &nbsp;(16 Ov &nbsp;|&nbsp; Base 200 + {ecc_play} from play &nbsp;|&nbsp; {ecc_wkts} wkts)</strong></td></tr>')}
         <div class="scsh">&#129309; Partnerships</div>
         {tbl(p_hdr, chr(10).join(partnership_row(p) for p in inn1["partnerships"]))}
@@ -232,14 +232,14 @@ def build_m7_summary_card(data: dict) -> str:
       </div>
 
       <div class="sci" style="margin-top:20px;">
-        <div class="scih sct2"><span><img src="icons/ball_light.png" style="width:18px;height:18px;vertical-align:middle;" alt="ball"> Headstone Manor &mdash; Bowling</span></div>
+        <div class="scih sct2"><span><img src="icons/ball_light.png" style="width:18px;height:18px;vertical-align:middle;" alt="ball"> Headstone Manor · Bowling</span></div>
         {tbl(bowl_hdr, chr(10).join(bowl_row(b) for b in inn1["bowling_summary"]))}
       </div>
 
       <div class="sdiv"></div>
 
       <div class="sci">
-        <div class="scih"><span><img src="icons/batsman_light.png" style="width:18px;height:18px;vertical-align:middle;" alt="bat"> Headstone Manor &mdash; Batting 2nd Innings</span><span class="sct">{format_innings_score(hsm_total, hsm_wkts, 16)}</span></div>
+        <div class="scih"><span><img src="icons/batsman_light.png" style="width:18px;height:18px;vertical-align:middle;" alt="bat"> Headstone Manor · Batting 2nd Innings</span><span class="sct">{format_innings_score(hsm_total, hsm_wkts, 16)}</span></div>
         {tbl(bat_hdr, chr(10).join(bat_row(b) for b in inn2["batting_summary"]), f'<tr class="sctot"><td colspan="2"><strong>Total</strong></td><td class="c" colspan="5"><strong>{hsm_total} &nbsp;(16 Ov &nbsp;|&nbsp; Base 200 + {hsm_play} from play &nbsp;|&nbsp; {hsm_wkts} wkts &nbsp;|&nbsp; Target {target})</strong></td></tr>')}
         <div class="scsh">&#129309; Partnerships</div>
         {tbl(p_hdr, chr(10).join(partnership_row(p) for p in inn2["partnerships"]))}
@@ -247,7 +247,7 @@ def build_m7_summary_card(data: dict) -> str:
       </div>
 
       <div class="sci" style="margin-top:20px;">
-        <div class="scih"><span><img src="icons/ball_light.png" style="width:18px;height:18px;vertical-align:middle;" alt="ball"> Edgware CC &mdash; Bowling</span></div>
+        <div class="scih"><span><img src="icons/ball_light.png" style="width:18px;height:18px;vertical-align:middle;" alt="ball"> Edgware CC · Bowling</span></div>
         {tbl(bowl_hdr, chr(10).join(bowl_row(b) for b in inn2["bowling_summary"]))}
       </div>
 
@@ -285,16 +285,16 @@ def inject_m7_match(html: str, data: dict) -> str:
             raise SystemExit("Could not find insertion point for M7 match block")
         html = html[: anchor.start()] + block + html[anchor.start() :]
 
-        if "M7 &mdash; 21 Jun" not in html:
+        if "M7 · 21 Jun" not in html:
             html = html.replace(
-                '<button class="mtb" onclick="showMatch(\'m6\',this)">M6 &mdash; 14 Jun</button>\n  </div>',
-                '<button class="mtb" onclick="showMatch(\'m6\',this)">M6 &mdash; 14 Jun</button>\n'
-                '    <button class="mtb" onclick="showMatch(\'m7\',this)">M7 &mdash; 21 Jun &#127942;</button>\n  </div>',
+                '<button class="mtb" onclick="showMatch(\'m6\',this)">M6 · 14 Jun</button>\n  </div>',
+                '<button class="mtb" onclick="showMatch(\'m6\',this)">M6 · 14 Jun</button>\n'
+                '    <button class="mtb" onclick="showMatch(\'m7\',this)">M7 · 21 Jun &#127942;</button>\n  </div>',
                 1,
             )
 
     html = html.replace(
-        '<tr><td>7</td><td>21 Jun</td><td>Edgware vs H Manor</td><td class="c"><span class="bdg home">Home</span></td><td class="c">&mdash;</td><td class="c">&mdash;</td><td class="c"><span class="bdg tbd">TBD</span></td><td class="c">&mdash;</td><td class="c"><a class="sl" href="#mx">&#128202; Scorecard</a></td></tr>',
+        '<tr><td>7</td><td>21 Jun</td><td>Edgware vs H Manor</td><td class="c"><span class="bdg home">Home</span></td><td class="c">-</td><td class="c">-</td><td class="c"><span class="bdg tbd">TBD</span></td><td class="c">-</td><td class="c"><a class="sl" href="#mx">&#128202; Scorecard</a></td></tr>',
         f'<tr><td>7</td><td>21 Jun</td><td>Edgware vs H Manor</td><td class="c"><span class="bdg home">Home</span></td><td class="c"><strong>{ecc_total}</strong></td><td class="c">{hsm_total}</td><td class="c"><span class="bdg win">WIN</span></td><td class="c">Won by {margin} runs</td><td class="c"><a class="sl" href="#mx/m7">&#128202; Scorecard</a></td></tr>',
         1,
     )

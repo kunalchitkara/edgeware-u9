@@ -15,6 +15,35 @@ BASE_SCORE = 200
 PAIR_OVERS = 4
 DATA_DIR = Path(__file__).resolve().parents[1] / "data"
 
+EM_DASH = "\u2014"
+EN_DASH = "\u2013"
+
+
+def sanitize_user_text(text: str) -> str:
+    """Remove em/en dashes from strings shown on the site."""
+    if not text:
+        return text
+    text = text.replace(EN_DASH, "-")
+    specifics = [
+        (f" {EM_DASH} Ov ", ", Ov "),
+        (f" {EM_DASH} Innings ", " · Innings "),
+        (f" {EM_DASH} Batting", " · Batting"),
+        (f" {EM_DASH} Bowling", " · Bowling"),
+        ("FOUR" + EM_DASH, "FOUR:"),
+        ("1 run" + EM_DASH, "1 run,"),
+        ("catch dropped" + EM_DASH, "catch dropped:"),
+        ("pairs re-out" + EM_DASH, "pairs re-out:"),
+        ("run out (Ariyan)" + EM_DASH, "run out (Ariyan):"),
+        ("Away" + EM_DASH, "Away ·"),
+        ("Home" + EM_DASH, "Home ·"),
+    ]
+    for old, new in specifics:
+        text = text.replace(old, new)
+    text = re.sub(rf"\s*{EM_DASH}\s*", " · ", text)
+    text = text.replace(EM_DASH, " · ")
+    text = re.sub(r" · +· ", " · ", text)
+    return text
+
 
 def pair_batter_summaries(
     batting_order: list[str],
@@ -55,6 +84,12 @@ MATCHES = {
         "overs": 16,
         "teams": ("Edgware CC", "Headstone Manor"),
         "local": "data/m7.json",
+    },
+    "m8": {
+        "label": "M8",
+        "overs": 20,
+        "teams": ("Edgware CC", "Harefield"),
+        "local": "data/m8.json",
     },
 }
 
@@ -217,7 +252,7 @@ def innings_json_to_render_data(inn: dict) -> tuple[list[list[str]], list[tuple[
         overs_list.append((over["num"], over["bowler"], ball_cols))
 
     inn_obj = Innings(
-        title=f"Innings {inn['num']} — {inn['batting']}",
+        title=f"Innings {inn['num']} · {inn['batting']}",
         team_name=inn["batting"],
         innings_num=inn["num"],
         batsmen=[(bat_row_idx[n], n) for n in batsmen if n in bat_row_idx],
@@ -263,7 +298,7 @@ def json_to_sheet_rows(data: dict) -> list[list[str]]:
     for inn in data["innings"]:
         inn_num = inn["num"]
         title = (
-            f"INNINGS {inn_num} — {inn['batting']} BATTING "
+            f"INNINGS {inn_num} · {inn['batting']} BATTING "
             f"| {inn['bowling']} BOWLING | Base: 200"
         )
         rows.append([title] + [""] * (len(header) - 1))
@@ -327,7 +362,7 @@ def load_sheet(gid: str) -> list[list[str]]:
 def cell(row: list[str], col: int) -> str:
     if col >= len(row):
         return ""
-    return (row[col] or "").strip()
+    return sanitize_user_text((row[col] or "").strip())
 
 
 def parse_overs(header_row: list[str]) -> list[tuple[int, str, list[int]]]:
@@ -406,7 +441,7 @@ def parse_innings(rows: list[list[str]]) -> list[Innings]:
 
 
 def extract_team_name(title: str) -> str:
-    m = re.search(r"INNINGS\s+\d+\s*[—–-]\s*(.+?)\s+BATTING", title, re.I)
+    m = re.search(r"INNINGS\s+\d+\s*[·\-\u2014\u2013]\s*(.+?)\s+BATTING", sanitize_user_text(title), re.I)
     if m:
         return m.group(1).strip()
     if title.startswith("Innings"):
@@ -443,7 +478,7 @@ def ball_label(over_1indexed: int, delivery_index: int, total_deliveries: int) -
 
 
 def count_over_deliveries(raw: list[tuple[str, str, int | None]]) -> int:
-    """Count delivery slots that produce output (B7–B9 extras included)."""
+    """Count delivery slots that produce output (B7-B9 extras included)."""
     n = 0
     for _, symbol, ball_idx in raw:
         if not symbol and ball_idx is None:
@@ -566,7 +601,7 @@ def extract_over_deliveries(
     rows: list[list[str]],
     ball_cols: list[int],
 ) -> list[tuple[str, str, int | None]]:
-    """One entry per sheet column; ball_idx 1–6 for B1–B6, None for B7–B9 extras."""
+    """One entry per sheet column; ball_idx 1-6 for B1-B6, None for B7-B9 extras."""
     found: list[tuple[str, str, int | None]] = []
     for i, col in enumerate(ball_cols):
         ball_idx = (i + 1) if i < 6 else None
@@ -752,7 +787,7 @@ def render_delivery_row(d: Delivery) -> str:
         f'<span class="bbb-ov">{html.escape(d.notation)}</span>'
         f'<span class="bbb-badge {d.badge_class}{boundary}">{html.escape(d.symbol)}</span>'
         f'<span class="bbb-desc">'
-        f"{html.escape(d.description)}"
+        f"{html.escape(sanitize_user_text(d.description))}"
         f'<span class="bbb-meta">{html.escape(d.batter)}*</span>'
         f"</span>"
         f'<span class="bbb-score">{d.total_score}-{d.wickets}</span>'
@@ -762,7 +797,7 @@ def render_delivery_row(d: Delivery) -> str:
 
 def render_over(block: OverBlock, uid: str) -> str:
     star = " ★" if block.is_last else ""
-    over_label = f"{ord_over(block.over_num)} — {html.escape(block.bowler)}{star}"
+    over_label = f"{ord_over(block.over_num)} · {html.escape(block.bowler)}{star}"
 
     batters_bits = []
     for name, runs, balls, is_striker in block.batter_summaries:
@@ -807,7 +842,7 @@ def render_over(block: OverBlock, uid: str) -> str:
 def events_from_item(item: dict, facing: str, bowler: str) -> list[BallEvent]:
     """Build BallEvents from JSON delivery, honouring explicit runs/description/fielder."""
     symbol = (item.get("symbol") or "").strip()
-    desc_override = (item.get("description") or "").strip()
+    desc_override = sanitize_user_text((item.get("description") or "").strip())
     fielder = (item.get("fielder") or "").strip()
     runs_override = item.get("runs")
     bat_override = item.get("bat_runs")
@@ -820,18 +855,31 @@ def events_from_item(item: dict, facing: str, bowler: str) -> list[BallEvent]:
     else:
         events = expand_symbol(symbol, facing, bowler)
 
-    if wicket_override:
+    if wicket_override is False:
+        for ev in events:
+            ev.is_wicket = False
+            if ev.runs_delta == -5:
+                ev.runs_delta = 0
+            if ev.symbol == "W":
+                ev.symbol = "."
+                ev.badge_class = "bbb-badge-dot"
+    elif wicket_override:
         for ev in events:
             ev.is_wicket = True
             ev.runs_delta = -5
             ev.bat_runs = 0
     if runs_override is not None:
+        counting_wkt = (
+            False
+            if wicket_override is False
+            else bool(wicket_override or (events and events[0].is_wicket))
+        )
         events = [BallEvent(
             symbol=events[0].symbol if events else symbol[:3],
             description=desc_override or events[0].description if events else symbol,
             badge_class=events[0].badge_class if events else "bbb-badge-other",
             runs_delta=int(runs_override),
-            is_wicket=bool(wicket_override or (events and events[0].is_wicket)),
+            is_wicket=counting_wkt,
             is_legal=events[0].is_legal if events else True,
             bat_runs=int(bat_override) if bat_override is not None else (events[0].bat_runs if events else 0),
             is_boundary=bool(bat_override == 4 or bat_override == 6 or symbol in {"4", "6"}),
@@ -926,8 +974,8 @@ def simulate_innings_json(inn_data: dict) -> tuple[list[OverBlock], dict[str, Ba
             if item.get("notation"):
                 notation = item["notation"]
             elif ball_idx is not None:
-                max_ball = max((d.get("ball_index") or 0) for d in deliveries) or ball_idx
-                notation = f"{onum}.0" if ball_idx == max_ball else f"{onum - 1}.{ball_idx}"
+                total = len(deliveries)
+                notation = ball_label(onum, ball_idx, total)
             else:
                 notation = f"{onum}.0"
 
@@ -938,7 +986,7 @@ def simulate_innings_json(inn_data: dict) -> tuple[list[OverBlock], dict[str, Ba
                     Delivery(
                         notation=notation,
                         symbol=".",
-                        description=item.get("description") or "no run",
+                        description=sanitize_user_text(item.get("description") or "no run"),
                         batter=facing,
                         bowler=bowler,
                         total_score=total_score,
@@ -1028,7 +1076,7 @@ def simulate_innings_json(inn_data: dict) -> tuple[list[OverBlock], dict[str, Ba
 def render_innings_json(inn_data: dict, match_id: str) -> str:
     blocks, _stats = simulate_innings_json(inn_data)
     inn_label = (
-        f"{html.escape(inn_data['batting'])} — Innings {inn_data['num']}"
+        f"{html.escape(inn_data['batting'])} · Innings {inn_data['num']}"
     )
     parts = [
         '<section class="bbb-panel">',
@@ -1069,7 +1117,7 @@ def render_innings(
     match_id: str,
 ) -> str:
     blocks, _stats = simulate_innings(inn, rows, overs)
-    inn_label = f"{html.escape(inn.team_name)} — Innings {inn.innings_num}"
+    inn_label = f"{html.escape(inn.team_name)} · Innings {inn.innings_num}"
 
     parts = [
         '<section class="bbb-panel">',
@@ -1114,25 +1162,25 @@ def render_pending(match_id: str, cfg: dict) -> str:
         '<div class="bbb-wrap">'
         '<section class="bbb-panel">'
         '<div class="bbb-inn-bar">'
-        f"<span>{html.escape(teams[0])} — Innings 1</span>"
+        f"<span>{html.escape(teams[0])} · Innings 1</span>"
         f"<span>{COMMENTARY_LABEL}</span>"
         "</div>"
         '<div class="bbb-list">'
         '<li class="bbb-ball-row empty" style="display:block;padding:20px 14px;">'
         "<span class=\"bbb-desc\" style=\"text-align:center;\">"
-        f"<strong>Scores pending</strong> — {html.escape(cfg['label'])} ball-by-ball will appear here "
+        f"<strong>Scores pending</strong>: {html.escape(cfg['label'])} ball-by-ball will appear here "
         "once the Google Sheet is scored."
         "</span></li>"
         "</div></section>"
         '<section class="bbb-panel">'
         '<div class="bbb-inn-bar">'
-        f"<span>{html.escape(teams[1])} — Innings 2</span>"
+        f"<span>{html.escape(teams[1])} · Innings 2</span>"
         f"<span>{COMMENTARY_LABEL}</span>"
         "</div>"
         '<div class="bbb-list">'
         '<li class="bbb-ball-row empty" style="display:block;padding:20px 14px;">'
         "<span class=\"bbb-desc\" style=\"text-align:center;\">"
-        f"<strong>Scores pending</strong> — {overs} overs per innings · base score 200."
+        f"<strong>Scores pending</strong>: {overs} overs per innings · base score 200."
         "</span></li>"
         "</div></section>"
         "</div>"

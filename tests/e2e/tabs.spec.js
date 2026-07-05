@@ -1,5 +1,5 @@
 /**
- * Edgeware U9 static site — tab navigation e2e tests.
+ * Edgeware U9 static site, tab navigation e2e tests.
  *
  * Prerequisites:
  *   1. Serve index.html on http://localhost:8080 (e.g. `python3 -m http.server 8080`)
@@ -23,7 +23,7 @@ const TAB_CASES = [
     tabId: "tab-fx",
     assert: async (page) => {
       await expect(
-        page.getByText("Cricket Summer Term 2026 — U9 Softball Sunday Fixtures"),
+        page.getByText("Cricket Summer Term 2026 · U9 Softball Sunday Fixtures"),
       ).toBeVisible();
       await expect(page.locator("#tab-fx tbody tr")).toHaveCount(12);
     },
@@ -32,7 +32,7 @@ const TAB_CASES = [
     hash: "mx",
     tabId: "tab-mx",
     assert: async (page) => {
-      await expect(page.locator("#tab-mx .mts .mtb")).toHaveCount(7);
+      await expect(page.locator("#tab-mx .mts .mtb")).toHaveCount(8);
       const latest = await page.evaluate(() => window.latestMatch());
       await expect(page.locator(`#match-${latest}.md2.active`)).toBeVisible();
     },
@@ -63,7 +63,7 @@ const TAB_CASES = [
     tabId: "tab-ru",
     assert: async (page) => {
       await expect(
-        page.getByText("U9 Softball — Match Rules & Scoring Guide"),
+        page.getByText("U9 Softball · Match Rules & Scoring Guide"),
       ).toBeVisible();
       await expect(page.getByText("Starting Score")).toBeVisible();
     },
@@ -78,7 +78,7 @@ const TAB_CASES = [
   },
 ];
 
-const OPENABLE_MATCHES = ["m2", "m4", "m5", "m6", "m7"];
+const OPENABLE_MATCHES = ["m2", "m4", "m5", "m6", "m7", "m8"];
 
 test.describe("edgeware-u9 tabs", () => {
   test.beforeEach(async ({ page }) => {
@@ -339,15 +339,17 @@ test.describe("edgeware-u9 tabs", () => {
       const battingRows = [...document.querySelectorAll("#tab-pl .tscroll table.dt")[0].querySelectorAll("tbody tr")].map((row) => ({
         name: row.cells[0]?.textContent?.trim() || "",
         runs: parseNum(row.cells[3]?.textContent),
-        hs: parseNum(row.cells[6]?.textContent),
-        sr: parseFloat(row.cells[5]?.textContent || "0") || 0,
-        net: parseNum(row.cells[9]?.textContent),
-        fours: parseNum(row.cells[7]?.textContent),
+        hs: parseNum(row.cells[7]?.textContent),
+        sr: parseFloat(row.cells[6]?.textContent || "0") || 0,
+        net: parseNum(row.cells[10]?.textContent),
+        fours: parseNum(row.cells[8]?.textContent),
       }));
       const bowlingRows = [...document.querySelectorAll("#tab-pl .tscroll table.dt")[1].querySelectorAll("tbody tr")].map((row) => ({
         name: row.cells[0]?.textContent?.trim() || "",
+        overs: parseFloat(row.cells[2]?.textContent || "0"),
         wkts: parseNum(row.cells[4]?.textContent),
         eco: parseFloat(row.cells[7]?.textContent || "0") || 0,
+        runs: parseNum(row.cells[3]?.textContent),
         dots: parseNum(row.cells[8]?.textContent),
       }));
       const fieldingRows = [...document.querySelectorAll("#tab-pl .tscroll table.dt")[2].querySelectorAll("tbody tr")].map((row) => ({
@@ -372,11 +374,10 @@ test.describe("edgeware-u9 tabs", () => {
         bestNetRuns: top(battingRows, "net"),
         mostFours: top(battingRows, "fours"),
         mostWickets: top(bowlingRows, "wkts"),
-        bestEconomy: top(
-          bowlingRows.filter((row) => Number.isFinite(row.eco) && row.eco > 0),
-          "eco",
-          true,
-        ),
+        bestEconomy: [...bowlingRows.filter((row) => Number.isFinite(row.overs) && row.overs >= 2)]
+          .sort((a, b) => (a.runs / a.overs - b.runs / b.overs) || a.name.localeCompare(b.name))
+          .slice(0, 5)
+          .map((item) => ({ name: item.name, value: parseFloat(item.eco) || 0 })),
         mostDots: top(bowlingRows, "dots"),
         mostCatches: top(fieldingRows, "catches"),
         mostRunOuts: top(fieldingRows, "runOuts"),
@@ -429,7 +430,7 @@ test.describe("edgeware-u9 tabs", () => {
           name: row.cells[0]?.textContent?.trim() || "",
           matches: parseNum(row.cells[1]?.textContent),
           runs: parseNum(row.cells[3]?.textContent),
-          avg: parseAvg(row.cells[4]?.textContent),
+          avg: parseAvg(row.cells[5]?.textContent),
         }))
         .filter((row) => row.name && row.matches >= MIN_MATCHES)
         .sort((a, b) => (b.avg - a.avg) || (b.runs - a.runs) || a.name.localeCompare(b.name))
@@ -518,8 +519,8 @@ test.describe("edgeware-u9 tabs", () => {
     await expect(bbb.locator(".bbb-result-scores")).toHaveText(
       "Edgware CC 253-4 vs Headstone Manor 192-13",
     );
-    await expect(bbb.getByText("Headstone Manor — Innings 2")).toBeVisible();
-    await expect(bbb.getByText("Edgware CC — Innings 1")).toBeVisible();
+    await expect(bbb.getByText("Headstone Manor · Innings 2")).toBeVisible();
+    await expect(bbb.getByText("Edgware CC · Innings 1")).toBeVisible();
   });
 
   test("M6 summary shows batting table with SR column", async ({ page }) => {
@@ -584,7 +585,7 @@ test.describe("edgeware-u9 tabs", () => {
     const afterAsc = await page.evaluate(() => {
       const table = document.querySelectorAll("#tab-pl table.dt")[0];
       const rows = [...table.querySelectorAll("tbody tr")];
-      return rows.map((r) => parseFloat(r.cells[5]?.textContent || "0"));
+      return rows.map((r) => parseFloat(r.cells[6]?.textContent || "0"));
     });
     const ascSorted = [...afterAsc].sort((a, b) => a - b);
     expect(afterAsc).toEqual(ascSorted);
@@ -594,7 +595,7 @@ test.describe("edgeware-u9 tabs", () => {
     const afterDesc = await page.evaluate(() => {
       const table = document.querySelectorAll("#tab-pl table.dt")[0];
       const rows = [...table.querySelectorAll("tbody tr")];
-      return rows.map((r) => parseFloat(r.cells[5]?.textContent || "0"));
+      return rows.map((r) => parseFloat(r.cells[6]?.textContent || "0"));
     });
     const descSorted = [...afterDesc].sort((a, b) => b - a);
     expect(afterDesc).toEqual(descSorted);
@@ -613,24 +614,35 @@ test.describe("edgeware-u9 tabs", () => {
     const bowling = page.locator("#tab-pl .tscroll table.dt").nth(1);
     const fielding = page.locator("#tab-pl .tscroll table.dt").nth(2);
 
-    await expect(batting.locator("thead th", { hasText: "M" })).toBeVisible();
-    await expect(batting.locator("thead th", { hasText: "Inn" })).toBeVisible();
-    await expect(bowling.locator("thead th", { hasText: "M" })).toBeVisible();
+    await expect(batting.locator("thead th").filter({ hasText: /^M$/ })).toBeVisible();
+    await expect(batting.locator("thead th").filter({ hasText: /^Inn$/ })).toBeVisible();
+    await expect(bowling.locator("thead th").filter({ hasText: /^M$/ })).toBeVisible();
     await expect(fielding.locator("thead th", { hasText: "M" })).toHaveCount(0);
 
     const summaryExpectations = await page.evaluate(() => {
       const ecc = new Set([
         "Ariyan", "Avyaan", "Viaan", "Shyam", "Qaim", "Krish",
-        "Veer", "Kaiyan", "Aanya", "Taran", "Drish",
+        "Veer", "Kaiyan", "Aanya", "Taran", "Drish", "Ishaan",
       ]);
-      const matchIds = ["m2", "m4", "m5", "m6", "m7"];
+      const dismissalOuts = (raw) => {
+        const d = (raw || "").replace(/&times;/gi, "×").trim().toLowerCase();
+        if (!d || d.includes("not out")) return 0;
+        const pairs = d.match(/(?:wkt|run\s*out)\s*[×x]\s*(\d+)/);
+        if (pairs) return Number(pairs[1]);
+        const parts = d.split(";").map((p) => p.trim()).filter(Boolean);
+        if (parts.length > 1) {
+          return parts.filter((p) => !p.includes("not out")).length;
+        }
+        return 1;
+      };
+      const matchIds = ["m2", "m4", "m5", "m6", "m7", "m8"];
       const out = {};
       for (const matchId of matchIds) {
         const summary = document.getElementById(`match-${matchId}-summary`);
         if (!summary) continue;
         const cards = [...summary.querySelectorAll(".sci")];
         const eccBat = cards.find((c) =>
-          c.querySelector(".scih")?.textContent?.includes("Edgware CC — Batting"),
+          c.querySelector(".scih")?.textContent?.includes("Edgware CC · Batting"),
         );
         const table = eccBat?.querySelector("table.sctbl");
         for (const row of table?.querySelectorAll("tbody tr") || []) {
@@ -640,7 +652,7 @@ test.describe("edgeware-u9 tabs", () => {
           if (!out[name]) out[name] = { m: 0, outs: 0 };
           out[name].m += 1;
           if (dismissal && !dismissal.includes("not out")) {
-            out[name].outs += 1;
+            out[name].outs += dismissalOuts(dismissal);
           }
         }
       }
@@ -689,6 +701,69 @@ test.describe("edgeware-u9 tabs", () => {
     for (const [name, expected] of Object.entries(summaryExpectations)) {
       expect(cardInn[name], `missing player card Inn for ${name}`).toBe(expected.inn);
     }
+  });
+
+  test("players tab batting averages: Avg/M and Avg/Inn", async ({ page }) => {
+    await page.goto("/#pl");
+    await page.waitForFunction(() =>
+      document.getElementById("tab-pl")?.classList.contains("active"),
+    );
+
+    const rows = await page.evaluate(() => {
+      const parseNum = (value) =>
+        Number((value || "").replace(/[^\d.-]/g, "")) || 0;
+      const table = document.querySelectorAll("#tab-pl .tscroll table.dt")[0];
+      const out = {};
+      for (const row of table?.querySelectorAll("tbody tr") || []) {
+        const name = row.cells[0]?.textContent?.trim();
+        if (!name) continue;
+        out[name] = {
+          m: parseNum(row.cells[1]?.textContent),
+          inn: parseNum(row.cells[2]?.textContent),
+          runs: parseNum(row.cells[3]?.textContent),
+          avgMatch: parseNum(row.cells[4]?.textContent),
+          avgInn: parseNum(row.cells[5]?.textContent),
+        };
+      }
+      return out;
+    });
+
+    const check = (name, { m, inn, runs, avgMatch, avgInn }) => {
+      const row = rows[name];
+      expect(row, `missing row for ${name}`).toBeDefined();
+      expect(row.m).toBe(m);
+      expect(row.inn).toBe(inn);
+      expect(row.runs).toBe(runs);
+      expect(row.avgMatch).toBeCloseTo(avgMatch, 1);
+      expect(row.avgInn).toBeCloseTo(avgInn, 1);
+    };
+
+    check("Qaim", { m: 6, inn: 6, runs: 49, avgMatch: 8.2, avgInn: 8.2 });
+    check("Ariyan", { m: 5, inn: 4, runs: 40, avgMatch: 8.0, avgInn: 10.0 });
+    check("Avyaan", { m: 6, inn: 3, runs: 28, avgMatch: 4.7, avgInn: 9.3 });
+
+    const cardAvgs = await page.evaluate(() => {
+      const out = {};
+      for (const card of document.querySelectorAll("#tab-pl .pc")) {
+        const name = card.querySelector(".pnb")?.childNodes?.[0]?.textContent?.trim();
+        if (!name) continue;
+        const kv = {};
+        for (const row of card.querySelectorAll(".psr")) {
+          const k = row.querySelector(".psl")?.textContent?.trim();
+          const v = row.querySelector(".psv")?.textContent?.trim();
+          if (k && v) kv[k] = v;
+        }
+        out[name] = kv;
+      }
+      return out;
+    });
+
+    expect(cardAvgs.Qaim["Avg/Match"]).toBe("8.2");
+    expect(cardAvgs.Qaim["Avg/Inn"]).toBe("8.2");
+    expect(cardAvgs.Ariyan["Avg/Match"]).toBe("8.0");
+    expect(cardAvgs.Ariyan["Avg/Inn"]).toBe("10.0");
+    expect(cardAvgs.Avyaan["Avg/Match"]).toBe("4.7");
+    expect(cardAvgs.Avyaan["Avg/Inn"]).toBe("9.3");
   });
 
   test("players bowling table and cards stay consistent", async ({ page }) => {
@@ -743,12 +818,46 @@ test.describe("edgeware-u9 tabs", () => {
     expect(checks.mismatches).toEqual([]);
   });
 
+  test("competition ranking uses shared rank for ties (1224)", async ({ page }) => {
+    await page.goto("/#lb");
+    const cardRanks = (title) =>
+      page.evaluate((boardTitle) => {
+        const card = [...document.querySelectorAll("#tab-lb .lbc")].find((c) =>
+          (c.querySelector(".lbh")?.textContent || "").includes(boardTitle),
+        );
+        if (!card) return null;
+        return [...card.querySelectorAll(".lbr")].map((row) => ({
+          name: (row.querySelector(".lbn")?.textContent || "").replace(/\s+/g, " ").trim(),
+          value: Number((row.querySelector(".lbv")?.textContent || "").replace(/[^\d.-]/g, "")),
+          rank: Number((row.querySelector(".lbrk")?.textContent || "").replace(/[^\d]/g, "")),
+        }));
+      }, title);
+
+    const runOuts = await cardRanks("Most Run Outs");
+    expect(runOuts).not.toBeNull();
+    expect(runOuts.find((r) => r.name === "Avyaan")).toMatchObject({ value: 3, rank: 1 });
+    expect(runOuts.find((r) => r.name === "Qaim")).toMatchObject({ value: 3, rank: 1 });
+    expect(runOuts.filter((r) => r.value === 2).every((r) => r.rank === 3)).toBe(true);
+
+    const catches = await cardRanks("Most Catches");
+    expect(catches.find((r) => r.name === "Avyaan")).toMatchObject({ value: 2, rank: 1 });
+    expect(catches.find((r) => r.name === "Krish")).toMatchObject({ value: 2, rank: 1 });
+
+    const wickets = await cardRanks("Most Wickets");
+    expect(wickets.find((r) => r.name === "Shyam")).toMatchObject({ value: 3, rank: 4 });
+    expect(wickets.find((r) => r.name === "Veer")).toMatchObject({ value: 3, rank: 4 });
+
+    const highScore = await cardRanks("Highest Score");
+    expect(highScore.find((r) => r.name === "Ariyan")).toMatchObject({ value: 11, rank: 3 });
+    expect(highScore.find((r) => r.name === "Viaan")).toMatchObject({ value: 11, rank: 3 });
+  });
+
   test("fielding table and leaders are summary-derived, no M column", async ({
     page,
   }) => {
     await page.goto("/#pl");
     const data = await page.evaluate(() => {
-      const matchIds = ["m2", "m4", "m5", "m6", "m7"];
+      const matchIds = ["m2", "m4", "m5", "m6", "m7", "m8"];
       const fromSummary = {};
       for (const matchId of matchIds) {
         const summary = document.getElementById(`match-${matchId}-summary`);
@@ -848,7 +957,7 @@ test.describe("edgeware-u9 tabs", () => {
   test("season wickets come from match summary bowling tables", async ({ page }) => {
     await page.goto("/#lb");
     const data = await page.evaluate(() => {
-      const matchIds = ["m2", "m4", "m5", "m6", "m7"];
+      const matchIds = ["m2", "m4", "m5", "m6", "m7", "m8"];
       const season = {};
       const perMatch = {};
       for (const matchId of matchIds) {
@@ -856,7 +965,7 @@ test.describe("edgeware-u9 tabs", () => {
         if (!summary) continue;
         const cards = [...summary.querySelectorAll(".sci")];
         const bowlCard = cards.find((card) =>
-          card.querySelector(".scih")?.textContent?.includes("Edgware CC — Bowling"),
+          card.querySelector(".scih")?.textContent?.includes("Edgware CC · Bowling"),
         );
         const table = bowlCard?.querySelector("table.sctbl");
         const rows = {};
@@ -920,8 +1029,9 @@ test.describe("edgeware-u9 tabs", () => {
     });
 
     expect(partnerships).toHaveLength(5);
-    expect(partnerships[0].name).toContain("Avyaan & Taran");
-    expect(partnerships[0].value).toBe(32);
+    expect(partnerships[0].name).toContain("Kaiyan & Drish");
+    expect(partnerships[0].value).toBe(44);
+    expect(partnerships.find((p) => p.name.includes("Avyaan & Taran"))?.value).toBe(32);
   });
 
   test("all player cards are complete and only in Players tab", async ({
@@ -939,6 +1049,7 @@ test.describe("edgeware-u9 tabs", () => {
       "Aanya",
       "Taran",
       "Drish",
+      "Ishaan",
     ];
 
     for (const { hash, tabId } of TAB_CASES.filter((t) => t.hash !== "pl")) {
@@ -973,7 +1084,9 @@ test.describe("edgeware-u9 tabs", () => {
           );
           const requiredLabels = [
             "Inn",
-            "Bat Runs / Avg",
+            "Bat Runs",
+            "Avg/Match",
+            "Avg/Inn",
             "Best Batting Score",
             "Strike Rate",
             "Overs / Wkts",
@@ -1002,7 +1115,7 @@ test.describe("edgeware-u9 tabs", () => {
     }, names);
 
     expect(plStats).not.toBeNull();
-    expect(plStats.cardCount).toBe(11);
+    expect(plStats.cardCount).toBe(12);
     expect(plStats.outside).toBe(0);
     expect(plStats.broken).toEqual([]);
     expect(plStats.hasRulesTab).toBe(true);
@@ -1018,7 +1131,9 @@ test.describe("edgeware-u9 tabs", () => {
       await expect(card.locator(".psst", { hasText: "Fielding" })).toBeVisible();
       for (const rowLabel of [
         "Inn",
-        "Bat Runs / Avg",
+        "Bat Runs",
+        "Avg/Match",
+        "Avg/Inn",
         "Best Batting Score",
         "Strike Rate",
         "Overs / Wkts",
@@ -1028,7 +1143,11 @@ test.describe("edgeware-u9 tabs", () => {
         "Catches",
         "Run Outs",
       ]) {
-        await expect(card.locator(".psr", { has: page.locator(".psl", { hasText: rowLabel }) })).toBeVisible();
+        await expect(
+          card.locator(".psr", {
+            has: page.locator(".psl", { hasText: new RegExp(`^${rowLabel.replace("/", "\\/")}$`) }),
+          }),
+        ).toBeVisible();
       }
     }
   });

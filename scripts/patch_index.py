@@ -10,7 +10,7 @@ ROOT = Path(__file__).resolve().parents[1]
 INDEX = ROOT / "index.html"
 BBB_DIR = ROOT / "bbb"
 
-MATCHES_WITH_BBB = ["m2", "m4", "m5", "m6", "m7"]
+MATCHES_WITH_BBB = ["m2", "m4", "m5", "m6", "m7", "m8"]
 WALKOVER_MATCHES = ["m1", "m3"]
 DEFAULT_MATCH = "m1"
 
@@ -73,7 +73,7 @@ CSS = """
 
 APP_JS = """const TAB_IDS=['ov','fx','mx','pl','lb','ru','pr'];
 const TAB_ALIASES={fixtures:'fx',matches:'mx',overview:'ov',players:'pl',leaders:'lb',rules:'ru',practice:'pr'};
-const MATCHES_WITH_BBB=['m2','m4','m5','m6','m7'];
+const MATCHES_WITH_BBB=['m2','m4','m5','m6','m7','m8'];
 
 function latestMatch(){
   let latest='m1',n=0;
@@ -162,11 +162,11 @@ function activateMatchView(matchId,view){
   if(!root)return;
   document.querySelectorAll('.md2').forEach(d=>d.classList.remove('active'));
   document.querySelectorAll('.mtb').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('#tab-mx .mmview').forEach(v=>v.classList.remove('active'));
+  document.querySelectorAll('#tab-mx .mmtb').forEach(b=>b.classList.remove('active'));
   root.classList.add('active');
   const mtb=matchBtnForId(matchId);
   if(mtb)mtb.classList.add('active');
-  root.querySelectorAll('.mmtb').forEach(b=>b.classList.remove('active'));
-  root.querySelectorAll('.mmview').forEach(v=>v.classList.remove('active'));
   const hasBbb=!!root.querySelector('#match-'+matchId+'-bbb');
   const useView=view==='bbb'&&hasBbb?'bbb':'summary';
   const panel=document.getElementById('match-'+matchId+'-'+useView);
@@ -437,6 +437,42 @@ def _tab_pl_opens_inside_tab_mx(html: str) -> bool:
     return "tab-mx" in stack
 
 
+def _tab_fx_opens_inside_tab_ov(html: str) -> bool:
+    tab_fx = html.find('id="tab-fx"')
+    if tab_fx == -1:
+        return False
+    _, stack = _depth_and_stack_before(html, tab_fx)
+    return "tab-ov" in stack
+
+
+def fix_tab_ov_boundary(html: str) -> str:
+    """Keep tab-ov / .wrap boundaries correct so later tabs are siblings inside .wrap."""
+    # Ensure outer sgrid closes before Season Results card.
+    html = re.sub(
+        r"(Best Win Margin</div></div>\n  </div>)\n(  <div class=\"card\">\s*\n\s*<div class=\"ctitle\">Season Results</div>)",
+        r"\1\n  </div>\n\2",
+        html,
+        count=1,
+    )
+    # Drop premature tab-ov close between sgrid and card (legacy extra </div>).
+    html = re.sub(
+        r"(Best Win Margin</div></div>\n  </div>\n  </div>)\n  </div>\n"
+        r'(  <div class="card">\s*\n\s*<div class="ctitle">Season Results</div>)',
+        r"\1\n\2",
+        html,
+        count=1,
+    )
+    # Close tab-ov before FIXTURES when later tabs were nested inside overview.
+    if _tab_fx_opens_inside_tab_ov(html):
+        html = re.sub(
+            r"\n(<!-- FIXTURES -->)",
+            r"\n</div>\n\n\1",
+            html,
+            count=1,
+        )
+    return html
+
+
 def fix_tab_mx_boundary(html: str) -> str:
     """Remove premature </div> after match-m2 that closes tab-mx before M5/M6."""
     pattern = (
@@ -456,6 +492,13 @@ def fix_tab_mx_boundary(html: str) -> str:
         html,
         count=1,
     )
+    # Spurious close left before match-m7 when fixing nested match blocks.
+    html = re.sub(
+        r"\n\s*<!-- M7 -->\s*</div>\s*\n\s*\n\s*<!-- end m6 -->",
+        "\n  <!-- M7 -->\n\n  <!-- end m6 -->",
+        html,
+        count=1,
+    )
     # tab-pl/tab-lb must be siblings of tab-mx inside .wrap (not nested, not outside).
     if not re.search(r'id="tab-pl"[^>]*class="tab"', html):
         return html
@@ -471,10 +514,14 @@ def fix_tab_mx_boundary(html: str) -> str:
         )
 
     for _ in range(8):
+        if _tab_pl_opens_inside_tab_mx(html):
+            break
         tab_pl = html.find('id="tab-pl"')
         if tab_pl == -1:
             break
-        depth, _ = _depth_and_stack_before(html, tab_pl)
+        depth, stack = _depth_and_stack_before(html, tab_pl)
+        if depth >= 1 and "wrap" in stack:
+            break
         if depth >= 1:
             break
         updated = re.sub(
@@ -682,7 +729,7 @@ def replace_spreadsheet_links(html: str) -> str:
         href = match_hash(num) if num else "#mx"
         tag = re.sub(r'href="[^"]*"', f'href="{href}"', tag)
         if "Open Scorecard in Google Sheets" in tag:
-            text = "Walkover — no scorecard" if num in (1, 3) else "Open Commentary scorecard"
+            text = "Walkover: no scorecard" if num in (1, 3) else "Open Commentary scorecard"
             tag = re.sub(r">[^<]*</a>", f">{text}</a>", tag)
         elif "Open Full Scorecard in Google Sheets" in tag:
             tag = re.sub(r">[^<]*</a>", ">Open Commentary scorecard</a>", tag)
@@ -715,6 +762,7 @@ def update_visible_labels(html: str) -> str:
 def main() -> None:
     html = INDEX.read_text(encoding="utf-8")
     html = inject_css(html)
+    html = fix_tab_ov_boundary(html)
     html = fix_tab_mx_boundary(html)
     html = fix_tab_pl_boundary(html)
     html = fix_tab_lb_boundary(html)
@@ -735,6 +783,7 @@ def main() -> None:
     html = update_overview_fixtures_scorecard_links(html)
     html = update_visible_labels(html)
     html = inject_js(html)
+    html = fix_tab_ov_boundary(html)
     html = fix_tab_mx_boundary(html)
     html = fix_tab_lb_boundary(html)
     html = fix_tab_pl_boundary(html)

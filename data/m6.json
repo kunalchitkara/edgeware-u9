@@ -59,8 +59,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 1,
-              "ball_in_over": 2,
-              "notation": "0.2",
+              "ball_in_over": 1,
+              "notation": "0.1",
               "bowler": "Avyaan"
             },
             {
@@ -73,8 +73,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 1,
-              "ball_in_over": 3,
-              "notation": "0.3",
+              "ball_in_over": 1,
+              "notation": "0.1",
               "bowler": "Avyaan"
             },
             {
@@ -87,8 +87,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 1,
-              "ball_in_over": 4,
-              "notation": "0.4",
+              "ball_in_over": 1,
+              "notation": "0.1",
               "bowler": "Avyaan"
             },
             {
@@ -101,8 +101,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 1,
-              "ball_in_over": 5,
-              "notation": "0.5",
+              "ball_in_over": 1,
+              "notation": "0.1",
               "bowler": "Avyaan"
             },
             {
@@ -115,8 +115,8 @@
               "fielder": "",
               "extras_type": "noball",
               "over": 1,
-              "ball_in_over": 6,
-              "notation": "1.0",
+              "ball_in_over": 1,
+              "notation": "0.1",
               "bowler": "Avyaan"
             }
           ]
@@ -151,8 +151,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 2,
-              "ball_in_over": 2,
-              "notation": "1.2",
+              "ball_in_over": 1,
+              "notation": "1.1",
               "bowler": "Viaan"
             },
             {
@@ -165,8 +165,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 2,
-              "ball_in_over": 3,
-              "notation": "1.3",
+              "ball_in_over": 1,
+              "notation": "1.1",
               "bowler": "Viaan"
             },
             {
@@ -179,22 +179,22 @@
               "fielder": "",
               "extras_type": "",
               "over": 2,
-              "ball_in_over": 4,
-              "notation": "1.4",
+              "ball_in_over": 1,
+              "notation": "1.1",
               "bowler": "Viaan"
             },
             {
               "symbol": "R",
               "batter": "Zayden",
-              "description": "Zayden run out (Ariyan) \u2014 brilliant fielding",
+              "description": "Zayden run out (Ariyan), brilliant fielding",
               "runs": -5,
               "bat_runs": null,
               "wicket": true,
               "fielder": "Ariyan",
               "extras_type": "",
               "over": 2,
-              "ball_in_over": 5,
-              "notation": "1.5",
+              "ball_in_over": 1,
+              "notation": "1.1",
               "bowler": "Viaan"
             },
             {
@@ -207,8 +207,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 2,
-              "ball_in_over": 6,
-              "notation": "2.0",
+              "ball_in_over": 1,
+              "notation": "1.1",
               "bowler": "Viaan"
             }
           ]
@@ -243,8 +243,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 3,
-              "ball_in_over": 2,
-              "notation": "2.2",
+              "ball_in_over": 1,
+              "notation": "2.1",
               "bowler": "Ariyan"
             },
             {
@@ -257,8 +257,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 3,
-              "ball_in_over": 3,
-              "notation": "2.3",
+              "ball_in_over": 1,
+              "notation": "2.1",
               "bowler": "Ariyan"
             },
             {
@@ -271,8 +271,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 3,
-              "ball_in_over": 4,
-              "notation": "2.4",
+              "ball_in_over": 1,
+              "notation": "2.1",
               "bowler": "Ariyan"
             },
             {
@@ -285,8 +285,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 3,
-              "ball_in_over": 5,
-              "notation": "2.5",
+              "ball_in_over": 1,
+              "notation": "2.1",
               "bowler": "Ariyan"
             },
             {
@@ -299,8 +299,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 3,
-              "ball_in_over": 6,
-              "notation": "3.0",
+              "ball_in_over": 1,
+              "notation": "2.1",
               "bowler": "Ariyan"
             }
           ]
@@ -335,8 +335,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 4,
-              "ball_in_over": 2,
-              "notation": "3.2",
+              "ball_in_over": 1,
+              "notation": "3.1",
               "bowler": "Veer"
             },
             {
@@ -349,36 +349,36 @@
               "fielder": "",
               "extras_type": "",
               "over": 4,
-              "ball_in_over": 3,
-              "notation": "3.3",
+              "ball_in_over": 1,
+              "notation": "3.1",
               "bowler": "Veer"
             },
             {
               "symbol": "4",
               "batter": "Dev",
-              "description": "FOUR \u2014 overthrow Avyaan",
+              "description": "FOUR: overthrow Avyaan",
               "runs": 4,
               "bat_runs": 4,
               "wicket": false,
               "fielder": "",
               "extras_type": "",
               "over": 4,
-              "ball_in_over": 4,
-              "notation": "3.4",
+              "ball_in_over": 1,
+              "notation": "3.1",
               "bowler": "Veer"
             },
             {
               "symbol": "1",
               "batter": "Dev",
-              "description": "1 run \u2014 catch dropped Qaim",
+              "description": "1 run, catch dropped Qaim",
               "runs": 1,
               "bat_runs": 1,
               "wicket": false,
               "fielder": "",
               "extras_type": "",
               "over": 4,
-              "ball_in_over": 5,
-              "notation": "3.5",
+              "ball_in_over": 1,
+              "notation": "3.1",
               "bowler": "Veer"
             },
             {
@@ -391,8 +391,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 4,
-              "ball_in_over": 6,
-              "notation": "4.0",
+              "ball_in_over": 1,
+              "notation": "3.1",
               "bowler": "Veer"
             }
           ]
@@ -427,8 +427,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 5,
-              "ball_in_over": 2,
-              "notation": "4.2",
+              "ball_in_over": 1,
+              "notation": "4.1",
               "bowler": "Qaim"
             },
             {
@@ -441,8 +441,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 5,
-              "ball_in_over": 3,
-              "notation": "4.3",
+              "ball_in_over": 1,
+              "notation": "4.1",
               "bowler": "Qaim"
             },
             {
@@ -455,8 +455,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 5,
-              "ball_in_over": 4,
-              "notation": "4.4",
+              "ball_in_over": 1,
+              "notation": "4.1",
               "bowler": "Qaim"
             },
             {
@@ -469,8 +469,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 5,
-              "ball_in_over": 5,
-              "notation": "4.5",
+              "ball_in_over": 1,
+              "notation": "4.1",
               "bowler": "Qaim"
             },
             {
@@ -483,8 +483,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 5,
-              "ball_in_over": 6,
-              "notation": "5.0",
+              "ball_in_over": 1,
+              "notation": "4.1",
               "bowler": "Qaim"
             }
           ]
@@ -519,8 +519,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 6,
-              "ball_in_over": 2,
-              "notation": "5.2",
+              "ball_in_over": 1,
+              "notation": "5.1",
               "bowler": "Kaiyan"
             },
             {
@@ -533,8 +533,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 6,
-              "ball_in_over": 3,
-              "notation": "5.3",
+              "ball_in_over": 1,
+              "notation": "5.1",
               "bowler": "Kaiyan"
             },
             {
@@ -547,8 +547,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 6,
-              "ball_in_over": 4,
-              "notation": "5.4",
+              "ball_in_over": 1,
+              "notation": "5.1",
               "bowler": "Kaiyan"
             },
             {
@@ -561,8 +561,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 6,
-              "ball_in_over": 5,
-              "notation": "5.5",
+              "ball_in_over": 1,
+              "notation": "5.1",
               "bowler": "Kaiyan"
             },
             {
@@ -575,8 +575,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 6,
-              "ball_in_over": 6,
-              "notation": "6.0",
+              "ball_in_over": 1,
+              "notation": "5.1",
               "bowler": "Kaiyan"
             }
           ]
@@ -611,8 +611,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 7,
-              "ball_in_over": 2,
-              "notation": "6.2",
+              "ball_in_over": 1,
+              "notation": "6.1",
               "bowler": "Shyam"
             },
             {
@@ -625,8 +625,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 7,
-              "ball_in_over": 3,
-              "notation": "6.3",
+              "ball_in_over": 1,
+              "notation": "6.1",
               "bowler": "Shyam"
             },
             {
@@ -639,8 +639,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 7,
-              "ball_in_over": 4,
-              "notation": "6.4",
+              "ball_in_over": 1,
+              "notation": "6.1",
               "bowler": "Shyam"
             },
             {
@@ -653,8 +653,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 7,
-              "ball_in_over": 5,
-              "notation": "6.5",
+              "ball_in_over": 1,
+              "notation": "6.1",
               "bowler": "Shyam"
             },
             {
@@ -667,8 +667,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 7,
-              "ball_in_over": 6,
-              "notation": "7.0",
+              "ball_in_over": 1,
+              "notation": "6.1",
               "bowler": "Shyam"
             }
           ]
@@ -703,8 +703,8 @@
               "fielder": "",
               "extras_type": "wide",
               "over": 8,
-              "ball_in_over": 2,
-              "notation": "7.2",
+              "ball_in_over": 1,
+              "notation": "7.1",
               "bowler": "Drish"
             },
             {
@@ -717,8 +717,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 8,
-              "ball_in_over": 3,
-              "notation": "7.3",
+              "ball_in_over": 1,
+              "notation": "7.1",
               "bowler": "Drish"
             },
             {
@@ -731,8 +731,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 8,
-              "ball_in_over": 4,
-              "notation": "7.4",
+              "ball_in_over": 1,
+              "notation": "7.1",
               "bowler": "Drish"
             },
             {
@@ -745,8 +745,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 8,
-              "ball_in_over": 5,
-              "notation": "8.0",
+              "ball_in_over": 1,
+              "notation": "7.1",
               "bowler": "Drish"
             }
           ]
@@ -781,8 +781,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 9,
-              "ball_in_over": 2,
-              "notation": "8.2",
+              "ball_in_over": 1,
+              "notation": "8.1",
               "bowler": "Viaan"
             },
             {
@@ -795,8 +795,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 9,
-              "ball_in_over": 3,
-              "notation": "8.3",
+              "ball_in_over": 1,
+              "notation": "8.1",
               "bowler": "Viaan"
             },
             {
@@ -809,8 +809,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 9,
-              "ball_in_over": 4,
-              "notation": "8.4",
+              "ball_in_over": 1,
+              "notation": "8.1",
               "bowler": "Viaan"
             },
             {
@@ -823,8 +823,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 9,
-              "ball_in_over": 5,
-              "notation": "8.5",
+              "ball_in_over": 1,
+              "notation": "8.1",
               "bowler": "Viaan"
             },
             {
@@ -837,8 +837,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 9,
-              "ball_in_over": 6,
-              "notation": "9.0",
+              "ball_in_over": 1,
+              "notation": "8.1",
               "bowler": "Viaan"
             }
           ]
@@ -873,8 +873,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 10,
-              "ball_in_over": 2,
-              "notation": "9.2",
+              "ball_in_over": 1,
+              "notation": "9.1",
               "bowler": "Avyaan"
             },
             {
@@ -887,8 +887,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 10,
-              "ball_in_over": 3,
-              "notation": "9.3",
+              "ball_in_over": 1,
+              "notation": "9.1",
               "bowler": "Avyaan"
             },
             {
@@ -901,8 +901,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 10,
-              "ball_in_over": 4,
-              "notation": "9.4",
+              "ball_in_over": 1,
+              "notation": "9.1",
               "bowler": "Avyaan"
             },
             {
@@ -915,8 +915,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 10,
-              "ball_in_over": 5,
-              "notation": "9.5",
+              "ball_in_over": 1,
+              "notation": "9.1",
               "bowler": "Avyaan"
             },
             {
@@ -929,8 +929,8 @@
               "fielder": "",
               "extras_type": "wide",
               "over": 10,
-              "ball_in_over": 6,
-              "notation": "10.0",
+              "ball_in_over": 1,
+              "notation": "9.1",
               "bowler": "Avyaan"
             }
           ]
@@ -965,8 +965,8 @@
               "fielder": "",
               "extras_type": "wide",
               "over": 11,
-              "ball_in_over": 2,
-              "notation": "10.2",
+              "ball_in_over": 1,
+              "notation": "10.1",
               "bowler": "Ariyan"
             },
             {
@@ -979,8 +979,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 11,
-              "ball_in_over": 3,
-              "notation": "10.3",
+              "ball_in_over": 1,
+              "notation": "10.1",
               "bowler": "Ariyan"
             },
             {
@@ -993,8 +993,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 11,
-              "ball_in_over": 4,
-              "notation": "10.4",
+              "ball_in_over": 1,
+              "notation": "10.1",
               "bowler": "Ariyan"
             },
             {
@@ -1007,8 +1007,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 11,
-              "ball_in_over": 5,
-              "notation": "10.5",
+              "ball_in_over": 1,
+              "notation": "10.1",
               "bowler": "Ariyan"
             },
             {
@@ -1021,8 +1021,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 11,
-              "ball_in_over": 6,
-              "notation": "11.0",
+              "ball_in_over": 1,
+              "notation": "10.1",
               "bowler": "Ariyan"
             }
           ]
@@ -1057,8 +1057,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 12,
-              "ball_in_over": 2,
-              "notation": "11.2",
+              "ball_in_over": 1,
+              "notation": "11.1",
               "bowler": "Veer"
             },
             {
@@ -1071,8 +1071,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 12,
-              "ball_in_over": 3,
-              "notation": "11.3",
+              "ball_in_over": 1,
+              "notation": "11.1",
               "bowler": "Veer"
             },
             {
@@ -1085,8 +1085,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 12,
-              "ball_in_over": 4,
-              "notation": "11.4",
+              "ball_in_over": 1,
+              "notation": "11.1",
               "bowler": "Veer"
             },
             {
@@ -1099,8 +1099,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 12,
-              "ball_in_over": 5,
-              "notation": "11.5",
+              "ball_in_over": 1,
+              "notation": "11.1",
               "bowler": "Veer"
             },
             {
@@ -1113,8 +1113,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 12,
-              "ball_in_over": 6,
-              "notation": "12.0",
+              "ball_in_over": 1,
+              "notation": "11.1",
               "bowler": "Veer"
             }
           ]
@@ -1149,8 +1149,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 13,
-              "ball_in_over": 2,
-              "notation": "12.2",
+              "ball_in_over": 1,
+              "notation": "12.1",
               "bowler": "Qaim"
             },
             {
@@ -1163,22 +1163,22 @@
               "fielder": "",
               "extras_type": "",
               "over": 13,
-              "ball_in_over": 3,
-              "notation": "12.3",
+              "ball_in_over": 1,
+              "notation": "12.1",
               "bowler": "Qaim"
             },
             {
               "symbol": "4",
               "batter": "Ojas",
-              "description": "FOUR \u2014 hat-trick missed (Ojas)",
+              "description": "FOUR: hat-trick missed (Ojas)",
               "runs": 4,
               "bat_runs": 4,
               "wicket": false,
               "fielder": "",
               "extras_type": "",
               "over": 13,
-              "ball_in_over": 4,
-              "notation": "12.4",
+              "ball_in_over": 1,
+              "notation": "12.1",
               "bowler": "Qaim"
             },
             {
@@ -1191,8 +1191,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 13,
-              "ball_in_over": 5,
-              "notation": "12.5",
+              "ball_in_over": 1,
+              "notation": "12.1",
               "bowler": "Qaim"
             },
             {
@@ -1205,8 +1205,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 13,
-              "ball_in_over": 6,
-              "notation": "13.0",
+              "ball_in_over": 1,
+              "notation": "12.1",
               "bowler": "Qaim"
             }
           ]
@@ -1241,8 +1241,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 14,
-              "ball_in_over": 2,
-              "notation": "13.2",
+              "ball_in_over": 1,
+              "notation": "13.1",
               "bowler": "Kaiyan"
             },
             {
@@ -1255,8 +1255,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 14,
-              "ball_in_over": 3,
-              "notation": "13.3",
+              "ball_in_over": 1,
+              "notation": "13.1",
               "bowler": "Kaiyan"
             },
             {
@@ -1269,8 +1269,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 14,
-              "ball_in_over": 4,
-              "notation": "13.4",
+              "ball_in_over": 1,
+              "notation": "13.1",
               "bowler": "Kaiyan"
             },
             {
@@ -1283,8 +1283,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 14,
-              "ball_in_over": 5,
-              "notation": "13.5",
+              "ball_in_over": 1,
+              "notation": "13.1",
               "bowler": "Kaiyan"
             },
             {
@@ -1297,8 +1297,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 14,
-              "ball_in_over": 6,
-              "notation": "14.0",
+              "ball_in_over": 1,
+              "notation": "13.1",
               "bowler": "Kaiyan"
             }
           ]
@@ -1333,8 +1333,8 @@
               "fielder": "",
               "extras_type": "noball",
               "over": 15,
-              "ball_in_over": 2,
-              "notation": "14.2",
+              "ball_in_over": 1,
+              "notation": "14.1",
               "bowler": "Shyam"
             },
             {
@@ -1347,8 +1347,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 15,
-              "ball_in_over": 3,
-              "notation": "14.3",
+              "ball_in_over": 1,
+              "notation": "14.1",
               "bowler": "Shyam"
             },
             {
@@ -1361,8 +1361,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 15,
-              "ball_in_over": 4,
-              "notation": "14.4",
+              "ball_in_over": 1,
+              "notation": "14.1",
               "bowler": "Shyam"
             },
             {
@@ -1375,8 +1375,8 @@
               "fielder": "",
               "extras_type": "wide",
               "over": 15,
-              "ball_in_over": 5,
-              "notation": "14.5",
+              "ball_in_over": 1,
+              "notation": "14.1",
               "bowler": "Shyam"
             },
             {
@@ -1389,8 +1389,8 @@
               "fielder": "",
               "extras_type": "noball",
               "over": 15,
-              "ball_in_over": 6,
-              "notation": "15.0",
+              "ball_in_over": 1,
+              "notation": "14.1",
               "bowler": "Shyam"
             }
           ]
@@ -1425,8 +1425,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 16,
-              "ball_in_over": 2,
-              "notation": "15.2",
+              "ball_in_over": 1,
+              "notation": "15.1",
               "bowler": "Drish"
             },
             {
@@ -1439,8 +1439,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 16,
-              "ball_in_over": 3,
-              "notation": "15.3",
+              "ball_in_over": 1,
+              "notation": "15.1",
               "bowler": "Drish"
             },
             {
@@ -1453,8 +1453,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 16,
-              "ball_in_over": 4,
-              "notation": "15.4",
+              "ball_in_over": 1,
+              "notation": "15.1",
               "bowler": "Drish"
             },
             {
@@ -1467,8 +1467,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 16,
-              "ball_in_over": 5,
-              "notation": "15.5",
+              "ball_in_over": 1,
+              "notation": "15.1",
               "bowler": "Drish"
             },
             {
@@ -1481,8 +1481,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 16,
-              "ball_in_over": 6,
-              "notation": "16.0",
+              "ball_in_over": 1,
+              "notation": "15.1",
               "bowler": "Drish"
             }
           ]
@@ -1508,14 +1508,14 @@
           "b1": "Shrihan",
           "b2": "Vivaan",
           "net": 0,
-          "wickets": 3
+          "wickets": 2
         },
         {
           "label": "P4",
           "b1": "Ojas",
           "b2": "Riyan",
           "net": 27,
-          "wickets": 3
+          "wickets": 2
         }
       ],
       "batting_summary": [
@@ -1561,7 +1561,7 @@
         },
         {
           "name": "Shrihan",
-          "dismissal": "b Veer (Ov 12)",
+          "dismissal": "run out (Avyaan) (Ov 10)",
           "runs": 4,
           "balls": 11,
           "fours": 0,
@@ -1591,7 +1591,7 @@
         },
         {
           "name": "Riyan",
-          "dismissal": "b Shyam (Ov 15)",
+          "dismissal": "b Qaim (Ov 13)",
           "runs": 4,
           "balls": 2,
           "fours": 1,
@@ -1679,17 +1679,17 @@
           "fielder": "Ariyan",
           "catches": 0,
           "run_outs": 1,
-          "detail": "run out (Ariyan) \u2014 Ov 2 (Zayden)"
+          "detail": "run out (Ariyan), Ov 2 (Zayden)"
         },
         {
           "fielder": "Avyaan",
           "catches": 0,
           "run_outs": 1,
-          "detail": "run out (Avyaan) \u2014 Ov 10 (Shrihan)"
+          "detail": "run out (Avyaan), Ov 10 (Shrihan)"
         }
       ],
       "final_total": 263,
-      "wickets": 8
+      "wickets": 6
     },
     {
       "num": 2,
@@ -1736,8 +1736,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 1,
-              "ball_in_over": 2,
-              "notation": "0.2",
+              "ball_in_over": 1,
+              "notation": "0.1",
               "bowler": "Ojas"
             },
             {
@@ -1750,8 +1750,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 1,
-              "ball_in_over": 3,
-              "notation": "0.3",
+              "ball_in_over": 1,
+              "notation": "0.1",
               "bowler": "Ojas"
             },
             {
@@ -1764,8 +1764,8 @@
               "fielder": "",
               "extras_type": "wide",
               "over": 1,
-              "ball_in_over": 4,
-              "notation": "0.4",
+              "ball_in_over": 1,
+              "notation": "0.1",
               "bowler": "Ojas"
             },
             {
@@ -1778,8 +1778,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 1,
-              "ball_in_over": 5,
-              "notation": "0.5",
+              "ball_in_over": 1,
+              "notation": "0.1",
               "bowler": "Ojas"
             },
             {
@@ -1792,8 +1792,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 1,
-              "ball_in_over": 6,
-              "notation": "1.0",
+              "ball_in_over": 1,
+              "notation": "0.1",
               "bowler": "Ojas"
             }
           ]
@@ -1828,8 +1828,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 2,
-              "ball_in_over": 2,
-              "notation": "1.2",
+              "ball_in_over": 1,
+              "notation": "1.1",
               "bowler": "Riyan"
             },
             {
@@ -1842,8 +1842,8 @@
               "fielder": "",
               "extras_type": "noball",
               "over": 2,
-              "ball_in_over": 3,
-              "notation": "1.3",
+              "ball_in_over": 1,
+              "notation": "1.1",
               "bowler": "Riyan"
             },
             {
@@ -1856,8 +1856,8 @@
               "fielder": "",
               "extras_type": "wide",
               "over": 2,
-              "ball_in_over": 4,
-              "notation": "1.4",
+              "ball_in_over": 1,
+              "notation": "1.1",
               "bowler": "Riyan"
             },
             {
@@ -1870,8 +1870,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 2,
-              "ball_in_over": 5,
-              "notation": "1.5",
+              "ball_in_over": 1,
+              "notation": "1.1",
               "bowler": "Riyan"
             },
             {
@@ -1884,8 +1884,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 2,
-              "ball_in_over": 6,
-              "notation": "2.0",
+              "ball_in_over": 1,
+              "notation": "1.1",
               "bowler": "Riyan"
             }
           ]
@@ -1920,8 +1920,8 @@
               "fielder": "",
               "extras_type": "wide",
               "over": 3,
-              "ball_in_over": 2,
-              "notation": "2.2",
+              "ball_in_over": 1,
+              "notation": "2.1",
               "bowler": "Vivaan"
             },
             {
@@ -1934,8 +1934,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 3,
-              "ball_in_over": 3,
-              "notation": "2.3",
+              "ball_in_over": 1,
+              "notation": "2.1",
               "bowler": "Vivaan"
             },
             {
@@ -1948,8 +1948,8 @@
               "fielder": "",
               "extras_type": "wide",
               "over": 3,
-              "ball_in_over": 4,
-              "notation": "2.4",
+              "ball_in_over": 1,
+              "notation": "2.1",
               "bowler": "Vivaan"
             },
             {
@@ -1962,8 +1962,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 3,
-              "ball_in_over": 5,
-              "notation": "2.5",
+              "ball_in_over": 1,
+              "notation": "2.1",
               "bowler": "Vivaan"
             },
             {
@@ -1976,8 +1976,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 3,
-              "ball_in_over": 6,
-              "notation": "3.0",
+              "ball_in_over": 1,
+              "notation": "2.1",
               "bowler": "Vivaan"
             }
           ]
@@ -2012,8 +2012,8 @@
               "fielder": "",
               "extras_type": "wide",
               "over": 4,
-              "ball_in_over": 2,
-              "notation": "3.2",
+              "ball_in_over": 1,
+              "notation": "3.1",
               "bowler": "Shrihan"
             },
             {
@@ -2026,8 +2026,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 4,
-              "ball_in_over": 3,
-              "notation": "3.3",
+              "ball_in_over": 1,
+              "notation": "3.1",
               "bowler": "Shrihan"
             },
             {
@@ -2040,8 +2040,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 4,
-              "ball_in_over": 4,
-              "notation": "3.4",
+              "ball_in_over": 1,
+              "notation": "3.1",
               "bowler": "Shrihan"
             },
             {
@@ -2054,8 +2054,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 4,
-              "ball_in_over": 5,
-              "notation": "3.5",
+              "ball_in_over": 1,
+              "notation": "3.1",
               "bowler": "Shrihan"
             },
             {
@@ -2068,8 +2068,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 4,
-              "ball_in_over": 6,
-              "notation": "4.0",
+              "ball_in_over": 1,
+              "notation": "3.1",
               "bowler": "Shrihan"
             }
           ]
@@ -2104,8 +2104,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 5,
-              "ball_in_over": 2,
-              "notation": "4.2",
+              "ball_in_over": 1,
+              "notation": "4.1",
               "bowler": "Henry"
             },
             {
@@ -2118,8 +2118,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 5,
-              "ball_in_over": 3,
-              "notation": "4.3",
+              "ball_in_over": 1,
+              "notation": "4.1",
               "bowler": "Henry"
             },
             {
@@ -2132,8 +2132,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 5,
-              "ball_in_over": 4,
-              "notation": "4.4",
+              "ball_in_over": 1,
+              "notation": "4.1",
               "bowler": "Henry"
             },
             {
@@ -2146,8 +2146,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 5,
-              "ball_in_over": 5,
-              "notation": "4.5",
+              "ball_in_over": 1,
+              "notation": "4.1",
               "bowler": "Henry"
             },
             {
@@ -2160,8 +2160,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 5,
-              "ball_in_over": 6,
-              "notation": "5.0",
+              "ball_in_over": 1,
+              "notation": "4.1",
               "bowler": "Henry"
             }
           ]
@@ -2196,8 +2196,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 6,
-              "ball_in_over": 2,
-              "notation": "5.2",
+              "ball_in_over": 1,
+              "notation": "5.1",
               "bowler": "Rafi"
             },
             {
@@ -2210,8 +2210,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 6,
-              "ball_in_over": 3,
-              "notation": "5.3",
+              "ball_in_over": 1,
+              "notation": "5.1",
               "bowler": "Rafi"
             },
             {
@@ -2224,8 +2224,8 @@
               "fielder": "",
               "extras_type": "wide",
               "over": 6,
-              "ball_in_over": 4,
-              "notation": "5.4",
+              "ball_in_over": 1,
+              "notation": "5.1",
               "bowler": "Rafi"
             },
             {
@@ -2238,8 +2238,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 6,
-              "ball_in_over": 5,
-              "notation": "5.5",
+              "ball_in_over": 1,
+              "notation": "5.1",
               "bowler": "Rafi"
             },
             {
@@ -2252,8 +2252,8 @@
               "fielder": "",
               "extras_type": "noball",
               "over": 6,
-              "ball_in_over": 6,
-              "notation": "6.0",
+              "ball_in_over": 1,
+              "notation": "5.1",
               "bowler": "Rafi"
             }
           ]
@@ -2288,8 +2288,8 @@
               "fielder": "",
               "extras_type": "wide",
               "over": 7,
-              "ball_in_over": 2,
-              "notation": "6.2",
+              "ball_in_over": 1,
+              "notation": "6.1",
               "bowler": "Zayden"
             },
             {
@@ -2302,8 +2302,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 7,
-              "ball_in_over": 3,
-              "notation": "6.3",
+              "ball_in_over": 1,
+              "notation": "6.1",
               "bowler": "Zayden"
             },
             {
@@ -2316,8 +2316,8 @@
               "fielder": "Ojas",
               "extras_type": "",
               "over": 7,
-              "ball_in_over": 4,
-              "notation": "6.4",
+              "ball_in_over": 1,
+              "notation": "6.1",
               "bowler": "Zayden"
             },
             {
@@ -2330,8 +2330,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 7,
-              "ball_in_over": 5,
-              "notation": "6.5",
+              "ball_in_over": 1,
+              "notation": "6.1",
               "bowler": "Zayden"
             },
             {
@@ -2344,8 +2344,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 7,
-              "ball_in_over": 6,
-              "notation": "7.0",
+              "ball_in_over": 1,
+              "notation": "6.1",
               "bowler": "Zayden"
             }
           ]
@@ -2380,8 +2380,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 8,
-              "ball_in_over": 2,
-              "notation": "7.2",
+              "ball_in_over": 1,
+              "notation": "7.1",
               "bowler": "Dev"
             },
             {
@@ -2394,8 +2394,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 8,
-              "ball_in_over": 3,
-              "notation": "7.3",
+              "ball_in_over": 1,
+              "notation": "7.1",
               "bowler": "Dev"
             },
             {
@@ -2408,8 +2408,8 @@
               "fielder": "",
               "extras_type": "wide",
               "over": 8,
-              "ball_in_over": 4,
-              "notation": "7.4",
+              "ball_in_over": 1,
+              "notation": "7.1",
               "bowler": "Dev"
             },
             {
@@ -2422,8 +2422,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 8,
-              "ball_in_over": 5,
-              "notation": "7.5",
+              "ball_in_over": 1,
+              "notation": "7.1",
               "bowler": "Dev"
             },
             {
@@ -2436,8 +2436,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 8,
-              "ball_in_over": 6,
-              "notation": "8.0",
+              "ball_in_over": 1,
+              "notation": "7.1",
               "bowler": "Dev"
             }
           ]
@@ -2472,8 +2472,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 9,
-              "ball_in_over": 2,
-              "notation": "8.2",
+              "ball_in_over": 1,
+              "notation": "8.1",
               "bowler": "Ojas"
             },
             {
@@ -2486,8 +2486,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 9,
-              "ball_in_over": 3,
-              "notation": "8.3",
+              "ball_in_over": 1,
+              "notation": "8.1",
               "bowler": "Ojas"
             },
             {
@@ -2500,8 +2500,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 9,
-              "ball_in_over": 4,
-              "notation": "8.4",
+              "ball_in_over": 1,
+              "notation": "8.1",
               "bowler": "Ojas"
             },
             {
@@ -2514,8 +2514,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 9,
-              "ball_in_over": 5,
-              "notation": "8.5",
+              "ball_in_over": 1,
+              "notation": "8.1",
               "bowler": "Ojas"
             },
             {
@@ -2528,8 +2528,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 9,
-              "ball_in_over": 6,
-              "notation": "9.0",
+              "ball_in_over": 1,
+              "notation": "8.1",
               "bowler": "Ojas"
             }
           ]
@@ -2564,8 +2564,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 10,
-              "ball_in_over": 2,
-              "notation": "9.2",
+              "ball_in_over": 1,
+              "notation": "9.1",
               "bowler": "Riyan"
             },
             {
@@ -2578,8 +2578,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 10,
-              "ball_in_over": 3,
-              "notation": "9.3",
+              "ball_in_over": 1,
+              "notation": "9.1",
               "bowler": "Riyan"
             },
             {
@@ -2592,8 +2592,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 10,
-              "ball_in_over": 4,
-              "notation": "9.4",
+              "ball_in_over": 1,
+              "notation": "9.1",
               "bowler": "Riyan"
             },
             {
@@ -2606,8 +2606,8 @@
               "fielder": "",
               "extras_type": "wide",
               "over": 10,
-              "ball_in_over": 5,
-              "notation": "9.5",
+              "ball_in_over": 1,
+              "notation": "9.1",
               "bowler": "Riyan"
             },
             {
@@ -2620,8 +2620,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 10,
-              "ball_in_over": 6,
-              "notation": "10.0",
+              "ball_in_over": 1,
+              "notation": "9.1",
               "bowler": "Riyan"
             }
           ]
@@ -2656,8 +2656,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 11,
-              "ball_in_over": 2,
-              "notation": "10.2",
+              "ball_in_over": 1,
+              "notation": "10.1",
               "bowler": "Vivaan"
             },
             {
@@ -2670,8 +2670,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 11,
-              "ball_in_over": 3,
-              "notation": "10.3",
+              "ball_in_over": 1,
+              "notation": "10.1",
               "bowler": "Vivaan"
             },
             {
@@ -2684,8 +2684,8 @@
               "fielder": "",
               "extras_type": "wide",
               "over": 11,
-              "ball_in_over": 4,
-              "notation": "10.4",
+              "ball_in_over": 1,
+              "notation": "10.1",
               "bowler": "Vivaan"
             },
             {
@@ -2698,8 +2698,8 @@
               "fielder": "",
               "extras_type": "noball",
               "over": 11,
-              "ball_in_over": 5,
-              "notation": "10.5",
+              "ball_in_over": 1,
+              "notation": "10.1",
               "bowler": "Vivaan"
             },
             {
@@ -2712,8 +2712,8 @@
               "fielder": "",
               "extras_type": "wide",
               "over": 11,
-              "ball_in_over": 6,
-              "notation": "11.0",
+              "ball_in_over": 1,
+              "notation": "10.1",
               "bowler": "Vivaan"
             }
           ]
@@ -2748,8 +2748,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 12,
-              "ball_in_over": 2,
-              "notation": "11.2",
+              "ball_in_over": 1,
+              "notation": "11.1",
               "bowler": "Shrihan"
             },
             {
@@ -2762,8 +2762,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 12,
-              "ball_in_over": 3,
-              "notation": "11.3",
+              "ball_in_over": 1,
+              "notation": "11.1",
               "bowler": "Shrihan"
             },
             {
@@ -2776,8 +2776,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 12,
-              "ball_in_over": 4,
-              "notation": "11.4",
+              "ball_in_over": 1,
+              "notation": "11.1",
               "bowler": "Shrihan"
             },
             {
@@ -2790,8 +2790,8 @@
               "fielder": "",
               "extras_type": "wide",
               "over": 12,
-              "ball_in_over": 5,
-              "notation": "11.5",
+              "ball_in_over": 1,
+              "notation": "11.1",
               "bowler": "Shrihan"
             },
             {
@@ -2804,8 +2804,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 12,
-              "ball_in_over": 6,
-              "notation": "12.0",
+              "ball_in_over": 1,
+              "notation": "11.1",
               "bowler": "Shrihan"
             }
           ]
@@ -2840,8 +2840,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 13,
-              "ball_in_over": 2,
-              "notation": "12.2",
+              "ball_in_over": 1,
+              "notation": "12.1",
               "bowler": "Henry"
             },
             {
@@ -2854,8 +2854,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 13,
-              "ball_in_over": 3,
-              "notation": "12.3",
+              "ball_in_over": 1,
+              "notation": "12.1",
               "bowler": "Henry"
             },
             {
@@ -2868,8 +2868,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 13,
-              "ball_in_over": 4,
-              "notation": "12.4",
+              "ball_in_over": 1,
+              "notation": "12.1",
               "bowler": "Henry"
             },
             {
@@ -2882,8 +2882,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 13,
-              "ball_in_over": 5,
-              "notation": "12.5",
+              "ball_in_over": 1,
+              "notation": "12.1",
               "bowler": "Henry"
             },
             {
@@ -2896,8 +2896,8 @@
               "fielder": "",
               "extras_type": "wide",
               "over": 13,
-              "ball_in_over": 6,
-              "notation": "13.0",
+              "ball_in_over": 1,
+              "notation": "12.1",
               "bowler": "Henry"
             }
           ]
@@ -2932,8 +2932,8 @@
               "fielder": "",
               "extras_type": "noball",
               "over": 14,
-              "ball_in_over": 2,
-              "notation": "13.2",
+              "ball_in_over": 1,
+              "notation": "13.1",
               "bowler": "Rafi"
             },
             {
@@ -2946,8 +2946,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 14,
-              "ball_in_over": 3,
-              "notation": "13.3",
+              "ball_in_over": 1,
+              "notation": "13.1",
               "bowler": "Rafi"
             },
             {
@@ -2960,8 +2960,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 14,
-              "ball_in_over": 4,
-              "notation": "13.4",
+              "ball_in_over": 1,
+              "notation": "13.1",
               "bowler": "Rafi"
             },
             {
@@ -2974,8 +2974,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 14,
-              "ball_in_over": 5,
-              "notation": "13.5",
+              "ball_in_over": 1,
+              "notation": "13.1",
               "bowler": "Rafi"
             },
             {
@@ -2988,8 +2988,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 14,
-              "ball_in_over": 6,
-              "notation": "14.0",
+              "ball_in_over": 1,
+              "notation": "13.1",
               "bowler": "Rafi"
             }
           ]
@@ -3024,8 +3024,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 15,
-              "ball_in_over": 2,
-              "notation": "14.2",
+              "ball_in_over": 1,
+              "notation": "14.1",
               "bowler": "Zayden"
             },
             {
@@ -3038,8 +3038,8 @@
               "fielder": "Ojas",
               "extras_type": "",
               "over": 15,
-              "ball_in_over": 3,
-              "notation": "14.3",
+              "ball_in_over": 1,
+              "notation": "14.1",
               "bowler": "Zayden"
             },
             {
@@ -3052,8 +3052,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 15,
-              "ball_in_over": 4,
-              "notation": "14.4",
+              "ball_in_over": 1,
+              "notation": "14.1",
               "bowler": "Zayden"
             },
             {
@@ -3066,8 +3066,8 @@
               "fielder": "",
               "extras_type": "wide",
               "over": 15,
-              "ball_in_over": 5,
-              "notation": "14.5",
+              "ball_in_over": 1,
+              "notation": "14.1",
               "bowler": "Zayden"
             },
             {
@@ -3080,8 +3080,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 15,
-              "ball_in_over": 6,
-              "notation": "15.0",
+              "ball_in_over": 1,
+              "notation": "14.1",
               "bowler": "Zayden"
             }
           ]
@@ -3116,8 +3116,8 @@
               "fielder": "",
               "extras_type": "legbye",
               "over": 16,
-              "ball_in_over": 2,
-              "notation": "15.2",
+              "ball_in_over": 1,
+              "notation": "15.1",
               "bowler": "Dev"
             },
             {
@@ -3130,8 +3130,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 16,
-              "ball_in_over": 3,
-              "notation": "15.3",
+              "ball_in_over": 1,
+              "notation": "15.1",
               "bowler": "Dev"
             },
             {
@@ -3144,8 +3144,8 @@
               "fielder": "",
               "extras_type": "legbye",
               "over": 16,
-              "ball_in_over": 4,
-              "notation": "15.4",
+              "ball_in_over": 1,
+              "notation": "15.1",
               "bowler": "Dev"
             },
             {
@@ -3158,8 +3158,8 @@
               "fielder": "",
               "extras_type": "",
               "over": 16,
-              "ball_in_over": 5,
-              "notation": "15.5",
+              "ball_in_over": 1,
+              "notation": "15.1",
               "bowler": "Dev"
             },
             {
@@ -3172,8 +3172,8 @@
               "fielder": "",
               "extras_type": "legbye",
               "over": 16,
-              "ball_in_over": 6,
-              "notation": "16.0",
+              "ball_in_over": 1,
+              "notation": "15.1",
               "bowler": "Dev"
             }
           ]
@@ -3371,7 +3371,7 @@
           "fielder": "Ojas",
           "catches": 1,
           "run_outs": 1,
-          "detail": "run out (Ojas) \u2014 Ov 7 (Drish) | c Qaim b Zayden \u2014 Ov 15"
+          "detail": "run out (Ojas), Ov 7 (Drish) | c Qaim b Zayden, Ov 15"
         }
       ],
       "final_total": 308,

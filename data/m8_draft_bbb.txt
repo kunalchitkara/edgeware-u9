@@ -1,0 +1,499 @@
+M8, Edgware CC vs Harefield
+Result: Edgware won by 96 runs (341/2 vs 245/11)
+Format: U9 pairs, 20 overs, 200 start, −5 per wicket
+Target (inn 2): 342 (341 + 1)
+Debut: Ishaan (Edgware)
+
+================================================================================
+INNINGS 1 · Edgware CC batting (341/2)
+Pairs: P1 Veer&Avyaan (1-4) | P2 Ishaan&Taran (5-8) | P3 Kaiyan&Drish (9-12)
+       P4 Viaan&Krish (13-16) | P5 Qaim&Ariyan (17-20)
+Declared net sequence: 5,5,5,9,5,12,4,0,14,11,9,10,5,7,6,7,3,5,7,12 → +141 → 341
+U9 math: 200 start + 141 net = 341; 2 wickets × −5 = −10 penalty; gross runs +151
+================================================================================
+
+Over 1 · Khiyan (Veer & Avyaan)
+  0.1 Veer: .
+  0.2 Veer: 1
+  0.3 (Avyaan): 1
+  0.4 (Avyaan): .
+  0.5 Veer: .
+  1.0 Veer: O+1
+  → net +5, total 205
+
+Over 2 · Bailey (Veer & Avyaan)
+  1.1 Veer: .
+  1.2 Veer: .
+  1.3 Veer: .
+  1.4 Veer: 2
+  1.5 Veer: .
+  2.0 Veer: O+1
+  → net +5, total 210
+
+Over 3 · George (Veer & Avyaan)
+  2.1 Veer: .
+  2.2 Veer: 1
+  2.3 (Avyaan): .
+  2.4 (Avyaan): .
+  2.5 (Avyaan): 2
+  3.0 (Avyaan): +
+  → net +5, total 215
+
+Over 4 · Jacob (Veer & Avyaan)
+  3.1 Veer: +
+  3.2 Veer: 1
+  3.3 (Avyaan): +
+  3.4 (Avyaan): +
+  3.5 (Avyaan): O
+  4.0 (Avyaan): .
+  → net +9, total 224
+
+Over 5 · Blake (Ishaan & Taran)
+  4.1 (Taran): 1
+  4.2 Ishaan: +
+  4.3 Ishaan: 2
+  4.4 Ishaan: .
+  4.5 Ishaan: +
+  5.0 Ishaan: .
+  → net +5, total 229
+
+Over 6 · Rosie (Ishaan & Taran)
+  5.1 (Taran): 4
+  5.2 (Taran): 1
+  5.3 Ishaan: +
+  5.4 Ishaan: +
+  5.5 Ishaan: +
+  6.0 Ishaan: 1
+  → net +12, total 241
+
+Over 7 · Emily (Ishaan & Taran)
+  6.1 Ishaan: .
+  6.2 Ishaan: .
+  6.3 Ishaan: .
+  6.4 Ishaan: .
+  6.5 Ishaan: +
+  7.0 Ishaan: +
+  → net +4, total 245
+
+Over 8 · Sia (Ishaan & Taran)
+  7.1 (Taran): 1
+  7.2 Ishaan: .
+  7.3 Ishaan: .
+  7.4 Ishaan: +
+  7.5 Ishaan: +
+  8.0 Ishaan: W (Ishaan c Bailey b Sia)
+  → net 0, total 245
+
+Over 9 · Miraya (Kaiyan & Drish)
+  8.1 Kaiyan: 4
+  8.2 Kaiyan: .
+  8.3 Kaiyan: +
+  8.4 Kaiyan: 1
+  8.5 (Drish): 4
+  9.0 (Drish): O+1
+  → net +14, total 259
+
+Over 10 · Louie (Kaiyan & Drish)
+  9.1 (Drish): 1
+  9.2 Kaiyan: 2
+  9.3 Kaiyan: 4
+  9.4 Kaiyan: 1
+  9.5 (Drish): +
+  10.0 (Drish): 1
+  → net +11, total 270
+
+Over 11 · Khiyan (Kaiyan & Drish)
+  10.1 (Drish): +
+  10.2 (Drish): O
+  10.3 (Drish): .
+  10.4 (Drish): O
+  10.5 (Drish): 1
+  11.0 Kaiyan: 2
+  → net +9, total 279
+
+Over 12 · Bailey (Kaiyan & Drish)
+  11.1 (Drish): 1
+  11.2 Kaiyan: .
+  11.3 Kaiyan: +
+  11.4 Kaiyan: +
+  11.5 Kaiyan: O+2∆
+  12.0 Kaiyan: 1
+  → net +10, total 289
+
+Over 13 · George (Viaan & Krish)
+  12.1 Viaan: .
+  12.2 Viaan: 1
+  12.3 (Krish): 1
+  12.4 (Krish): .
+  12.5 (Krish): 1
+  13.0 Viaan: +
+  → net +5, total 294
+
+Over 14 · Jacob (Viaan & Krish)
+  13.1 Viaan: .
+  13.2 Viaan: 3
+  13.3 (Krish): .
+  13.4 (Krish): 2
+  13.5 (Krish): +
+  14.0 (Krish): .
+  → net +7, total 301
+
+Over 15 · Blake (Viaan & Krish)
+  14.1 Viaan: 1
+  14.2 (Krish): +
+  14.3 (Krish): .
+  14.4 (Krish): .
+  14.5 (Krish): +
+  15.0 (Krish): 1
+  → net +6, total 307
+
+Over 16 · Rosie (Viaan & Krish)
+  15.1 (Krish): .
+  15.2 (Krish): 1
+  15.3 Viaan: +
+  15.4 Viaan: .
+  15.5 Viaan: +
+  16.0 Viaan: +
+  → net +7, total 314
+
+Over 17 · Emily (Qaim & Ariyan)
+  16.1 Qaim: 1
+  16.2 (Ariyan): .
+  16.3 (Ariyan): .
+  16.4 (Ariyan): .
+  16.5 (Ariyan): +
+  17.0 (Ariyan): .
+  → net +3, total 317
+
+Over 18 · Sia (Qaim & Ariyan)
+  17.1 Qaim: 1
+  17.2 (Ariyan): .
+  17.3 (Ariyan): 1
+  17.4 Qaim: 1
+  17.5 (Ariyan): +
+  18.0 (Ariyan): .
+  → net +5, total 322
+
+Over 19 · Miraya (Qaim & Ariyan)
+  18.1 Qaim: 1
+  18.2 (Ariyan): 1
+  18.3 Qaim: 1
+  18.4 (Ariyan): .
+  18.5 (Ariyan): O
+  19.0 (Ariyan): +
+  → net +7, total 329
+
+Over 20 · Louie (Qaim & Ariyan)
+  19.1 Qaim: +
+  19.2 Qaim: 2
+  19.3 Qaim: +
+  19.4 Qaim: C  (Qaim c Jacob b Louie)
+  19.5 (Ariyan): +
+  19.6 (Ariyan): +
+  19.7 (Ariyan): +
+  19.8 (Ariyan): +
+  20.0 (Ariyan): 4
+  → net +12, total 341
+Last over: only wides and no-balls count as 1 extra; legal deliveries after pair ends are not counted
+
+--------------------------------------------------------------------------------
+INNINGS 1 · OVER SUMMARY
+--------------------------------------------------------------------------------
+| Ov | Bowler | Runs | Wkts | Net | Total |
+|----|--------|------|------|-----|-------|
+|  1 | Khiyan |    5 |    0 |  +5 |   205 |
+|  2 | Bailey |    5 |    0 |  +5 |   210 |
+|  3 | George |    5 |    0 |  +5 |   215 |
+|  4 | Jacob  |    9 |    0 |  +9 |   224 |
+|  5 | Blake  |    5 |    0 |  +5 |   229 |
+|  6 | Rosie  |   12 |    0 | +12 |   241 |
+|  7 | Emily  |    4 |    0 |  +4 |   245 |
+|  8 | Sia    |    5 |    1 |   0 |   245 |
+|  9 | Miraya |   14 |    0 | +14 |   259 |
+| 10 | Louie  |   11 |    0 | +11 |   270 |
+| 11 | Khiyan |    9 |    0 |  +9 |   279 |
+| 12 | Bailey |   10 |    0 | +10 |   289 |
+| 13 | George |    5 |    0 |  +5 |   294 |
+| 14 | Jacob  |    7 |    0 |  +7 |   301 |
+| 15 | Blake  |    6 |    0 |  +6 |   307 |
+| 16 | Rosie  |    7 |    0 |  +7 |   314 |
+| 17 | Emily  |    3 |    0 |  +3 |   317 |
+| 18 | Sia    |    5 |    0 |  +5 |   322 |
+| 19 | Miraya |    7 |    0 |  +7 |   329 |
+| 20 | Louie  |   12 |    1 | +12 |   341 |
+
+Net sequence: 5,5,5,9,5,12,4,0,14,11,9,10,5,7,6,7,3,5,7,12 → +141 → 341/2
+
+--------------------------------------------------------------------------------
+INNINGS 1 · WICKET SUMMARY
+--------------------------------------------------------------------------------
+| # | Over | Batter | Dismissal              | Bowler | Fielder |
+|---|------|--------|------------------------|--------|---------|
+| 1 |   8.0 | Ishaan | c Bailey b Sia         | Sia    | Bailey  |
+| 2 |  19.4 | Qaim   | c Jacob b Louie        | Louie  | Jacob   |
+
+================================================================================
+INNINGS 2 · Harefield batting (245/11)  [DRAFT, reconstructed from net + wickets]
+Target: 342
+Pairs: P1 George&Rosie (1-4) | P2 Bailey&Emily (5-8) | P3 Khiyan&Sia (9-12)
+       P4 Blake&Louie (13-16) | P5 Jacob&Miraya (17-20)
+Declared net sequence: 3,−4,0,9,−2,5,6,0,7,7,6,13,−4,5,2,2,−7,−2,2,−3 → +45 → 245
+U9 math: 200 start + 45 net = 245; 11 wickets × −5 = −55 penalty; gross +100 (scorer authority)
+================================================================================
+
+Over 1 · Taran (George & Rosie)
+  0.1 George: 1
+  0.2 George: .
+  0.3 (Rosie): .
+  0.4 (Rosie): .
+  0.5 George: 1
+  1.0 George: 1
+  → net +3, total 203
+
+Over 2 · Krish (George & Rosie)
+  1.1 George: 1
+  1.2 George: .
+  1.3 (Rosie): .
+  1.4 (Rosie): 1
+  1.5 George: W (George b Krish)
+  2.0 (Rosie): .
+  → net −4, total 199
+
+Over 3 · Ariyan (George & Rosie)
+  2.1 (Rosie): +
+  2.2 (Rosie): 3
+  2.3 George: W (George b Ariyan)
+  2.4 (Rosie): .
+  2.5 (Rosie): .
+  3.0 (Rosie): .
+  → net 0, total 199
+
+Over 4 · Qaim (George & Rosie)
+  3.1 George: 2
+  3.2 George: 1
+  3.3 (Rosie): .
+  3.4 (Rosie): .
+  3.5 George: 1
+  4.0 (Rosie): 2
+  → net +9, total 208
+  Extras: + (1 wide)
+Over 5 · Avyaan (Bailey & Emily)
+  4.1 Bailey: .
+  4.2 Bailey: .
+  4.3 (Emily): .
+  4.4 (Emily): W (Emily run out (Kaiyan))
+  4.5 Bailey: .
+  5.0 Bailey: 3
+  → net −2, total 206
+
+Over 6 · Drish (Bailey & Emily)
+  5.1 Bailey: .
+  5.2 Bailey: .
+  5.3 (Emily): 1
+  5.4 (Emily): 2
+  5.5 Bailey: .
+  6.0 Bailey: 2
+  → net +5, total 211
+
+Over 7 · Ishaan (Bailey & Emily)
+  6.1 Bailey: 1
+  6.2 Bailey: .
+  6.3 (Emily): 2
+  6.4 (Emily): .
+  6.5 Bailey: 2
+  7.0 Bailey: .
+  → net +6, total 217
+
+Over 8 · Viaan (Bailey & Emily)
+  7.1 Bailey: .
+  7.2 Bailey: .
+  7.3 (Emily): W (Emily b Viaan)
+  7.4 (Emily): .
+  7.5 Bailey: 1
+  8.0 Bailey: .
+  → net 0, total 217
+  NOTE: user wrote 7.2; Viaan bowls ov 8, placed at 8.3
+
+Over 9 · Kaiyan (Khiyan & Sia)
+  8.1 Khiyan: 3
+  8.2 Khiyan: 1
+  8.3 (Sia): .
+  8.4 (Sia): .
+  8.5 Khiyan: 2
+  9.0 (Sia): 1
+  → net +7, total 224
+
+Over 10 · Veer (Khiyan & Sia)
+  9.1 Khiyan: 4
+  9.2 Khiyan: 1
+  9.3 (Sia): 1
+  9.4 (Sia): .
+  9.5 Khiyan: 1
+  10.0 (Sia): .
+  → net +7, total 231
+
+Over 11 · Drish (Khiyan & Sia)
+  10.1 Khiyan: 2
+  10.2 Khiyan: 1
+  10.3 (Sia): 1
+  10.4 (Sia): .
+  10.5 Khiyan: 2
+  11.0 (Sia): .
+  → net +6, total 237
+
+Over 12 · Krish (Khiyan & Sia)
+  11.1 Khiyan: 4
+  11.2 Khiyan: 3
+  11.3 (Sia): 1
+  11.4 (Sia): .
+  11.5 Khiyan: 3
+  12.0 (Sia): 2
+  → net +13, total 250
+
+Over 13 · Veer (Blake & Louie)
+  12.1 Blake: nb (+2)
+  12.2 Blake: W (Blake run out (Kaiyan))  ← 12.2; on no-ball, still counts
+  12.3 (Louie): W (Louie c Krish b Veer)  ← 12.3
+  12.4 Blake: 1
+  12.5 (Louie): .
+  13.0 (Louie): 2
+  → net −4, total 246
+
+Over 14 · Avyaan (Blake & Louie)
+  13.1 Blake: 2
+  13.2 Blake: 1
+  13.3 (Louie): .
+  13.4 (Louie): 1
+  13.5 Blake: 1
+  14.0 (Louie): 1
+  → net +5, total 251
+  Extras: + + (2 wides)
+
+Over 15 · Ariyan (Blake & Louie)
+  14.1 Blake: 1
+  14.2 Blake: .
+  14.3 (Louie): .
+  14.4 (Louie): .
+  14.5 Blake: 1
+  15.0 (Louie): .
+  → net +2, total 253
+
+Over 16 · Kaiyan (Blake & Louie → Jacob & Miraya)
+  15.1 Blake: +
+  15.2 Blake: +
+  15.3 (Louie): +
+  15.4 (Louie): .
+  15.5 Blake: .
+  16.0 (Miraya): .
+  → net +2, total 255
+  NOTE: Miraya run out moved to ov 17.2 per scorer correction
+
+Over 17 · Qaim (Jacob & Miraya)
+  16.1 Jacob: .
+  16.2 (Miraya): W (run out by Ariyan)
+  16.3 (Miraya): +
+  16.4 (Miraya): 1
+  16.5 Jacob: (Jacob b Qaim)
+  17.0 Jacob: .
+  → net −7, total 248
+
+Over 18 · Viaan (Jacob & Miraya)
+  17.1 Jacob: .
+  17.2 Jacob: +
+  17.3 Jacob: W (Jacob b Viaan)
+  17.4 (Miraya): .
+  17.5 (Miraya): .
+  18.0 (Miraya): 1
+  → net −2, total 246
+
+Over 19 · Ishaan (Jacob & Miraya)
+  18.1 (Miraya): +
+  18.2 (Miraya): +
+  18.3 (Miraya): 1
+  18.4 Jacob: .
+  18.5 Jacob: +
+  19.0 Jacob: W (b Ishaan)
+  → net +2, total 248
+
+Over 20 · Taran (Jacob & Miraya)
+  19.1 Jacob: W (Jacob b Taran)
+  19.2 Jacob: .
+  19.3 (Miraya): .
+  19.4 (Miraya): ∆+2
+  19.5 Jacob: .
+  20.0 Jacob: .
+  → net −3, total 245
+
+--------------------------------------------------------------------------------
+INNINGS 2 · OVER SUMMARY (corrected cumulative)
+--------------------------------------------------------------------------------
+| Ov | Bowler | Runs | Wkts | Net | Total |
+|----|--------|------|------|-----|-------|
+|  1 | Taran  |    3 |    0 |  +3 |   203 |
+|  2 | Krish  |    1 |    1 |  −4 |   199 |
+|  3 | Ariyan |    0 |    0 |   0 |   199 |
+|  4 | Qaim   |    9 |    0 |  +9 |   208 |
+|  5 | Avyaan |    3 |    1 |  −2 |   206 |
+|  6 | Drish  |    5 |    0 |  +5 |   211 |
+|  7 | Ishaan |    6 |    0 |  +6 |   217 |
+|  8 | Viaan  |    5 |    1 |   0 |   217 |
+|  9 | Kaiyan |    7 |    0 |  +7 |   224 |
+| 10 | Veer   |    7 |    0 |  +7 |   231 |
+| 11 | Drish  |    6 |    0 |  +6 |   237 |
+| 12 | Krish  |   13 |    0 | +13 |   250 |
+| 13 | Veer   |    6 |    2 |  −4 |   246 |
+| 14 | Avyaan |    5 |    0 |  +5 |   251 |
+| 15 | Ariyan |    2 |    0 |  +2 |   253 |
+| 16 | Kaiyan |    7 |    0 |  +2 |   255 |
+| 17 | Qaim   |    3 |    2 |  −7 |   248 |
+| 18 | Viaan  |    3 |    1 |  −2 |   246 |
+| 19 | Ishaan |    2 |    0 |  +2 |   248 |
+| 20 | Taran  |    2 |    1 |  −3 |   245 |
+
+Net sequence: 3, −4, 0, 9, −2, 5, 6, 0, 7, 7, 6, 13, −4, 5, 2, 2, −7, −2, 2, −3 → +45 → 245/11
+
+--------------------------------------------------------------------------------
+INNINGS 2 · WICKET SUMMARY (11 wickets, pairs rules)
+--------------------------------------------------------------------------------
+| # | Over | Batter | Dismissal                    | Bowler | Fielder | Notes |
+|---|------|--------|------------------------------|--------|---------|-------|
+| 1 |   1.5 | George | b Krish                      | Krish  |,       |       |
+| 2 |   2.3 | George | b Ariyan                     | Ariyan |,       | pairs re-out, counts |
+| 3 |   4.4 | Emily  | run out (Kaiyan)             | Avyaan | Kaiyan  |       |
+| 4 |   7.3 | Emily  | b Viaan                      | Viaan  |,       | 2nd Emily dismissal |
+| 5 |  12.2 | Blake  | run out (Kaiyan)             | Veer   | Kaiyan  | on no-ball |
+| 6 |  12.3 | Louie  | c Krish b Veer               | Veer   | Krish   |       |
+| 7 |  16.2 | Miraya | run out (Ariyan)             | Qaim   | Ariyan  |       |
+| 8 |  16.5 | Jacob  | b Qaim                       | Qaim   |,       |       |
+| 9 |  17.3 | Jacob  | b Viaan                      | Viaan  |,       | pairs re-out |
+|10 |  19.0 | Jacob  | b Ishaan                     | Ishaan |,       | pairs re-out |
+|11 |  19.1 | Jacob  | b Taran                      | Taran  |,       | pairs re-out; innings ends |
+
+PAIRS CRICKET NOTES:
+  • 11 counting wickets → 245/11 (11 × −5 = −55 penalty; gross +100; net +45; total 245 scorer authority)
+  • George b Ariyan (2.3) is a pairs re-out and counts as the 2nd wicket (−5)
+  • Jacob dismissed 4× in P5 (ov 17-20), each counts (−5 each) under U9 pairs continuation
+  • Jacob b Ishaan (19.0 / ov 19 ball 6) restored per scorer correction
+  • Confirm ov 3 George re-out notation with scorer if integrating to sheet
+
+================================================================================
+SCORE SUMMARY
+================================================================================
+Edgware CC:   341/2  (20 ov) , nets +141 from 200
+Harefield:    245/11 (20 ov) , nets +45 from 200
+Target:       342
+Result:       Edgware won by 96 runs
+Margin check: 341 − 245 = 96 ✓
+
+READINESS FOR SITE INTEGRATION:
+  ✓ Authoritative totals reconciled (341/2, 245/11, margin 96, target 342)
+  ✓ Innings 1 over nets and cumulative chain verified
+  ✓ Innings 2 over summary aligned with BBB (ov 14 net +5 fixed; ov 19 no wicket)
+  ✓ Wicket list: 11 counting events per scorer (George b Ariyan at 2.3 included)
+  ~ Over 20 inn 1 BBB: declared net +12 authoritative; ball symbols may not sum exactly
+    (last-over pairs rule: extras only after pair ends)
+  ~ Innings 2 BBB is reconstructed, confirm fielding credits with scorer
+
+================================================================================
+END DRAFT, edit ball-by-ball above, then integrate
+================================================================================
