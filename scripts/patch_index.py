@@ -11,7 +11,7 @@ INDEX = ROOT / "index.html"
 BBB_DIR = ROOT / "bbb"
 
 MATCHES_WITH_BBB = ["m2", "m4", "m5", "m6", "m7", "m8"]
-WALKOVER_MATCHES = ["m1", "m3"]
+WALKOVER_MATCHES = ["m1", "m3", "m9"]
 DEFAULT_MATCH = "m1"
 
 CSS = """

@@ -15,7 +15,8 @@ const TAB_CASES = [
     tabId: "tab-ov",
     assert: async (page) => {
       await expect(page.getByText("Season Results")).toBeVisible();
-      await expect(page.getByText("Next Match")).toBeVisible();
+      await expect(page.getByText("Next Match · 19 Jul 2026")).toBeVisible();
+      await expect(page.locator("#tab-ov .nm").getByText("Headstone Manor")).toBeVisible();
     },
   },
   {
@@ -32,7 +33,7 @@ const TAB_CASES = [
     hash: "mx",
     tabId: "tab-mx",
     assert: async (page) => {
-      await expect(page.locator("#tab-mx .mts .mtb")).toHaveCount(8);
+      await expect(page.locator("#tab-mx .mts .mtb")).toHaveCount(9);
       const latest = await page.evaluate(() => window.latestMatch());
       await expect(page.locator(`#match-${latest}.md2.active`)).toBeVisible();
     },
@@ -121,7 +122,9 @@ test.describe("edgeware-u9 tabs", () => {
     await page.goto("/#mx");
     const latest = await page.evaluate(() => window.latestMatch());
     await expect(page.locator(`#match-${latest}.md2.active`)).toBeVisible();
-    await expect(page.locator(`#match-${latest}-summary.mmview.active`)).toBeVisible();
+    await expect(
+      page.locator(`#match-${latest}-summary.mmview.active, #match-${latest} .card`).first(),
+    ).toBeVisible();
     await expect(page).toHaveURL(new RegExp(`#mx/${latest}$`));
   });
 
@@ -466,6 +469,23 @@ test.describe("edgeware-u9 tabs", () => {
       await expect(root.locator(".mmview.active, .card").first()).toBeVisible();
     });
   }
+
+  test("M9 walkover shows no scorecard message", async ({ page }) => {
+    await page.goto("/#mx/m9");
+    const m9 = page.locator("#match-m9");
+    await expect(m9).toHaveClass(/active/);
+    await expect(m9.getByText("WIN (Walkover)")).toBeVisible();
+    await expect(m9.getByText("Hayes conceded before the match")).toBeVisible();
+    await expect(m9.getByText("Walkover: no scorecard")).toBeVisible();
+    await expect(m9.locator(".bbb-wrap")).toHaveCount(0);
+  });
+
+  test("latest match defaults to M9 after Hayes walkover", async ({ page }) => {
+    await page.goto("/#mx");
+    const latest = await page.evaluate(() => window.latestMatch());
+    expect(latest).toBe("m9");
+    await expect(page.locator("#match-m9.md2.active")).toBeVisible();
+  });
 
   test("M7 summary shows batting table with SR column", async ({ page }) => {
     await page.goto("/#mx/m7");
