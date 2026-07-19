@@ -9,7 +9,10 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 INDEX = ROOT / "index.html"
-MATCH_IDS = ("m2", "m4", "m5", "m6", "m7", "m8")
+
+from bowling_display import gross_runs  # noqa: E402
+
+MATCH_IDS = ("m2", "m4", "m5", "m6", "m7", "m8", "m10")
 ECC_NAMES = {
     "Ariyan",
     "Qaim",
@@ -23,6 +26,8 @@ ECC_NAMES = {
     "Shyam",
     "Aanya",
     "Ishaan",
+    "Shay",
+    "Riyan",
 }
 ECC_FIELDING_TEAMS = {"ECC", "Edgware CC"}
 
@@ -75,7 +80,9 @@ class BowlSeason:
 
     @property
     def economy(self) -> float:
-        return (self.runs / (self.balls / 6.0)) if self.balls else 0.0
+        if not self.balls:
+            return 0.0
+        return self.runs / (self.balls / 6.0)
 
 
 @dataclass
@@ -207,7 +214,7 @@ def derive_shared_leaderboards(
         if s.balls >= economy_min_balls
     ]
     rows["economy"] = [
-        (n, f"{v:.1f}", v) for n, v in _top_n(economy, descending=False)
+        (n, f"{v:.2f}", v) for n, v in _top_n(economy, descending=False)
     ]
     rows["catches"] = [
         (n, str(v), v) for n, v in _top_n([(n, s.catches) for n, s in fielding.items()])
@@ -332,11 +339,27 @@ def _parse_bowling_row(row_html: str) -> tuple[str, int, int, int, int, int, int
     name = vals[0]
     if name not in ECC_NAMES:
         return None
+    balls = _overs_to_balls(vals[1])
+    wkts = _to_int(vals[3])
+    runs_col = _to_int(vals[2])
+    overs_f = balls / 6.0 if balls else 0.0
+    eco_col = 0.0
+    if len(vals) > 6:
+        eco_text = re.sub(r"[^\d.]", "", vals[6])
+        if eco_text:
+            try:
+                eco_col = float(eco_text)
+            except ValueError:
+                eco_col = 0.0
+    # R column is gross (ball runs + 5 per wicket). Legacy rows may store net in R.
+    gross = runs_col
+    if overs_f > 0 and eco_col > 0 and abs(eco_col - runs_col / overs_f) > 0.2:
+        gross = gross_runs(runs_col, wkts)
     return (
         name,
-        _overs_to_balls(vals[1]),
-        _to_int(vals[2]),
-        _to_int(vals[3]),
+        balls,
+        gross,
+        wkts,
         _to_int(vals[4]),
         _to_int(vals[5]),
         _to_int(vals[7]),

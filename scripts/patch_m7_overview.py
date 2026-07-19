@@ -305,7 +305,7 @@ def _replace_bowling_table_from_source(html: str, season: SummarySeason) -> str:
         rows.append(
             f'        <tr><td><strong>{name}</strong></td><td class="c">{matches}</td><td class="c">{overs}</td>'
             f'<td class="c">{stats.runs}</td><td class="c">{w_cell}</td><td class="c">{stats.wides}</td>'
-            f'<td class="c">{stats.noballs}</td><td class="c{eco_cls}">{eco_value:.1f}</td><td class="c">{dots_cell}</td></tr>'
+            f'<td class="c">{stats.noballs}</td><td class="c{eco_cls}">{eco_value:.2f}</td><td class="c">{dots_cell}</td></tr>'
         )
     from patch_m6_overview import _replace_table_body  # noqa: WPS433
 

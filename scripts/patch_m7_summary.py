@@ -16,14 +16,7 @@ sys.path.insert(0, str(ROOT / "scripts"))
 from innings_score import format_innings_score  # noqa: E402
 from match_awards import BatterLine, BowlerLine, best_batsman, best_bowler, bowl_figure  # noqa: E402
 from strike_rate import format_sr  # noqa: E402
-
-
-def eco(runs: int, overs: int) -> str:
-    if overs == 0:
-        return "0.0"
-    v = runs / overs
-    cls = ' eco-good' if v <= 4.0 else ""
-    return f'<td class="c{cls}">{v:.1f}</td>'
+from bowling_display import eco_cell, gross_runs  # noqa: E402
 
 
 def net_cls(net: int) -> str:
@@ -44,10 +37,11 @@ def bat_row(b: dict) -> str:
 def bowl_row(b: dict) -> str:
     w = b["wickets"]
     wcell = f"<strong>{w}</strong>" if w else "0"
+    gr = gross_runs(b["runs"], w)
     return (
-        f'<tr><td class="scb">{b["name"]}</td><td class="c">{b["overs"]}</td><td class="c">{b["runs"]}</td>'
+        f'<tr><td class="scb">{b["name"]}</td><td class="c">{b["overs"]}</td><td class="c">{gr}</td>'
         f'<td class="c">{wcell}</td><td class="c">{b["wides"]}</td><td class="c">{b["noballs"]}</td>'
-        f'{eco(b["runs"], b["overs"])}<td class="c">{b["dots"]}</td></tr>'
+        f'{eco_cell(b["runs"], w, b["overs"])}<td class="c">{b["dots"]}</td></tr>'
     )
 
 
@@ -252,7 +246,7 @@ def build_m7_summary_card(data: dict) -> str:
       </div>
 
 {build_m7_fun_facts(data)}
-      <div style="text-align:center;margin-top:16px;"><a class="sl" href="#mx/m7/bbb">Open Commentary scorecard</a></div>
+      <div style="text-align:center;margin-top:16px;"><a class="sl" href="#mx/m7/bbb">Open Commentary</a></div>
     </div>"""
 
 

@@ -1,0 +1,437 @@
+M10 · Edgeware CC vs Headstone Manor (H Manor) 
+Date: 19 Jul 2026
+Venue: Raguvanshi Charitable Trust Cricket Ground (Away Match)
+Toss: H Manor won the toss and decided to field first
+Result: Edgeware won by 51 runs
+Format: U9 pairs cricket, 20 overs per side, 200 start, −5 per wicket, pairs keep batting
+
+================================================================================
+HOW TO FILL THIS TEMPLATE
+================================================================================
+
+1. Fill header fields above (venue, toss, final scores when known).
+2. For each over, write the bowler name and the batting pair in the Over header.
+3. Record each ball on its own line using the notation below.
+4. After each over, fill in the net runs for that over and cumulative total.
+5. Complete both innings (20 overs each), then fill over summary and wicket tables.
+6. Add any drops, extras notes, or pairs re-out notes in the sections at the end.
+7. Paste the completed file back in chat OR commit to edgeware-u9/data/ and tell us.
+
+OVER NOTATION (Over n uses balls (n−1).1 through n.0):
+  Over 1  →  0.1, 0.2, 0.3, 0.4, 0.5, 1.0
+  Over 2  →  1.1, 1.2, 1.3, 1.4, 1.5, 2.0
+  Over 20 →  19.1, 19.2, 19.3, 19.4, 19.5, 20.0
+
+BALL FORMAT:
+  Batter: symbol          (striker on strike)
+
+SYMBOLS:
+  .     dot ball (0 runs)
+  1     single
+  2     two runs
+  3     three runs
+  4     four
+  6     six
+  +     wide (counts as 1 to extras; re-bowl)
+  O     no-ball (counts as 1 to extras; re-bowl; runs off bat add to total)
+  Ov    overthrow / bonus runs off bat (if used in your scoring)
+  W     wicket — add dismissal note, e.g. W (Name c Fielder b Bowler)
+  B     Bowled (alternative to W with note)
+  C     caught (alternative to W with note)
+  R     run-out (alternative to W with note)
+  ∆     bye (doesn't count towards batter score but scores towards the team's scores)
+  v     leg-bye (doesn't count towards batter score but scores towards the team's scores)
+
+EXAMPLES:
+  0.1 Veer: .
+  0.2 Veer: 1
+  0.3 (Avyaan): 2
+  3.1 Veer: +
+  8.0 Ishaan: W (Ishaan c Bailey b Sia)
+  12.1 Blake: nb (+2)
+
+END OF OVER LINE:
+  → net +5, total 205     (net = runs added this over; total = cumulative score)
+
+U9 PAIRS RULES REMINDER:
+  • Every innings starts at 200.
+  • Each wicket costs −5 runs (deducted from total).
+  • Pairs bat together for 4 overs; when one is out, the other continues (pairs re-out counts as a wicket).
+  • All 5 pairs face 4 overs each (20 overs total).
+  • Chasing team target = first innings total + 1.
+
+FINAL SCORES (fill when confirmed):
+  Edgeware CC:    285/5  (20 ov)
+  H Manor:        234/8  (20 ov)
+  Margin check:   Edgeware won by 51 runs → Edgeware total − H Manor total = 51
+
+================================================================================
+INNINGS 1 · Edgeware CC batting (285/5)
+Pairs: P1 Qaim & Aanya (overs 1-4) | P2 Shyam & Drish (overs 5-8)
+       P3 Shay & Riyan (overs 9-12) | P4 Avyaan & Ariyan (overs 13-16)
+       P5 Avyaan & Khushmeet (overs 17-20)
+Declared cumulative sequence: 206, 207, 203, 215, 219, 224, 231, 239, 242, 243, 249, 254, 259, 270, 274, 278, 288, 287, 285, 285
+U9 math: 200 start + 85 net = 285; 5 wickets
+================================================================================
+
+Over 1 · Hiyan (Qaim & Aanya)
+  0.1 Qaim: .
+  0.2 Qaim: +
+  0.3 Qaim: +
+  0.4 Qaim: +
+  0.5 Qaim: .
+  1.0 Qaim: .
+  → net +6, total 206/0
+Over 2 · Khiyan (Qaim & Aanya)
+  1.1 Aanya: .
+  1.2 Aanya: .
+  1.3 Aanya: .
+  1.4 Aanya: .
+  1.5 Aanya: 1
+  2.0 Qaim: .
+  → net +1, total 207/0
+Over 3 · Diyan (Qaim & Aanya)
+  2.1 Aanya: .
+  2.2 Aanya: 1
+  2.3 Qaim: .
+  2.4 Qaim: .
+  2.5 Qaim: .
+  3.0 Qaim: B (b Diyan)
+  → net -4, total 203/1
+Over 4 · Sid (Qaim & Aanya)
+  3.1 Aanya: 1
+  3.2 Qaim: .
+  3.3 Qaim: 4
+  3.4 Qaim: 2
+  3.5 Qaim: 4
+  4.0 Qaim: 1
+  → net +12, total 215/1
+Over 5 · Jash (Shyam & Drish)
+  4.1 Shyam: 1
+  4.2 Drish: .
+  4.3 Drish: 1
+  4.4 Shyam: .
+  4.5 Shyam: 1
+  5.0 Drish: 1
+  → net +4, total 219/1
+Over 6 · Akshay (Shyam & Drish)
+  5.1 Drish: 2
+  5.2 Drish: O
+  5.3 Drish: .
+  5.4 Drish: 1
+  5.5 Shyam: .
+  6.0 Shyam: .
+  → net +5, total 224/1
+Over 7 · Maya (Shyam & Drish)
+  6.1 Shyam: 1
+  6.2 Drish: .
+  6.3 Drish: +
+  6.4 Drish: 2
+  6.5 Drish: +
+  7.0 Drish: .
+  → net +7, total 231/1
+Over 8 · Aaron (Shyam & Drish)
+  7.1 Shyam: 4
+  7.2 Shyam: 1
+  7.3 Drish: 1
+  7.4 Shyam: 1
+  7.5 Drish: 1
+  8.0 Drish: .
+  → net +8, total 239/1
+Over 9 · Adidev (Shay & Riyan)
+  8.1 Shay: 1
+  8.2 Riyan: .
+  8.3 Riyan: .
+  8.4 Riyan: .
+  8.5 Riyan: .
+  9.0 Riyan: +
+  → net +3, total 242/1
+Over 10 · Jiyaan (Shay & Riyan)
+  9.1 Shay: .
+  9.2 Shay: O+1
+  9.3 Riyan: .
+  9.4 Riyan: O
+  9.5 Riyan: 1
+  10.0 Riyan: R  (run-out Maya)
+  → net +1, total 243/2
+Over 11 · Khiyan (Shay & Riyan)
+  10.1 Shay: 1
+  10.2 Riyan: 1
+  10.3 Shay: +
+  10.4 Riyan: .
+  10.5 Shay: 1
+  11.0 Riyan: 1
+  → net +6, total 249/2
+Over 12 · Sid (Shay & Riyan)
+  11.1 Shay: 1
+  11.2 Riyan: .
+  11.3 Riyan: O
+  11.4 Riyan: .
+  11.5 Riyan: 1
+  12.0 Shay: 1
+  → net +5, total 254/2
+Over 13 · Akshay (Avyaan & Ariyan)
+  12.1 Avyaan: .
+  12.2 Avyaan: +
+  12.3 Avyaan: .
+  12.4 Avyaan: O
+  12.5 Avyaan: .
+  13.0 Avyaan: 1
+  → net +5, total 259/2
+Over 14 · Hiyan (Avyaan & Ariyan)
+  13.1 Avyaan: 1
+  13.2 Ariyan: 1
+  13.3 Avyaan: 2
+  13.4 Avyaan: 2
+  13.5 Avyaan: O+1
+  14.0 Ariyan: 2
+  → net +11, total 270/2
+Over 15 · Diyan (Avyaan & Ariyan)
+  14.1 Avyaan: .
+  14.2 Avyaan: 1
+  14.3 Ariyan: ∆+1
+  14.4 Avyaan: .
+  14.5 Avyaan: 1
+  15.0 Ariyan: 1
+  → net +4, total 274/2
+Over 16 · Aaron (Avyaan & Ariyan)
+  15.1 Ariyan: .
+  15.2 Ariyan: 1
+  15.3 Avyaan: 2
+  15.4 Avyaan: ∆+1
+  15.5 Ariyan: .
+  16.0 Ariyan: .
+  → net +4, total 278/2
+Over 17 · Jiyan (Avyaan & Khushmeet)
+  16.1 Avyaan: 2
+  16.2 Avyaan: 2
+  16.3 Khushmeet: +
+  16.4 Khushmeet: +
+  16.5 Khushmeet: 1
+  17.0 Avyaan: 1
+  → net +10, total 288/2
+Over 18 · Maya (Avyaan & Khushmeet)
+  17.1 Khushmeet: .
+  17.2 Khushmeet: B (b Maya)
+  17.3 Avyaan: 4
+  17.4 Avyaan: .
+  17.5 Avyaan: .
+  18.0 Avyaan: .
+  → net −1, total 287/3
+Over 19 · Jash (Avyaan & Khushmeet)
+  18.1 Khushmeet: 1
+  18.2 Avyaan: .
+  18.3 Avyaan: .
+  18.4 Avyaan: .
+  18.5 Avyaan: ∆+2
+  19.0 Avyaan: B (b Jash)
+  → net -2, total 285/4
+Over 20 · Adidev (Avyaan & Khushmeet)
+  19.1 Khushmeet: .
+  19.2 Khushmeet: +
+  19.3 Khushmeet: B
+  19.4 Avyaan: 2
+  19.5 Avyaan: .
+  20.0 Avyaan: 1
+  → net 0, total 285/5
+
+Calculate batting and bowling summaries based on ball-by-ball, run-outs do not count towards wickets attained by bowlers
+
+================================================================================
+INNINGS 2 · H Manor batting (234/8)
+Target: 286 (Edgware innings 1 total + 1)
+Pairs: P1 Diyan & Adidev (overs 1-4) | P2 Akshay & Maya (overs 5-8)
+       P3 Jash & Khiyan (overs 9-12) | P4 Aaron & Hiyan (overs 13-16)
+       P5 Jiyan & Sid (overs 17-20)
+Declared cumulative sequence: 205, 196, 193, 196, 202, 207, 216, 213, 214, 222, 226, 231, 236, 243, 239, 243, 243, 247, 238, 234
+U9 math: 200 start + 34 net = 234; 8 wickets
+================================================================================
+
+Over 1 · Avyaan (Diyan & Adidev)
+  0.1 Diyan: .
+  0.2 Diyan: .
+  0.3 Diyan: 4
+  0.4 Diyan: .
+  0.5 Diyan: .
+  1.0 Diyan: 1
+  → net +5, total 205/0
+Over 2 · Aanya (Diyan & Adidev)
+  1.1 Diyan: .
+  1.2 Diyan: .
+  1.3 Diyan: .
+  1.4 Diyan: 1
+  1.5 Adidev: B (b Aanya)
+  2.0 Diyan: B (b Aanya)
+  → net -9, total 196/2
+Over 3 · Ariyan (Diyan & Adidev)
+  2.1 Adidev: .
+  2.2 Adidev: O
+  2.3 Adidev: .
+  2.4 Adidev: B (b Ariyan)
+  2.5 Diyan: .
+  3.0 Diyan: .
+  → net -3, total 193/3
+Over 4 · Qaim (Diyan & Adidev)
+  3.1 Diyan: +
+  3.2 Diyan: 1
+  3.3 Adidev: .
+  3.4 Adidev: .
+  3.5 Adidev: .
+  4.0 Adidev: .
+  → net +3, total 196/3
+Over 5 · Khushmeet (Akshay & Maya)
+  4.1 Akshay: .
+  4.2 Akshay: O
+  4.3 Akshay: +
+  4.4 Akshay: 1
+  4.5 Maya: .
+  5.0 Maya: 1
+  → net +6, total 202/3
+Over 6 · Shay (Akshay & Maya)
+  5.1 Maya: .
+  5.2 Maya: 1
+  5.3 Akshay: 1
+  5.4 Maya: .
+  5.5 Maya: +
+  6.0 Akshay: 1
+  → net +5, total 207/3
+Over 7 · Riyan (Akshay & Maya)
+  6.1 Akshay: .
+  6.2 Akshay: .
+  6.3 Akshay: +1
+  6.4 Maya: +
+  6.5 Maya: O+2
+  7.0 Maya: .
+  → net +9, total 216/3
+Over 8 · Drish (Akshay & Maya)
+  7.1 Akshay: .
+  7.2 Akshay: .
+  7.3 Akshay: 1
+  7.4 Maya: B (b Drish)
+  7.5 Akshay: .
+  8.0 Akshay: 1
+  → net -3, total 213/4
+Over 9 · Shyam (Jash & Khiyan)
+  8.1 Jash: .
+  8.2 Jash: .
+  8.3 Jash: .
+  8.4 Jash: ∆+1
+  8.5 Khiyan: .
+  9.0 Khiyan: .
+  → net +1, total 214/4
+Over 10 · Khushmeet (Jash & Khiyan)
+  9.1 Jash: +
+  9.2 Jash: 1
+  9.3 Khiyan: 1
+  9.4 Jash: 1
+  9.5 Khiyan: +
+  10.0 Khiyan: 1
+  → net +8, total 222/4
+Over 11 · Shay (Jash & Khiyan)
+  10.1 Khiyan: .
+  10.2 Khiyan: .
+  10.3 Khiyan: .
+  10.4 Khiyan: .
+  10.5 Khiyan: 2
+  11.0 Khiyan: +
+  → net +4, total 226/4
+Over 12 · Riyan (Jash & Khiyan)
+  11.1 Jash: 2
+  11.2 Jash: O
+  11.3 Jash: .
+  11.4 Jash: .
+  11.5 Jash: .
+  12.0 Jash: 1
+  → net +5, total 231/4
+Over 13 · Drish (Aaron & Hiyan)
+  12.1 Aaron: 1
+  12.2 Hiyan: 1
+  12.3 Aaron: 1
+  12.4 Hiyan: +
+  12.5 Hiyan: .
+  13.0 Hiyan: .
+  → net +5, total 236/4
+Over 14 · Shyam (Aaron & Hiyan)
+  13.1 Aaron: 2
+  13.2 Aaron: 1
+  13.3 Hiyan: 1
+  13.4 Aaron: 1
+  13.5 Hiyan: 2
+  14.0 Hiyan: .
+  → net +7, total 243/4
+Over 15 · Ariyan (Aaron & Hiyan)
+  14.1 Aaron: .
+  14.2 Aaron: .
+  14.3 Aaron: .
+  14.4 Aaron: B (b Ariyan)
+  14.5 Hiyan: .
+  15.0 Hiyan: 1
+  → net -4, total 239/5
+Over 16 · Qaim (Aaron & Hiyan)
+  15.1 Hiyan: 1
+  15.2 Aaron: .
+  15.3 Aaron: .
+  15.4 Aaron: 1
+  15.5 Hiyan: +
+  16.0 Hiyan: .
+  → net +4, total 243/5
+Over 17 · Avyaan (Jiyan & Sid)
+  16.1 Jiyan: .
+  16.2 Jiyan: .
+  16.3 Jiyan: .
+  16.4 Jiyan: .
+  16.5 Jiyan: .
+  17.0 Jiyan: .
+  → net 0, total 243/5
+Over 18 · Aanya (Jiyan & Sid)
+  17.1 Sid: +
+  17.2 Sid: 1
+  17.3 Jiyan: .
+  17.4 Jiyan: .
+  17.5 Jiyan: 1
+  18.0 Sid: .
+  → net +4, total 247/5
+Over 19 · Ariyan (Jiyan & Sid)
+  18.1 Jiyan: B
+  18.2 Sid: .
+  18.3 Sid: .
+  18.4 Sid: .
+  18.5 Sid: 1
+  19.0 Jiyan: B
+  → net -9, total 238/7
+Over 20 · Aanya (Jiyan & Sid)
+  19.1 Sid: .
+  19.2 Sid: .
+  19.3 Sid: 1
+  19.4 Jiyan: .
+  19.5 Jiyan: B
+  20.0 Sid: .
+  → net -4, total 234/8
+--------------------------------------------------------------------------------
+
+Calculate batting and bowling summaries based on ball-by-ball, run-outs do not count towards wickets attained by bowlers
+
+--------------------------------------------------------------------------------
+
+================================================================================
+DROPS, EXTRAS & NOTES
+9.4 ∆+1 was a overthrow by Drish
+12.1 2 was another overthrow by Drish
+19.4 . Aanya dropped a catch missing a c&b by Aanya and further improving her best figures  so far
+================================================================================
+
+Calculate extras from ball-by-ball
+
+
+================================================================================
+SCORE SUMMARY (fill when complete)
+================================================================================
+Edgeware CC:   285/5  (20 ov) , nets +85 from 200
+H Manor:       234/8  (20 ov) , nets +34 from 200
+Target:        286
+Result:        Edgeware won by 51 runs
+Margin check:  285 − 234 = 51 ✓ (or note discrepancy)
+
+================================================================================
+END DRAFT — fill ball-by-ball above, then submit (see data/HOW_TO_SUBMIT_MATCH.md)
+================================================================================

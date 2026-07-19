@@ -45,6 +45,8 @@ ECC_NAMES = {
     "Shyam",
     "Aanya",
     "Ishaan",
+    "Shay",
+    "Riyan",
 }
 MIN_OVERS_BEST_ECONOMY = 2.0
 def _build_innings_lookup() -> dict[str, list[dict[str, tuple[int, int]]]]:
@@ -241,7 +243,7 @@ def _season_best_economy_rows(html: str) -> list[tuple[str, float]]:
     if not bowl_table_match:
         return []
     body = bowl_table_match.group(1)
-    rows: list[tuple[str, float]] = []
+    rows: list[tuple[str, float, float]] = []
     for row_match in re.finditer(r"<tr>(.*?)</tr>", body, flags=re.DOTALL):
         row_html = row_match.group(1)
         cells = re.findall(r"<td[^>]*>(.*?)</td>", row_html, flags=re.DOTALL)
@@ -249,31 +251,29 @@ def _season_best_economy_rows(html: str) -> list[tuple[str, float]]:
             continue
         values = [re.sub(r"<[^>]+>", "", cell).strip() for cell in cells]
         name = values[0]
-        overs_text = values[2]
-        eco_text = values[7]
         try:
-            overs = float(overs_text)
-            eco = float(eco_text)
+            overs = float(values[2])
+            runs = int(values[3])
         except ValueError:
             continue
         if overs >= MIN_OVERS_BEST_ECONOMY:
-            rows.append((name, eco))
+            rows.append((name, runs / overs, overs))
     rows.sort(key=lambda item: (item[1], item[0]))
-    return rows[:5]
+    return [(name, eco) for name, eco, _overs in rows[:5]]
 
 
 def _best_economy_card_from_html(html: str) -> str | None:
     rows = _season_best_economy_rows(html)
     if not rows:
         return None
-    display = [(name, f"{eco:.1f}") for name, eco in rows]
+    display = [(name, f"{eco:.2f}") for name, eco in rows]
     sort_keys = [eco for _name, eco in rows]
     return render_leader_card("&#128200; Best Economy (min 2 overs)", display, sort_keys)
 
 
 def _match_summary_blocks(html: str) -> list[tuple[str, str]]:
     out: list[tuple[str, str]] = []
-    for match_id in ("m2", "m4", "m5", "m6", "m7"):
+    for match_id in ("m2", "m4", "m5", "m6", "m7", "m8", "m10"):
         start = html.find(f'id="match-{match_id}-summary"')
         if start == -1:
             continue
@@ -544,16 +544,23 @@ def patch_player_cards(html: str, season: dict) -> str:
                     field_rows[m.group(1)] = (m.group(2), m.group(3))
     best_bowl_figures = _best_bowling_figures_map(html)
 
-    card_order = [
-        "Ariyan", "Avyaan", "Krish", "Veer", "Kaiyan", "Aanya",
-        "Taran", "Drish", "Shyam", "Qaim", "Viaan", "Ishaan",
-    ]
+    card_order = sorted(
+        bat_rows.keys(),
+        key=lambda name: (-int(bat_rows[name]["runs"]), name),
+    )
     cards: list[str] = []
     for name in card_order:
         b = bat_rows.get(name)
-        bw = bowl_rows.get(name)
-        if not b or not bw:
+        if not b:
             continue
+        bw = bowl_rows.get(name) or {
+            "overs": "0",
+            "runs": "0",
+            "wkts": "0",
+            "eco_cls": "",
+            "eco": "0.0",
+            "dots": "0",
+        }
         catches, run_outs = field_rows.get(name, ("0", "0"))
         eco_cls = f' class="psv {bw["eco_cls"]}"' if bw["eco_cls"] else ' class="psv"'
         cards.append(
@@ -599,12 +606,23 @@ def patch_player_cards(html: str, season: dict) -> str:
 
 def main() -> None:
     lookup = _build_innings_lookup()
-    season = collect_summary_season().batting
     html = INDEX.read_text(encoding="utf-8")
+    full_season = collect_summary_season(html)
+    from patch_m7_overview import _replace_bowling_table_from_source  # noqa: WPS433
+
+    html = _replace_bowling_table_from_source(html, full_season)
+    season = full_season.batting
     html = patch_match_summaries(html, lookup)
     html = patch_players_tab(html, season)
     html = patch_leaders_tab(html, season)
     html = patch_player_cards(html, season)
+    from patch_m7_overview import (  # noqa: WPS433
+        _replace_best_economy_card,
+        derive_shared_leaderboards as _derive_leaders,
+    )
+
+    leaders = _derive_leaders(full_season)
+    html = _replace_best_economy_card(html, leaders)
     from patch_index import fix_tab_lb_boundary, fix_tab_mx_boundary, fix_tab_pl_boundary  # noqa: WPS433
 
     html = fix_tab_mx_boundary(html)

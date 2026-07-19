@@ -16,6 +16,7 @@ sys.path.insert(0, str(ROOT / "scripts"))
 from innings_score import format_innings_score  # noqa: E402
 from match_awards import BatterLine, BowlerLine, best_batsman, best_bowler, bowl_figure  # noqa: E402
 from strike_rate import format_sr  # noqa: E402
+from bowling_display import eco_cell, gross_runs  # noqa: E402
 
 OV_RANGES = {
     "P1": "1-4",
@@ -24,14 +25,6 @@ OV_RANGES = {
     "P4": "13-16",
     "P5": "17-20",
 }
-
-
-def eco(runs: int, overs: int) -> str:
-    if overs == 0:
-        return "0.0"
-    v = runs / overs
-    cls = ' eco-good' if v <= 4.0 else ""
-    return f'<td class="c{cls}">{v:.1f}</td>'
 
 
 def net_cls(net: int) -> str:
@@ -52,10 +45,11 @@ def bat_row(b: dict) -> str:
 def bowl_row(b: dict) -> str:
     w = b["wickets"]
     wcell = f"<strong>{w}</strong>" if w else "0"
+    gr = gross_runs(b["runs"], w)
     return (
-        f'<tr><td class="scb">{b["name"]}</td><td class="c">{b["overs"]}</td><td class="c">{b["runs"]}</td>'
+        f'<tr><td class="scb">{b["name"]}</td><td class="c">{b["overs"]}</td><td class="c">{gr}</td>'
         f'<td class="c">{wcell}</td><td class="c">{b["wides"]}</td><td class="c">{b["noballs"]}</td>'
-        f'{eco(b["runs"], b["overs"])}<td class="c">{b["dots"]}</td></tr>'
+        f'{eco_cell(b["runs"], w, b["overs"])}<td class="c">{b["dots"]}</td></tr>'
     )
 
 
@@ -280,7 +274,7 @@ def build_m8_summary_card(data: dict) -> str:
       </div>
 
 {build_m8_fun_facts(data)}
-      <div style="text-align:center;margin-top:16px;"><a class="sl" href="#mx/m8/bbb">Open Commentary scorecard</a></div>
+      <div style="text-align:center;margin-top:16px;"><a class="sl" href="#mx/m8/bbb">Open Commentary</a></div>
     </div>"""
 
 
@@ -308,7 +302,7 @@ def inject_m8_match(html: str, data: dict) -> str:
             + "\n  </div>\n"
             "</div>\n"
         )
-        anchor = re.search(r"</div>\s*</div>\s*\n\n<!-- PLAYERS -->", html)
+        anchor = re.search(r"</div>\s*</div>\s*\n\n(?:  <!-- M\d+ -->|  <div id=\"match-m)", html)
         if not anchor:
             raise SystemExit("Could not find insertion point for M8 match block")
         html = html[: anchor.start()] + block + html[anchor.start() :]
@@ -359,7 +353,7 @@ def main() -> None:
     if (ROOT / "bbb" / "m8.html").exists():
         bbb = (ROOT / "bbb" / "m8.html").read_text(encoding="utf-8")
         html, n = re.subn(
-            r'(<div id="match-m8-bbb" class="mmview">\s*).*?(\s*</div>\s*</div>\s*\n\n<!-- PLAYERS -->)',
+            r'(<div id="match-m8-bbb" class="mmview">\s*).*?(\s*</div>\s*</div>\s*\n\n(?:  <!-- M\d+ -->|  <div id="match-m))',
             rf"\1{bbb}\2",
             html,
             count=1,

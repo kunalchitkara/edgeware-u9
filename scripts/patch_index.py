@@ -10,7 +10,7 @@ ROOT = Path(__file__).resolve().parents[1]
 INDEX = ROOT / "index.html"
 BBB_DIR = ROOT / "bbb"
 
-MATCHES_WITH_BBB = ["m2", "m4", "m5", "m6", "m7", "m8"]
+MATCHES_WITH_BBB = ["m2", "m4", "m5", "m6", "m7", "m8", "m10"]
 WALKOVER_MATCHES = ["m1", "m3", "m9"]
 DEFAULT_MATCH = "m1"
 
@@ -73,7 +73,7 @@ CSS = """
 
 APP_JS = """const TAB_IDS=['ov','fx','mx','pl','lb','ru','pr'];
 const TAB_ALIASES={fixtures:'fx',matches:'mx',overview:'ov',players:'pl',leaders:'lb',rules:'ru',practice:'pr'};
-const MATCHES_WITH_BBB=['m2','m4','m5','m6','m7','m8'];
+const MATCHES_WITH_BBB=['m2','m4','m5','m6','m7','m8','m10'];
 
 function latestMatch(){
   let latest='m1',n=0;
@@ -499,6 +499,18 @@ def fix_tab_mx_boundary(html: str) -> str:
         html,
         count=1,
     )
+    # Premature tab-mx close before walkover M9 / scored M10 blocks.
+    if not _tab_pl_opens_inside_tab_mx(html):
+        m9 = html.find('id="match-m9"')
+        if m9 != -1:
+            _, stack = _depth_and_stack_before(html, m9)
+            if "tab-mx" not in stack:
+                html = re.sub(
+                    r"\n\s*</div>\s*\n\s*\n\s*<div id=\"match-m9\"",
+                    '\n\n  <div id="match-m9"',
+                    html,
+                    count=1,
+                )
     # tab-pl/tab-lb must be siblings of tab-mx inside .wrap (not nested, not outside).
     if not re.search(r'id="tab-pl"[^>]*class="tab"', html):
         return html
@@ -729,10 +741,10 @@ def replace_spreadsheet_links(html: str) -> str:
         href = match_hash(num) if num else "#mx"
         tag = re.sub(r'href="[^"]*"', f'href="{href}"', tag)
         if "Open Scorecard in Google Sheets" in tag:
-            text = "Walkover: no scorecard" if num in (1, 3) else "Open Commentary scorecard"
+            text = "Walkover: no scorecard" if num in (1, 3) else "Open Commentary"
             tag = re.sub(r">[^<]*</a>", f">{text}</a>", tag)
         elif "Open Full Scorecard in Google Sheets" in tag:
-            tag = re.sub(r">[^<]*</a>", ">Open Commentary scorecard</a>", tag)
+            tag = re.sub(r">[^<]*</a>", ">Open Commentary</a>", tag)
         elif "Open Full P1 Scorecard in Google Sheets" in tag:
             tag = re.sub(r">[^<]*</a>", ">Open Practice tab</a>", tag)
             tag = re.sub(r'href="[^"]*"', 'href="#pr"', tag)
@@ -755,7 +767,9 @@ def update_visible_labels(html: str) -> str:
     """Rename Ball by Ball → Commentary in patched index (idempotent)."""
     html = html.replace("Ball by Ball", "Commentary")
     html = html.replace("Ball-by-ball", "Commentary")
-    html = html.replace("Open Ball by Ball scorecard", "Open Commentary scorecard")
+    html = html.replace("Open Ball by Ball scorecard", "Open Commentary")
+    html = html.replace("Open Commentary scorecard", "Open Commentary")
+    html = html.replace("<span>Commentary</span>", "<span>Scores</span>")
     return html
 
 

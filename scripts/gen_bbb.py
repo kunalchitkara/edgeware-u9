@@ -91,11 +91,18 @@ MATCHES = {
         "teams": ("Edgware CC", "Harefield"),
         "local": "data/m8.json",
     },
+    "m10": {
+        "label": "M10",
+        "overs": 20,
+        "teams": ("Edgware CC", "H Manor"),
+        "local": "data/m10.json",
+    },
 }
 
 ROOT = Path(__file__).resolve().parents[1]
 
 COMMENTARY_LABEL = "Commentary"
+INN_BAR_SCORES_LABEL = "Scores"
 
 WKT_SYMBOLS = {"B", "C", "S", "L", "H"}
 
@@ -139,7 +146,7 @@ def render_result(match_meta: dict, innings: list[dict]) -> str:
         '<section class="bbb-panel bbb-result-panel">',
         '<div class="bbb-inn-bar">',
         "<span>Result</span>",
-        f"<span>{COMMENTARY_LABEL}</span>",
+        f"<span>{INN_BAR_SCORES_LABEL}</span>",
         "</div>",
         '<div class="bbb-result">',
         f"<strong>{html.escape(result)}</strong>",
@@ -1082,7 +1089,7 @@ def render_innings_json(inn_data: dict, match_id: str) -> str:
         '<section class="bbb-panel">',
         '<div class="bbb-inn-bar">',
         f"<span>{inn_label}</span>",
-        f"<span>{COMMENTARY_LABEL}</span>",
+        f"<span>{INN_BAR_SCORES_LABEL}</span>",
         "</div>",
         '<div class="bbb-list">',
     ]
@@ -1123,7 +1130,7 @@ def render_innings(
         '<section class="bbb-panel">',
         '<div class="bbb-inn-bar">',
         f"<span>{inn_label}</span>",
-        f"<span>{COMMENTARY_LABEL}</span>",
+        f"<span>{INN_BAR_SCORES_LABEL}</span>",
         "</div>",
         '<div class="bbb-list">',
     ]
@@ -1163,7 +1170,7 @@ def render_pending(match_id: str, cfg: dict) -> str:
         '<section class="bbb-panel">'
         '<div class="bbb-inn-bar">'
         f"<span>{html.escape(teams[0])} · Innings 1</span>"
-        f"<span>{COMMENTARY_LABEL}</span>"
+        f"<span>{INN_BAR_SCORES_LABEL}</span>"
         "</div>"
         '<div class="bbb-list">'
         '<li class="bbb-ball-row empty" style="display:block;padding:20px 14px;">'
@@ -1175,7 +1182,7 @@ def render_pending(match_id: str, cfg: dict) -> str:
         '<section class="bbb-panel">'
         '<div class="bbb-inn-bar">'
         f"<span>{html.escape(teams[1])} · Innings 2</span>"
-        f"<span>{COMMENTARY_LABEL}</span>"
+        f"<span>{INN_BAR_SCORES_LABEL}</span>"
         "</div>"
         '<div class="bbb-list">'
         '<li class="bbb-ball-row empty" style="display:block;padding:20px 14px;">'

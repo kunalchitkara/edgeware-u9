@@ -15,8 +15,8 @@ const TAB_CASES = [
     tabId: "tab-ov",
     assert: async (page) => {
       await expect(page.getByText("Season Results")).toBeVisible();
-      await expect(page.getByText("Next Match · 19 Jul 2026")).toBeVisible();
-      await expect(page.locator("#tab-ov .nm").getByText("Headstone Manor")).toBeVisible();
+      await expect(page.getByText("Next Match · 26 Jul 2026")).toBeVisible();
+      await expect(page.locator("#tab-ov .nm").getByText("Pinner")).toBeVisible();
     },
   },
   {
@@ -33,7 +33,7 @@ const TAB_CASES = [
     hash: "mx",
     tabId: "tab-mx",
     assert: async (page) => {
-      await expect(page.locator("#tab-mx .mts .mtb")).toHaveCount(9);
+      await expect(page.locator("#tab-mx .mts .mtb")).toHaveCount(10);
       const latest = await page.evaluate(() => window.latestMatch());
       await expect(page.locator(`#match-${latest}.md2.active`)).toBeVisible();
     },
@@ -79,7 +79,7 @@ const TAB_CASES = [
   },
 ];
 
-const OPENABLE_MATCHES = ["m2", "m4", "m5", "m6", "m7", "m8"];
+const OPENABLE_MATCHES = ["m2", "m4", "m5", "m6", "m7", "m8", "m10"];
 
 test.describe("edgeware-u9 tabs", () => {
   test.beforeEach(async ({ page }) => {
@@ -480,11 +480,30 @@ test.describe("edgeware-u9 tabs", () => {
     await expect(m9.locator(".bbb-wrap")).toHaveCount(0);
   });
 
-  test("latest match defaults to M9 after Hayes walkover", async ({ page }) => {
+  test("latest match defaults to M10 after H Manor win", async ({ page }) => {
     await page.goto("/#mx");
     const latest = await page.evaluate(() => window.latestMatch());
-    expect(latest).toBe("m9");
-    await expect(page.locator("#match-m9.md2.active")).toBeVisible();
+    expect(latest).toBe("m10");
+    await expect(page.locator("#match-m10.md2.active")).toBeVisible();
+  });
+
+  test("M10 summary shows 285/5 win by 51 runs", async ({ page }) => {
+    await page.goto("/#mx/m10");
+    const summary = page.locator("#match-m10-summary.mmview.active");
+    await expect(summary).toBeVisible();
+    await expect(summary.getByText("Edgware CC won by 51 runs")).toBeVisible();
+    await expect(summary.getByText("285 - 5 (20 Ov)")).toBeVisible();
+    await expect(summary.locator(".msg .ml", { hasText: "Lion of the day" })).toBeVisible();
+    await expect(summary.locator(".ms").filter({ hasText: "Ariyan" }).first()).toBeVisible();
+  });
+
+  test("M10 parent is tab-mx, not another match block", async ({ page }) => {
+    await page.goto("/#mx/m10");
+    const parent = await page.evaluate(() => {
+      const m10 = document.getElementById("match-m10");
+      return m10?.parentElement?.id ?? null;
+    });
+    expect(parent).toBe("tab-mx");
   });
 
   test("M7 summary shows batting table with SR column", async ({ page }) => {
@@ -643,6 +662,7 @@ test.describe("edgeware-u9 tabs", () => {
       const ecc = new Set([
         "Ariyan", "Avyaan", "Viaan", "Shyam", "Qaim", "Krish",
         "Veer", "Kaiyan", "Aanya", "Taran", "Drish", "Ishaan",
+        "Shay", "Riyan",
       ]);
       const dismissalOuts = (raw) => {
         const d = (raw || "").replace(/&times;/gi, "×").trim().toLowerCase();
@@ -655,7 +675,7 @@ test.describe("edgeware-u9 tabs", () => {
         }
         return 1;
       };
-      const matchIds = ["m2", "m4", "m5", "m6", "m7", "m8"];
+      const matchIds = ["m2", "m4", "m5", "m6", "m7", "m8", "m10"];
       const out = {};
       for (const matchId of matchIds) {
         const summary = document.getElementById(`match-${matchId}-summary`);
@@ -758,9 +778,9 @@ test.describe("edgeware-u9 tabs", () => {
       expect(row.avgInn).toBeCloseTo(avgInn, 1);
     };
 
-    check("Qaim", { m: 6, inn: 6, runs: 49, avgMatch: 8.2, avgInn: 8.2 });
-    check("Ariyan", { m: 5, inn: 4, runs: 40, avgMatch: 8.0, avgInn: 10.0 });
-    check("Avyaan", { m: 6, inn: 3, runs: 28, avgMatch: 4.7, avgInn: 9.3 });
+    check("Qaim", { m: 7, inn: 7, runs: 60, avgMatch: 8.6, avgInn: 8.6 });
+    check("Ariyan", { m: 6, inn: 4, runs: 45, avgMatch: 7.5, avgInn: 11.2 });
+    check("Avyaan", { m: 7, inn: 4, runs: 51, avgMatch: 7.3, avgInn: 12.8 });
 
     const cardAvgs = await page.evaluate(() => {
       const out = {};
@@ -778,12 +798,12 @@ test.describe("edgeware-u9 tabs", () => {
       return out;
     });
 
-    expect(cardAvgs.Qaim["Avg/Match"]).toBe("8.2");
-    expect(cardAvgs.Qaim["Avg/Inn"]).toBe("8.2");
-    expect(cardAvgs.Ariyan["Avg/Match"]).toBe("8.0");
-    expect(cardAvgs.Ariyan["Avg/Inn"]).toBe("10.0");
-    expect(cardAvgs.Avyaan["Avg/Match"]).toBe("4.7");
-    expect(cardAvgs.Avyaan["Avg/Inn"]).toBe("9.3");
+    expect(cardAvgs.Qaim["Avg/Match"]).toBe("8.6");
+    expect(cardAvgs.Qaim["Avg/Inn"]).toBe("8.6");
+    expect(cardAvgs.Ariyan["Avg/Match"]).toBe("7.5");
+    expect(cardAvgs.Ariyan["Avg/Inn"]).toBe("11.2");
+    expect(cardAvgs.Avyaan["Avg/Match"]).toBe("7.3");
+    expect(cardAvgs.Avyaan["Avg/Inn"]).toBe("12.8");
   });
 
   test("players bowling table and cards stay consistent", async ({ page }) => {
@@ -864,12 +884,14 @@ test.describe("edgeware-u9 tabs", () => {
     expect(catches.find((r) => r.name === "Krish")).toMatchObject({ value: 2, rank: 1 });
 
     const wickets = await cardRanks("Most Wickets");
-    expect(wickets.find((r) => r.name === "Shyam")).toMatchObject({ value: 3, rank: 4 });
-    expect(wickets.find((r) => r.name === "Veer")).toMatchObject({ value: 3, rank: 4 });
+    expect(wickets.find((r) => r.name === "Ariyan")).toMatchObject({ value: 6, rank: 2 });
+    expect(wickets.find((r) => r.name === "Avyaan")).toMatchObject({ value: 5, rank: 3 });
+    expect(wickets.find((r) => r.name === "Aanya")).toMatchObject({ value: 5, rank: 3 });
 
     const highScore = await cardRanks("Highest Score");
-    expect(highScore.find((r) => r.name === "Ariyan")).toMatchObject({ value: 11, rank: 3 });
-    expect(highScore.find((r) => r.name === "Viaan")).toMatchObject({ value: 11, rank: 3 });
+    expect(highScore.find((r) => r.name === "Avyaan")).toMatchObject({ value: 23, rank: 1 });
+    expect(highScore.find((r) => r.name === "Ariyan")).toMatchObject({ value: 11, rank: 4 });
+    expect(highScore.find((r) => r.name === "Viaan")).toMatchObject({ value: 11, rank: 4 });
   });
 
   test("fielding table and leaders are summary-derived, no M column", async ({
@@ -877,7 +899,7 @@ test.describe("edgeware-u9 tabs", () => {
   }) => {
     await page.goto("/#pl");
     const data = await page.evaluate(() => {
-      const matchIds = ["m2", "m4", "m5", "m6", "m7", "m8"];
+      const matchIds = ["m2", "m4", "m5", "m6", "m7", "m8", "m10"];
       const fromSummary = {};
       for (const matchId of matchIds) {
         const summary = document.getElementById(`match-${matchId}-summary`);
@@ -977,7 +999,9 @@ test.describe("edgeware-u9 tabs", () => {
   test("season wickets come from match summary bowling tables", async ({ page }) => {
     await page.goto("/#lb");
     const data = await page.evaluate(() => {
-      const matchIds = ["m2", "m4", "m5", "m6", "m7", "m8"];
+      // Borrowed players may appear in match summaries but not season aggregates.
+      const borrowed = new Set(["Khushmeet"]);
+      const matchIds = ["m2", "m4", "m5", "m6", "m7", "m8", "m10"];
       const season = {};
       const perMatch = {};
       for (const matchId of matchIds) {
@@ -994,7 +1018,9 @@ test.describe("edgeware-u9 tabs", () => {
           const wkts = Number((tr.cells[3]?.textContent || "").replace(/[^\d.-]/g, ""));
           if (!name || !Number.isFinite(wkts)) continue;
           rows[name] = wkts;
-          season[name] = (season[name] || 0) + wkts;
+          if (!borrowed.has(name)) {
+            season[name] = (season[name] || 0) + wkts;
+          }
         }
         perMatch[matchId.toUpperCase()] = rows;
       }
@@ -1070,6 +1096,8 @@ test.describe("edgeware-u9 tabs", () => {
       "Taran",
       "Drish",
       "Ishaan",
+      "Shay",
+      "Riyan",
     ];
 
     for (const { hash, tabId } of TAB_CASES.filter((t) => t.hash !== "pl")) {
@@ -1135,7 +1163,7 @@ test.describe("edgeware-u9 tabs", () => {
     }, names);
 
     expect(plStats).not.toBeNull();
-    expect(plStats.cardCount).toBe(12);
+    expect(plStats.cardCount).toBe(14);
     expect(plStats.outside).toBe(0);
     expect(plStats.broken).toEqual([]);
     expect(plStats.hasRulesTab).toBe(true);
