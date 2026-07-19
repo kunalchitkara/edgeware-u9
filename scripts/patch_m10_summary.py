@@ -81,7 +81,7 @@ def top_bat(inn: dict) -> tuple[str, int]:
 
 def top_bowl(inn: dict) -> tuple[str, int, int]:
     lines = [
-        BowlerLine(b["name"], gross_runs(b["runs"], b["wickets"]), b["wickets"])
+        BowlerLine(b["name"], b["runs"], b["wickets"])
         for b in inn["bowling_summary"]
     ]
     best = best_bowler(lines)
@@ -100,7 +100,7 @@ def build_m10_fun_facts(data: dict) -> str:
     ariyan = next((b for b in inn2["bowling_summary"] if b["name"] == "Ariyan"), None)
     ariyan_w = ariyan["wickets"] if ariyan else 4
     avyaan_r = avyaan["runs"] if avyaan else 23
-    ariyan_r = gross_runs(ariyan["runs"], ariyan_w) if ariyan else 24
+    ariyan_r = ariyan["runs"] if ariyan else 4
     debut = match.get("debut", "Shay, Riyan")
     facts = [
         (
@@ -154,7 +154,7 @@ def build_m10_summary_card(data: dict) -> str:
     avyaan_r = avyaan["runs"] if avyaan else ecc_top_r
     ariyan_bowl = next((b for b in inn2["bowling_summary"] if b["name"] == "Ariyan"), None)
     ariyan_w = ariyan_bowl["wickets"] if ariyan_bowl else ecc_bowl_w
-    ariyan_fig_r = gross_runs(ariyan_bowl["runs"], ariyan_w) if ariyan_bowl else ecc_bowl_r
+    ariyan_fig_r = ariyan_bowl["runs"] if ariyan_bowl else ecc_bowl_r
     debut = match.get("debut", "Shay, Riyan")
     ecc_wkts = inn1["wickets"]
     hm_wkts = inn2["wickets"]

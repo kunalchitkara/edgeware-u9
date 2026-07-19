@@ -12,7 +12,7 @@ INDEX = ROOT / "index.html"
 sys.path.insert(0, str(ROOT / "scripts"))
 import summary_player_stats as sps
 
-sps.MATCH_IDS = ("m2", "m4", "m5", "m6", "m7", "m8")
+sps.MATCH_IDS = ("m2", "m4", "m5", "m6", "m7", "m8", "m10")
 if "Ishaan" not in sps.ECC_NAMES:
     sps.ECC_NAMES = set(sps.ECC_NAMES) | {"Ishaan"}
 
